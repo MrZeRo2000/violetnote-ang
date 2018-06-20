@@ -1,0 +1,15 @@
+
+Install:
+npm install -g @angular/cli
+
+New application:
+ng new violetnote-ang
+
+Start server:
+ng serve --open
+
+Install bootstrap:
+npm install bootstrap@4.1.1 jquery --save
+
+Generate component:
+ng generate component password
