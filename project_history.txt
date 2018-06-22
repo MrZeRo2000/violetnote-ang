@@ -13,3 +13,8 @@ npm install bootstrap@4.1.1 jquery --save
 
 Generate component:
 ng generate component password
+
+Generate service:
+ng generate service PassData
+
+
