@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-password',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./password.component.css']
 })
 export class PasswordComponent implements OnInit {
+  @Input() inputPassword1: String;
 
   constructor() { }
 
@@ -13,7 +14,7 @@ export class PasswordComponent implements OnInit {
   }
 
   onSubmitPassword() {
-    console.log('Submit password');
+    console.log('Submit password, data from input:' + this.inputPassword1);
   }
 
   onPasswordKeyUp(event: any) {
