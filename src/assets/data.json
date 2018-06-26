@@ -1,0 +1,183 @@
+{
+   "passCategoryList":    [
+            {
+         "categoryName": "e-mail",
+         "parentCategory": null
+      },
+            {
+         "categoryName": "PIN",
+         "parentCategory": null
+      },
+            {
+         "categoryName": "WWW service",
+         "parentCategory": null
+      },
+            {
+         "categoryName": "Password",
+         "parentCategory": null
+      }
+   ],
+   "passNoteList":    [
+            {
+         "passCategory":          {
+            "categoryName": "e-mail",
+            "parentCategory": null
+         },
+         "system": "XNet",
+         "user": "Melissa",
+         "password": "YYan62",
+         "comments": "My main e-mail",
+         "custom": "My main e-mail",
+         "info": "Melissa@XNet.com\nPOP,SMTP: mail.XNet.com\nhttp://www.xnet.com",
+         "createdDate": 1530003463951,
+         "modifiedDate": 1530003463951,
+         "noteAttr":          {
+            "system": "XNet",
+            "user": "Melissa",
+            "password": "YYan62",
+            "comments": "My main e-mail",
+            "custom": "My main e-mail",
+            "info": "Melissa@XNet.com\nPOP,SMTP: mail.XNet.com\nhttp://www.xnet.com"
+         },
+         "active": false
+      },
+            {
+         "passCategory":          {
+            "categoryName": "e-mail",
+            "parentCategory": null
+         },
+         "system": "Yahoo",
+         "user": "Melissa",
+         "password": "sdgs_g#e",
+         "comments": "For Usenet",
+         "custom": "For Usenet",
+         "info": "www.yahoo.com\nPOP,SMTP: mail.yahoo.com",
+         "createdDate": 1530003463951,
+         "modifiedDate": 1530003463951,
+         "noteAttr":          {
+            "system": "Yahoo",
+            "user": "Melissa",
+            "password": "sdgs_g#e",
+            "comments": "For Usenet",
+            "custom": "For Usenet",
+            "info": "www.yahoo.com\nPOP,SMTP: mail.yahoo.com"
+         },
+         "active": false
+      },
+            {
+         "passCategory":          {
+            "categoryName": "e-mail",
+            "parentCategory": null
+         },
+         "system": "Freemail",
+         "user": "Mirek",
+         "password": "gr3a-6q",
+         "comments": "www.freemail.com",
+         "custom": "www.freemail.com",
+         "info": "mirek@freemail.com\nPOP, SMTP: mail.freemail.com\nMBox size: 25MB, max mail: 4MB",
+         "createdDate": 1530003463951,
+         "modifiedDate": 1530003463951,
+         "noteAttr":          {
+            "system": "Freemail",
+            "user": "Mirek",
+            "password": "gr3a-6q",
+            "comments": "www.freemail.com",
+            "custom": "www.freemail.com",
+            "info": "mirek@freemail.com\nPOP, SMTP: mail.freemail.com\nMBox size: 25MB, max mail: 4MB"
+         },
+         "active": false
+      },
+            {
+         "passCategory":          {
+            "categoryName": "PIN",
+            "parentCategory": null
+         },
+         "system": "VISA Classic",
+         "user": "John",
+         "password": "1234",
+         "comments": "MidBank",
+         "custom": "MidBank",
+         "info": "No. 4251 6740 0221 9074",
+         "createdDate": 1530003463951,
+         "modifiedDate": 1530003463951,
+         "noteAttr":          {
+            "system": "VISA Classic",
+            "user": "John",
+            "password": "1234",
+            "comments": "MidBank",
+            "custom": "MidBank",
+            "info": "No. 4251 6740 0221 9074"
+         },
+         "active": false
+      },
+            {
+         "passCategory":          {
+            "categoryName": "WWW service",
+            "parentCategory": null
+         },
+         "system": "ZDNet",
+         "user": "Fred",
+         "password": "Kr45#$q2@",
+         "comments": "www.zdnet.com",
+         "custom": "www.zdnet.com",
+         "info": "",
+         "createdDate": 1530003463951,
+         "modifiedDate": 1530003463951,
+         "noteAttr":          {
+            "system": "ZDNet",
+            "user": "Fred",
+            "password": "Kr45#$q2@",
+            "comments": "www.zdnet.com",
+            "custom": "www.zdnet.com",
+            "info": ""
+         },
+         "active": false
+      },
+            {
+         "passCategory":          {
+            "categoryName": "Password",
+            "parentCategory": null
+         },
+         "system": "ZIPped files",
+         "user": "Mirek",
+         "password": "JasonX81",
+         "comments": "www.yahoo.com",
+         "custom": "www.yahoo.com",
+         "info": "",
+         "createdDate": 1530003463951,
+         "modifiedDate": 1530003463951,
+         "noteAttr":          {
+            "system": "ZIPped files",
+            "user": "Mirek",
+            "password": "JasonX81",
+            "comments": "www.yahoo.com",
+            "custom": "www.yahoo.com",
+            "info": ""
+         },
+         "active": false
+      },
+            {
+         "passCategory":          {
+            "categoryName": "Password",
+            "parentCategory": null
+         },
+         "system": "Mobile",
+         "user": "Jennifer",
+         "password": "Jenni3",
+         "comments": "",
+         "custom": "",
+         "info": "",
+         "createdDate": 1530003463951,
+         "modifiedDate": 1530003463951,
+         "noteAttr":          {
+            "system": "Mobile",
+            "user": "Jennifer",
+            "password": "Jenni3",
+            "comments": "",
+            "custom": "",
+            "info": ""
+         },
+         "active": false
+      }
+   ]
+}

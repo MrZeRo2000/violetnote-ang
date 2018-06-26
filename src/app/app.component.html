@@ -20,10 +20,25 @@
 
 <div class="container">
   Something inside my container
-</div>
+
 
 <div class="alert alert-primary" role="alert">
   A simple primary alert—check it out!
+</div>
+
+<div class="alert alert-primary" role="alert">
+  Pass data: {{passData}}
+</div>
+
+<ul class="list-group">
+  <!-- class="list-group-item" -->
+  <li class="list-group-item"
+      *ngFor="let passCategory of passData.passCategoryList"
+      [ngClass] = "{'active' : passCategory == selectedPassCategory}"
+      (click)="passCategoryListClick($event, passCategory)"
+  >{{passCategory.categoryName}}</li>
+</ul>
+
 </div>
 
 <app-password></app-password>
