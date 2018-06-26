@@ -26,15 +26,15 @@
   A simple primary alert—check it out!
 </div>
 
-<div class="alert alert-primary" role="alert">
-  Pass data: {{passData}}
+<div class="alert alert-primary" role="alert" *ngIf="passData == undefined">
+  Loading ...
 </div>
 
-<ul class="list-group">
-  <!-- class="list-group-item" -->
+
+<ul class="list-group" *ngIf="passData !== undefined">
   <li class="list-group-item"
-      *ngFor="let passCategory of passData.passCategoryList"
       [ngClass] = "{'active' : passCategory == selectedPassCategory}"
+      *ngFor="let passCategory of passData.passCategoryList"
       (click)="passCategoryListClick($event, passCategory)"
   >{{passCategory.categoryName}}</li>
 </ul>

@@ -19,9 +19,11 @@ export class AppComponent implements OnInit {
     console.log('On Init!');
     const o = this.passDataService.getPassDataJSON('123');
     o.subscribe((data: PassData) => {
-      this.passData = data;
-      console.log('read pass data: ' + this.passData.passCategoryList.join(','));
-      this.selectedPassCategory = this.passData.passCategoryList[0];
+      setTimeout( () => {
+        this.passData = data;
+        this.selectedPassCategory = this.passData.passCategoryList[0];
+      }, 3000
+    );
     });
   }
 
