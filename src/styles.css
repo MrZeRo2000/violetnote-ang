@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Make jumbotron a bit smaller */
+.jumbotron {
+  padding: 25px 25px !important;
+}

@@ -8,16 +8,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { PasswordComponent } from './password/password.component';
 import {PassDataService} from './pass-data.service';
+import { PassDataComponent } from './pass-data/pass-data.component';
+import {AuthService} from './auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PasswordComponent
+    PasswordComponent,
+    PassDataComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule
   ],
   providers: [
+    AuthService,
     PassDataService
   ],
   bootstrap: [AppComponent]

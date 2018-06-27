@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {PassDataService} from './pass-data.service';
 import {PassData} from './pass-data';
 import {PassCategory} from './pass-category';
+import {AuthService} from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +10,11 @@ import {PassCategory} from './pass-category';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'the app 1';
+  title = 'VioletNote';
   passData: PassData;
   selectedPassCategory: PassCategory;
 
-  constructor(private passDataService: PassDataService) {}
+  constructor(public authService: AuthService, private passDataService: PassDataService) {}
 
   ngOnInit() {
     console.log('On Init!');

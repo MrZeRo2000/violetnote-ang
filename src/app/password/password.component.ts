@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-password',
@@ -6,21 +7,24 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./password.component.css']
 })
 export class PasswordComponent implements OnInit {
-  @Input() inputPassword1: String;
+  @Input() inputPassword: String;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   onSubmitPassword() {
-    console.log('Submit password, data from input:' + this.inputPassword1);
+    this.submitPassword(this.inputPassword);
   }
 
   onPasswordKeyUp(event: any) {
-    console.log(event.target.value);
     if (event.key === 'Enter') {
-      console.log('Entered password:' + event.target.value);
+      this.submitPassword(this.inputPassword);
     }
+  }
+
+  private submitPassword(password: String) {
+    this.authService.setPassword(password);
   }
 }
