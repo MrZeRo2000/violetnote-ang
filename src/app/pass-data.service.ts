@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {PassData} from './pass-data';
 import {PassCategory} from './pass-category';
+import {PassNote} from './pass-note';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,17 @@ export class PassDataService {
 
   public getPassData() {
     return this.passData;
+  }
+
+  public getPassNotes() {
+    const result = Array<PassNote>();
+
+    for (const note of this.getPassData().passNoteList) {
+      if (note.passCategory.categoryName === this.selectedPassCategory.categoryName) {
+        result.push(note);
+      }
+    }
+
+    return result;
   }
 }

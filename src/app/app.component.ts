@@ -3,6 +3,7 @@ import {PassDataReaderService} from './pass-data-reader.service';
 import {PassData} from './pass-data';
 import {PassCategory} from './pass-category';
 import {AuthService} from './auth.service';
+import {PassDataService} from './pass-data.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
   passData: PassData;
   selectedPassCategory: PassCategory;
 
-  constructor(public authService: AuthService, private passDataReaderService: PassDataReaderService) {}
+  constructor(public authService: AuthService, private passDataService: PassDataService, private passDataReaderService: PassDataReaderService) {}
 
   ngOnInit() {
     console.log('On Init!');
@@ -30,6 +31,11 @@ export class AppComponent implements OnInit {
 
   passCategoryListClick(event, passCategory) {
     this.selectedPassCategory = passCategory;
+  }
+
+  onExitButtonClick() {
+    this.authService.resetPassword();
+    this.passDataService.clearPassData();
   }
 
 }

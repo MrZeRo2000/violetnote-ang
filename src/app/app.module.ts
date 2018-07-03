@@ -12,13 +12,15 @@ import {AuthService} from './auth.service';
 import { PassCategoryComponent } from './pass-category/pass-category.component';
 import {PassDataService} from './pass-data.service';
 import {PassDataReaderService} from './pass-data-reader.service';
+import { PassNoteComponent } from './pass-note/pass-note.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PasswordComponent,
     PassDataComponent,
-    PassCategoryComponent
+    PassCategoryComponent,
+    PassNoteComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule

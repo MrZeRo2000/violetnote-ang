@@ -50,6 +50,11 @@
 
 <div class="jumbotron">
   <h1 class="display-4">{{ title }}</h1>
+  <div class="text-right" *ngIf="authService.isPasswordProvided()">
+    <button type="button" class="btn btn-light" (click)="onExitButtonClick($event)">
+      Exit
+    </button>
+  </div>
 </div>
 
 <app-password *ngIf="!authService.isPasswordProvided()"></app-password>
