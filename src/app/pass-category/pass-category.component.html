@@ -1,0 +1,10 @@
+<div class="list-group">
+  <a href="#"
+     class="list-group-item"
+     *ngFor="let passCategory of passDataService.getPassData().passCategoryList"
+     [ngClass] = "{'active': passCategory==passDataService.getSelectedPassCategory()}"
+     (click)="onPassCategoryClick($event, passCategory)"
+  >
+    {{passCategory.categoryName}}
+  </a>
+</div>

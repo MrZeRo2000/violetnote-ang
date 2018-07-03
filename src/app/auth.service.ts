@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   private static readonly AUTH_TIMEOUT = 1000 * 60 * 10;
 
-  private password: String = null;
+  private password: String = 'sss';
 
   constructor() { }
 
@@ -16,11 +16,15 @@ export class AuthService {
     setTimeout(() => this.resetPassword(), AuthService.AUTH_TIMEOUT);
   }
 
-  private resetPassword() {
+  public resetPassword() {
     this.password = null;
   }
 
   public isPasswordProvided() {
     return this.password != null;
+  }
+
+  public getPassword() {
+    return this.password;
   }
 }

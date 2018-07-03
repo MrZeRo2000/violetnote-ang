@@ -1,11 +1,56 @@
-<div class="container">
+<div class="container" *ngIf="isLoading && (loadErrorMessage == null)">
+  <div class="alert alert-primary" role="alert">
+    Loading
+  </div>
+</div>
+
+<div class="container" *ngIf="loadErrorMessage != null">
+  <div class="alert alert-danger" role="alert">
+    {{loadErrorMessage}}. <a href="#" class="alert-link" (click)="onTryAgainClick()">Please, try again</a>
+  </div>
+</div>
+
+
+<div class="container-fluid" *ngIf="passDataService.isPassData()">
 
   <div class="row">
+    <div class="col-md-3 mt-2">
 
-    <div class="list-group">
-      <a href="#" class="list-group-item active">Item 1</a>
-      <a href="#" class="list-group-item">Item 2</a>
+      <!--
+      <div class="list-group">
+        <a href="#" class="list-group-item active">Item 1</a>
+        <a href="#" class="list-group-item">Item 2</a>
+      </div>
+      -->
+
+      <app-pass-category></app-pass-category>
+
     </div>
+
+    <div class="col-md-9 mt-2">
+
+      <div class="list-group">
+        <a href="#" class="list-group-item">
+          <div class="row">
+            <div class="col-md-3">sss</div>
+            <div class="col-md-2">ddd</div>
+            <div class="col-md-4">eee</div>
+            <div class="col-md-3">fff</div>
+          </div>
+        </a>
+        <a href="#" class="list-group-item">
+          <div class="row">
+            <div class="col-md-3">sss</div>
+            <div class="col-md-2">ddd</div>
+            <div class="col-md-4">eee</div>
+            <div class="col-md-3">fff</div>
+          </div>
+        </a>
+
+      </div>
+
+    </div>
+
 
   </div>
 

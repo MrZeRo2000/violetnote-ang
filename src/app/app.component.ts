@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {PassDataService} from './pass-data.service';
+import {PassDataReaderService} from './pass-data-reader.service';
 import {PassData} from './pass-data';
 import {PassCategory} from './pass-category';
 import {AuthService} from './auth.service';
@@ -14,11 +14,11 @@ export class AppComponent implements OnInit {
   passData: PassData;
   selectedPassCategory: PassCategory;
 
-  constructor(public authService: AuthService, private passDataService: PassDataService) {}
+  constructor(public authService: AuthService, private passDataReaderService: PassDataReaderService) {}
 
   ngOnInit() {
     console.log('On Init!');
-    const o = this.passDataService.getPassDataJSON('123');
+    const o = this.passDataReaderService.getPassDataJSON('123');
     o.subscribe((data: PassData) => {
       setTimeout( () => {
         this.passData = data;
