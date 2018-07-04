@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 // for Http
 import { HttpClientModule } from '@angular/common/http';
+// for modal
+import { ModalModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { PasswordComponent } from './password/password.component';
@@ -13,6 +15,7 @@ import { PassCategoryComponent } from './pass-category/pass-category.component';
 import {PassDataService} from './pass-data.service';
 import {PassDataReaderService} from './pass-data-reader.service';
 import { PassNoteComponent } from './pass-note/pass-note.component';
+import { PassNoteViewComponent } from './pass-note-view/pass-note-view.component';
 
 @NgModule({
   declarations: [
@@ -20,10 +23,15 @@ import { PassNoteComponent } from './pass-note/pass-note.component';
     PasswordComponent,
     PassDataComponent,
     PassCategoryComponent,
-    PassNoteComponent
+    PassNoteComponent,
+    PassNoteViewComponent
+  ],
+  // modal component not directly referenced in templates
+  entryComponents: [
+    PassNoteViewComponent
   ],
   imports: [
-    BrowserModule, FormsModule, HttpClientModule
+    BrowserModule, FormsModule, HttpClientModule, ModalModule.forRoot()
   ],
   providers: [
     AuthService,

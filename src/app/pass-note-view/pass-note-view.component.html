@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{title}}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+
+
+  <div class="form-group">
+    <label for="system">System</label>
+    <input type="text" class="form-control" id="system" readonly value="{{passNote.system}}">
+  </div>
+  <div class="form-group">
+    <label for="user">User</label>
+    <input type="text" class="form-control" id="user" readonly value="{{passNote.user}}">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="text" class="form-control" id="password" readonly value="{{passNote.password}}">
+  </div>
+  <div class="form-group">
+    <label for="comments">Comments</label>
+    <input type="text" class="form-control" id="comments" readonly value="{{passNote.comments}}">
+  </div>
+  <div class="form-group">
+    <label for="custom">Custom</label>
+    <input type="text" class="form-control" id="custom" readonly value="{{passNote.custom}}">
+  </div>
+  <div class="form-group">
+    <label for="info">Info</label>
+    <textarea rows = "5" class="form-control" id="info" readonly >{{passNote.info}}</textarea>
+  </div>
+
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="bsModalRef.hide()">{{closeBtnName}}</button>
+</div>
+
