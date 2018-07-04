@@ -13,4 +13,8 @@ export class PassNoteComponent implements OnInit {
   ngOnInit() {
   }
 
+  onPassNoteClick(event, passNote) {
+    console.log('Click passnote');
+  }
+
 }
