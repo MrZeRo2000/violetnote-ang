@@ -14,6 +14,7 @@ export class PassCategoryComponent implements OnInit {
   }
 
   onPassCategoryClick(event, passCategory) {
+    event.preventDefault();
     this.passDataService.setSelectedPassCategory(passCategory);
   }
 

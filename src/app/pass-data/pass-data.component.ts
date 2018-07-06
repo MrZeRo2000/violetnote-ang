@@ -3,6 +3,7 @@ import {AuthService} from '../auth.service';
 import {PassDataReaderService} from '../pass-data-reader.service';
 import {PassDataService} from '../pass-data.service';
 import {PassData} from '../pass-data';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-pass-data',
@@ -15,7 +16,8 @@ export class PassDataComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private passDataReaderService: PassDataReaderService,
-              public passDataService: PassDataService) { }
+              public passDataService: PassDataService,
+              private router: Router) { }
 
   ngOnInit() {
     console.log('PassDataComponent On Init with password = ' + this.authService.getPassword());
@@ -32,7 +34,9 @@ export class PassDataComponent implements OnInit {
     });
   }
 
-  onTryAgainClick() {
+  onTryAgainClick(event) {
+    event.preventDefault();
     this.authService.resetPassword();
+    this.router.navigate(['']);
   }
 }

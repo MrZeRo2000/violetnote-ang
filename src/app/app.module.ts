@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 // for modal
 import { ModalModule } from 'ngx-bootstrap';
+// routing support
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { PasswordComponent } from './password/password.component';
@@ -16,6 +18,16 @@ import {PassDataService} from './pass-data.service';
 import {PassDataReaderService} from './pass-data-reader.service';
 import { PassNoteComponent } from './pass-note/pass-note.component';
 import { PassNoteViewComponent } from './pass-note-view/pass-note-view.component';
+
+const appRoutes: Routes = [
+  { path: 'password', component: PasswordComponent },
+  { path: 'main',      component: PassDataComponent },
+  { path: '',
+    redirectTo: '/password',
+    pathMatch: 'full'
+  },
+  { path: '**', component: PasswordComponent }
+];
 
 @NgModule({
   declarations: [
@@ -31,7 +43,12 @@ import { PassNoteViewComponent } from './pass-note-view/pass-note-view.component
     PassNoteViewComponent
   ],
   imports: [
-    BrowserModule, FormsModule, HttpClientModule, ModalModule.forRoot()
+    BrowserModule, FormsModule, HttpClientModule,
+    ModalModule.forRoot(),
+    RouterModule.forRoot(
+      appRoutes,
+      {enableTracing: true}
+    )
   ],
   providers: [
     AuthService,

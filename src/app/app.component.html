@@ -1,117 +1,17 @@
-<!--The content below is only a placeholder and can be replaced.-->
-
-<!--
-
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
-<div class="container">
-  Something inside my container
-
-
-<div class="alert alert-primary" role="alert">
-  A simple primary alert—check it out!
-</div>
-
-<div class="alert alert-primary" role="alert" *ngIf="passData == undefined">
-  Loading ...
-</div>
-
-
-<ul class="list-group" *ngIf="passData !== undefined">
-  <li class="list-group-item"
-      [ngClass] = "{'active' : passCategory == selectedPassCategory}"
-      *ngFor="let passCategory of passData.passCategoryList"
-      (click)="passCategoryListClick($event, passCategory)"
-  >{{passCategory.categoryName}}</li>
-</ul>
-
-</div>
-
-<app-password></app-password>
-
--->
-
 <div class="jumbotron">
   <h1 class="display-4">{{ title }}</h1>
-  <div class="text-right" *ngIf="authService.isPasswordProvided()">
+  <div class="text-right" *ngIf="passDataService.isPassData()">
     <button type="button" class="btn btn-light" (click)="onExitButtonClick($event)">
       Exit
     </button>
   </div>
 </div>
 
-<app-password *ngIf="!authService.isPasswordProvided()"></app-password>
-<app-pass-data *ngIf="authService.isPasswordProvided()"></app-pass-data>
 
-<!-- Page Content -->
+<router-outlet></router-outlet>
 
 <!--
-
-<div class="container">
-
-  <div class="row">
-
-    <div class="col-md-3">
-      <h1 class="my-4">Shop Name</h1>
-      <div class="list-group">
-        <a href="#" class="list-group-item active">Category 1</a>
-        <a href="#" class="list-group-item">Category 2</a>
-        <a href="#" class="list-group-item">Category 3</a>
-      </div>
-    </div>
-
-    <div class="col-md-9">
-
-      <div class="card mt-4">
-        <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
-        <div class="card-body">
-          <h3 class="card-title">Product Name</h3>
-          <h4>$24.99</h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
-          <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-          4.0 stars
-        </div>
-      </div>
-
-      <div class="card card-outline-secondary my-4">
-        <div class="card-header">
-          Product Reviews
-        </div>
-        <div class="card-body">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-          <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-          <hr>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-          <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-          <hr>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-          <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-          <hr>
-          <a href="#" class="btn btn-success">Leave a Review</a>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
+<app-password *ngIf="!authService.isPasswordProvided()"></app-password>
+<app-pass-data *ngIf="authService.isPasswordProvided()"></app-pass-data>
 -->
+
