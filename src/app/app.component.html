@@ -1,10 +1,10 @@
 <div class="jumbotron">
   <h1 class="display-4">{{ title }}</h1>
-  <div class="text-right" *ngIf="passDataService.isPassData()">
-    <button type="button" class="btn btn-light" (click)="onExitButtonClick($event)">
-      Exit
-    </button>
-  </div>
+
+  <app-exit *ngIf="passDataService.isPassData()"></app-exit>
+
+  <app-search *ngIf="passDataService.isPassData()"></app-search>
+
 </div>
 
 

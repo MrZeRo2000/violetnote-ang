@@ -17,10 +17,8 @@ export class AppComponent implements OnInit {
   selectedPassCategory: PassCategory;
 
   constructor(
-    public authService: AuthService,
     public passDataService: PassDataService,
     private passDataReaderService: PassDataReaderService,
-    private router: Router
   ) {}
 
   ngOnInit() {
@@ -38,11 +36,4 @@ export class AppComponent implements OnInit {
   passCategoryListClick(event, passCategory) {
     this.selectedPassCategory = passCategory;
   }
-
-  onExitButtonClick() {
-    this.authService.resetPassword();
-    this.passDataService.clearPassData();
-    this.router.navigate(['']);
-  }
-
 }

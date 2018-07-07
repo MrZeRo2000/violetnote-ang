@@ -18,6 +18,8 @@ import {PassDataService} from './pass-data.service';
 import {PassDataReaderService} from './pass-data-reader.service';
 import { PassNoteComponent } from './pass-note/pass-note.component';
 import { PassNoteViewComponent } from './pass-note-view/pass-note-view.component';
+import { SearchComponent } from './search/search.component';
+import { ExitComponent } from './exit/exit.component';
 
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
@@ -36,7 +38,9 @@ const appRoutes: Routes = [
     PassDataComponent,
     PassCategoryComponent,
     PassNoteComponent,
-    PassNoteViewComponent
+    PassNoteViewComponent,
+    SearchComponent,
+    ExitComponent
   ],
   // modal component not directly referenced in templates
   entryComponents: [
