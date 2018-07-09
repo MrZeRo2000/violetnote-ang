@@ -7,12 +7,10 @@ import {PassNote} from './pass-note';
   providedIn: 'root'
 })
 export class PassDataService {
-  private passData: PassData;
-  private selectedPassCategory: PassCategory;
+  private passData: PassData = null;
+  private selectedPassCategory: PassCategory = null;
 
-  constructor() {
-    this.clearPassData();
-  }
+  constructor() {}
 
   public setPassData(passData) {
     this.passData = passData;

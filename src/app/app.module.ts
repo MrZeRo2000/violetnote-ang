@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 // for Http
 import {HttpClientModule} from '@angular/common/http';
 // for modal
-import {AccordionModule, ModalModule} from 'ngx-bootstrap';
+import {ModalModule} from 'ngx-bootstrap';
 // routing support
 import { RouterModule, Routes } from '@angular/router';
 
