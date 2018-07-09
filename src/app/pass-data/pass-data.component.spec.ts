@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PassDataComponent } from './pass-data.component';
+import {PassCategoryComponent} from '../pass-category/pass-category.component';
+import {PassNoteComponent} from '../pass-note/pass-note.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('PassDataComponent', () => {
   let component: PassDataComponent;
@@ -8,7 +12,10 @@ describe('PassDataComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PassDataComponent ]
+      declarations: [ PassDataComponent, PassCategoryComponent, PassNoteComponent ],
+      imports: [
+        RouterTestingModule,
+        HttpClientTestingModule]
     })
     .compileComponents();
   }));
@@ -23,3 +30,4 @@ describe('PassDataComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

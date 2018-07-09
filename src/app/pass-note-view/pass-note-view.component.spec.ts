@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PassNoteViewComponent } from './pass-note-view.component';
+import {AccordionModule} from 'ngx-bootstrap';
 
 describe('PassNoteViewComponent', () => {
   let component: PassNoteViewComponent;
@@ -8,7 +9,8 @@ describe('PassNoteViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PassNoteViewComponent ]
+      declarations: [ PassNoteViewComponent ],
+      imports: [AccordionModule.forRoot()]
     })
     .compileComponents();
   }));

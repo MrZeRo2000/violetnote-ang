@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 // added for data binding to work
 import { FormsModule } from '@angular/forms';
 // for Http
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 // for modal
-import { ModalModule } from 'ngx-bootstrap';
+import {AccordionModule, ModalModule} from 'ngx-bootstrap';
 // routing support
 import { RouterModule, Routes } from '@angular/router';
 
@@ -57,7 +57,8 @@ const appRoutes: Routes = [
   providers: [
     AuthService,
     PassDataService,
-    PassDataReaderService
+    PassDataReaderService,
+    HttpClientModule
   ],
   bootstrap: [AppComponent]
 })
