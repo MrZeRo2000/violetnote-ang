@@ -17,7 +17,9 @@ describe('PassCategoryComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PassCategoryComponent ],
-      providers: [{provide: PassDataService, useClass: MockPassDataService}]
+      providers: [
+        {provide: PassDataService, useClass: MockPassDataService}
+        ]
     })
     .compileComponents();
   }));
