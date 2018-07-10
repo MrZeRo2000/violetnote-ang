@@ -59,4 +59,15 @@ describe('PassDataService operations', () => {
     service.setSelectedPassCategory({categoryName: 'E-mails'});
     expect(service.getPassNotes().length).toBe(2);
   });
+
+  it('Pass notes search user', () => {
+    const searchNotes = service.getSearchPassNotes('Zart');
+    expect(searchNotes.length).toBe(1);
+  });
+
+  it('Pass notes search system', () => {
+    const searchNotes = service.getSearchPassNotes('tion');
+    expect(searchNotes.length).toBe(2);
+  });
+
 });

@@ -2,10 +2,10 @@ import {PassCategory} from './pass-category';
 
 export class PassNote {
   passCategory: PassCategory;
-  system: String;
-  user: String;
-  password: String;
-  comments: String;
-  custom: String;
-  info: String;
+  system: string;
+  user: string;
+  password: string;
+  comments: string;
+  custom: string;
+  info: string;
 }

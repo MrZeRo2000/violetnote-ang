@@ -1,3 +1,3 @@
 export class PassCategory {
-  categoryName: String;
+  categoryName: string;
 }

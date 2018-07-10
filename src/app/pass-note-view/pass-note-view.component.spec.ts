@@ -13,12 +13,12 @@ class MockModalService {
 
 class MockPassNote {
   passCategory: PassCategory = {categoryName: 'TestCategoryName'};
-  system: String = 'System';
-  user: String = 'User';
-  password: String = 'Password';
-  comments: String = 'Comments';
-  custom: String = 'Custom';
-  info: String = 'Info';
+  system = 'System';
+  user = 'User';
+  password = 'Password';
+  comments = 'Comments';
+  custom = 'Custom';
+  info = 'Info';
 }
 
 describe('PassNoteViewComponent', () => {

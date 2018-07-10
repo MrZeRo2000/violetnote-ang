@@ -39,14 +39,16 @@ export class PassDataService {
   }
 
   public getPassNotes() {
-    const result = Array<PassNote>();
+    return this.getPassData().passNoteList.filter(
+      (note) => note.passCategory.categoryName === this.selectedPassCategory.categoryName
+    );
+  }
 
-    for (const note of this.getPassData().passNoteList) {
-      if (note.passCategory.categoryName === this.selectedPassCategory.categoryName) {
-        result.push(note);
-      }
-    }
+  public getSearchPassNotes(searchString: string): Array<PassNote>  {
+    const searchExp = new RegExp(`.*${searchString}.*`, 'i');
 
-    return result;
+    return this.getPassData().passNoteList.filter(
+      (note) => searchExp.test(note.system) || searchExp.test(note.user)
+    );
   }
 }
