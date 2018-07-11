@@ -8,7 +8,7 @@ import {PassDataService} from '../services/pass-data.service';
   styleUrls: ['./search-notes.component.css']
 })
 export class SearchNotesComponent implements OnInit {
-  searchString: string;
+  searchText: string;
 
 
   constructor(
@@ -16,18 +16,18 @@ export class SearchNotesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private passDataService: PassDataService
   ) {
-    activatedRoute.queryParams.subscribe(
-      params => this.searchString = params['searchString']
+    activatedRoute.params.subscribe(
+      params => this.searchText = params['text']
       );
   }
 
   ngOnInit() {
     if (!this.passDataService.isPassData()) {
       this.router.navigate(['password']);
-    } else if (this.searchString === undefined) {
+    } else if (this.searchText === undefined) {
       this.router.navigate(['main']);
     }
 
-    // this.passDataService.getSearchPassNotes(this.searchString);
+    // this.passDataService.getSearchPassNotes(this.searchText);
   }
 }

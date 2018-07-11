@@ -2,6 +2,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchNotesComponent } from './search-notes.component';
 import {RouterTestingModule} from '@angular/router/testing';
+import {PasswordComponent} from '../password/password.component';
+import {FormsModule} from '@angular/forms';
+
+// https://github.com/jasmine/jasmine/issues/1523
+/*
+// looks not needed
+RouterTestingModule.withRoutes([
+  { path: 'password', component: PasswordComponent }
+]);
+*/
 
 describe('SearchNotesComponent', () => {
   let component: SearchNotesComponent;
@@ -9,9 +19,13 @@ describe('SearchNotesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchNotesComponent ],
+      declarations: [ SearchNotesComponent, PasswordComponent ],
       imports: [
-        RouterTestingModule
+        FormsModule,
+        // https://github.com/jasmine/jasmine/issues/1523
+        RouterTestingModule.withRoutes([
+          { path: 'password', component: PasswordComponent }
+        ])
       ]
     })
     .compileComponents();

@@ -25,7 +25,7 @@ import { SearchNotesComponent } from './search-notes/search-notes.component';
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
   { path: 'main',     component: PassDataComponent },
-  { path: 'search',   component: SearchNotesComponent },
+  { path: 'search/:text',   component: SearchNotesComponent },
   { path: '',
     redirectTo: '/password',
     pathMatch: 'full'

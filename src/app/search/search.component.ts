@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  inputSearch: string;
+  @Input() inputSearch: string;
 
   constructor(private router: Router) { }
 
@@ -15,7 +15,7 @@ export class SearchComponent implements OnInit {
   }
 
   private submitSearch() {
-    this.router.navigate(['/search'], {queryParams: {searchString: this.inputSearch}});
+    this.router.navigate(['search', this.inputSearch]);
   }
 
   onSearchKeyUp(event) {
