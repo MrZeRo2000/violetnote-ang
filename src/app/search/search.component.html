@@ -1,7 +1,7 @@
 <div class="input-group">
-  <input class="form-control" type="search" placeholder="search" id="example-search-input">
+  <input class="form-control" type="search" placeholder="search" id="inputSearch" [(ngModel)]="inputSearch">
   <span class="input-group-append ml-1">
-        <button class="btn btn-outline-secondary" type="button">
+        <button class="btn btn-outline-secondary" type="button" (click)="onSubmitSearch($event)">
             <i class="fa fa-search"></i>
         </button>
       </span>

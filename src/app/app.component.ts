@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {PassDataReaderService} from './pass-data-reader.service';
-import {PassData} from './pass-data';
-import {PassCategory} from './pass-category';
-import {AuthService} from './auth.service';
-import {PassDataService} from './pass-data.service';
+import {PassDataReaderService} from './services/pass-data-reader.service';
+import {PassData} from './model/pass-data';
+import {PassCategory} from './model/pass-category';
+import {AuthService} from './services/auth.service';
+import {PassDataService} from './services/pass-data.service';
 import {Router} from '@angular/router';
 
 @Component({

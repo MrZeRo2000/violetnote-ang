@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {PassDataService} from '../pass-data.service';
+import {PassDataService} from '../services/pass-data.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {PassNoteViewComponent} from '../pass-note-view/pass-note-view.component';
-import {PassNote} from '../pass-note';
+import {PassNote} from '../model/pass-note';
 
 @Component({
   selector: 'app-pass-note',

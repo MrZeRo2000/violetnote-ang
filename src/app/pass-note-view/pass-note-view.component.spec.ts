@@ -2,10 +2,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PassNoteViewComponent } from './pass-note-view.component';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {PassDataService} from '../pass-data.service';
+import {PassDataService} from '../services/pass-data.service';
 import {Injectable} from '@angular/core';
-import {PassCategory} from '../pass-category';
-import {PassNote} from '../pass-note';
+import {PassCategory} from '../model/pass-category';
+import {PassNote} from '../model/pass-note';
 
 class MockModalService {
   public hide(): void { }

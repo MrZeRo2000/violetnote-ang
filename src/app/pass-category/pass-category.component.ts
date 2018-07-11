@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {PassDataService} from '../pass-data.service';
+import {PassDataService} from '../services/pass-data.service';
 
 @Component({
   selector: 'app-pass-category',

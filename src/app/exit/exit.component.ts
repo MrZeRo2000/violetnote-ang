@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {PassDataReaderService} from '../pass-data-reader.service';
-import {PassDataService} from '../pass-data.service';
-import {AuthService} from '../auth.service';
+import {PassDataReaderService} from '../services/pass-data-reader.service';
+import {PassDataService} from '../services/pass-data.service';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-exit',

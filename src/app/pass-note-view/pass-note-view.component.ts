@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap';
-import {PassNote} from '../pass-note';
+import {PassNote} from '../model/pass-note';
 
 @Component({
   selector: 'app-pass-note-view',

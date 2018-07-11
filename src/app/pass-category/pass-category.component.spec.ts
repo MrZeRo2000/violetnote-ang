@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PassCategoryComponent } from './pass-category.component';
-import {PassDataService} from '../pass-data.service';
+import {PassDataService} from '../services/pass-data.service';
 
 class MockPassDataService extends PassDataService {
   constructor() {

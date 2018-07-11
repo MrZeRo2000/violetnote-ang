@@ -12,18 +12,20 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { PasswordComponent } from './password/password.component';
 import { PassDataComponent } from './pass-data/pass-data.component';
-import {AuthService} from './auth.service';
+import {AuthService} from './services/auth.service';
 import { PassCategoryComponent } from './pass-category/pass-category.component';
-import {PassDataService} from './pass-data.service';
-import {PassDataReaderService} from './pass-data-reader.service';
+import {PassDataService} from './services/pass-data.service';
+import {PassDataReaderService} from './services/pass-data-reader.service';
 import { PassNoteComponent } from './pass-note/pass-note.component';
 import { PassNoteViewComponent } from './pass-note-view/pass-note-view.component';
 import { SearchComponent } from './search/search.component';
 import { ExitComponent } from './exit/exit.component';
+import { SearchNotesComponent } from './search-notes/search-notes.component';
 
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
-  { path: 'main',      component: PassDataComponent },
+  { path: 'main',     component: PassDataComponent },
+  { path: 'search',   component: SearchNotesComponent },
   { path: '',
     redirectTo: '/password',
     pathMatch: 'full'
@@ -40,7 +42,8 @@ const appRoutes: Routes = [
     PassNoteComponent,
     PassNoteViewComponent,
     SearchComponent,
-    ExitComponent
+    ExitComponent,
+    SearchNotesComponent
   ],
   // modal component not directly referenced in templates
   entryComponents: [

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PassNoteComponent } from './pass-note.component';
 import {BsModalService} from 'ngx-bootstrap';
-import {PassDataService} from '../pass-data.service';
+import {PassDataService} from '../services/pass-data.service';
 
 class MockModalService {
   public hide(): void { }

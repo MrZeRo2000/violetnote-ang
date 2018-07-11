@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../auth.service';
-import {PassDataReaderService} from '../pass-data-reader.service';
-import {PassDataService} from '../pass-data.service';
-import {PassData} from '../pass-data';
+import {AuthService} from '../services/auth.service';
+import {PassDataReaderService} from '../services/pass-data-reader.service';
+import {PassDataService} from '../services/pass-data.service';
+import {PassData} from '../model/pass-data';
 import {Router} from '@angular/router';
 
 @Component({

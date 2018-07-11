@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {PassData} from './pass-data';
-import {PassCategory} from './pass-category';
-import {PassNote} from './pass-note';
+import {PassData} from '../model/pass-data';
+import {PassCategory} from '../model/pass-category';
+import {PassNote} from '../model/pass-note';
 
 @Injectable({
   providedIn: 'root'

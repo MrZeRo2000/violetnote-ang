@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {AuthService} from '../auth.service';
+import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./password.component.css']
 })
 export class PasswordComponent implements OnInit {
-  @Input() inputPassword: String;
+  @Input() inputPassword: string;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -25,7 +25,7 @@ export class PasswordComponent implements OnInit {
     }
   }
 
-  private submitPassword(password: String) {
+  private submitPassword(password: string) {
     this.authService.setPassword(password);
     this.router.navigate(['main']);
   }
