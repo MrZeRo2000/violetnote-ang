@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -6,14 +7,24 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  @Input() inputSearch: string;
+  inputSearch: string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  private submitSearch() {
+    this.router.navigate(['/search'], {queryParams: {searchString: this.inputSearch}});
+  }
+
+  onSearchKeyUp(event) {
+    if (event.key === 'Enter') {
+      this.submitSearch();
+    }
+  }
+
   onSubmitSearch(event) {
-    console.log('input search:' + this.inputSearch);
+    this.submitSearch();
   }
 }
