@@ -1,3 +1,25 @@
-<p>
-  search-notes works! with {{searchText}}
-</p>
+<div class="container-fluid">
+  <div class="list-group">
+    <div class="list-group-item list-group-item-secondary">
+      <div class="row h5">
+        <div class="col-md-2">Category</div>
+        <div class="col-md-2">System</div>
+        <div class="col-md-2">User</div>
+        <div class="col-md-6">Custom</div>
+      </div>
+    </div>
+    <a href="#"
+       class="list-group-item list-group-item-action"
+       data-toggle="modal"
+       *ngFor="let passNote of searchPassNotes"
+       (click)="onPassNoteClick($event, passNote)"
+    >
+      <div class="row">
+        <div class="col-md-2">{{passNote.passCategory.categoryName}}</div>
+        <div class="col-md-2">{{passNote.system}}</div>
+        <div class="col-md-2">{{passNote.user}}</div>
+        <div class="col-md-6">{{passNote.custom}}</div>
+      </div>
+    </a>
+  </div>
+</div>

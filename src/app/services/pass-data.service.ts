@@ -45,10 +45,14 @@ export class PassDataService {
   }
 
   public getSearchPassNotes(searchString: string): Array<PassNote>  {
-    const searchExp = new RegExp(`.*${searchString}.*`, 'i');
+    if ((searchString === undefined) || (searchString == null)) {
+      return this.getPassData().passNoteList;
+    } else {
+      const searchExp = new RegExp(`.*${searchString}.*`, 'i');
 
-    return this.getPassData().passNoteList.filter(
-      (note) => searchExp.test(note.system) || searchExp.test(note.user)
-    );
+      return this.getPassData().passNoteList.filter(
+        (note) => searchExp.test(note.system) || searchExp.test(note.user)
+      );
+    }
   }
 }
