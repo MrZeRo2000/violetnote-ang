@@ -21,11 +21,16 @@ import { PassNoteViewComponent } from './pass-note-view/pass-note-view.component
 import { SearchComponent } from './search/search.component';
 import { ExitComponent } from './exit/exit.component';
 import { SearchNotesComponent } from './search-notes/search-notes.component';
+import {PassDataRequiredGuard} from './guards/pass-data-required.guard';
 
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
   { path: 'main',     component: PassDataComponent },
-  { path: 'search/:text',   component: SearchNotesComponent },
+  {
+    path: 'search/:text',
+    component: SearchNotesComponent,
+    canActivate: [PassDataRequiredGuard]
+  },
   { path: '',
     redirectTo: '/password',
     pathMatch: 'full'
