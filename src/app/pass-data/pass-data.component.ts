@@ -20,11 +20,16 @@ export class PassDataComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    console.log('PassDataComponent On Init with password = ' + this.authService.getPassword());
+    if (!this.passDataService.isPassData()) {
+      this.loadPassData();
+    }
+  }
+
+  private loadPassData() {
     const o = this.passDataReaderService.getPassDataJSON(this.authService.getPassword());
     this.isLoading = true;
     o.subscribe((data: PassData) => {
-      setTimeout( () => {
+      setTimeout(() => {
           this.passDataService.setPassData(data);
           this.isLoading = false;
         }, 1000

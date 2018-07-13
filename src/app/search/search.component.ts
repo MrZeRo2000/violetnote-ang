@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 })
 export class SearchComponent implements OnInit {
   @Input() inputSearch: string;
+  isValidSearch = true;
 
   constructor(private router: Router) { }
 
@@ -15,16 +16,26 @@ export class SearchComponent implements OnInit {
   }
 
   private submitSearch() {
-    this.router.navigate(['search', this.inputSearch]);
+    if (this.checkValidSearch()) {
+      this.router.navigate(['search', this.inputSearch]);
+      this.inputSearch = '';
+    }
   }
 
   onSearchKeyUp(event) {
     if (event.key === 'Enter') {
       this.submitSearch();
+    } else if (!this.isValidSearch) {
+      this.checkValidSearch();
     }
   }
 
   onSubmitSearch(event) {
     this.submitSearch();
+  }
+
+  checkValidSearch(): boolean {
+    this.isValidSearch = !!this.inputSearch && this.inputSearch.length > 1;
+    return this.isValidSearch;
   }
 }

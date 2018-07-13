@@ -10,6 +10,7 @@ import {PassNote} from '../model/pass-note';
 })
 export class SearchNotesComponent implements OnInit {
   searchPassNotes: Array<PassNote>;
+  searchText: string;
 
   constructor(
     private router: Router,
@@ -18,7 +19,10 @@ export class SearchNotesComponent implements OnInit {
   ) {
     console.log('search-notes constructor');
     activatedRoute.params.subscribe(
-      params => this.searchPassNotes = this.passDataService.getSearchPassNotes(params['text']));
+      params => {
+        this.searchText = params['text'];
+        this.searchPassNotes = this.passDataService.getSearchPassNotes(this.searchText);
+      });
   }
 
   ngOnInit() {
@@ -30,5 +34,9 @@ export class SearchNotesComponent implements OnInit {
 
   onPassNoteClick(event, passNote: PassNote) {
     console.log('Clicked ' + passNote.user);
+  }
+
+  searchInfoButtonClick(event) {
+    this.router.navigate(['main']);
   }
 }
