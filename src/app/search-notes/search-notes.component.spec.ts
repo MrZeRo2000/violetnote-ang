@@ -8,6 +8,7 @@ import {PassDataService} from '../services/pass-data.service';
 import {PassDataComponent} from '../pass-data/pass-data.component';
 import {PassNoteComponent} from '../pass-note/pass-note.component';
 import {PassCategoryComponent} from '../pass-category/pass-category.component';
+import {BsModalService} from 'ngx-bootstrap';
 
 // https://github.com/jasmine/jasmine/issues/1523
 /*
@@ -16,6 +17,10 @@ RouterTestingModule.withRoutes([
   { path: 'password', component: PasswordComponent }
 ]);
 */
+
+class MockModalService {
+  public hide(): void { }
+}
 
 class MockPassDataService extends PassDataService {
   constructor() {
@@ -48,7 +53,8 @@ describe('SearchNotesComponent', () => {
         ])
       ],
       providers: [
-      {provide: PassDataService, useClass: MockPassDataService}
+        {provide: BsModalService, useClass: MockModalService},
+        {provide: PassDataService, useClass: MockPassDataService}
       ]
     })
     .compileComponents();
