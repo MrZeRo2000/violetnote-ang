@@ -1,7 +1,5 @@
-<div class="container" *ngIf="isLoading && (loadErrorMessage == null)">
-  <div class="alert alert-primary" role="alert">
-    <i class="fa fa-spinner fa-spin" style="font-size:24px"></i> Loading
-  </div>
+<div class="container text-center" *ngIf="isLoading">
+    <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
 </div>
 
 <div class="container" *ngIf="loadErrorMessage != null">
@@ -54,7 +52,6 @@
       <app-pass-note></app-pass-note>
 
     </div>
-
 
   </div>
 

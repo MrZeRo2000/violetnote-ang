@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {PassDataReaderService} from '../services/pass-data-reader.service';
 import {PassDataService} from '../services/pass-data.service';
-import {PassData} from '../model/pass-data';
 import {Router} from '@angular/router';
 
 @Component({
@@ -30,16 +29,16 @@ export class PassDataComponent implements OnInit {
     this.isLoading = true;
     o.subscribe((data: any) => {
       setTimeout(() => {
-          if (data.hasOwnProperty('errorCode')) {
+          if (data.errorMessage) {
             this.loadErrorMessage = data.errorMessage;
-            // TBD
           } else {
             this.passDataService.setPassData(data);
           }
           this.isLoading = false;
-        }, 1000
+        }, 10000
       );
     }, (e) => {
+      this.isLoading = false;
       this.loadErrorMessage = e.message;
     });
   }
