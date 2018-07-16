@@ -40,7 +40,7 @@ export class PassDataComponent implements OnInit {
         }, 1000
       );
     }, (e) => {
-      this.loadErrorMessage = 'Error loading data: ' + e.message;
+      this.loadErrorMessage = e.message;
     });
   }
 
