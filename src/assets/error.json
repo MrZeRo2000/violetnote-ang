@@ -1,0 +1,4 @@
+{
+   "errorCode": 404,
+   "errorMessage": "Invalid byte 3 of 4-byte UTF-8 sequence."
+}

@@ -10,6 +10,6 @@ export class PassDataReaderService {
 
   public getPassDataJSON(password: String) {
     // return this.http.get('assets/data.json').subscribe((data: any) => data);
-    return this.http.get('assets/data.json');
+    return this.http.get('assets/error.json');
   }
 }

@@ -6,7 +6,7 @@
 
 <div class="container" *ngIf="loadErrorMessage != null">
   <div class="alert alert-danger" role="alert">
-    {{loadErrorMessage}}. <a href="#" class="alert-link" (click)="onTryAgainClick($event)">Please, try again</a>
+    Load error: {{loadErrorMessage}}. <a href="#" class="alert-link" (click)="onTryAgainClick($event)">Please, try again</a>
   </div>
 </div>
 

@@ -28,9 +28,14 @@ export class PassDataComponent implements OnInit {
   private loadPassData() {
     const o = this.passDataReaderService.getPassDataJSON(this.authService.getPassword());
     this.isLoading = true;
-    o.subscribe((data: PassData) => {
+    o.subscribe((data: any) => {
       setTimeout(() => {
-          this.passDataService.setPassData(data);
+          if (data.hasOwnProperty('errorCode')) {
+            this.loadErrorMessage = data.errorMessage;
+            // TBD
+          } else {
+            this.passDataService.setPassData(data);
+          }
           this.isLoading = false;
         }, 1000
       );
