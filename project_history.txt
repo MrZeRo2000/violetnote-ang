@@ -17,4 +17,6 @@ ng generate component password
 Generate service:
 ng generate service PassData
 
-
+Deploy:
+ng build --prod --base-href=/violetnote-ang/
+copy from dist to webapps directory

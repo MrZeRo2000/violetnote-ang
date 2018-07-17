@@ -3,6 +3,7 @@ import {AuthService} from '../services/auth.service';
 import {PassDataReaderService} from '../services/pass-data-reader.service';
 import {PassDataService} from '../services/pass-data.service';
 import {Router} from '@angular/router';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-pass-data',
@@ -35,7 +36,7 @@ export class PassDataComponent implements OnInit {
             this.passDataService.setPassData(data);
           }
           this.isLoading = false;
-        }, 10000
+        }, environment.loadDelay
       );
     }, (e) => {
       this.isLoading = false;

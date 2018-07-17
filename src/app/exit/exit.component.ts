@@ -21,7 +21,7 @@ export class ExitComponent implements OnInit {
   ngOnInit() {
   }
 
-  onExitButtonClick() {
+  onExitButtonClick(event) {
     this.authService.resetPassword();
     this.passDataService.clearPassData();
     this.router.navigate(['']);
