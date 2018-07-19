@@ -19,11 +19,11 @@
       <input type="text" class="form-control" id="password" readonly value="{{passNote.password}}">
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group" *ngIf="passNote.comments">
     <label for="comments">Comments</label>
     <input type="text" class="form-control" id="comments" readonly value="{{passNote.comments}}">
   </div>
-  <div class="form-group">
+  <div class="form-group" *ngIf="passNote.custom">
     <label for="custom">Custom</label>
     <input type="text" class="form-control" id="custom" readonly value="{{passNote.custom}}">
   </div>

@@ -13,7 +13,7 @@ export class PassDataService {
   constructor() {}
 
   public setPassData(passData) {
-    this.passData = passData;
+    this.passData = new PassData(passData);
     this.setSelectedPassCategory(this.passData.passCategoryList[0]);
   }
 
