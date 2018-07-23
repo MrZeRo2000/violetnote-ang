@@ -9,7 +9,7 @@
   <a href="#"
      class="list-group-item list-group-item-action"
      data-toggle="modal"
-     *ngFor="let passNote of passDataService.getPassNotes()"
+     *ngFor="let passNote of getPassNotes()"
      (click)="onPassNoteClick($event, passNote)"
   >
     <div class="row">

@@ -17,6 +17,10 @@ export class PassNoteComponent implements OnInit {
   ngOnInit() {
   }
 
+  public getPassNotes(): Array<PassNote> {
+    return this.passDataService.getPassNotes();
+  }
+
   onPassNoteClick(event, passNote: PassNote) {
     console.log('Click passnote: ' + passNote.user);
     const initialState = {
