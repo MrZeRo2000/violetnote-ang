@@ -25,6 +25,11 @@ for (let i = 0; i < 7; i++) {
   testPagerList7.push({name: `Name ${i}`});
 }
 
+const testPagerList10 = [];
+for (let i = 0; i < 10; i++) {
+  testPagerList10.push({name: `Name ${i}`});
+}
+
 describe('PagerServiceUnit', () => {
   let service: PagerService;
   beforeEach(() => service = new PagerService());
@@ -53,31 +58,31 @@ describe('PagerServiceUnit', () => {
     expect(service.getPagedInfo(testPagerList4, 5, 2, 3).pagedItems.length).toBe(1);
   });
 
-
   const testService = new PagerService();
-  const page1Items = testService.getPagedInfo(testPagerList, 5, 1, 3);
-  console.log('Page 1 items');
-  console.log(page1Items);
 
-  let page4Items = testService.getPagedInfo(testPagerList4, 5, 1, 3);
-  console.log('Page 4 items page 1');
-  console.log(page4Items);
+  let page10Items = testService.getPagedInfo(testPagerList10, 3, 2, 3);
+  console.log('Page 10 items page 2');
+  console.log(page10Items);
 
-  page4Items = testService.getPagedInfo(testPagerList4, 5, 2, 3);
-  console.log('Page 4 items page 2');
-  console.log(page4Items);
+  page10Items = testService.getPagedInfo(testPagerList10, 3, 3, 3);
+  console.log('Page 10 items page 3');
+  console.log(page10Items);
 
-  let page7Items = testService.getPagedInfo(testPagerList7, 5, 1, 3);
-  console.log('Page 7 items page 1');
-  console.log(page7Items);
+  page10Items = testService.getPagedInfo(testPagerList10, 3, 4, 3);
+  console.log('Page 10 items page 4');
+  console.log(page10Items);
 
-  page7Items = testService.getPagedInfo(testPagerList7, 5, 2, 3);
-  console.log('Page 7 items page 2');
-  console.log(page7Items);
+  it('Pages: 10, paging count: 5, items per page: 3, page num: 4', () => {
+    const items = testService.getPagedInfo(testPagerList10, 5, 4, 3);
+    expect(items.pageNumbers).toEqual([1, 2, 3, 4]);
+    expect(items.pagedItems).toEqual([{name: 'Name 9'}]);
+  });
 
-  page7Items = testService.getPagedInfo(testPagerList7, 5, 3, 3);
-  console.log('Page 7 items page 3');
-  console.log(page7Items);
+  it('Pages: 10, paging count: 5, items per page: 3, page num: 3', () => {
+    const items = testService.getPagedInfo(testPagerList10, 5, 3, 3);
+    expect(items.pageNumbers).toEqual([1, 2, 3, 4]);
+    expect(items.pagedItems).toEqual([{name: 'Name 6'}, {name: 'Name 7'}, {name: 'Name 8'}]);
+  });
 
 });
 

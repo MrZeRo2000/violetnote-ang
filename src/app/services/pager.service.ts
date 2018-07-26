@@ -16,12 +16,18 @@ export class PagerService {
     const startItemIndex = (pageNum - 1) * itemsPerPage;
     const endItemIndex = Math.min(startItemIndex + itemsPerPage, itemsLength);
 
+    /*
     let startPageNum = Math.max(pageNum - Math.ceil(pagingCount / 2), 0) + 1;
     let endPageNum = startPageNum + Math.min(startPageNum + pagingCount, maxPageNum) - 1;
     if (endPageNum > maxPageNum) {
       endPageNum --;
       startPageNum --;
     }
+    */
+
+    const startPageNum = Math.min(Math.max(pageNum - Math.ceil(pagingCount / 2), 0), maxPageNum - pagingCount) + 1;
+    const endPageNum = startPageNum + pagingCount - 1;
+
     const pageNumbersLength = endPageNum - startPageNum + 1;
 
     const pageNumbers = Array.from({length: pageNumbersLength}, (v, k) => startPageNum + k);
