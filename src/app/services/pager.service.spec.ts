@@ -72,6 +72,10 @@ describe('PagerServiceUnit', () => {
   console.log('Page 10 items page 4');
   console.log(page10Items);
 
+  page10Items = testService.getPagedInfo(testPagerList10, 3, 1, 10);
+  console.log('Page 10 items per page 10');
+  console.log(page10Items);
+
   it('Pages: 10, paging count: 5, items per page: 3, page num: 4', () => {
     const items = testService.getPagedInfo(testPagerList10, 5, 4, 3);
     expect(items.pageNumbers).toEqual([1, 2, 3, 4]);
@@ -82,6 +86,23 @@ describe('PagerServiceUnit', () => {
     const items = testService.getPagedInfo(testPagerList10, 5, 3, 3);
     expect(items.pageNumbers).toEqual([1, 2, 3, 4]);
     expect(items.pagedItems).toEqual([{name: 'Name 6'}, {name: 'Name 7'}, {name: 'Name 8'}]);
+  });
+
+  it('Pages: 10, paging count: 3, items per page: 10, page num: 1', () => {
+    const items = testService.getPagedInfo(testPagerList10, 3, 1, 10);
+    expect(items.pageNumbers).toEqual([1]);
+    expect(items.pagedItems).toEqual([
+      {name: 'Name 0'},
+      {name: 'Name 1'},
+      {name: 'Name 2'},
+      {name: 'Name 3'},
+      {name: 'Name 4'},
+      {name: 'Name 5'},
+      {name: 'Name 6'},
+      {name: 'Name 7'},
+      {name: 'Name 8'},
+      {name: 'Name 9'}
+      ]);
   });
 
 });

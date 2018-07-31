@@ -10,7 +10,8 @@ export class PagerService {
   public getPagedInfo(items: Array<any>, pagingCount: number, pageNum: number, itemsPerPage: number) {
     const itemsLength = items.length;
     // const maxPageNum = itemsPerPage * pagingCount;
-    const maxPageNum = Math.round(itemsLength / Math.ceil(itemsLength / itemsPerPage)) + 1;
+    // const maxPageNum = Math.round(itemsLength / Math.ceil(itemsLength / itemsPerPage)) + 1;
+    const maxPageNum = Math.ceil(itemsLength / itemsPerPage);
     pagingCount = Math.min(maxPageNum, pagingCount);
     pageNum = Math.min(Math.max(pageNum, 1), maxPageNum);
     const startItemIndex = (pageNum - 1) * itemsPerPage;
