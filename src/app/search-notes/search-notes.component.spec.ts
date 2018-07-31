@@ -8,7 +8,7 @@ import {PassDataService} from '../services/pass-data.service';
 import {PassDataComponent} from '../pass-data/pass-data.component';
 import {PassNoteComponent} from '../pass-note/pass-note.component';
 import {PassCategoryComponent} from '../pass-category/pass-category.component';
-import {BsModalService} from 'ngx-bootstrap';
+import {BsModalService, PaginationComponent} from 'ngx-bootstrap';
 
 // https://github.com/jasmine/jasmine/issues/1523
 /*
@@ -43,7 +43,7 @@ describe('SearchNotesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchNotesComponent, PasswordComponent, PassDataComponent, PassCategoryComponent, PassNoteComponent ],
+      declarations: [ SearchNotesComponent, PasswordComponent, PassDataComponent, PassCategoryComponent, PassNoteComponent, PaginationComponent ],
       imports: [
         FormsModule,
         // https://github.com/jasmine/jasmine/issues/1523

@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 // for Http
 import {HttpClientModule} from '@angular/common/http';
 // for modal
-import {ModalModule} from 'ngx-bootstrap';
+import {ModalModule, PaginationModule} from 'ngx-bootstrap';
 // routing support
 import { RouterModule, Routes } from '@angular/router';
 
@@ -60,7 +60,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}
-    )
+    ),
+    PaginationModule.forRoot()
   ],
   providers: [
     AuthService,

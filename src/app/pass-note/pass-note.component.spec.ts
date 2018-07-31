@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PassNoteComponent } from './pass-note.component';
-import {BsModalService} from 'ngx-bootstrap';
+import {BsModalService, PaginationComponent, PaginationConfig} from 'ngx-bootstrap';
 import {PassDataService} from '../services/pass-data.service';
 
 class MockModalService {
@@ -24,10 +24,18 @@ describe('PassNoteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PassNoteComponent ],
+      declarations: [ PassNoteComponent, PaginationComponent ],
       providers: [
         {provide: BsModalService, useClass: MockModalService},
-        {provide: PassDataService, useClass: MockPassDataService}
+        {provide: PassDataService, useClass: MockPassDataService},
+        {provide: PaginationConfig, useValue: {
+          boundaryLinks: true,
+            firstText: 'First',
+            previousText: '&lsaquo;',
+            nextText: '&rsaquo;',
+            lastText: 'Last',
+            maxSize: 1 }
+        }
       ]
     })
     .compileComponents();

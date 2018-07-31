@@ -9,7 +9,7 @@
   <a href="#"
      class="list-group-item list-group-item-action"
      data-toggle="modal"
-     *ngFor="let passNote of getPassNotes()"
+     *ngFor="let passNote of getDisplayNotes()"
      (click)="onPassNoteClick($event, passNote)"
   >
     <div class="row">
@@ -19,3 +19,7 @@
     </div>
   </a>
 </div>
+
+<pagination class="mt-2" [totalItems]="getPassNotes().length" [maxSize]="maxPageSize" (pageChanged)="pageChanged($event)" *ngIf="getPageCount() > 1"></pagination>
+
+Page count: {{getPageCount()}}
