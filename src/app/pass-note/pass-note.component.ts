@@ -12,28 +12,28 @@ import {PassNote} from '../model/pass-note';
 export class PassNoteComponent implements OnInit {
   bsModalRef: BsModalRef;
   maxPageSize = 10;
-  startItem: number;
-  endItem: number;
+
+  passNotes: Array<PassNote>;
+  displayNotes: Array<PassNote>;
+  pageCount: number;
 
   ngOnInit(): void {
+    this.passCategoryChanged();
+    this.passDataService.getPassCategoryUpdatedEvent().subscribe((passCategory) => {
+      this.passCategoryChanged();
+    });
   }
 
   constructor(public passDataService: PassDataService, private modalService: BsModalService) { }
 
-  public getPassNotes(): Array<PassNote> {
-    return this.passDataService.getPassNotes();
-  }
-
-  public getDisplayNotes(): Array<PassNote> {
-    if (this.getPageCount() === 1) {
-      return this.getPassNotes();
+  private passCategoryChanged() {
+    this.passNotes = this.passDataService.getPassNotes();
+    this.pageCount = Math.ceil(this.passNotes.length / this.maxPageSize);
+    if (this.pageCount === 1) {
+      this.displayNotes = this.passNotes;
     } else {
-      return this.getPassNotes().slice(this.startItem, this.endItem);
+      this.displayNotes = this.passNotes.slice(0, this.maxPageSize);
     }
-  }
-
-  public getPageCount(): number {
-    return Math.ceil(this.getPassNotes().length / this.maxPageSize);
   }
 
   onPassNoteClick(event, passNote: PassNote) {
@@ -45,7 +45,8 @@ export class PassNoteComponent implements OnInit {
   }
 
   pageChanged(event: PageChangedEvent): void {
-    this.startItem = (event.page - 1) * event.itemsPerPage;
-    this.endItem = event.page * event.itemsPerPage;
+    const startItem = (event.page - 1) * event.itemsPerPage;
+    const endItem = event.page * event.itemsPerPage;
+    this.displayNotes = this.passNotes.slice(startItem, endItem);
   }
 }
