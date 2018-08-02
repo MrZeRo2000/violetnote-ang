@@ -18,10 +18,7 @@ export class PassNoteComponent implements OnInit {
   pageCount: number;
 
   ngOnInit(): void {
-    this.passCategoryChanged();
-    this.passDataService.getPassCategoryUpdatedEvent().subscribe((passCategory) => {
-      this.passCategoryChanged();
-    });
+    this.passDataService.currentPassCategory.subscribe(() => this.passCategoryChanged());
   }
 
   constructor(public passDataService: PassDataService, private modalService: BsModalService) { }
