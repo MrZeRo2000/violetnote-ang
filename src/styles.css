@@ -4,3 +4,7 @@
 .jumbotron {
   padding: 15px 15px !important;
 }
+
+ul.pagination {
+  margin-bottom:0!important;
+}

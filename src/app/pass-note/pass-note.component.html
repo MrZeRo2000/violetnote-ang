@@ -20,5 +20,11 @@
   </a>
 </div>
 
-<pagination class="mt-2" [totalItems]="passNotes.length" [maxSize]="maxPageSize" (pageChanged)="pageChanged($event)" *ngIf="pageCount > 1"></pagination>
-Page count: {{pageCount}}
+<div class="mt-2">
+  <div class="d-inline-block">
+    <pagination [totalItems]="passNotes.length" [maxSize]="maxPageSize" (pageChanged)="pageChanged($event)" *ngIf="pageCount > 1"></pagination>
+  </div>
+  <div class="d-inline-block">
+    <button class="btn btn-outline-primary">All</button>
+  </div>
+</div>
