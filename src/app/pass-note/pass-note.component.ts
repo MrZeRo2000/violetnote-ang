@@ -51,7 +51,8 @@ export class PassNoteComponent implements OnInit {
   }
 
   onPageAllClick(event) {
-
+    event.preventDefault();
+    console.log('Page all click');
   }
 
   pageChanged(event: PageChangedEvent): void {

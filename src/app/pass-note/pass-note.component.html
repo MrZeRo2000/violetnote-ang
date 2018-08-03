@@ -24,7 +24,7 @@
   <div class="d-inline-block">
     <pagination [totalItems]="passNotes.length" [maxSize]="maxPageSize" (pageChanged)="pageChanged($event)" *ngIf="pageCount > 1"></pagination>
   </div>
-  <div class="d-inline-block">
-    <button class="btn btn-outline-primary">All</button>
+  <div class="d-inline-block ml-2">
+    <ul class="pagination"><li class="pagination-page page-item"><a href="#" class="page-link" (click)="onPageAllClick($event)">All</a></li></ul>
   </div>
 </div>
