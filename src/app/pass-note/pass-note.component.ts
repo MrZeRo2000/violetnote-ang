@@ -52,7 +52,8 @@ export class PassNoteComponent implements OnInit {
 
   onPageAllClick(event) {
     event.preventDefault();
-    console.log('Page all click');
+    this.displayNotes = this.passNotes;
+    this.pageCount = 1;
   }
 
   pageChanged(event: PageChangedEvent): void {
