@@ -4,6 +4,7 @@ import {BsModalRef, BsModalService, PageChangedEvent} from 'ngx-bootstrap';
 import {PassNoteViewComponent} from '../pass-note-view/pass-note-view.component';
 import {PassNote} from '../model/pass-note';
 import {PagerHandler} from '../pager-handler';
+import {PagerStatus} from '../model/pager-status';
 
 @Component({
   selector: 'app-pass-note',
@@ -15,32 +16,19 @@ export class PassNoteComponent implements OnInit {
   maxPageSize = 10;
 
   private pagerHandler: PagerHandler<PassNote> = new PagerHandler<PassNote>();
-
-  passNotes: Array<PassNote>;
-  displayNotes: Array<PassNote>;
-  pageCount: number;
+  pagerStatus: PagerStatus<PassNote>;
 
   ngOnInit(): void {
     this.passDataService.currentPassCategory.subscribe(() => this.passCategoryChanged());
+    this.pagerHandler.pagerStatusSubject.subscribe((pagerStatus) => {
+      this.pagerStatus = pagerStatus;
+    });
   }
 
   constructor(public passDataService: PassDataService, private modalService: BsModalService) { }
 
   private passCategoryChanged() {
-    this.passNotes = this.passDataService.getPassNotes();
-    this.pagerHandler.setPageItems(this.passNotes);
-    this.displayNotes = this.pagerHandler.getDisplayedItems();
-    this.pageCount = this.pagerHandler.getPageCount();
-    console.log('PageCount=' + this.pageCount);
-    /*
-    this.passNotes = this.passDataService.getPassNotes();
-    this.pageCount = Math.ceil(this.passNotes.length / this.maxPageSize);
-    if (this.pageCount === 1) {
-      this.displayNotes = this.passNotes;
-    } else {
-      this.displayNotes = this.passNotes.slice(0, this.maxPageSize);
-    }
-    */
+    this.pagerHandler.setPageItems(this.passDataService.getPassNotes());
   }
 
   onPassNoteClick(event, passNote: PassNote) {
@@ -52,17 +40,10 @@ export class PassNoteComponent implements OnInit {
 
   onPageAllClick(event) {
     event.preventDefault();
-    this.displayNotes = this.passNotes;
-    this.pageCount = 1;
+    this.pagerHandler.pageAll();
   }
 
   pageChanged(event: PageChangedEvent): void {
     this.pagerHandler.pageChanged(event.page, event.itemsPerPage);
-    this.displayNotes = this.pagerHandler.getDisplayedItems();
-    /*
-    const startItem = (event.page - 1) * event.itemsPerPage;
-    const endItem = event.page * event.itemsPerPage;
-    this.displayNotes = this.passNotes.slice(startItem, endItem);
-    */
   }
 }

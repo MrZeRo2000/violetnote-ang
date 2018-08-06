@@ -9,7 +9,7 @@
   <a href="#"
      class="list-group-item list-group-item-action"
      data-toggle="modal"
-     *ngFor="let passNote of displayNotes"
+     *ngFor="let passNote of pagerStatus.displayedItems"
      (click)="onPassNoteClick($event, passNote)"
   >
     <div class="row">
@@ -20,9 +20,9 @@
   </a>
 </div>
 
-<div class="mt-2" *ngIf="pageCount > 1">
+<div class="mt-2" *ngIf="pagerStatus.pageCount > 1">
   <div class="d-inline-block">
-    <pagination [totalItems]="passNotes.length" [maxSize]="maxPageSize" (pageChanged)="pageChanged($event)"></pagination>
+    <pagination [totalItems]="pagerStatus.totalCount" [maxSize]="maxPageSize" (pageChanged)="pageChanged($event)"></pagination>
   </div>
   <div class="d-inline-block ml-2">
     <ul class="pagination"><li class="pagination-page page-item"><a href="#" class="page-link" (click)="onPageAllClick($event)">All</a></li></ul>
