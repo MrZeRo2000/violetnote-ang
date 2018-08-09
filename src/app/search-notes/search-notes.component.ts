@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Route, Router} from '@angular/router';
 import {PassDataService} from '../services/pass-data.service';
 import {PassNote} from '../model/pass-note';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {BsModalRef, BsModalService, PageChangedEvent} from 'ngx-bootstrap';
 import {PassNoteViewComponent} from '../pass-note-view/pass-note-view.component';
+import {PagerHandler} from '../pager-handler';
+import {PagerStatus} from '../model/pager-status';
 
 @Component({
   selector: 'app-search-notes',
@@ -12,8 +14,11 @@ import {PassNoteViewComponent} from '../pass-note-view/pass-note-view.component'
 })
 export class SearchNotesComponent implements OnInit {
   bsModalRef: BsModalRef;
-  searchPassNotes: Array<PassNote>;
   searchText: string;
+  maxPageSize = 10;
+
+  private pagerHandler: PagerHandler<PassNote> = new PagerHandler<PassNote>();
+  pagerStatus: PagerStatus<PassNote>;
 
   constructor(
     private router: Router,
@@ -25,12 +30,14 @@ export class SearchNotesComponent implements OnInit {
     activatedRoute.params.subscribe(
       params => {
         this.searchText = params['text'];
-        this.searchPassNotes = this.passDataService.getSearchPassNotes(this.searchText);
+        this.pagerHandler.setPageItems(this.passDataService.getSearchPassNotes(this.searchText));
+        this.pagerHandler.pagerStatusSubject.subscribe((pagerStatus) => {
+          this.pagerStatus = pagerStatus;
+        });
       });
   }
 
   ngOnInit() {
-    console.log('search-notes init');
     if (!this.passDataService.isPassData()) {
       this.router.navigate(['password']);
     }
@@ -47,4 +54,14 @@ export class SearchNotesComponent implements OnInit {
   searchInfoButtonClick(event) {
     this.router.navigate(['main']);
   }
+
+  onPageAllClick(event) {
+    event.preventDefault();
+    this.pagerHandler.pageAll();
+  }
+
+  pageChanged(event: PageChangedEvent): void {
+    this.pagerHandler.pageChanged(event.page, event.itemsPerPage);
+  }
+
 }
