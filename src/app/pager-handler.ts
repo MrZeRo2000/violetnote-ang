@@ -16,6 +16,7 @@ export class PagerHandler<T> {
       this.pagerStatus.displayedItems = this.pagedItems.slice(0, this.maxPageSize);
     }
     this.pagerStatus.totalCount = items.length;
+    this.pagerStatus.currentPage = 1;
     this.pagerStatusSubject.next(this.pagerStatus);
   }
 
@@ -29,6 +30,7 @@ export class PagerHandler<T> {
   public pageAll(): void {
     this.pagerStatus.displayedItems = this.pagedItems;
     this.pagerStatus.pageCount = 1;
+    this.pagerStatus.currentPage = 1;
     this.pagerStatusSubject.next(this.pagerStatus);
   }
 

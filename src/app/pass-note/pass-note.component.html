@@ -22,7 +22,7 @@
 
 <div class="mt-2" *ngIf="pagerStatus.pageCount > 1">
   <div class="d-inline-block">
-    <pagination [totalItems]="pagerStatus.totalCount" [maxSize]="maxPageSize" (pageChanged)="pageChanged($event)"></pagination>
+    <pagination [(ngModel)]="pagerStatus.currentPage" [totalItems]="pagerStatus.totalCount" [maxSize]="maxPageSize" (pageChanged)="pageChanged($event)"></pagination>
   </div>
   <div class="d-inline-block ml-2">
     <ul class="pagination"><li class="pagination-page page-item"><a href="#" class="page-link" (click)="onPageAllClick($event)">All</a></li></ul>
