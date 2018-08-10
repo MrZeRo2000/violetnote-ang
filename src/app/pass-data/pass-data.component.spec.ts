@@ -5,6 +5,7 @@ import {PassCategoryComponent} from '../pass-category/pass-category.component';
 import {PassNoteComponent} from '../pass-note/pass-note.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
+import {FormsModule} from '@angular/forms';
 import {PaginationComponent} from 'ngx-bootstrap';
 
 describe('PassDataComponent', () => {
@@ -15,6 +16,7 @@ describe('PassDataComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ PassDataComponent, PassCategoryComponent, PassNoteComponent, PaginationComponent ],
       imports: [
+        FormsModule,
         RouterTestingModule,
         HttpClientTestingModule]
     })
