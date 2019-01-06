@@ -15,9 +15,9 @@ import {PagerStatus} from '../model/pager-status';
 export class SearchNotesComponent implements OnInit {
   bsModalRef: BsModalRef;
   searchText: string;
-  maxPageSize = 10;
+  maxPageSize = 8;
 
-  private pagerHandler: PagerHandler<PassNote> = new PagerHandler<PassNote>();
+  private pagerHandler: PagerHandler<PassNote> = new PagerHandler<PassNote>(this.maxPageSize);
   pagerStatus: PagerStatus<PassNote>;
 
   constructor(

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 
@@ -7,12 +7,16 @@ import {Router} from '@angular/router';
   templateUrl: './password.component.html',
   styleUrls: ['./password.component.css']
 })
-export class PasswordComponent implements OnInit {
+export class PasswordComponent implements OnInit, AfterViewInit {
   @Input() inputPassword: string;
-
+  @ViewChild('password') passwordElement: ElementRef;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
+    this.passwordElement.nativeElement.focus();
   }
 
   onSubmitPassword() {

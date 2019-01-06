@@ -45,9 +45,9 @@ export class PassDataService {
   }
 
   public getPassNotes() {
-    return this.getPassData().passNoteList.filter(
+    return this.getPassData() ? this.getPassData().passNoteList.filter(
       (note) => note.passCategory.categoryName === this.selectedPassCategory.categoryName
-    );
+    ) : [];
   }
 
   public getSearchPassNotes(searchString: string): Array<PassNote>  {

@@ -1,5 +1,5 @@
 <div class="input-group" aria-describedby="searchHelpBlock">
-  <input class="form-control" type="search" name="inputSearch" id="inputSearch" placeholder="search"
+  <input #search class="form-control" type="search" name="inputSearch" id="inputSearch" placeholder="search"
          required minlength="2"
          autofocus
          (keyup)="onSearchKeyUp($event)"

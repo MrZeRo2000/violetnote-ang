@@ -34,5 +34,5 @@ export class PagerHandler<T> {
     this.pagerStatusSubject.next(this.pagerStatus);
   }
 
-  constructor(private maxPageSize = 10) {}
+  constructor(private maxPageSize) {}
 }
