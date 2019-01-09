@@ -59,7 +59,7 @@ const appRoutes: Routes = [
     ModalModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,
-      {enableTracing: true}
+      {enableTracing: true, useHash: true}
     ),
     PaginationModule.forRoot()
   ],
