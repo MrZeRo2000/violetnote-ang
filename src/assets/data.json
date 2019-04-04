@@ -195,7 +195,7 @@
        "system": "System 1",
        "user": "User 1",
        "password": "Password 1",
-       "comments": "",
+       "comments": "http://www.cyfral.net.ua/",
        "custom": "",
        "info": ""
      },
@@ -207,7 +207,7 @@
        "system": "System 2",
        "user": "User 2",
        "password": "Password 2",
-       "comments": "",
+       "comments": "energy.kyivgaz.ua",
        "custom": "",
        "info": ""
      },
@@ -220,7 +220,7 @@
        "user": "User 3",
        "password": "Password 3",
        "comments": "",
-       "custom": "",
+       "custom": "tickets.ua",
        "info": ""
      },
      {
