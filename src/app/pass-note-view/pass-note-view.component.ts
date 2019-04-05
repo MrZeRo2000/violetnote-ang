@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap';
 import {PassNote} from '../model/pass-note';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-pass-note-view',
@@ -15,8 +16,10 @@ export class PassNoteViewComponent implements OnInit {
   constructor(public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.bsModalRef.hide();
-    }, 10000);
+    if (environment.autoHidePassNoteDelay) {
+      setTimeout(() => {
+        this.bsModalRef.hide();
+      }, environment.autoHidePassNoteDelay);
+    }
   }
 }

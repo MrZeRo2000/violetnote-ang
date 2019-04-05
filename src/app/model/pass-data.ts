@@ -5,8 +5,8 @@ export class PassData {
   passCategoryList: Array<PassCategory>;
   passNoteList: Array<PassNote>;
 
-  constructor(data: any) {
-    this.passCategoryList = data.passCategoryList;
-    this.passNoteList = data.passNoteList;
+  constructor(data: PassData) {
+    this.passCategoryList = data.passCategoryList as Array<PassCategory>;
+    this.passNoteList = data.passNoteList as Array<PassNote>;
   }
 }

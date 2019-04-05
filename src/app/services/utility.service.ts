@@ -14,6 +14,19 @@ export class UtilityService {
       '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
       '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
       '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-    return !!pattern.test(url);
+    return !!pattern.test(url) && !(url === null) && !(url === undefined);
+  }
+
+  public static urlContainsProtocol(url: string) {
+    const pattern = new RegExp('^((http|https):\\/\\/)', 'i');
+    return !!pattern.test(url) && !(url === null) && !(url === undefined);
+  }
+
+  public static ensureProtocol(url: string): string {
+    if (!UtilityService.urlContainsProtocol(url)) {
+      return 'http://' + url;
+    } else {
+      return url;
+    }
   }
 }

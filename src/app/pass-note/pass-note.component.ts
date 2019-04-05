@@ -35,8 +35,10 @@ export class PassNoteComponent implements OnInit {
   }
 
   onPassNoteClick(event, passNote: PassNote) {
+    const viewPassNote = new PassNote();
+    Object.assign(viewPassNote, passNote);
     const initialState = {
-      passNote: passNote
+      passNote: viewPassNote
     };
     this.bsModalRef = this.modalService.show(PassNoteViewComponent, {initialState});
   }

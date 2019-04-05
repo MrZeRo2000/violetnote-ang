@@ -33,4 +33,24 @@ describe('UtilityService', () => {
   it('email', () => {
     expect(UtilityService.isValidURL('something@outlook.com')).toBeFalsy();
   });
+
+  it('null', () => {
+    expect(UtilityService.isValidURL(null)).toBeFalsy();
+  });
+
+  it('undefined', () => {
+    expect(UtilityService.isValidURL(undefined)).toBeFalsy();
+  });
+
+  it('empty', () => {
+    expect(UtilityService.isValidURL('')).toBeFalsy();
+  });
+
+  it('contains protocol', () => {
+    expect(UtilityService.urlContainsProtocol('http://www.cyfral.net.ua/')).toBeTruthy();
+  });
+
+  it('does not contain protocol', () => {
+    expect(UtilityService.urlContainsProtocol('tickets.ua')).toBeFalsy();
+  });
 });

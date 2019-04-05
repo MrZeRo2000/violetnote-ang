@@ -19,6 +19,9 @@ class MockPassNote {
   comments = 'Comments';
   custom = 'Custom';
   info = 'Info';
+  public getURL(): string {
+    return null;
+  }
 }
 
 describe('PassNoteViewComponent', () => {

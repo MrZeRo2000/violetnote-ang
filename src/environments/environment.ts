@@ -6,7 +6,8 @@ export const environment = {
   VERSION: require('../../package.json').version,
   production: false,
   passDataUrl: 'assets/data.json',
-  loadDelay: 3000
+  loadDelay: 3000,
+  autoHidePassNoteDelay: undefined
 };
 
 /*
