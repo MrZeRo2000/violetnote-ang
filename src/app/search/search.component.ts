@@ -14,9 +14,11 @@ export class SearchComponent implements OnInit, AfterViewInit  {
   @ViewChild('search') inputSearchElement: ElementRef;
   isValidSearch = true;
   isFocusRequired = false;
+  searchStrings: string[];
 
   constructor(private router: Router, passDataService: PassDataService) {
     passDataService.currentPassData.subscribe(() => this.currentPassDataChanged());
+    passDataService.currentSearchStrings.subscribe((searchStrings) => this.setSearchStrings(searchStrings))
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd)
     ).subscribe(e => {if ((e as NavigationEnd).url === '/main') {this.requireFocus(); }});
@@ -42,6 +44,10 @@ export class SearchComponent implements OnInit, AfterViewInit  {
 
   private currentPassDataChanged() {
     this.isFocusRequired = true;
+  }
+
+  private setSearchStrings(searchStrings: Array<string>) {
+    this.searchStrings = searchStrings;
   }
 
   private submitSearch() {

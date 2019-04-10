@@ -3,7 +3,10 @@
          required minlength="2"
          autofocus
          (keyup)="onSearchKeyUp($event)"
-         [(ngModel)]="inputSearch">
+         [(ngModel)]="inputSearch"
+         [typeahead]="searchStrings"
+         [typeaheadMinLength]="2"
+  >
   <span class="input-group-append ml-1">
         <button class="btn btn-outline-secondary" type="button" (click)="onSubmitSearch($event)">
             <i class="fa fa-search"></i>

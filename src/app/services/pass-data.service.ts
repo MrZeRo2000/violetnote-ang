@@ -13,6 +13,7 @@ export class PassDataService {
 
   currentPassData: Subject<PassData> = new BehaviorSubject<PassData>(null);
   currentPassCategory: Subject<PassCategory> = new BehaviorSubject<PassCategory>(null);
+  currentSearchStrings: Subject<Array<string>> = new BehaviorSubject<Array<string>>(null);
 
   constructor() {}
 
@@ -20,11 +21,13 @@ export class PassDataService {
     this.passData = new PassData(passData);
     this.currentPassData.next(passData);
     this.setSelectedPassCategory(this.passData.passCategoryList[0]);
+    this.currentSearchStrings.next(this.getSearchStrings());
   }
 
   public clearPassData() {
     this.passData = null;
     this.setSelectedPassCategory(null);
+    this.currentSearchStrings.next(null);
   }
 
   public isPassData() {
@@ -60,5 +63,17 @@ export class PassDataService {
         (note) => searchExp.test(note.system) || searchExp.test(note.user)
       );
     }
+  }
+
+  public getSearchStrings(): Array<string> {
+    const items = Array.from(
+      new Set<string>(
+        [].concat.apply([], this.getPassData().passNoteList.map(
+          a => [a.user.toLowerCase(), a.system.toLowerCase()]
+        )
+        )
+      )
+    );
+    return items.sort();
   }
 }

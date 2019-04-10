@@ -4,8 +4,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 // for Http
 import {HttpClientModule} from '@angular/common/http';
-// for modal
-import {ModalModule, PaginationModule} from 'ngx-bootstrap';
+// for modal, typeahead
+import {ModalModule, PaginationModule, TypeaheadModule} from 'ngx-bootstrap';
 // routing support
 import { RouterModule, Routes } from '@angular/router';
 
@@ -61,7 +61,8 @@ const appRoutes: Routes = [
       appRoutes,
       {enableTracing: true, useHash: true}
     ),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    TypeaheadModule.forRoot()
   ],
   providers: [
     AuthService,
