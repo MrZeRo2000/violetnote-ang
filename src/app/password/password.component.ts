@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class PasswordComponent implements OnInit, AfterViewInit {
   @Input() inputPassword: string;
-  @ViewChild('password') passwordElement: ElementRef;
+  @ViewChild('password', { static: true }) passwordElement: ElementRef;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {

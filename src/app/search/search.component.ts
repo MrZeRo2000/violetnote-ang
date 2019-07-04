@@ -11,7 +11,7 @@ import {filter} from 'rxjs/operators';
 })
 export class SearchComponent implements OnInit, AfterViewInit  {
   @Input() inputSearch: string;
-  @ViewChild('search') inputSearchElement: ElementRef;
+  @ViewChild('search', { static: true }) inputSearchElement: ElementRef;
   isValidSearch = true;
   isFocusRequired = false;
   searchStrings: string[];

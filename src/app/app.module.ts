@@ -8,6 +8,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {ModalModule, PaginationModule, TypeaheadModule} from 'ngx-bootstrap';
 // routing support
 import { RouterModule, Routes } from '@angular/router';
+// animation for typeahead
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { PasswordComponent } from './password/password.component';
@@ -62,7 +64,8 @@ const appRoutes: Routes = [
       {enableTracing: true, useHash: true}
     ),
     PaginationModule.forRoot(),
-    TypeaheadModule.forRoot()
+    TypeaheadModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService,
