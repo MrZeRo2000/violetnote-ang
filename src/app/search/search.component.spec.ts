@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {SearchComponent } from './search.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormsModule} from '@angular/forms';
-import {PassDataService} from '../services/pass-data.service';
+import {TypeaheadModule} from 'ngx-bootstrap';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -14,7 +14,8 @@ describe('SearchComponent', () => {
       declarations: [ SearchComponent ],
       imports: [
         FormsModule,
-        RouterTestingModule
+        RouterTestingModule,
+        TypeaheadModule.forRoot()
       ]
     })
     .compileComponents();

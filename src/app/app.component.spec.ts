@@ -5,6 +5,7 @@ import {SearchComponent} from './search/search.component';
 import {FormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {TypeaheadModule} from 'ngx-bootstrap';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -16,7 +17,8 @@ describe('AppComponent', () => {
       imports: [
         FormsModule,
         RouterTestingModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        TypeaheadModule
       ]
     }).compileComponents();
   }));

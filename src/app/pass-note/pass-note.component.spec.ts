@@ -15,7 +15,7 @@ class MockPassDataService extends PassDataService {
     super();
     this.setPassData({
       passCategoryList: [{categoryName: 'TestCategoryName'}],
-      passNoteList: [{passCategory: {categoryName: 'TestCategoryName'}}]
+      passNoteList: [{passCategory: {categoryName: 'TestCategoryName'}, user: 'TestUser', system: 'TestSystem'}]
     });
   }
 }

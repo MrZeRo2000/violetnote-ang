@@ -6,7 +6,10 @@ import {PassDataService} from '../services/pass-data.service';
 class MockPassDataService extends PassDataService {
   constructor() {
     super();
-    this.setPassData({passCategoryList: [{categoryName: 'TestCategoryName'}]});
+    this.setPassData({
+      passCategoryList: [{categoryName: 'TestCategoryName'}],
+      passNoteList: [{passCategory: {categoryName: 'TestCategoryName'}, user: 'TestUser', system: 'TestSystem'}]
+    });
   }
 }
 

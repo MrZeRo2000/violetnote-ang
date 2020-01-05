@@ -1,9 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { PagerService } from './pager.service';
-import {print} from 'util';
-import {computeStyle} from '@angular/animations/browser/src/util';
-import {range} from 'rxjs';
 
 const testPagerList = [];
 for (let i = 0; i < 30; i++) {
