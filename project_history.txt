@@ -20,3 +20,9 @@ ng generate service PassData
 Deploy:
 ng build --prod --base-href=/violetnote-ang/
 copy from dist to webapps directory
+
+Update angular to latest version:
+ng update @angular/cli @angular/core
+
+Update dependency to latest version:
+ng update ngx-bootstrap
