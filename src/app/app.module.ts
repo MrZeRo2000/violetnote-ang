@@ -24,6 +24,7 @@ import { SearchComponent } from './search/search.component';
 import { ExitComponent } from './exit/exit.component';
 import { SearchNotesComponent } from './search-notes/search-notes.component';
 import {PassDataRequiredGuard} from './guards/pass-data-required.guard';
+import { PassDataFileInfoComponent } from './pass-data-file-info/pass-data-file-info.component';
 
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
@@ -45,6 +46,7 @@ const appRoutes: Routes = [
     AppComponent,
     PasswordComponent,
     PassDataComponent,
+    PassDataFileInfoComponent,
     PassCategoryComponent,
     PassNoteComponent,
     PassNoteViewComponent,

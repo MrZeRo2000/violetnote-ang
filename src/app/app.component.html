@@ -1,5 +1,6 @@
 <div class="jumbotron">
   <h6 class="text-right">Version: {{version}}</h6>
+  <h6 class="text-right"><app-pass-data-file-info></app-pass-data-file-info></h6>
   <h1 class="display-4">{{ title }}</h1>
   <app-exit *ngIf="passDataService.isPassData()"></app-exit>
   <app-search *ngIf="passDataService.isPassData()"></app-search>
