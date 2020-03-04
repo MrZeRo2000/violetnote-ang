@@ -10,7 +10,7 @@ describe('PassDataFileInfoService', () => {
   }));
 
   it('should be created', () => {
-    const service: PassDataFileInfoService = TestBed.get(PassDataFileInfoService);
+    const service: PassDataFileInfoService = TestBed.inject(PassDataFileInfoService);
     expect(service).toBeTruthy();
   });
 });

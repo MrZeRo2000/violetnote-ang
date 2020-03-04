@@ -43,7 +43,8 @@ describe('SearchNotesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchNotesComponent, PasswordComponent, PassDataComponent, PassCategoryComponent, PassNoteComponent, PaginationComponent ],
+      declarations: [ SearchNotesComponent, PasswordComponent, PassDataComponent, PassCategoryComponent, PassNoteComponent,
+        PaginationComponent ],
       imports: [
         FormsModule,
         // https://github.com/jasmine/jasmine/issues/1523
