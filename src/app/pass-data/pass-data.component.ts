@@ -8,7 +8,7 @@ import {environment} from '../../environments/environment';
 @Component({
   selector: 'app-pass-data',
   templateUrl: './pass-data.component.html',
-  styleUrls: ['./pass-data.component.css']
+  styleUrls: ['./pass-data.component.scss']
 })
 export class PassDataComponent implements OnInit {
   isLoading = false;

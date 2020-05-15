@@ -7,7 +7,7 @@ import {AuthService} from '../services/auth.service';
 @Component({
   selector: 'app-exit',
   templateUrl: './exit.component.html',
-  styleUrls: ['./exit.component.css']
+  styleUrls: ['./exit.component.scss']
 })
 export class ExitComponent implements OnInit {
 

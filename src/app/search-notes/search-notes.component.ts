@@ -10,7 +10,7 @@ import {PagerStatus} from '../model/pager-status';
 @Component({
   selector: 'app-search-notes',
   templateUrl: './search-notes.component.html',
-  styleUrls: ['./search-notes.component.css']
+  styleUrls: ['./search-notes.component.scss']
 })
 export class SearchNotesComponent implements OnInit {
   bsModalRef: BsModalRef;

@@ -5,7 +5,7 @@ import {PassDataFileInfo} from '../model/pass-data-file-info';
 @Component({
   selector: 'app-pass-data-file-info',
   templateUrl: './pass-data-file-info.component.html',
-  styleUrls: ['./pass-data-file-info.component.css']
+  styleUrls: ['./pass-data-file-info.component.scss']
 })
 export class PassDataFileInfoComponent implements OnInit {
 

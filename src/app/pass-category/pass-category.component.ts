@@ -6,7 +6,7 @@ import {PassCategory} from '../model/pass-category';
 @Component({
   selector: 'app-pass-category',
   templateUrl: './pass-category.component.html',
-  styleUrls: ['./pass-category.component.css']
+  styleUrls: ['./pass-category.component.scss']
 })
 export class PassCategoryComponent implements OnInit {
   passData: PassData;

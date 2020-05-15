@@ -6,7 +6,7 @@ import {environment} from '../../environments/environment';
 @Component({
   selector: 'app-pass-note-view',
   templateUrl: './pass-note-view.component.html',
-  styleUrls: ['./pass-note-view.component.css']
+  styleUrls: ['./pass-note-view.component.scss']
 })
 export class PassNoteViewComponent implements OnInit {
   title = 'Note';

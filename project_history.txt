@@ -26,3 +26,6 @@ ng update @angular/cli @angular/core
 
 Update dependency to latest version:
 ng update ngx-bootstrap
+
+Dummy image settings:
+https://i.pickadummy.com/300x100&wash=AF7FA1&brightness=0

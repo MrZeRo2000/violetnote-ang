@@ -9,7 +9,7 @@ import {PagerStatus} from '../model/pager-status';
 @Component({
   selector: 'app-pass-note',
   templateUrl: './pass-note.component.html',
-  styleUrls: ['./pass-note.component.css']
+  styleUrls: ['./pass-note.component.scss']
 })
 export class PassNoteComponent implements OnInit {
   bsModalRef: BsModalRef;
