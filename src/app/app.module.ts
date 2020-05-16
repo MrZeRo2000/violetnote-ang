@@ -25,6 +25,7 @@ import { ExitComponent } from './exit/exit.component';
 import { SearchNotesComponent } from './search-notes/search-notes.component';
 import {PassDataRequiredGuard} from './guards/pass-data-required.guard';
 import { PassDataFileInfoComponent } from './pass-data-file-info/pass-data-file-info.component';
+import { PassDataFileNameComponent } from './pass-data-file-name/pass-data-file-name.component';
 
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
@@ -52,7 +53,8 @@ const appRoutes: Routes = [
     PassNoteViewComponent,
     SearchComponent,
     ExitComponent,
-    SearchNotesComponent
+    SearchNotesComponent,
+    PassDataFileNameComponent
   ],
   // modal component not directly referenced in templates
   entryComponents: [
