@@ -1,22 +1,39 @@
 <div class="d-flex flex-row text-nowrap align-items-center">
-  <div>
-    <form class="form-group mb-0" [ngClass]="{invisible: !editing}">
+  <div *ngIf="editing">
+    <form class="form-group form-inline mb-0 text-nowrap">
+      <div class="form-check-inline mr-0">
       <label>
         <input
           #fileNameControl
           type="text"
-          size="60"
+          [size]="editing? 40: 1"
           class="form-control"
           placeholder="Enter the file name here"
-          (focusout)="editing=false"
           [(ngModel)]="editFileName"
           (keyup)="onFileNameControlKeyUp($event)"
           name="fileName"
         >
       </label>
+
+      <button
+        class="btn btn-outline-primary bg-transparent border-0 ml-2"
+        type="button"
+        (click)="onSubmit($event)"
+      >
+        <i class="fa fa-check-circle"></i>
+      </button>
+
+      <button
+        class="btn btn-outline-primary bg-transparent border-0 mr-0"
+        type="button"
+        (click)="onCancel($event)"
+      >
+        <i class="fa fa-window-close"></i>
+      </button>
+      </div>
     </form>
   </div>
-  <div class="text-right" *ngIf="!fileName && !editing">
+  <div class="text-right form-control bg-transparent border-0" *ngIf="!fileName && !editing">
     <a class="text-danger" href="#" (click)="onFileNameClick($event)">Please, click to configure data file name</a>
   </div>
 </div>

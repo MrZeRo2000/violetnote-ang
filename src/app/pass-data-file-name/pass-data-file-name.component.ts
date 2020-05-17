@@ -34,4 +34,13 @@ export class PassDataFileNameComponent implements OnInit {
       console.log(event);
     }
   }
+
+  onSubmit(event: any) {
+    this.editing = false;
+  }
+
+  onCancel(event: any) {
+    this.editing = false;
+  }
+
 }
