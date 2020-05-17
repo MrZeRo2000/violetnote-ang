@@ -24,6 +24,9 @@ copy from dist to webapps directory
 Update angular to latest version:
 ng update @angular/cli @angular/core
 
+Update dev software to latest version:
+npm install @types/jasmine@latest @types/node@latest codelyzer@latest karma@latest karma-chrome-launcher@latest karma-cli@latest karma-jasmine@latest karma-jasmine-html-reporter@latest jasmine-core@latest jasmine-spec-reporter@latest protractor@latest tslint@latest webpack@latest rxjs-tslint@latest
+
 Update dependency to latest version:
 ng update ngx-bootstrap
 
