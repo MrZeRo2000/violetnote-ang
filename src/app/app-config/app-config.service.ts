@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AppEnvConfig} from '../model/app-env-config';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +22,12 @@ export class AppConfigService {
   constructor(private http: HttpClient) { }
 
   configEnv(): Promise<any> {
-    const result = this.http.get<AppEnvConfig>('assets/env.json')
+    console.log('loading configuration from ' + environment.envUrl);
+
+    return this.http.get<AppEnvConfig>(environment.envUrl)
       .toPromise()
-      .then(v => {this.envConfig = v; console.log(this.envConfig); })
-      .catch(reason => {this.configError = reason.message; console.log('rejected:' + this.configError);})
+      .then(v => {this.envConfig = v; console.log('configuration:' + JSON.stringify(this.envConfig)); })
+      .catch(reason => {this.configError = reason.message; console.log('rejected:' + this.configError); })
     ;
-    return result;
   }
 }
