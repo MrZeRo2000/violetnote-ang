@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {PassDataFileNameService} from '../services/pass-data-file-name.service';
 
 @Component({
@@ -6,28 +6,32 @@ import {PassDataFileNameService} from '../services/pass-data-file-name.service';
   templateUrl: './pass-data-file-name.component.html',
   styleUrls: ['./pass-data-file-name.component.scss']
 })
-export class PassDataFileNameComponent implements OnInit, AfterViewInit {
+export class PassDataFileNameComponent implements OnInit {
   fileName: string;
+  editFileName: string;
+
   editing = false;
 
-  @ViewChildren('inlineControl') inlineControl: QueryList<ElementRef>;
+  @ViewChild('fileNameControl') fileNameControl: ElementRef;
 
   constructor(private passDataFileNameService: PassDataFileNameService) { }
 
   ngOnInit(): void {
-    this.fileName = this.passDataFileNameService.getFileName();
-  }
-
-  ngAfterViewInit(): void {
-    this.inlineControl.changes.subscribe(() => {
-      if (this.inlineControl.length > 0) {
-        this.inlineControl.first.nativeElement.focus();
-      }
-    });
+    this.passDataFileNameService.currentFileName.subscribe(value => this.fileName = value);
   }
 
   onFileNameClick(event: any) {
     event.preventDefault();
     this.editing = true;
+    this.editFileName = this.fileName;
+    setTimeout(() => this.fileNameControl.nativeElement.focus());
+  }
+
+  onFileNameControlKeyUp(event: any) {
+    if (event.key === 'Escape') {
+      this.editing = false;
+    } else if (event.key === 'Enter') {
+      console.log(event);
+    }
   }
 }

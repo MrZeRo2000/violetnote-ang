@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import {BehaviorSubject, Subject} from 'rxjs';
+import {PassDataFileInfo} from '../model/pass-data-file-info';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +10,8 @@ export class PassDataFileNameService {
 
   private fileName: string;
 
-  public getFileName(): string {
-    return this.fileName;
-  }
+  currentFileName: Subject<string> = new BehaviorSubject<string>(null);
+  currentFileInfo: Subject<PassDataFileInfo> = new BehaviorSubject<PassDataFileInfo>(null);
 
   constructor() {
     this.readLocalFileName();
@@ -18,6 +19,7 @@ export class PassDataFileNameService {
 
   private readLocalFileName(): void {
     this.fileName = localStorage.getItem(this.LOCAL_STORAGE_FILE_NAME_KEY);
+    this.currentFileName.next(this.fileName);
   }
 
   private writeLocalFileName(): void {

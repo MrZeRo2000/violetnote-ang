@@ -1,15 +1,16 @@
 <div class="d-flex flex-row text-nowrap">
   <div>
-    <form class="form-group" [ngClass]="{invisible: !editing}">
+    <form class="form-group mb-0" [ngClass]="{invisible: !editing}">
       <label>
         <input
-          #inlineControl
+          #fileNameControl
           type="text"
-          size="40"
+          size="60"
           class="form-control"
           placeholder="Enter the file name here"
           (focusout)="editing=false"
-          [(ngModel)]="fileName"
+          [(ngModel)]="editFileName"
+          (keyup)="onFileNameControlKeyUp($event)"
           name="fileName"
         >
       </label>
