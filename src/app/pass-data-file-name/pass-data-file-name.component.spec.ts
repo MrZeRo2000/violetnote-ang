@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PassDataFileNameComponent } from './pass-data-file-name.component';
+import {FormsModule} from '@angular/forms';
 
 describe('PassDataFileNameComponent', () => {
   let component: PassDataFileNameComponent;
@@ -8,7 +9,8 @@ describe('PassDataFileNameComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PassDataFileNameComponent ]
+      declarations: [ PassDataFileNameComponent ],
+      imports: [FormsModule]
     })
     .compileComponents();
   }));

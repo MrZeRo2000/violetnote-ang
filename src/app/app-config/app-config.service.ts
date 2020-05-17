@@ -11,7 +11,7 @@ export class AppConfigService {
   private configError: string = null;
 
   getConfigError(): string {
-    return this.configError || (!this.envConfig.restUrl && 'Rest configuration failure');
+    return this.configError || (this.envConfig && !this.envConfig.restUrl && 'Rest configuration failure');
   }
 
   getRestUrl(): string {

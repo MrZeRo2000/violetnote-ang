@@ -4,12 +4,14 @@ import {BsModalService, PaginationComponent, PaginationConfig} from 'ngx-bootstr
 import {FormsModule} from '@angular/forms';
 import { PassNoteComponent } from './pass-note.component';
 import {PassDataService} from '../services/pass-data.service';
+import {Injectable} from '@angular/core';
 
 
 class MockModalService {
   public hide(): void { }
 }
 
+@Injectable()
 class MockPassDataService extends PassDataService {
   constructor() {
     super();

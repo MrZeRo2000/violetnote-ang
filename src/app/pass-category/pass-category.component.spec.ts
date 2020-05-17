@@ -2,7 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PassCategoryComponent } from './pass-category.component';
 import {PassDataService} from '../services/pass-data.service';
+import {Injectable} from '@angular/core';
 
+@Injectable()
 class MockPassDataService extends PassDataService {
   constructor() {
     super();

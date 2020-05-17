@@ -7,12 +7,15 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {TypeaheadModule} from 'ngx-bootstrap';
 import {PassDataFileInfoComponent} from './pass-data-file-info/pass-data-file-info.component';
+import {AppConfigModule} from './app-config/app-config.module';
+import {PassDataFileNameComponent} from './pass-data-file-name/pass-data-file-name.component';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
         PassDataFileInfoComponent,
+        PassDataFileNameComponent,
         ExitComponent,
         SearchComponent
       ],

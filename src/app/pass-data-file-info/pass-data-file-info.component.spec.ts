@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PassDataFileInfoComponent } from './pass-data-file-info.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {FormsModule} from '@angular/forms';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('PassDataFileInfoComponent', () => {
   let component: PassDataFileInfoComponent;
@@ -10,7 +12,11 @@ describe('PassDataFileInfoComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PassDataFileInfoComponent ],
-      imports: [HttpClientTestingModule]
+      imports: [
+        FormsModule,
+        RouterTestingModule,
+        HttpClientTestingModule
+      ]
     })
     .compileComponents();
   }));

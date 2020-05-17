@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppConfigErrorComponent } from './app-config-error.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('AppConfigErrorComponent', () => {
   let component: AppConfigErrorComponent;
@@ -8,7 +9,8 @@ describe('AppConfigErrorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppConfigErrorComponent ]
+      declarations: [ AppConfigErrorComponent ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
   }));

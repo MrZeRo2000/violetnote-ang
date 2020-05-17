@@ -9,6 +9,7 @@ import {PassDataComponent} from '../pass-data/pass-data.component';
 import {PassNoteComponent} from '../pass-note/pass-note.component';
 import {PassCategoryComponent} from '../pass-category/pass-category.component';
 import {BsModalService, PaginationComponent} from 'ngx-bootstrap';
+import {Injectable} from '@angular/core';
 
 // https://github.com/jasmine/jasmine/issues/1523
 /*
@@ -22,6 +23,7 @@ class MockModalService {
   public hide(): void { }
 }
 
+@Injectable()
 class MockPassDataService extends PassDataService {
   constructor() {
     super();
