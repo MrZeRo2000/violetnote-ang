@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable, InjectionToken} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AppEnvConfig} from '../model/app-env-config';
 import {environment} from '../../environments/environment';
+
+export const RestUrl = new InjectionToken<string>('rest-url');
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,7 @@ export class AppConfigService {
   }
 
   getRestUrl(): string {
-    return this.envConfig.restUrl;
+    return this.envConfig && this.envConfig.restUrl;
   }
 
   constructor(private http: HttpClient) { }

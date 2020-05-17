@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {PassDataFileInfo} from '../model/pass-data-file-info';
+import {RestDataSourceService} from '../data-source/rest-data-source.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class PassDataFileNameService {
   currentFileName: Subject<string> = new BehaviorSubject<string>(null);
   currentFileInfo: Subject<PassDataFileInfo> = new BehaviorSubject<PassDataFileInfo>(null);
 
-  constructor() {
+  constructor(private dataSource: RestDataSourceService) {
     this.readLocalFileName();
   }
 

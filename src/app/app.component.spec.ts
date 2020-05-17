@@ -9,6 +9,7 @@ import {TypeaheadModule} from 'ngx-bootstrap';
 import {PassDataFileInfoComponent} from './pass-data-file-info/pass-data-file-info.component';
 import {AppConfigModule} from './app-config/app-config.module';
 import {PassDataFileNameComponent} from './pass-data-file-name/pass-data-file-name.component';
+import {DataSourceModule} from './data-source/data-source.module';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,7 +24,9 @@ describe('AppComponent', () => {
         FormsModule,
         RouterTestingModule,
         HttpClientTestingModule,
-        TypeaheadModule
+        TypeaheadModule,
+        DataSourceModule,
+        AppConfigModule
       ]
     }).compileComponents();
   }));

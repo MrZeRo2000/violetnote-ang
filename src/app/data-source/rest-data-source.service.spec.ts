@@ -1,22 +1,23 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PassDataFileNameService } from './pass-data-file-name.service';
-import {DataSourceModule} from '../data-source/data-source.module';
+import { RestDataSourceService } from './rest-data-source.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RestUrl} from '../app-config/app-config.service';
 import {AppConfigModule} from '../app-config/app-config.module';
 
-describe('PassDataFileNameService', () => {
-  let service: PassDataFileNameService;
+describe('RestDataSourceService', () => {
+  let service: RestDataSourceService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        DataSourceModule,
         AppConfigModule
+      ],
+      providers: [
       ]
     });
-    service = TestBed.inject(PassDataFileNameService);
+    service = TestBed.inject(RestDataSourceService);
   });
 
   it('should be created', () => {

@@ -27,6 +27,7 @@ import {PassDataRequiredGuard} from './guards/pass-data-required.guard';
 import { PassDataFileInfoComponent } from './pass-data-file-info/pass-data-file-info.component';
 import { PassDataFileNameComponent } from './pass-data-file-name/pass-data-file-name.component';
 import {AppConfigModule} from './app-config/app-config.module';
+import {DataSourceModule} from './data-source/data-source.module';
 
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
@@ -72,7 +73,9 @@ const appRoutes: Routes = [
     TypeaheadModule.forRoot(),
     BrowserAnimationsModule,
     // load configuration support
-    AppConfigModule
+    AppConfigModule,
+    // data source
+    DataSourceModule
   ],
   providers: [
     AuthService,
