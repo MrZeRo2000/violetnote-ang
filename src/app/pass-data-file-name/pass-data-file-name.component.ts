@@ -6,13 +6,14 @@ import {PassDataFileNameService} from '../services/pass-data-file-name.service';
   templateUrl: './pass-data-file-name.component.html',
   styleUrls: ['./pass-data-file-name.component.scss']
 })
-export class PassDataFileNameComponent implements OnInit {
+export class PassDataFileNameComponent implements OnInit, AfterViewInit {
   fileName: string;
   editFileName: string;
 
   editing = false;
 
   @ViewChild('fileNameControl') fileNameControl: ElementRef;
+  @ViewChildren('fileNameControl') fileNameControls: QueryList<ElementRef>;
 
   constructor(private passDataFileNameService: PassDataFileNameService) { }
 
@@ -20,11 +21,20 @@ export class PassDataFileNameComponent implements OnInit {
     this.passDataFileNameService.currentFileName.subscribe(value => this.fileName = value);
   }
 
+  ngAfterViewInit(): void {
+    this.fileNameControls.changes.subscribe(() => {
+      if (this.fileNameControls.length > 0) {
+        this.fileNameControls.first.nativeElement.focus();
+      }
+    });
+  }
+
   onFileNameClick(event: any) {
     event.preventDefault();
     this.editing = true;
     this.editFileName = this.fileName;
-    setTimeout(() => this.fileNameControl.nativeElement.focus());
+    // this.fileNameControl.nativeElement.focus();
+    // setTimeout(() => this.fileNameControl.nativeElement.focus());
   }
 
   onFileNameControlKeyUp(event: any) {
