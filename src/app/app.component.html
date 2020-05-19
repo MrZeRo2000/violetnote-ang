@@ -14,6 +14,10 @@
     </div>
   </div>
 
+  <div class="container">
+    <app-message messageSource="Critical"></app-message>
+  </div>
+
   <div class="container-fluid mb-2">
     <app-exit *ngIf="passDataService.isPassData()"></app-exit>
     <app-search *ngIf="passDataService.isPassData()"></app-search>

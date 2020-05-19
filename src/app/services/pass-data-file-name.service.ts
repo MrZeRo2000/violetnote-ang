@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {PassDataFileInfo} from '../model/pass-data-file-info';
 import {RestDataSourceService} from '../data-source/rest-data-source.service';
 import {HttpResponse} from '@angular/common/http';
 import {PassDataFileRequest} from '../model/pass-data-file-request';
+import {Message, MessagesService, MessageType} from '../messages/messages.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class PassDataFileNameService {
 
   passDataFileInfo: PassDataFileInfo = null;
 
-  constructor(private dataSource: RestDataSourceService) {
+  constructor(private dataSource: RestDataSourceService, private messagesService: MessagesService) {
     this.setFileName(this.getLocalFileName());
   }
 
@@ -71,6 +72,14 @@ export class PassDataFileNameService {
       error => {
         this.loading = false;
         this.setPassDataFileInfo(null);
+        this.messagesService.reportMessage(
+          new Message(
+            MessageType.MT_ERROR,
+            'Error reading file name info:' + error.message,
+            false,
+            'Critical'
+            )
+        );
       }
     );
   }
