@@ -1,23 +1,46 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { PassDataService } from './pass-data.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {DataSourceModule} from '../data-source/data-source.module';
+import {AppConfigModule} from '../app-config/app-config.module';
+import {AuthService} from './auth.service';
 
 describe('PassDataService', () => {
+  let service: PassDataService;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PassDataService]
+      imports: [
+        HttpClientTestingModule,
+        DataSourceModule,
+        AppConfigModule
+      ], providers: [
+        AuthService
+      ]
     });
+    service = TestBed.inject(PassDataService);
   });
 
-  it('should be created', inject([PassDataService], (service: PassDataService) => {
+  it('should be created', () => {
     expect(service).toBeTruthy();
-  }));
+  });
 });
 
 describe('PassDataService operations', () => {
   let service: PassDataService;
   beforeEach(() => {
-    service = new PassDataService();
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule,
+        DataSourceModule,
+        AppConfigModule
+      ], providers: [
+        AuthService
+      ]
+    });
+    service = TestBed.inject(PassDataService);
+
     service.setPassData({
       passCategoryList: [
         {categoryName: 'PINS'},

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PassNoteViewComponent } from './pass-note-view.component';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {BsModalRef, BsModalService, ModalModule} from 'ngx-bootstrap';
 import {PassDataService} from '../services/pass-data.service';
 import {Injectable} from '@angular/core';
 import {PassCategory} from '../model/pass-category';

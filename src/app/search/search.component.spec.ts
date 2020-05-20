@@ -4,6 +4,9 @@ import {SearchComponent } from './search.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormsModule} from '@angular/forms';
 import {TypeaheadModule} from 'ngx-bootstrap';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {DataSourceModule} from '../data-source/data-source.module';
+import {AppConfigModule} from '../app-config/app-config.module';
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -15,7 +18,10 @@ describe('SearchComponent', () => {
       imports: [
         FormsModule,
         RouterTestingModule,
-        TypeaheadModule.forRoot()
+        TypeaheadModule.forRoot(),
+        HttpClientTestingModule,
+        DataSourceModule,
+        AppConfigModule
       ]
     })
     .compileComponents();

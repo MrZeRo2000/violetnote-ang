@@ -10,6 +10,10 @@ import {PassNoteComponent} from '../pass-note/pass-note.component';
 import {PassCategoryComponent} from '../pass-category/pass-category.component';
 import {BsModalService, PaginationComponent} from 'ngx-bootstrap';
 import {Injectable} from '@angular/core';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {DataSourceModule} from '../data-source/data-source.module';
+import {AppConfigModule} from '../app-config/app-config.module';
+import {AuthService} from '../services/auth.service';
 
 // https://github.com/jasmine/jasmine/issues/1523
 /*
@@ -23,25 +27,10 @@ class MockModalService {
   public hide(): void { }
 }
 
-@Injectable()
-class MockPassDataService extends PassDataService {
-  constructor() {
-    super();
-    this.setPassData({
-      passCategoryList: [{categoryName: 'TestCategoryName'}],
-      passNoteList: [{
-        passCategory: {categoryName: 'TestCategoryName'},
-        system: 'System',
-        user: 'User',
-        custom: 'Custom'
-      }]
-    });
-  }
-}
-
 describe('SearchNotesComponent', () => {
   let component: SearchNotesComponent;
   let fixture: ComponentFixture<SearchNotesComponent>;
+  let service: PassDataService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -53,14 +42,27 @@ describe('SearchNotesComponent', () => {
         RouterTestingModule.withRoutes([
           { path: 'password', component: PasswordComponent },
           { path: 'main', component: PassDataComponent}
-        ])
+        ]),
+        HttpClientTestingModule,
+        DataSourceModule,
+        AppConfigModule
       ],
       providers: [
-        {provide: BsModalService, useClass: MockModalService},
-        {provide: PassDataService, useClass: MockPassDataService}
+        AuthService,
+        {provide: BsModalService, useClass: MockModalService}
       ]
     })
     .compileComponents();
+    service = TestBed.inject(PassDataService);
+    service.setPassData({
+      passCategoryList: [{categoryName: 'TestCategoryName'}],
+      passNoteList: [{
+        passCategory: {categoryName: 'TestCategoryName'},
+        system: 'System',
+        user: 'User',
+        custom: 'Custom'
+      }]
+    });
   }));
 
   beforeEach(() => {

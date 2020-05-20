@@ -1,38 +1,30 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {BsModalService, PaginationComponent, PaginationConfig} from 'ngx-bootstrap';
+import {ModalModule, PaginationComponent, PaginationConfig} from 'ngx-bootstrap';
 import {FormsModule} from '@angular/forms';
 import { PassNoteComponent } from './pass-note.component';
 import {PassDataService} from '../services/pass-data.service';
-import {Injectable} from '@angular/core';
-
-
-class MockModalService {
-  public hide(): void { }
-}
-
-@Injectable()
-class MockPassDataService extends PassDataService {
-  constructor() {
-    super();
-    this.setPassData({
-      passCategoryList: [{categoryName: 'TestCategoryName'}],
-      passNoteList: [{passCategory: {categoryName: 'TestCategoryName'}, user: 'TestUser', system: 'TestSystem'}]
-    });
-  }
-}
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {DataSourceModule} from '../data-source/data-source.module';
+import {AppConfigModule} from '../app-config/app-config.module';
+import {AuthService} from '../services/auth.service';
 
 describe('PassNoteComponent', () => {
   let component: PassNoteComponent;
   let fixture: ComponentFixture<PassNoteComponent>;
+  let service: PassDataService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PassNoteComponent, PaginationComponent ],
-      imports: [FormsModule],
+      imports: [
+        FormsModule,
+        HttpClientTestingModule,
+        ModalModule.forRoot(),
+        DataSourceModule,
+        AppConfigModule
+      ],
       providers: [
-        {provide: BsModalService, useClass: MockModalService},
-        {provide: PassDataService, useClass: MockPassDataService},
         {provide: PaginationConfig, useValue: {
           boundaryLinks: true,
             firstText: 'First',
@@ -40,10 +32,16 @@ describe('PassNoteComponent', () => {
             nextText: '&rsaquo;',
             lastText: 'Last',
             maxSize: 1 }
-        }
+        },
+        AuthService
       ]
     })
     .compileComponents();
+    service = TestBed.inject(PassDataService);
+    service.setPassData({
+      passCategoryList: [{categoryName: 'TestCategoryName'}],
+      passNoteList: [{passCategory: {categoryName: 'TestCategoryName'}, user: 'TestUser', system: 'TestSystem'}]
+    });
   }));
 
   beforeEach(() => {

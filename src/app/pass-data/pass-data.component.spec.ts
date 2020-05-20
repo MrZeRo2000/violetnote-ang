@@ -7,6 +7,8 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormsModule} from '@angular/forms';
 import {PaginationComponent} from 'ngx-bootstrap';
+import {DataSourceModule} from '../data-source/data-source.module';
+import {AppConfigModule} from '../app-config/app-config.module';
 
 describe('PassDataComponent', () => {
   let component: PassDataComponent;
@@ -18,7 +20,10 @@ describe('PassDataComponent', () => {
       imports: [
         FormsModule,
         RouterTestingModule,
-        HttpClientTestingModule]
+        HttpClientTestingModule,
+        DataSourceModule,
+        AppConfigModule
+      ]
     })
     .compileComponents();
   }));

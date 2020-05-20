@@ -1,37 +1,97 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {PassData} from '../model/pass-data';
 import {PassCategory} from '../model/pass-category';
 import {PassNote} from '../model/pass-note';
-import {BehaviorSubject, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {PassDataFileNameService} from './pass-data-file-name.service';
+import {RestDataSourceService} from '../data-source/rest-data-source.service';
+
+import {HttpResponse} from '@angular/common/http';
+import {AuthService} from './auth.service';
+import {Message, MessagesService, MessageType} from '../messages/messages.service';
+import {PassDataGetRequest} from '../model/pass-data-get-request';
+import {PassDataFileInfo} from '../model/pass-data-file-info';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PassDataService {
   private passData: PassData = null;
+  private passDataFileInfo: PassDataFileInfo = null;
   private selectedPassCategory: PassCategory = null;
 
   currentPassData: Subject<PassData> = new BehaviorSubject<PassData>(null);
   currentPassCategory: Subject<PassCategory> = new BehaviorSubject<PassCategory>(null);
   currentSearchStrings: Subject<Array<string>> = new BehaviorSubject<Array<string>>(null);
 
-  constructor() {}
+  constructor(
+    private dataSource: RestDataSourceService,
+    private passDataFileNameService: PassDataFileNameService,
+    private authService: AuthService,
+    private messagesService: MessagesService
+    ) {
+    this.passDataFileNameService.currentPassDataFileInfo.subscribe(value => {
+      this.passDataFileInfo = value;
+      this.setPassData(null);
+    });
+  }
 
   public setPassData(passData) {
-    this.passData = new PassData(passData);
+    if (passData) {
+      this.passData = new PassData(passData);
+      this.setSelectedPassCategory(this.passData.passCategoryList[0]);
+      this.currentSearchStrings.next(this.getSearchStrings());
+    } else {
+      this.passData = null;
+      this.setSelectedPassCategory(null);
+      this.currentSearchStrings.next(null);
+    }
     this.currentPassData.next(passData);
-    this.setSelectedPassCategory(this.passData.passCategoryList[0]);
-    this.currentSearchStrings.next(this.getSearchStrings());
   }
 
   public clearPassData() {
-    this.passData = null;
-    this.setSelectedPassCategory(null);
-    this.currentSearchStrings.next(null);
+    this.setPassData(null);
   }
 
-  public isPassData() {
-    return this.passData != null;
+  private requestPassData(): Observable<HttpResponse<any>> {
+    return this.dataSource.postResponse('',
+      new PassDataGetRequest(this.passDataFileInfo.name, this.authService.getPassword())
+      );
+  }
+
+  private reportLoadErrorMessage(message: string) {
+    this.messagesService.reportMessage(
+      new Message(
+        MessageType.MT_ERROR,
+        message,
+        true,
+        'PassData'
+      )
+    );
+  }
+
+  private clearLoadErrorMessage() {
+    this.messagesService.reportMessage(null);
+  }
+
+  public loadPassData() {
+    this.clearLoadErrorMessage();
+    this.clearPassData();
+
+    this.requestPassData().subscribe(data => {
+      if (data.body.errorMessage) {
+        this.reportLoadErrorMessage(data.body.errorMessage);
+      } else {
+        this.setPassData(data.body);
+      }
+    }, error =>  {
+      this.reportLoadErrorMessage(error.message);
+    });
+
+  }
+
+  public isPassData(): boolean {
+    return !!this.passData;
   }
 
   public getSelectedPassCategory() {

@@ -32,6 +32,7 @@ export class PassDataFileNameService {
   private setPassDataFileInfo(value: PassDataFileInfo): void {
     this.passDataFileInfo = value;
     this.currentPassDataFileInfo.next(this.passDataFileInfo);
+    this.messagesService.reportMessage(null);
   }
 
   public updateFileName(value: string): void {
