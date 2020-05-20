@@ -11,6 +11,7 @@ import {AuthService} from './auth.service';
 import {Message, MessagesService, MessageType} from '../messages/messages.service';
 import {PassDataGetRequest} from '../model/pass-data-get-request';
 import {PassDataFileInfo} from '../model/pass-data-file-info';
+import set = Reflect.set;
 
 @Injectable({
   providedIn: 'root'
@@ -76,18 +77,19 @@ export class PassDataService {
 
   public loadPassData() {
     this.clearLoadErrorMessage();
-    this.clearPassData();
+    // this.clearPassData();
 
     this.requestPassData().subscribe(data => {
       if (data.body.errorMessage) {
         this.reportLoadErrorMessage(data.body.errorMessage);
+        this.clearPassData();
       } else {
         this.setPassData(data.body);
       }
-    }, error =>  {
+    }, error => {
       this.reportLoadErrorMessage(error.message);
+      this.clearPassData();
     });
-
   }
 
   public isPassData(): boolean {

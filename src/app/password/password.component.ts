@@ -6,6 +6,7 @@ import {PassDataFileInfo} from '../model/pass-data-file-info';
 import {PassDataFileNameService} from '../services/pass-data-file-name.service';
 import {PassDataService} from '../services/pass-data.service';
 import {Subscription} from 'rxjs';
+import set = Reflect.set;
 
 @Component({
   selector: 'app-password',
@@ -79,7 +80,6 @@ export class PasswordComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSubmitPassword() {
-    this.loading = true;
     this.submitPassword(this.inputPassword);
   }
 
@@ -90,6 +90,7 @@ export class PasswordComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private submitPassword(password: string) {
+    this.loading = true;
     this.authService.setPassword(password);
     this.passDataService.loadPassData();
   }
