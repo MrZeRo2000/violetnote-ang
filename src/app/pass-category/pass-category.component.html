@@ -1,6 +1,6 @@
 <div class="list-group">
   <a href="#"
-     class="list-group-item"
+     class="list-group-item list-group-item-action"
      *ngFor="let passCategory of passData.passCategoryList"
      [ngClass] = "{'active': passCategory==selectedPassCategory}"
      (click)="onPassCategoryClick($event, passCategory)"
