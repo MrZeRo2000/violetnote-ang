@@ -29,7 +29,7 @@ export class PassDataService {
   currentPassData: BehaviorSubject<PassData> = new BehaviorSubject<PassData>(null);
   currentPassCategory: BehaviorSubject<PassCategory> = new BehaviorSubject<PassCategory>(null);
   currentSearchStrings: Subject<Array<string>> = new BehaviorSubject<Array<string>>(null);
-  currentOperationMode: Subject<OperationMode> = new BehaviorSubject<OperationMode>(null);
+  currentOperationMode: BehaviorSubject<OperationMode> = new BehaviorSubject<OperationMode>(null);
   currentPassDataDirty: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(

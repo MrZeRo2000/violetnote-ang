@@ -30,6 +30,7 @@ import {AppConfigModule} from './app-config/app-config.module';
 import {DataSourceModule} from './data-source/data-source.module';
 import {MessagesModule} from './messages/messages.module';
 import { OperationControlComponent } from './operation-control/operation-control.component';
+import { EditPanelComponent } from './edit-panel/edit-panel.component';
 
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
@@ -59,7 +60,8 @@ const appRoutes: Routes = [
     ExitComponent,
     SearchNotesComponent,
     PassDataFileNameComponent,
-    OperationControlComponent
+    OperationControlComponent,
+    EditPanelComponent
   ],
   // modal component not directly referenced in templates
   entryComponents: [
@@ -70,7 +72,7 @@ const appRoutes: Routes = [
     ModalModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,
-      {enableTracing: true, useHash: true}
+      {enableTracing: false, useHash: true}
     ),
     PaginationModule.forRoot(),
     TypeaheadModule.forRoot(),
