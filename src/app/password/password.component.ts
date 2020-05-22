@@ -1,12 +1,10 @@
-import {Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, ViewChildren, QueryList, OnDestroy} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
-import {PassDataFileInfoService} from '../services/pass-data-file-info.service';
 import {PassDataFileInfo} from '../model/pass-data-file-info';
 import {PassDataFileNameService} from '../services/pass-data-file-name.service';
-import {PassDataService} from '../services/pass-data.service';
+import {OperationMode, PassDataService} from '../services/pass-data.service';
 import {Subscription} from 'rxjs';
-import set = Reflect.set;
 
 @Component({
   selector: 'app-password',
@@ -14,7 +12,11 @@ import set = Reflect.set;
   styleUrls: ['./password.component.scss']
 })
 export class PasswordComponent implements OnInit, AfterViewInit, OnDestroy {
+  OperationMode = OperationMode;
+
   @Input() inputPassword: string;
+
+  @Input() operationMode: OperationMode = OperationMode.OM_VIEW;
 
   @ViewChild('password') passwordElement: ElementRef;
   @ViewChildren('password') passwordElements: QueryList<ElementRef>;
@@ -89,9 +91,18 @@ export class PasswordComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  private getOperationMode(): OperationMode {
+    if (this.passDataFileInfo.exists) {
+      return this.operationMode;
+    } else {
+      return OperationMode.OM_NEW;
+    }
+  }
+
   private submitPassword(password: string) {
     this.loading = true;
     this.authService.setPassword(password);
+    this.passDataService.setOperationMode(this.getOperationMode());
     this.passDataService.loadPassData();
   }
 }

@@ -12,7 +12,6 @@ export class AuthService {
   constructor() { }
 
   public setPassword(password: string) {
-    console.log('Set password as ' + password);
     this.password = password;
 
     if (this.resetTimeOut) {

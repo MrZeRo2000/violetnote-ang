@@ -13,17 +13,26 @@ import {PassDataGetRequest} from '../model/pass-data-get-request';
 import {PassDataFileInfo} from '../model/pass-data-file-info';
 import set = Reflect.set;
 
+export enum OperationMode {
+  OM_VIEW,
+  OM_EDIT,
+  OM_NEW
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class PassDataService {
   private passData: PassData = null;
   private passDataFileInfo: PassDataFileInfo = null;
+
   private selectedPassCategory: PassCategory = null;
+  private operationMode: OperationMode;
 
   currentPassData: Subject<PassData> = new BehaviorSubject<PassData>(null);
   currentPassCategory: Subject<PassCategory> = new BehaviorSubject<PassCategory>(null);
   currentSearchStrings: Subject<Array<string>> = new BehaviorSubject<Array<string>>(null);
+  currentOperationMode: Subject<OperationMode> = new BehaviorSubject<OperationMode>(null);
 
   constructor(
     private dataSource: RestDataSourceService,
@@ -48,6 +57,7 @@ export class PassDataService {
       this.currentSearchStrings.next(null);
     }
     this.currentPassData.next(passData);
+    console.log('operation mode:' + this.operationMode);
   }
 
   public clearPassData() {
@@ -103,6 +113,11 @@ export class PassDataService {
   public setSelectedPassCategory(passCategory: PassCategory) {
     this.selectedPassCategory = passCategory;
     this.currentPassCategory.next(passCategory);
+  }
+
+  public setOperationMode(operationMode: OperationMode) {
+    this.operationMode = operationMode;
+    this.currentOperationMode.next(operationMode);
   }
 
   public getPassData() {
