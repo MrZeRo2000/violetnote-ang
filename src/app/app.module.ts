@@ -29,6 +29,7 @@ import { PassDataFileNameComponent } from './pass-data-file-name/pass-data-file-
 import {AppConfigModule} from './app-config/app-config.module';
 import {DataSourceModule} from './data-source/data-source.module';
 import {MessagesModule} from './messages/messages.module';
+import { OperationControlComponent } from './operation-control/operation-control.component';
 
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
@@ -57,7 +58,8 @@ const appRoutes: Routes = [
     SearchComponent,
     ExitComponent,
     SearchNotesComponent,
-    PassDataFileNameComponent
+    PassDataFileNameComponent,
+    OperationControlComponent
   ],
   // modal component not directly referenced in templates
   entryComponents: [

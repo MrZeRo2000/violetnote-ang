@@ -19,7 +19,10 @@
   </div>
 
   <div class="container-fluid mb-2">
+    <app-operation-control *ngIf="passDataService.isPassData()"></app-operation-control>
+    <!--
     <app-exit *ngIf="passDataService.isPassData()"></app-exit>
+    -->
     <app-search *ngIf="passDataService.isPassData()"></app-search>
   </div>
 
