@@ -50,14 +50,17 @@ export class PassDataService {
     if (passData) {
       this.passData = new PassData(passData);
       this.setSelectedPassCategory(this.passData.passCategoryList[0]);
+
       this.currentSearchStrings.next(this.getSearchStrings());
+      this.currentPassData.next(passData);
+      this.currentOperationMode.next(this.operationMode);
     } else {
       this.passData = null;
       this.setSelectedPassCategory(null);
+
       this.currentSearchStrings.next(null);
+      this.currentPassData.next(null);
     }
-    this.currentPassData.next(passData);
-    console.log('operation mode:' + this.operationMode);
   }
 
   public clearPassData() {
@@ -117,7 +120,6 @@ export class PassDataService {
 
   public setOperationMode(operationMode: OperationMode) {
     this.operationMode = operationMode;
-    this.currentOperationMode.next(operationMode);
   }
 
   public getPassData() {
