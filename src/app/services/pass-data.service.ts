@@ -11,7 +11,6 @@ import {AuthService} from './auth.service';
 import {Message, MessagesService, MessageType} from '../messages/messages.service';
 import {PassDataGetRequest} from '../model/pass-data-get-request';
 import {PassDataFileInfo} from '../model/pass-data-file-info';
-import set = Reflect.set;
 
 export enum OperationMode {
   OM_VIEW,
@@ -23,16 +22,15 @@ export enum OperationMode {
   providedIn: 'root'
 })
 export class PassDataService {
-  private passData: PassData = null;
   private passDataFileInfo: PassDataFileInfo = null;
 
-  private selectedPassCategory: PassCategory = null;
   private operationMode: OperationMode;
 
-  currentPassData: Subject<PassData> = new BehaviorSubject<PassData>(null);
-  currentPassCategory: Subject<PassCategory> = new BehaviorSubject<PassCategory>(null);
+  currentPassData: BehaviorSubject<PassData> = new BehaviorSubject<PassData>(null);
+  currentPassCategory: BehaviorSubject<PassCategory> = new BehaviorSubject<PassCategory>(null);
   currentSearchStrings: Subject<Array<string>> = new BehaviorSubject<Array<string>>(null);
   currentOperationMode: Subject<OperationMode> = new BehaviorSubject<OperationMode>(null);
+  currentPassDataDirty: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     private dataSource: RestDataSourceService,
@@ -46,21 +44,22 @@ export class PassDataService {
     });
   }
 
-  public setPassData(passData) {
-    if (passData) {
-      this.passData = new PassData(passData);
-      this.setSelectedPassCategory(this.passData.passCategoryList[0]);
+  public setPassData(value) {
+    if (value) {
+      const passData = new PassData(value);
 
-      this.currentSearchStrings.next(this.getSearchStrings());
       this.currentPassData.next(passData);
       this.currentOperationMode.next(this.operationMode);
-    } else {
-      this.passData = null;
-      this.setSelectedPassCategory(null);
 
+      this.setSelectedPassCategory(passData.passCategoryList[0]);
+      this.currentSearchStrings.next(this.getSearchStrings());
+    } else {
       this.currentSearchStrings.next(null);
       this.currentPassData.next(null);
+
+      this.setSelectedPassCategory(null);
     }
+    this.currentPassDataDirty.next(false);
   }
 
   public clearPassData() {
@@ -106,15 +105,14 @@ export class PassDataService {
   }
 
   public isPassData(): boolean {
-    return !!this.passData;
+    return !!this.currentPassData.getValue();
   }
 
   public getSelectedPassCategory() {
-    return this.selectedPassCategory;
+    return this.currentPassCategory.getValue();
   }
 
   public setSelectedPassCategory(passCategory: PassCategory) {
-    this.selectedPassCategory = passCategory;
     this.currentPassCategory.next(passCategory);
   }
 
@@ -123,12 +121,12 @@ export class PassDataService {
   }
 
   public getPassData() {
-    return this.passData;
+    return this.currentPassData.getValue();
   }
 
   public getPassNotes() {
     return this.getPassData() ? this.getPassData().passNoteList.filter(
-      (note) => note.passCategory.categoryName === this.selectedPassCategory.categoryName
+      (note) => note.passCategory.categoryName === this.getSelectedPassCategory().categoryName
     ) : [];
   }
 

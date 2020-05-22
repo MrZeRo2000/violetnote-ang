@@ -1,9 +1,9 @@
 <div class="mb-2" >
-  <button type="button" class="btn btn-outline-primary" (click)="onSaveButtonClick($event)">
-    <i class="fa fa-save"></i>Save
+  <button type="button" class="btn btn-outline-primary mr-2" (click)="onSaveButtonClick($event)" *ngIf="passDataDirty">
+    <i class="fa fa-save"></i> Save
   </button>
-  <button type="button" class="btn btn-outline-primary ml-2" (click)="onExitButtonClick($event)">
-    <i class="fa fa-sign-out-alt"></i>Exit
+  <button type="button" class="btn btn-outline-primary" (click)="onExitButtonClick($event)">
+    <i class="fa fa-sign-out-alt"></i> Exit
   </button>
 </div>
 

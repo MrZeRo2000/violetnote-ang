@@ -1,7 +1,7 @@
-import {ElementRef, Component, Input, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import {ElementRef, Component, Input, OnInit, ViewChild, AfterViewInit, OnDestroy} from '@angular/core';
 import {NavigationEnd, Router, RouterEvent} from '@angular/router';
 import {PassDataService} from '../services/pass-data.service';
-import {BehaviorSubject, Subject} from 'rxjs';
+import {BehaviorSubject, Subject, Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
 
 @Component({
@@ -9,16 +9,22 @@ import {filter} from 'rxjs/operators';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit, AfterViewInit  {
+export class SearchComponent implements OnInit, AfterViewInit, OnDestroy  {
   @Input() inputSearch: string;
   @ViewChild('search', { static: true }) inputSearchElement: ElementRef;
+
   isValidSearch = true;
   isFocusRequired = false;
   searchStrings: string[];
 
+  private passDataSubscription: Subscription;
+  private searchStringsSubscription: Subscription;
+
   constructor(private router: Router, passDataService: PassDataService) {
-    passDataService.currentPassData.subscribe(() => this.currentPassDataChanged());
-    passDataService.currentSearchStrings.subscribe((searchStrings) => this.setSearchStrings(searchStrings))
+    this.passDataSubscription =
+      passDataService.currentPassData.subscribe(() => this.currentPassDataChanged());
+    this.searchStringsSubscription =
+      passDataService.currentSearchStrings.subscribe((searchStrings) => this.setSearchStrings(searchStrings));
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd)
     ).subscribe(e => {if ((e as NavigationEnd).url === '/main') {this.requireFocus(); }});
@@ -40,6 +46,11 @@ export class SearchComponent implements OnInit, AfterViewInit  {
       this.inputSearchElement.nativeElement.focus();
       this.isFocusRequired = false;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.passDataSubscription.unsubscribe();
+    this.searchStringsSubscription.unsubscribe();
   }
 
   private currentPassDataChanged() {
