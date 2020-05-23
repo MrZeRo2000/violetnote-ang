@@ -19,6 +19,9 @@ export class EditPanelComponent implements OnInit {
   @Input()
   selectedItem: any;
 
+  @Input()
+  disableDelete: boolean;
+
   @Output()
   editButtonClick: EventEmitter<EditButtonType> = new EventEmitter<EditButtonType>();
 

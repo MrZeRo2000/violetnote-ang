@@ -28,6 +28,7 @@ export class PassNoteComponent implements OnInit {
   constructor(public passDataService: PassDataService, private modalService: BsModalService) { }
 
   private passCategoryChanged() {
+    console.log(`PassNote: category changed`);
     setTimeout(() => {
       this.pagerStatus.currentPage = 1;
     }, 0);

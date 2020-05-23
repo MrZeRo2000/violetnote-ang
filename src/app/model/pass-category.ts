@@ -1,3 +1,3 @@
 export class PassCategory {
-  categoryName: string;
+  constructor(public categoryName: string) { }
 }

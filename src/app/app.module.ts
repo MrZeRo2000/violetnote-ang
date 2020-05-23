@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 // added for data binding to work
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // for Http
 import {HttpClientModule} from '@angular/common/http';
 // for modal, typeahead
@@ -31,6 +31,9 @@ import {DataSourceModule} from './data-source/data-source.module';
 import {MessagesModule} from './messages/messages.module';
 import { OperationControlComponent } from './operation-control/operation-control.component';
 import { EditPanelComponent } from './edit-panel/edit-panel.component';
+import { PassCategoryEditComponent } from './pass-category-edit/pass-category-edit.component';
+import { InitFocusDirective } from './directives/init-focus.directive';
+import {ConfirmationModalDialogComponent} from './confirmation-modal-dialog/confirmation-modal-dialog.component';
 
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
@@ -61,29 +64,32 @@ const appRoutes: Routes = [
     SearchNotesComponent,
     PassDataFileNameComponent,
     OperationControlComponent,
-    EditPanelComponent
+    EditPanelComponent,
+    PassCategoryEditComponent,
+    InitFocusDirective,
+    ConfirmationModalDialogComponent
   ],
   // modal component not directly referenced in templates
   entryComponents: [
     PassNoteViewComponent
   ],
-  imports: [
-    BrowserModule, FormsModule, HttpClientModule,
-    ModalModule.forRoot(),
-    RouterModule.forRoot(
-      appRoutes,
-      {enableTracing: false, useHash: true}
-    ),
-    PaginationModule.forRoot(),
-    TypeaheadModule.forRoot(),
-    BrowserAnimationsModule,
-    // load configuration support
-    AppConfigModule,
-    // data source
-    DataSourceModule,
-    // messages
-    MessagesModule
-  ],
+    imports: [
+        BrowserModule, FormsModule, HttpClientModule,
+        ModalModule.forRoot(),
+        RouterModule.forRoot(
+            appRoutes,
+            {enableTracing: false, useHash: true}
+        ),
+        PaginationModule.forRoot(),
+        TypeaheadModule.forRoot(),
+        BrowserAnimationsModule,
+        // load configuration support
+        AppConfigModule,
+        // data source
+        DataSourceModule,
+        // messages
+        MessagesModule, ReactiveFormsModule
+    ],
   providers: [
     AuthService,
     PassDataService,

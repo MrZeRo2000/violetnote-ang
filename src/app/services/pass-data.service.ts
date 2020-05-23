@@ -32,6 +32,8 @@ export class PassDataService {
   currentOperationMode: BehaviorSubject<OperationMode> = new BehaviorSubject<OperationMode>(null);
   currentPassDataDirty: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  selectedNotes: PassNote[] = [];
+
   constructor(
     private dataSource: RestDataSourceService,
     private passDataFileNameService: PassDataFileNameService,
@@ -113,6 +115,11 @@ export class PassDataService {
   }
 
   public setSelectedPassCategory(passCategory: PassCategory) {
+    console.log(`Selected ${JSON.stringify(passCategory)}`);
+    this.selectedNotes = this.getPassData() && passCategory ? this.getPassData().passNoteList.filter(
+      (note) => note.passCategory.categoryName === passCategory.categoryName
+    ) : [];
+    console.log(`Selected Notes: ${JSON.stringify(this.selectedNotes)}`);
     this.currentPassCategory.next(passCategory);
   }
 
@@ -125,9 +132,7 @@ export class PassDataService {
   }
 
   public getPassNotes() {
-    return this.getPassData() ? this.getPassData().passNoteList.filter(
-      (note) => note.passCategory.categoryName === this.getSelectedPassCategory().categoryName
-    ) : [];
+    return this.selectedNotes;
   }
 
   public getSearchPassNotes(searchString: string): Array<PassNote>  {

@@ -8,6 +8,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
+import {ModalModule} from 'ngx-bootstrap';
 
 describe('PassCategoryComponent', () => {
   let component: PassCategoryComponent;
@@ -20,6 +21,7 @@ describe('PassCategoryComponent', () => {
       imports: [
         FormsModule,
         HttpClientTestingModule,
+        ModalModule.forRoot(),
         DataSourceModule,
         AppConfigModule
       ],

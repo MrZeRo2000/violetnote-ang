@@ -6,7 +6,7 @@
   </div>
 
   <div class="d-inline" *ngIf="selectedItem">
-    <a href="#" class="btn btn-link" (click)="onButtonClick($event, EditButtonType.BT_DELETE)">
+    <a href="#" class="btn btn-link" [ngClass]="{'disabled': disableDelete}" (click)="onButtonClick($event, EditButtonType.BT_DELETE)">
       <i class="fa fa-trash"></i>
     </a>
   </div>
