@@ -1,18 +1,18 @@
 <div class="mb-1">
   <div class="d-inline">
-    <a href="#" class="btn btn-link" (click)="onAddClick($event)">
+    <a href="#" class="btn btn-link" (click)="onButtonClick($event, EditButtonType.BT_ADD)">
       <i class="fa fa-plus-circle"></i>
     </a>
   </div>
 
-  <div class="d-inline">
-    <a href="#" class="btn btn-link" (click)="onDeleteClick($event)">
+  <div class="d-inline" *ngIf="selectedItem">
+    <a href="#" class="btn btn-link" (click)="onButtonClick($event, EditButtonType.BT_DELETE)">
       <i class="fa fa-trash"></i>
     </a>
   </div>
 
-  <div class="d-inline">
-    <a href="#" class="btn btn-link" (click)="onEditClick($event)">
+  <div class="d-inline" *ngIf="selectedItem">
+    <a href="#" class="btn btn-link" (click)="onButtonClick($event, EditButtonType.BT_EDIT)">
       <i class="fa fa-pen"></i>
     </a>
   </div>

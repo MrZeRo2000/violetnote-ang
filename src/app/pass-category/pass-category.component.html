@@ -1,4 +1,4 @@
-<app-edit-panel *ngIf="editMode"></app-edit-panel>
+<app-edit-panel *ngIf="editMode" [selectedItem]="selectedPassCategory" (editButtonClick)="onEditButtonClick($event)"></app-edit-panel>
 
 <div class="list-group">
   <a href="#"

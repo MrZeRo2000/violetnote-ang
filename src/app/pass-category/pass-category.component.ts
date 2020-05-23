@@ -3,6 +3,7 @@ import {OperationMode, PassDataService} from '../services/pass-data.service';
 import {PassData} from '../model/pass-data';
 import {PassCategory} from '../model/pass-category';
 import {Subscription} from 'rxjs';
+import {EditButtonType} from '../edit-panel/edit-panel.component';
 
 @Component({
   selector: 'app-pass-category',
@@ -40,5 +41,10 @@ export class PassCategoryComponent implements OnInit, OnDestroy {
     event.preventDefault();
     this.passDataService.setSelectedPassCategory(passCategory);
   }
+
+  onEditButtonClick(event: EditButtonType) {
+    // console.log(`clicked: ${event}`);
+  }
+
 
 }
