@@ -195,4 +195,14 @@ export class PassDataService {
       this.selectFirstCategory();
     }
   }
+
+  public movePassCategory(fromIndex: number, toIndex: number): void {
+    if (fromIndex !== toIndex) {
+      const passCategoryList = this.getPassData().passCategoryList;
+      passCategoryList.splice(toIndex, 0, passCategoryList.splice(fromIndex, 1)[0]);
+
+      this.currentPassData.next(this.getPassData());
+      this.currentPassDataDirty.next(true);
+    }
+  }
 }

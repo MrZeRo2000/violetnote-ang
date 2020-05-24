@@ -61,6 +61,14 @@ export class PassCategoryComponent implements OnInit, OnDestroy {
     }
   }
 
+  onDrop(event: any): void {
+    const fromIndex = event.previousIndex;
+    const toIndex = event.currentIndex;
+    if (fromIndex !== toIndex) {
+      this.passDataService.movePassCategory(fromIndex, toIndex);
+    }
+  }
+
   private performEdit(editing: boolean): void {
     const result: Subject<PassCategory> = new Subject<PassCategory>();
     result.subscribe(value => {

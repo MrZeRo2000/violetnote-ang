@@ -10,6 +10,8 @@ import {ModalModule, PaginationModule, TypeaheadModule} from 'ngx-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
 // animation for typeahead
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// drag drop features for editing
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import { AppComponent } from './app.component';
 import { PasswordComponent } from './password/password.component';
@@ -73,23 +75,26 @@ const appRoutes: Routes = [
   entryComponents: [
     PassNoteViewComponent
   ],
-    imports: [
-        BrowserModule, FormsModule, HttpClientModule,
-        ModalModule.forRoot(),
-        RouterModule.forRoot(
-            appRoutes,
-            {enableTracing: false, useHash: true}
-        ),
-        PaginationModule.forRoot(),
-        TypeaheadModule.forRoot(),
-        BrowserAnimationsModule,
-        // load configuration support
-        AppConfigModule,
-        // data source
-        DataSourceModule,
-        // messages
-        MessagesModule, ReactiveFormsModule
-    ],
+  imports: [
+    BrowserModule,
+    DragDropModule,
+    FormsModule,
+    HttpClientModule,
+    ModalModule.forRoot(),
+    RouterModule.forRoot(
+        appRoutes,
+        {enableTracing: false, useHash: true}
+    ),
+    PaginationModule.forRoot(),
+    TypeaheadModule.forRoot(),
+    BrowserAnimationsModule,
+    // load configuration support
+    AppConfigModule,
+    // data source
+    DataSourceModule,
+    // messages
+    MessagesModule, ReactiveFormsModule
+  ],
   providers: [
     AuthService,
     PassDataService,
