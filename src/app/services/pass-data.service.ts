@@ -115,11 +115,9 @@ export class PassDataService {
   }
 
   public setSelectedPassCategory(passCategory: PassCategory) {
-    console.log(`Selected ${JSON.stringify(passCategory)}`);
     this.selectedNotes = this.getPassData() && passCategory ? this.getPassData().passNoteList.filter(
       (note) => note.passCategory.categoryName === passCategory.categoryName
     ) : [];
-    console.log(`Selected Notes: ${JSON.stringify(this.selectedNotes)}`);
     this.currentPassCategory.next(passCategory);
   }
 

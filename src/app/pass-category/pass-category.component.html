@@ -1,4 +1,9 @@
-<app-edit-panel *ngIf="editMode" [selectedItem]="selectedPassCategory" [disableDelete]="hasSelectedNotes" (editButtonClick)="onEditButtonClick($event)"></app-edit-panel>
+<app-edit-panel
+  *ngIf="editMode"
+  [selectedItem]="selectedPassCategory"
+  [disableDelete]="hasSelectedNotes"
+  (editButtonClick)="onEditButtonClick($event)"
+></app-edit-panel>
 
 <div class="list-group">
   <a href="#"

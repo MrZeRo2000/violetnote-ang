@@ -33,7 +33,6 @@ export class PassCategoryComponent implements OnInit, OnDestroy {
       passDataService.currentPassCategory.subscribe((passCategory) => {
         this.selectedPassCategory = passCategory;
         this.hasSelectedNotes = this.passDataService.getPassNotes().length > 0;
-        console.log(`Selected notes: ${this.hasSelectedNotes}`);
       });
     this.operationModeSubscription =
       passDataService.currentOperationMode.subscribe(value => this.editMode = value === OperationMode.OM_EDIT);
@@ -76,7 +75,7 @@ export class PassCategoryComponent implements OnInit, OnDestroy {
       this.passDataService.currentPassDataDirty.next(true);
     });
     const item = editing ? this.selectedPassCategory : null;
-    const initialState = {item, result};
+    const initialState = {item, items: this.passDataService.getPassData().passCategoryList, result};
 
     this.modalService.show(PassCategoryEditComponent, {initialState});
   }

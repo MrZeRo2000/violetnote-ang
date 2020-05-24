@@ -17,7 +17,8 @@
     >
 
     <div *ngIf="editForm.controls.name.errors && submitted" class="invalid-feedback">
-      <div *ngIf="editForm.controls.name.errors.required">Name should not be empty</div>
+      <div *ngIf="editForm.controls.name.errors.required">Category name should not be empty</div>
+      <div *ngIf="editForm.controls.name.errors.existingName">Category already exists</div>
     </div>
 
   </form>

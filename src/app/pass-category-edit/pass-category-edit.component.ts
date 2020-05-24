@@ -11,6 +11,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class PassCategoryEditComponent implements OnInit {
   item: PassCategory;
+  items: Array<PassCategory>;
   result: Subject<PassCategory>;
 
   confirmButtonText: string;
@@ -27,8 +28,33 @@ export class PassCategoryEditComponent implements OnInit {
     });
   }
 
+  private validateCreate(): void {
+    const nameDuplicates = this.items.filter(
+      (v) => v.categoryName === this.editForm.controls.name.value
+    );
+    if (nameDuplicates.length > 0) {
+      this.editForm.controls.name.setErrors({existingName: true});
+    }
+  }
+
+  private validateSave(): void {
+    const nameDuplicates = this.items.filter(
+      (v) =>
+        v.categoryName === this.editForm.controls.name.value && this.editForm.controls.name.value !== this.item.categoryName
+    );
+    if (nameDuplicates.length > 0) {
+      this.editForm.controls.name.setErrors({existingName: true});
+    }
+  }
+
   onConfirmClick() {
     this.submitted = true;
+
+    if (this.item) {
+      this.validateSave();
+    } else {
+      this.validateCreate();
+    }
 
     if (this.editForm.valid) {
       const resultItem = new PassCategory(this.editForm.value.name);
