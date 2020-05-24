@@ -65,14 +65,10 @@ export class PassCategoryComponent implements OnInit, OnDestroy {
     const result: Subject<PassCategory> = new Subject<PassCategory>();
     result.subscribe(value => {
       if (editing) {
-        this.passDataService.getPassNotes()
-          .filter(pn => pn.passCategory.categoryName === this.selectedPassCategory.categoryName)
-          .map(pn => pn.passCategory.categoryName = value.categoryName);
-        this.selectedPassCategory.categoryName = value.categoryName;
+        this.passDataService.updatePassCategory(value);
       } else {
-        this.passDataService.getPassData().passCategoryList.push(value);
+        this.passDataService.insertPassCategory(value);
       }
-      this.passDataService.currentPassDataDirty.next(true);
     });
     const item = editing ? this.selectedPassCategory : null;
     const initialState = {item, items: this.passDataService.getPassData().passCategoryList, result};
@@ -83,7 +79,7 @@ export class PassCategoryComponent implements OnInit, OnDestroy {
   private performDelete(): void {
     const result: Subject<PassCategory> = new Subject<PassCategory>();
     result.subscribe(value => {
-
+      this.passDataService.deletePassCategory(value);
     });
     const message = `<strong>${this.selectedPassCategory.categoryName}</strong> will be deleted. Are you sure?`;
     const initialState = {message, item: this.selectedPassCategory, result};

@@ -53,7 +53,7 @@ export class PassDataService {
       this.currentPassData.next(passData);
       this.currentOperationMode.next(this.operationMode);
 
-      this.setSelectedPassCategory(passData.passCategoryList[0]);
+      this.selectFirstCategory();
       this.currentSearchStrings.next(this.getSearchStrings());
     } else {
       this.currentSearchStrings.next(null);
@@ -62,6 +62,13 @@ export class PassDataService {
       this.setSelectedPassCategory(null);
     }
     this.currentPassDataDirty.next(false);
+  }
+
+  private selectFirstCategory(): void {
+    const passData = this.getPassData();
+    if (passData && passData.passCategoryList && passData.passCategoryList.length > 0) {
+      this.setSelectedPassCategory(passData.passCategoryList[0]);
+    }
   }
 
   public clearPassData() {
@@ -155,5 +162,37 @@ export class PassDataService {
       )
     );
     return items.sort();
+  }
+
+  public insertPassCategory(value: PassCategory): void {
+    this.getPassData().passCategoryList.push(value);
+    this.currentPassDataDirty.next(true);
+  }
+
+  public updatePassCategory(value: PassCategory): void {
+    // update category in notes
+    this.getPassNotes()
+      .map(pn => pn.passCategory.categoryName = value.categoryName);
+    // update category
+    this.currentPassCategory.getValue().categoryName = value.categoryName;
+
+    this.currentPassDataDirty.next(true);
+  }
+
+  public deletePassCategory(value: PassCategory): void {
+    // check if the category is empty
+    if (
+      this.getPassData().passNoteList
+        .filter(pn => pn.passCategory.categoryName === value.categoryName)
+        .length === 0
+    ) {
+
+      this.getPassData().passCategoryList =
+        this.getPassData().passCategoryList
+          .filter(pc => pc.categoryName !== value.categoryName);
+
+      this.currentPassData.next(this.getPassData());
+      this.selectFirstCategory();
+    }
   }
 }
