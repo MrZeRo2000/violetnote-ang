@@ -24,10 +24,9 @@ export enum OperationMode {
 export class PassDataService {
   private passDataFileInfo: PassDataFileInfo = null;
 
-  private operationMode: OperationMode;
-
   currentPassData: BehaviorSubject<PassData> = new BehaviorSubject<PassData>(null);
   currentPassCategory: BehaviorSubject<PassCategory> = new BehaviorSubject<PassCategory>(null);
+  currentPassNote: BehaviorSubject<PassNote> = new BehaviorSubject<PassNote>(null);
   currentSearchStrings: Subject<Array<string>> = new BehaviorSubject<Array<string>>(null);
   currentOperationMode: BehaviorSubject<OperationMode> = new BehaviorSubject<OperationMode>(null);
   currentPassDataDirty: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -51,7 +50,7 @@ export class PassDataService {
       const passData = new PassData(value);
 
       this.currentPassData.next(passData);
-      this.currentOperationMode.next(this.operationMode);
+      this.currentOperationMode.next(this.getOperationMode());
 
       this.selectFirstCategory();
       this.currentSearchStrings.next(this.getSearchStrings());
@@ -68,7 +67,12 @@ export class PassDataService {
     const passData = this.getPassData();
     if (passData && passData.passCategoryList && passData.passCategoryList.length > 0) {
       this.setSelectedPassCategory(passData.passCategoryList[0]);
+      this.clearNoteSelection();
     }
+  }
+
+  private clearNoteSelection(): void {
+    this.currentPassNote.next(null);
   }
 
   public clearPassData() {
@@ -126,10 +130,15 @@ export class PassDataService {
       (note) => note.passCategory.categoryName === passCategory.categoryName
     ) : [];
     this.currentPassCategory.next(passCategory);
+    this.clearNoteSelection();
+  }
+
+  public getOperationMode(): OperationMode {
+    return this.currentOperationMode.getValue();
   }
 
   public setOperationMode(operationMode: OperationMode) {
-    this.operationMode = operationMode;
+    this.currentOperationMode.next(operationMode);
   }
 
   public getPassData() {

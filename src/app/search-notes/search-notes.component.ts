@@ -1,24 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Route, Router} from '@angular/router';
-import {PassDataService} from '../services/pass-data.service';
+import {OperationMode, PassDataService} from '../services/pass-data.service';
 import {PassNote} from '../model/pass-note';
 import {BsModalRef, BsModalService, PageChangedEvent} from 'ngx-bootstrap';
 import {PassNoteViewComponent} from '../pass-note-view/pass-note-view.component';
 import {PagerHandler} from '../pager-handler';
 import {PagerStatus} from '../model/pager-status';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-search-notes',
   templateUrl: './search-notes.component.html',
   styleUrls: ['./search-notes.component.scss']
 })
-export class SearchNotesComponent implements OnInit {
+export class SearchNotesComponent implements OnInit, OnDestroy {
   bsModalRef: BsModalRef;
   searchText: string;
   maxPageSize = 8;
 
   private pagerHandler: PagerHandler<PassNote> = new PagerHandler<PassNote>(this.maxPageSize);
   pagerStatus: PagerStatus<PassNote>;
+
+  operationMode: OperationMode;
+  selectedPassNote: PassNote;
+
+  private activatedRouteParamsSubscription: Subscription;
+  private pagerStatusSubscription: Subscription;
+  private passNoteSubscription: Subscription;
 
   constructor(
     private router: Router,
@@ -27,13 +35,18 @@ export class SearchNotesComponent implements OnInit {
     private modalService: BsModalService
   ) {
     console.log('search-notes constructor');
-    activatedRoute.params.subscribe(
+    this.activatedRouteParamsSubscription = activatedRoute.params.subscribe(
       params => {
         this.searchText = params['text'];
         this.pagerHandler.setPageItems(this.passDataService.getSearchPassNotes(this.searchText));
-        this.pagerHandler.pagerStatusSubject.subscribe((pagerStatus) => {
+        this.pagerStatusSubscription = this.pagerHandler.pagerStatusSubject.subscribe((pagerStatus) => {
           this.pagerStatus = pagerStatus;
         });
+
+        this.passNoteSubscription = this.passDataService.currentPassNote.subscribe(pn => this.selectedPassNote = pn);
+        this.passDataService.currentOperationMode.subscribe(om => this.operationMode = om);
+
+        this.passDataService.currentPassNote.next(null);
       });
   }
 
@@ -43,16 +56,31 @@ export class SearchNotesComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    if (this.pagerStatusSubscription) {
+      this.pagerStatusSubscription.unsubscribe();
+    }
+    if (this.passNoteSubscription) {
+      this.passNoteSubscription.unsubscribe();
+    }
+    this.activatedRouteParamsSubscription.unsubscribe();
+  }
+
   onPassNoteClick(event, passNote: PassNote) {
-    const viewPassNote = new PassNote();
-    Object.assign(viewPassNote, passNote);
-    const initialState = {
-      passNote: viewPassNote
-    };
-    this.bsModalRef = this.modalService.show(PassNoteViewComponent, {initialState});
+    if (this.operationMode === OperationMode.OM_EDIT) {
+      this.passDataService.currentPassNote.next(passNote);
+    } else {
+      const viewPassNote = new PassNote();
+      Object.assign(viewPassNote, passNote);
+      const initialState = {
+        passNote: viewPassNote
+      };
+      this.bsModalRef = this.modalService.show(PassNoteViewComponent, {initialState});
+    }
   }
 
   searchInfoButtonClick(event) {
+    this.passDataService.currentPassNote.next(null);
     this.router.navigate(['main']);
   }
 
@@ -63,6 +91,7 @@ export class SearchNotesComponent implements OnInit {
 
   pageChanged(event: PageChangedEvent): void {
     this.pagerHandler.pageChanged(event.page, event.itemsPerPage);
+    this.passDataService.currentPassNote.next(null);
   }
 
 }

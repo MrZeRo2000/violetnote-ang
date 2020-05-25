@@ -5,7 +5,7 @@ export class PagerHandler<T> {
   private pagedItems: Array<T>;
   private pagerStatus: PagerStatus<T> = new PagerStatus<T>();
 
-  pagerStatusSubject: Subject<PagerStatus<T>> = new BehaviorSubject<PagerStatus<T>>(null);
+  pagerStatusSubject: BehaviorSubject<PagerStatus<T>> = new BehaviorSubject<PagerStatus<T>>(null);
 
   public setPageItems(items: Array<T>): void {
     this.pagedItems = items;
