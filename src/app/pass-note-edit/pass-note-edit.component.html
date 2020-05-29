@@ -1,0 +1,93 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Note</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-group" [formGroup]="editForm">
+
+    <label for="inputSystem"><strong>System</strong></label>
+    <input
+      #inputSystem type="text"
+      class="form-control"
+      [ngClass]="{'is-invalid': editForm.controls.system.errors && submitted}"
+      id="inputSystem"
+      formControlName="system"
+      appInitFocus
+    >
+
+    <label for="inputUser"><strong>User</strong></label>
+    <input
+      type="text"
+      class="form-control"
+      [ngClass]="{'is-invalid': editForm.controls.user.errors && submitted}"
+      id="inputUser"
+      formControlName="user"
+    >
+
+    <label for="inputPassword"><strong>Password</strong></label>
+    <input
+      type="text"
+      class="form-control"
+      [ngClass]="{'is-invalid': editForm.controls.password.errors && submitted}"
+      id="inputPassword"
+      formControlName="password"
+    >
+
+    <label for="inputPasswordRetype"><strong>Retype password</strong></label>
+    <input
+      type="password"
+      class="form-control"
+      id="inputPasswordRetype"
+      formControlName="passwordRetype"
+    >
+
+    <label for="inputComments">Comments</label>
+    <input
+      type="text"
+      class="form-control"
+      id="inputComments"
+      formControlName="comments"
+    >
+
+    <label for="inputCustom">Custom</label>
+    <input
+      type="text"
+      class="form-control"
+      id="inputCustom"
+      formControlName="custom"
+    >
+
+    <label for="inputInfo">Info</label>
+    <textarea
+      type="text"
+      class="form-control"
+      rows="6"
+      id="inputInfo"
+      formControlName="info"
+    >
+    </textarea>
+
+    <div *ngIf="editForm.controls.system.errors && submitted" class="invalid-feedback">
+      <div *ngIf="editForm.controls.system.errors.required">System should not be empty</div>
+    </div>
+
+    <div *ngIf="editForm.controls.user.errors && submitted" class="invalid-feedback">
+      <div *ngIf="editForm.controls.user.errors.required">User should not be empty</div>
+      <div *ngIf="editForm.controls.user.errors.existingUser">User for this system already exists</div>
+    </div>
+
+    <div *ngIf="editForm.controls.password.errors && submitted" class="invalid-feedback">
+      <div *ngIf="editForm.controls.password.errors.required">Password should not be empty</div>
+      <div *ngIf="editForm.controls.password.errors.passwordRetypeMismatch">Password retype mismatch</div>
+    </div>
+
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Cancel</button>
+  <button type="button" class="btn btn-primary" (click)="onConfirmClick()">{{confirmButtonText}}</button>
+</div>
+
+

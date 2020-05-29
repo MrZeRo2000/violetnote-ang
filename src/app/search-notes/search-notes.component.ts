@@ -70,8 +70,15 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
     if (this.operationMode === OperationMode.OM_EDIT) {
       this.passDataService.currentPassNote.next(passNote);
     } else {
-      const viewPassNote = new PassNote();
-      Object.assign(viewPassNote, passNote);
+      const viewPassNote = new PassNote(
+        passNote.passCategory,
+        passNote.system,
+        passNote.user,
+        passNote.password,
+        passNote.comments,
+        passNote.custom,
+        passNote.info
+      );
       const initialState = {
         passNote: viewPassNote
       };

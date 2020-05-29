@@ -36,6 +36,7 @@ import { EditPanelComponent } from './edit-panel/edit-panel.component';
 import { PassCategoryEditComponent } from './pass-category-edit/pass-category-edit.component';
 import { InitFocusDirective } from './directives/init-focus.directive';
 import {ConfirmationModalDialogComponent} from './confirmation-modal-dialog/confirmation-modal-dialog.component';
+import { PassNoteEditComponent } from './pass-note-edit/pass-note-edit.component';
 
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
@@ -69,7 +70,8 @@ const appRoutes: Routes = [
     EditPanelComponent,
     PassCategoryEditComponent,
     InitFocusDirective,
-    ConfirmationModalDialogComponent
+    ConfirmationModalDialogComponent,
+    PassNoteEditComponent
   ],
   // modal component not directly referenced in templates
   entryComponents: [

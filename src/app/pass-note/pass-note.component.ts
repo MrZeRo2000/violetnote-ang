@@ -7,8 +7,8 @@ import {PassNote} from '../model/pass-note';
 import {PagerHandler} from '../pager-handler';
 import {PagerStatus} from '../model/pager-status';
 import {Subject, Subscription} from 'rxjs';
-import {PassCategory} from '../model/pass-category';
 import {ConfirmationModalDialogComponent} from '../confirmation-modal-dialog/confirmation-modal-dialog.component';
+import {PassNoteEditComponent} from '../pass-note-edit/pass-note-edit.component';
 
 @Component({
   selector: 'app-pass-note',
@@ -60,8 +60,15 @@ export class PassNoteComponent implements OnInit, OnDestroy {
     if (this.editMode) {
      this.passDataService.currentPassNote.next(passNote);
     } else {
-      const viewPassNote = new PassNote();
-      Object.assign(viewPassNote, passNote);
+      const viewPassNote = new PassNote(
+        passNote.passCategory,
+        passNote.system,
+        passNote.user,
+        passNote.password,
+        passNote.comments,
+        passNote.custom,
+        passNote.info
+      );
       const initialState = {
         passNote: viewPassNote
       };
@@ -71,7 +78,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
 
   onEditButtonClick(event: EditButtonType) {
     if ([this.EditButtonType.BT_ADD, this.EditButtonType.BT_EDIT].includes(event)) {
-      // this.performEdit(event === EditButtonType.BT_EDIT);
+      this.performEdit(event === EditButtonType.BT_EDIT);
     } else if (event === this.EditButtonType.BT_DELETE) {
       this.performDelete();
     }
@@ -85,6 +92,26 @@ export class PassNoteComponent implements OnInit, OnDestroy {
   pageChanged(event: PageChangedEvent): void {
     this.pagerHandler.pageChanged(event.page, event.itemsPerPage);
     this.passDataService.currentPassNote.next(null);
+  }
+
+  private performEdit(editing: boolean): void {
+    const result: Subject<PassNote> = new Subject<PassNote>();
+    result.subscribe(value => {
+      if (editing) {
+        // this.passDataService.updatePassCategory(value);
+      } else {
+        // this.passDataService.insertPassCategory(value);
+      }
+    });
+    const item = editing ? this.selectedPassNote : null;
+    const initialState = {
+      item,
+      items: this.passDataService.getPassNotes(),
+      passCategory: this.passDataService.getSelectedPassCategory(),
+      result
+    };
+
+    this.modalService.show(PassNoteEditComponent, {initialState});
   }
 
   private performDelete(): void {
