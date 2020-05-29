@@ -2,10 +2,13 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OperationMode, PassDataService} from '../services/pass-data.service';
 import {BsModalRef, BsModalService, PageChangedEvent} from 'ngx-bootstrap';
 import {PassNoteViewComponent} from '../pass-note-view/pass-note-view.component';
+import {EditButtonType} from '../edit-panel/edit-panel.component';
 import {PassNote} from '../model/pass-note';
 import {PagerHandler} from '../pager-handler';
 import {PagerStatus} from '../model/pager-status';
-import {Subscription} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
+import {PassCategory} from '../model/pass-category';
+import {ConfirmationModalDialogComponent} from '../confirmation-modal-dialog/confirmation-modal-dialog.component';
 
 @Component({
   selector: 'app-pass-note',
@@ -13,14 +16,16 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./pass-note.component.scss']
 })
 export class PassNoteComponent implements OnInit, OnDestroy {
+  EditButtonType = EditButtonType;
+
   bsModalRef: BsModalRef;
   maxPageSize = 8;
 
   private pagerHandler: PagerHandler<PassNote> = new PagerHandler<PassNote>(this.maxPageSize);
   pagerStatus: PagerStatus<PassNote>;
 
-  operationMode: OperationMode;
   selectedPassNote: PassNote;
+  editMode = false;
 
   private passCategorySubscription: Subscription;
   private passNoteSubscription: Subscription;
@@ -34,7 +39,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
       this.pagerStatus = pagerStatus;
     });
     this.passNoteSubscription = this.passDataService.currentPassNote.subscribe(pn => this.selectedPassNote = pn);
-    this.passDataService.currentOperationMode.subscribe(om => this.operationMode = om);
+    this.passDataService.currentOperationMode.subscribe(om => this.editMode = om === OperationMode.OM_EDIT);
   }
 
   ngOnDestroy(): void {
@@ -52,7 +57,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
   }
 
   onPassNoteClick(event, passNote: PassNote) {
-    if (this.operationMode === OperationMode.OM_EDIT) {
+    if (this.editMode) {
      this.passDataService.currentPassNote.next(passNote);
     } else {
       const viewPassNote = new PassNote();
@@ -61,6 +66,14 @@ export class PassNoteComponent implements OnInit, OnDestroy {
         passNote: viewPassNote
       };
       this.bsModalRef = this.modalService.show(PassNoteViewComponent, {initialState});
+    }
+  }
+
+  onEditButtonClick(event: EditButtonType) {
+    if ([this.EditButtonType.BT_ADD, this.EditButtonType.BT_EDIT].includes(event)) {
+      // this.performEdit(event === EditButtonType.BT_EDIT);
+    } else if (event === this.EditButtonType.BT_DELETE) {
+      this.performDelete();
     }
   }
 
@@ -73,4 +86,16 @@ export class PassNoteComponent implements OnInit, OnDestroy {
     this.pagerHandler.pageChanged(event.page, event.itemsPerPage);
     this.passDataService.currentPassNote.next(null);
   }
+
+  private performDelete(): void {
+    const result: Subject<PassNote> = new Subject<PassNote>();
+    result.subscribe(value => {
+      this.passDataService.deletePassNote(value);
+    });
+    const message = `<strong>${this.selectedPassNote.system}/${this.selectedPassNote.user}</strong> will be deleted. Are you sure?`;
+    const initialState = {message, item: this.selectedPassNote, result};
+
+    this.modalService.show(ConfirmationModalDialogComponent, {initialState});
+  }
+
 }

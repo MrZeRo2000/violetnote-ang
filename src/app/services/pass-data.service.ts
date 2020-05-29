@@ -173,6 +173,20 @@ export class PassDataService {
     return items.sort();
   }
 
+  private deleteArrayElement<T>(array: T[], value: T): void {
+    const deleteIndex = array.indexOf(value);
+    if (deleteIndex > -1) {
+      array.splice(deleteIndex, 1);
+    }
+  }
+
+  private updateArrayElement<T>(array: T[], value: T): void {
+    const updateIndex = array.indexOf(value);
+    if (updateIndex > -1) {
+      array[updateIndex] = value;
+    }
+  }
+
   public insertPassCategory(value: PassCategory): void {
     this.getPassData().passCategoryList.push(value);
     this.currentPassDataDirty.next(true);
@@ -196,9 +210,13 @@ export class PassDataService {
         .length === 0
     ) {
 
+      this.deleteArrayElement(this.getPassData().passCategoryList, value);
+
+      /*
       this.getPassData().passCategoryList =
         this.getPassData().passCategoryList
           .filter(pc => pc.categoryName !== value.categoryName);
+       */
 
       this.currentPassData.next(this.getPassData());
       this.selectFirstCategory();
@@ -213,5 +231,13 @@ export class PassDataService {
       this.currentPassData.next(this.getPassData());
       this.currentPassDataDirty.next(true);
     }
+  }
+
+  public deletePassNote(value: PassNote): void {
+    this.deleteArrayElement(this.getPassData().passNoteList, value);
+
+    this.currentPassNote.next(null);
+    this.setSelectedPassCategory(this.getSelectedPassCategory());
+    this.currentPassDataDirty.next(true);
   }
 }
