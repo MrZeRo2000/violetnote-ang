@@ -6,7 +6,6 @@
 </div>
 <div class="modal-body">
   <form class="form-group" [formGroup]="editForm">
-
     <label for="inputSystem"><strong>System</strong></label>
     <input
       #inputSystem type="text"
@@ -26,22 +25,27 @@
       formControlName="user"
     >
 
-    <label for="inputPassword"><strong>Password</strong></label>
-    <input
-      type="text"
-      class="form-control"
-      [ngClass]="{'is-invalid': editForm.controls.password.errors && submitted}"
-      id="inputPassword"
-      formControlName="password"
-    >
-
-    <label for="inputPasswordRetype"><strong>Retype password</strong></label>
-    <input
-      type="password"
-      class="form-control"
-      id="inputPasswordRetype"
-      formControlName="passwordRetype"
-    >
+    <div class="row">
+      <div class="col">
+        <label for="inputPassword"><strong>Password</strong></label>
+        <input
+          type="text"
+          class="form-control"
+          [ngClass]="{'is-invalid': editForm.controls.password.errors && submitted}"
+          id="inputPassword"
+          formControlName="password"
+        >
+      </div>
+      <div class="col">
+        <label for="inputPasswordRetype"><strong>Retype password</strong></label>
+        <input
+          type="password"
+          class="form-control"
+          id="inputPasswordRetype"
+          formControlName="passwordRetype"
+        >
+      </div>
+    </div>
 
     <label for="inputComments">Comments</label>
     <input
@@ -58,12 +62,11 @@
       id="inputCustom"
       formControlName="custom"
     >
-
     <label for="inputInfo">Info</label>
     <textarea
       type="text"
       class="form-control"
-      rows="6"
+      rows="3"
       id="inputInfo"
       formControlName="info"
     >
