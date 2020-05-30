@@ -187,6 +187,10 @@ export class PassDataService {
     }
   }
 
+  private moveArrayElement<T>(array: T[], fromIndex: number, toIndex: number): void {
+    array.splice(toIndex, 0, array.splice(fromIndex, 1)[0]);
+  }
+
   public insertPassCategory(value: PassCategory): void {
     this.getPassData().passCategoryList.push(value);
     this.currentPassDataDirty.next(true);
@@ -225,8 +229,7 @@ export class PassDataService {
 
   public movePassCategory(fromIndex: number, toIndex: number): void {
     if (fromIndex !== toIndex) {
-      const passCategoryList = this.getPassData().passCategoryList;
-      passCategoryList.splice(toIndex, 0, passCategoryList.splice(fromIndex, 1)[0]);
+      this.moveArrayElement(this.getPassData().passCategoryList, fromIndex, toIndex)
 
       this.currentPassData.next(this.getPassData());
       this.currentPassDataDirty.next(true);
@@ -253,6 +256,14 @@ export class PassDataService {
     const oldValueIndex = this.getPassData().passNoteList.indexOf(oldValue);
     if (oldValueIndex > -1) {
       this.getPassData().passNoteList[oldValueIndex] = newValue;
+      this.passNoteChanged();
+    }
+  }
+
+  public movePassNote(fromIndex: number, toIndex: number): void {
+    if (fromIndex !== toIndex) {
+      this.moveArrayElement(this.getPassData().passNoteList, fromIndex, toIndex);
+
       this.passNoteChanged();
     }
   }

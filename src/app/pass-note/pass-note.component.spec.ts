@@ -8,6 +8,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
 import {AuthService} from '../services/auth.service';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 describe('PassNoteComponent', () => {
   let component: PassNoteComponent;
@@ -21,6 +22,7 @@ describe('PassNoteComponent', () => {
         FormsModule,
         HttpClientTestingModule,
         ModalModule.forRoot(),
+        DragDropModule,
         DataSourceModule,
         AppConfigModule
       ],

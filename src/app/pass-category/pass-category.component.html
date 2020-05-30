@@ -12,7 +12,7 @@
      [ngClass] = "{'active': passCategory==selectedPassCategory}"
      (click)="onPassCategoryClick($event, passCategory)"
      cdkDrag
-     [cdkDragDisabled] = !editMode
+     [cdkDragDisabled] = dragDisabled()
   >
     {{passCategory.categoryName}}
   </a>

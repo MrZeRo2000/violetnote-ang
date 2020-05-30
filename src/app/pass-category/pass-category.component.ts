@@ -47,6 +47,10 @@ export class PassCategoryComponent implements OnInit, OnDestroy {
     this.operationModeSubscription.unsubscribe();
   }
 
+  public dragDisabled(): boolean {
+    return !this.editMode || !this.passData.passCategoryList || this.passData.passCategoryList.length < 2;
+  }
+
   onPassCategoryClick(event, passCategory) {
     event.preventDefault();
     this.passDataService.setSelectedPassCategory(passCategory);

@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PassNoteEditComponent } from './pass-note-edit.component';
 import {BsModalRef} from 'ngx-bootstrap';
+import {ReactiveFormsModule} from '@angular/forms';
 
 describe('PassNoteEditComponent', () => {
   let component: PassNoteEditComponent;
@@ -10,6 +11,7 @@ describe('PassNoteEditComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PassNoteEditComponent ],
+      imports: [ReactiveFormsModule],
       providers: [BsModalRef]
     })
     .compileComponents();

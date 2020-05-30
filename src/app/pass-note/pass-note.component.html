@@ -4,7 +4,7 @@
   (editButtonClick)="onEditButtonClick($event)"
 ></app-edit-panel>
 
-<div class="list-group">
+<div class="list-group" cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="onDrop($event)">
   <div class="list-group-item list-group-item-secondary">
     <div class="row h5">
       <div class="col-md-3">System</div>
@@ -18,6 +18,8 @@
      *ngFor="let passNote of pagerStatus.displayedItems"
      [ngClass] = "{'active': passNote == selectedPassNote}"
      (click)="onPassNoteClick($event, passNote)"
+     cdkDrag
+     [cdkDragDisabled] = dragDisabled()
   >
     <div class="row">
       <div class="col-md-3">{{passNote.system}}</div>

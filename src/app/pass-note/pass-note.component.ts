@@ -48,6 +48,10 @@ export class PassNoteComponent implements OnInit, OnDestroy {
     this.passNoteSubscription.unsubscribe();
   }
 
+  public dragDisabled(): boolean {
+    return !this.editMode || !this.pagerStatus || this.pagerStatus.displayedItems.length < 2;
+  }
+
   private passCategoryChanged() {
     console.log(`PassNote: category changed`);
     setTimeout(() => {
@@ -81,6 +85,14 @@ export class PassNoteComponent implements OnInit, OnDestroy {
       this.performEdit(event === EditButtonType.BT_EDIT);
     } else if (event === this.EditButtonType.BT_DELETE) {
       this.performDelete();
+    }
+  }
+
+  onDrop(event: any): void {
+    const fromIndex = event.previousIndex;
+    const toIndex = event.currentIndex;
+    if (fromIndex !== toIndex) {
+      this.passDataService.movePassNote(fromIndex, toIndex);
     }
   }
 
