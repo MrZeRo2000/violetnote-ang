@@ -25,7 +25,7 @@
       formControlName="user"
     >
 
-    <div class="row">
+    <div class="row" [ngClass]="{'is-invalid': editForm.controls.password.errors && submitted}">
       <div class="col">
         <label for="inputPassword"><strong>Password</strong></label>
         <input

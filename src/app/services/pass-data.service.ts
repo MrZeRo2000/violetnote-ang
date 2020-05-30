@@ -233,11 +233,28 @@ export class PassDataService {
     }
   }
 
-  public deletePassNote(value: PassNote): void {
-    this.deleteArrayElement(this.getPassData().passNoteList, value);
-
+  private passNoteChanged(): void {
     this.currentPassNote.next(null);
     this.setSelectedPassCategory(this.getSelectedPassCategory());
     this.currentPassDataDirty.next(true);
   }
+
+  public deletePassNote(value: PassNote): void {
+    this.deleteArrayElement(this.getPassData().passNoteList, value);
+    this.passNoteChanged();
+  }
+
+  public insertPassNote(value: PassNote): void {
+    this.getPassData().passNoteList.push(value);
+    this.passNoteChanged();
+  }
+
+  public updatePassNote(oldValue: PassNote, newValue: PassNote): void {
+    const oldValueIndex = this.getPassData().passNoteList.indexOf(oldValue);
+    if (oldValueIndex > -1) {
+      this.getPassData().passNoteList[oldValueIndex] = newValue;
+      this.passNoteChanged();
+    }
+  }
+
 }

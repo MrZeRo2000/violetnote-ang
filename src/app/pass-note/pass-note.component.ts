@@ -98,9 +98,9 @@ export class PassNoteComponent implements OnInit, OnDestroy {
     const result: Subject<PassNote> = new Subject<PassNote>();
     result.subscribe(value => {
       if (editing) {
-        // this.passDataService.updatePassCategory(value);
+        this.passDataService.updatePassNote(this.selectedPassNote, value);
       } else {
-        // this.passDataService.insertPassCategory(value);
+        this.passDataService.insertPassNote(value);
       }
     });
     const item = editing ? this.selectedPassNote : null;
