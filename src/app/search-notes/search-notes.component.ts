@@ -7,6 +7,7 @@ import {PassNoteViewComponent} from '../pass-note-view/pass-note-view.component'
 import {PagerHandler} from '../pager-handler';
 import {PagerStatus} from '../model/pager-status';
 import {Subscription} from 'rxjs';
+import {EditButtonType} from '../edit-panel/edit-panel.component';
 
 @Component({
   selector: 'app-search-notes',
@@ -14,6 +15,8 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./search-notes.component.scss']
 })
 export class SearchNotesComponent implements OnInit, OnDestroy {
+  EditButtonType = EditButtonType;
+
   bsModalRef: BsModalRef;
   searchText: string;
   maxPageSize = 8;
@@ -21,12 +24,14 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
   private pagerHandler: PagerHandler<PassNote> = new PagerHandler<PassNote>(this.maxPageSize);
   pagerStatus: PagerStatus<PassNote>;
 
-  operationMode: OperationMode;
+  searchPassNotes: Array<PassNote>;
   selectedPassNote: PassNote;
+  editMode = false;
 
   private activatedRouteParamsSubscription: Subscription;
   private pagerStatusSubscription: Subscription;
   private passNoteSubscription: Subscription;
+  private operationModeSubscription: Subscription;
 
   constructor(
     private router: Router,
@@ -38,15 +43,24 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
     this.activatedRouteParamsSubscription = activatedRoute.params.subscribe(
       params => {
         this.searchText = params['text'];
-        this.pagerHandler.setPageItems(this.passDataService.getSearchPassNotes(this.searchText));
+        this.searchPassNotes = this.passDataService.getSearchPassNotes(this.searchText);
+        this.pagerHandler.setPageItems(this.searchPassNotes);
         this.pagerStatusSubscription = this.pagerHandler.pagerStatusSubject.subscribe((pagerStatus) => {
           this.pagerStatus = pagerStatus;
         });
 
         this.passNoteSubscription = this.passDataService.currentPassNote.subscribe(pn => this.selectedPassNote = pn);
-        this.passDataService.currentOperationMode.subscribe(om => this.operationMode = om);
-
-        this.passDataService.currentPassNote.next(null);
+        this.operationModeSubscription =
+          this.passDataService.currentOperationMode.subscribe(om => {
+            this.editMode = om === OperationMode.OM_EDIT;
+            if (this.editMode) {
+              if (this.searchPassNotes && this.searchPassNotes.length > 0) {
+                this.passDataService.currentPassNote.next(this.searchPassNotes[0]);
+              }
+            } else {
+              this.passDataService.currentPassNote.next(null);
+            }
+          });
       });
   }
 
@@ -63,11 +77,14 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
     if (this.passNoteSubscription) {
       this.passNoteSubscription.unsubscribe();
     }
+    if (this.operationModeSubscription) {
+      this.operationModeSubscription.unsubscribe();
+    }
     this.activatedRouteParamsSubscription.unsubscribe();
   }
 
   onPassNoteClick(event, passNote: PassNote) {
-    if (this.operationMode === OperationMode.OM_EDIT) {
+    if (this.editMode) {
       this.passDataService.currentPassNote.next(passNote);
     } else {
       const viewPassNote = new PassNote(
@@ -94,6 +111,14 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
   onPageAllClick(event) {
     event.preventDefault();
     this.pagerHandler.pageAll();
+  }
+
+  onEditButtonClick(event: EditButtonType) {
+    if ([this.EditButtonType.BT_ADD, this.EditButtonType.BT_EDIT].includes(event)) {
+      // this.performEdit(event === EditButtonType.BT_EDIT);
+    } else if (event === this.EditButtonType.BT_DELETE) {
+      // this.performDelete();
+    }
   }
 
   pageChanged(event: PageChangedEvent): void {

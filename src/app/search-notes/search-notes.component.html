@@ -2,41 +2,52 @@
   <button type="button" class="btn btn-labeled btn-info btn-xs mb-2" *ngIf="searchText !== undefined" (click)="searchInfoButtonClick($event)">
     <span class="btn-label-xs"><i class="fa fa-times" aria-hidden="true"></i></span>{{searchText}}
   </button>
-  <div class="alert alert-warning" role="alert" *ngIf="pagerStatus.totalCount === 0">
+  <div class="alert alert-warning" role="alert" *ngIf="!searchPassNotes || searchPassNotes.length === 0">
     No data found
   </div>
-  <div class="list-group" *ngIf="pagerStatus.totalCount !== 0">
-    <div class="list-group-item list-group-item-secondary">
-      <div class="row h5">
-        <div class="col-md-2">Category</div>
-        <div class="col-md-2">System</div>
-        <div class="col-md-2">User</div>
-        <div class="col-md-6">Custom</div>
-      </div>
-    </div>
-    <a href="#"
-       class="list-group-item list-group-item-action"
-       data-toggle="modal"
-       *ngFor="let passNote of pagerStatus.displayedItems"
-       [ngClass] = "{'active': passNote == selectedPassNote}"
-       (click)="onPassNoteClick($event, passNote)"
-    >
-      <div class="row">
-        <div class="col-md-2">{{passNote.passCategory.categoryName}}</div>
-        <div class="col-md-2">{{passNote.system}}</div>
-        <div class="col-md-2">{{passNote.user}}</div>
-        <div class="col-md-6">{{passNote.custom}}</div>
-      </div>
-    </a>
-  </div>
 
-  <div class="mt-2" *ngIf="pagerStatus.pageCount > 1">
-    <div class="d-inline-block">
-      <pagination [totalItems]="pagerStatus.totalCount" [maxSize]="maxPageSize" [itemsPerPage]="maxPageSize" (pageChanged)="pageChanged($event)"></pagination>
+  <div *ngIf="searchPassNotes && searchPassNotes.length > 0">
+    <app-edit-panel
+      *ngIf="editMode"
+      hideAdd="true"
+      [selectedItem]="selectedPassNote"
+      (editButtonClick)="onEditButtonClick($event)"
+    ></app-edit-panel>
+
+    <div class="list-group">
+      <div class="list-group-item list-group-item-secondary">
+        <div class="row h5">
+          <div class="col-md-2">Category</div>
+          <div class="col-md-2">System</div>
+          <div class="col-md-2">User</div>
+          <div class="col-md-6">Custom</div>
+        </div>
+      </div>
+      <a href="#"
+         class="list-group-item list-group-item-action"
+         data-toggle="modal"
+         *ngFor="let passNote of pagerStatus.displayedItems"
+         [ngClass] = "{'active': passNote == selectedPassNote}"
+         (click)="onPassNoteClick($event, passNote)"
+      >
+        <div class="row">
+          <div class="col-md-2">{{passNote.passCategory.categoryName}}</div>
+          <div class="col-md-2">{{passNote.system}}</div>
+          <div class="col-md-2">{{passNote.user}}</div>
+          <div class="col-md-6">{{passNote.custom}}</div>
+        </div>
+      </a>
     </div>
-    <div class="d-inline-block ml-2">
-      <ul class="pagination"><li class="pagination-page page-item"><a href="#" class="page-link" (click)="onPageAllClick($event)">All</a></li></ul>
+
+    <div class="mt-2" *ngIf="pagerStatus.pageCount > 1">
+      <div class="d-inline-block">
+        <pagination [totalItems]="pagerStatus.totalCount" [maxSize]="maxPageSize" [itemsPerPage]="maxPageSize" (pageChanged)="pageChanged($event)"></pagination>
+      </div>
+      <div class="d-inline-block ml-2">
+        <ul class="pagination"><li class="pagination-page page-item"><a href="#" class="page-link" (click)="onPageAllClick($event)">All</a></li></ul>
+      </div>
     </div>
+
   </div>
 
 </div>

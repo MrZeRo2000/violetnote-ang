@@ -30,6 +30,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
   private passCategorySubscription: Subscription;
   private passNoteSubscription: Subscription;
   private pagerStatusSubscription: Subscription;
+  private operationModeSubscription: Subscription;
 
   constructor(public passDataService: PassDataService, private modalService: BsModalService) { }
 
@@ -39,13 +40,15 @@ export class PassNoteComponent implements OnInit, OnDestroy {
       this.pagerStatus = pagerStatus;
     });
     this.passNoteSubscription = this.passDataService.currentPassNote.subscribe(pn => this.selectedPassNote = pn);
-    this.passDataService.currentOperationMode.subscribe(om => this.editMode = om === OperationMode.OM_EDIT);
+    this.operationModeSubscription =
+      this.passDataService.currentOperationMode.subscribe(om => this.editMode = om === OperationMode.OM_EDIT);
   }
 
   ngOnDestroy(): void {
     this.passCategorySubscription.unsubscribe();
     this.pagerStatusSubscription.unsubscribe();
     this.passNoteSubscription.unsubscribe();
+    this.operationModeSubscription.unsubscribe();
   }
 
   public dragDisabled(): boolean {

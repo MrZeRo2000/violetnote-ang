@@ -1,6 +1,6 @@
 <div class="mb-1">
   <div class="d-inline">
-    <a href="#" class="btn btn-link" (click)="onButtonClick($event, EditButtonType.BT_ADD)">
+    <a href="#" class="btn btn-link" *ngIf="!hideAdd" [ngClass]="{'disabled': disableAdd}" (click)="onButtonClick($event, EditButtonType.BT_ADD)">
       <i class="fa fa-plus-circle"></i>
     </a>
   </div>

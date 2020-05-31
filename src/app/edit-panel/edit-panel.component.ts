@@ -20,6 +20,12 @@ export class EditPanelComponent implements OnInit {
   selectedItem: any;
 
   @Input()
+  hideAdd: boolean;
+
+  @Input()
+  disableAdd: boolean;
+
+  @Input()
   disableDelete: boolean;
 
   @Output()
