@@ -262,6 +262,7 @@ export class PassDataService {
     if (oldValueIndex > -1) {
       this.getPassData().passNoteList[oldValueIndex] = newValue;
       this.passNoteChanged();
+      this.currentPassNote.next(newValue);
     }
   }
 

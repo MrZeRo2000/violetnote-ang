@@ -84,8 +84,8 @@ export class PassNoteComponent implements OnInit, OnDestroy {
   }
 
   onEditButtonClick(event: EditButtonType) {
-    if ([this.EditButtonType.BT_ADD, this.EditButtonType.BT_EDIT].includes(event)) {
-      this.performEdit(event === EditButtonType.BT_EDIT);
+    if ([this.EditButtonType.BT_ADD, this.EditButtonType.BT_EDIT, this.EditButtonType.BT_DUPLICATE].includes(event)) {
+      this.performEdit(event);
     } else if (event === this.EditButtonType.BT_DELETE) {
       this.performDelete();
     }
@@ -109,18 +109,20 @@ export class PassNoteComponent implements OnInit, OnDestroy {
     this.passDataService.currentPassNote.next(null);
   }
 
-  private performEdit(editing: boolean): void {
+  private performEdit(event: EditButtonType): void {
     const result: Subject<PassNote> = new Subject<PassNote>();
     result.subscribe(value => {
-      if (editing) {
+      if (event === this.EditButtonType.BT_EDIT) {
         this.passDataService.updatePassNote(this.selectedPassNote, value);
       } else {
         this.passDataService.insertPassNote(value);
       }
     });
-    const item = editing ? this.selectedPassNote : null;
+    const item = event === this.EditButtonType.BT_EDIT ? this.selectedPassNote : null;
+    const duplicateItem = event === this.EditButtonType.BT_DUPLICATE ? this.selectedPassNote : null;
     const initialState = {
       item,
+      duplicateItem,
       items: this.passDataService.getPassNotes(),
       passCategory: this.passDataService.getSelectedPassCategory(),
       result

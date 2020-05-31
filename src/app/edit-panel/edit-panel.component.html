@@ -16,4 +16,11 @@
       <i class="fa fa-pen"></i>
     </a>
   </div>
+
+  <div class="d-inline" *ngIf="selectedItem && showDuplicate">
+    <a href="#" class="btn btn-link" (click)="onButtonClick($event, EditButtonType.BT_DUPLICATE)">
+      <i class="fa fa-clone"></i>
+    </a>
+  </div>
+
 </div>

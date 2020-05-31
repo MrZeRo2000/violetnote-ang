@@ -5,7 +5,8 @@ export enum EditButtonType {
   BT_DELETE,
   BT_EDIT,
   BT_UP,
-  BT_DOWN
+  BT_DOWN,
+  BT_DUPLICATE
 }
 
 @Component({
@@ -21,6 +22,9 @@ export class EditPanelComponent implements OnInit {
 
   @Input()
   hideAdd: boolean;
+
+  @Input()
+  showDuplicate: boolean;
 
   @Input()
   disableAdd: boolean;

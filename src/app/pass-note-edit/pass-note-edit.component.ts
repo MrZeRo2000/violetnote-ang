@@ -12,6 +12,7 @@ import {Subject} from 'rxjs';
 })
 export class PassNoteEditComponent implements OnInit {
   item: PassNote;
+  duplicateItem: PassNote;
   items: Array<PassNote>;
   passCategory: PassCategory;
   result: Subject<PassNote>;
@@ -35,13 +36,18 @@ export class PassNoteEditComponent implements OnInit {
     this.confirmButtonText = !!this.item ? 'Save' : 'Create';
 
     this.editForm = new FormGroup({
-      system: new FormControl(this.item && this.item.system, Validators.required),
-      user: new FormControl(this.item && this.item.user, Validators.required),
-      password: new FormControl(this.item && this.item.password, Validators.required),
-      passwordRetype: new FormControl(this.item && this.item.password, Validators.required),
-      comments: new FormControl(this.item && this.item.comments),
-      custom: new FormControl(this.item && this.item.custom),
-      info: new FormControl(this.item && this.item.info)
+      system:
+        new FormControl((this.item && this.item.system) || (this.duplicateItem && this.duplicateItem.system), Validators.required),
+      user:
+        new FormControl((this.item && this.item.user) || (this.duplicateItem && this.duplicateItem.user), Validators.required),
+      password:
+        new FormControl((this.item && this.item.password) || (this.duplicateItem && this.duplicateItem.password), Validators.required),
+      passwordRetype:
+        new FormControl((this.item && this.item.password) || (this.duplicateItem && this.duplicateItem.password), Validators.required),
+      comments:
+        new FormControl((this.item && this.item.comments) || (this.duplicateItem && this.duplicateItem.comments)),
+      custom: new FormControl((this.item && this.item.custom) || (this.duplicateItem && this.duplicateItem.custom)),
+      info: new FormControl((this.item && this.item.info) || (this.duplicateItem && this.duplicateItem.info))
     });
 
     this.editForm.valueChanges.subscribe(value => {

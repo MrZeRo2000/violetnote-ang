@@ -1,6 +1,7 @@
 <app-edit-panel
   *ngIf="editMode"
   [selectedItem]="selectedPassNote"
+  [showDuplicate]="true"
   (editButtonClick)="onEditButtonClick($event)"
 ></app-edit-panel>
 
