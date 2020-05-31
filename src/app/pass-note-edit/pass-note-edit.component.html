@@ -41,6 +41,7 @@
         <input
           type="password"
           class="form-control"
+          [ngClass]="{'is-invalid': editForm.controls.password.errors && editForm.controls.password.errors.passwordRetypeMismatch && submitted}"
           id="inputPasswordRetype"
           formControlName="passwordRetype"
         >

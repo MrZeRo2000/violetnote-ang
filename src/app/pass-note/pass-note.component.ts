@@ -79,7 +79,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
       const initialState = {
         passNote: viewPassNote
       };
-      this.bsModalRef = this.modalService.show(PassNoteViewComponent, {initialState});
+      this.bsModalRef = this.modalService.show(PassNoteViewComponent, {initialState, ignoreBackdropClick: true});
     }
   }
 
@@ -126,7 +126,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
       result
     };
 
-    this.modalService.show(PassNoteEditComponent, {initialState});
+    this.modalService.show(PassNoteEditComponent, {initialState, ignoreBackdropClick: true});
   }
 
   private performDelete(): void {

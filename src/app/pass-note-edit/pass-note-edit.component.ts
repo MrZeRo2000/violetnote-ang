@@ -43,6 +43,18 @@ export class PassNoteEditComponent implements OnInit {
       custom: new FormControl(this.item && this.item.custom),
       info: new FormControl(this.item && this.item.info)
     });
+
+    this.editForm.valueChanges.subscribe(value => {
+      if (this.submitted) {
+        this.submitted = false;
+
+        this.editForm.controls.user.markAsTouched();
+        this.editForm.controls.user.updateValueAndValidity();
+
+        this.editForm.controls.password.markAsTouched();
+        this.editForm.controls.password.updateValueAndValidity();
+      }
+    });
   }
 
   onConfirmClick() {

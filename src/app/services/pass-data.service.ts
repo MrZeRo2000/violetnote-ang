@@ -126,9 +126,7 @@ export class PassDataService {
   }
 
   public setSelectedPassCategory(passCategory: PassCategory) {
-    this.selectedNotes = this.getPassData() && passCategory ? this.getPassData().passNoteList.filter(
-      (note) => note.passCategory.categoryName === passCategory.categoryName
-    ) : [];
+    this.selectedNotes = this.getPassNotesByCategory(passCategory);
     this.currentPassCategory.next(passCategory);
     this.clearNoteSelection();
   }
@@ -147,6 +145,12 @@ export class PassDataService {
 
   public getPassNotes() {
     return this.selectedNotes;
+  }
+
+  public getPassNotesByCategory(passCategory: PassCategory): Array<PassNote> {
+    return this.getPassData() && passCategory ? this.getPassData().passNoteList.filter(
+      (note) => note.passCategory.categoryName === passCategory.categoryName
+    ) : [];
   }
 
   public getSearchPassNotes(searchString: string): Array<PassNote>  {
@@ -239,6 +243,7 @@ export class PassDataService {
   private passNoteChanged(): void {
     this.currentPassNote.next(null);
     this.setSelectedPassCategory(this.getSelectedPassCategory());
+    this.currentSearchStrings.next(this.getSearchStrings());
     this.currentPassDataDirty.next(true);
   }
 

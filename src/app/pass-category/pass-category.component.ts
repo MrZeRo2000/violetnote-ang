@@ -85,7 +85,7 @@ export class PassCategoryComponent implements OnInit, OnDestroy {
     const item = editing ? this.selectedPassCategory : null;
     const initialState = {item, items: this.passDataService.getPassData().passCategoryList, result};
 
-    this.modalService.show(PassCategoryEditComponent, {initialState});
+    this.modalService.show(PassCategoryEditComponent, {initialState, ignoreBackdropClick: true});
   }
 
   private performDelete(): void {
