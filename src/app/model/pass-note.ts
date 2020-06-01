@@ -1,5 +1,5 @@
 import {PassCategory} from './pass-category';
-import {UtilityService} from '../services/utility.service';
+import {UrlUtils} from '../utils/url-utils';
 
 export class PassNote {
   constructor(
@@ -12,10 +12,10 @@ export class PassNote {
     public info: string
   ) {  }
   public getURL(): string {
-    if (UtilityService.isValidURL(this.custom)) {
-      return UtilityService.ensureProtocol(this.custom);
-    } else if (UtilityService.isValidURL(this.comments)) {
-      return UtilityService.ensureProtocol(this.comments);
+    if (UrlUtils.isValidURL(this.custom)) {
+      return UrlUtils.ensureProtocol(this.custom);
+    } else if (UrlUtils.isValidURL(this.comments)) {
+      return UrlUtils.ensureProtocol(this.comments);
     } else {
       return undefined;
     }

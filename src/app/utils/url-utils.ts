@@ -1,9 +1,4 @@
-import { Injectable } from '@angular/core';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class UtilityService {
+export class UrlUtils {
 
   constructor() { }
 
@@ -23,7 +18,7 @@ export class UtilityService {
   }
 
   public static ensureProtocol(url: string): string {
-    if (!UtilityService.urlContainsProtocol(url)) {
+    if (!UrlUtils.urlContainsProtocol(url)) {
       return 'http://' + url;
     } else {
       return url;

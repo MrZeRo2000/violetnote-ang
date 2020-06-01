@@ -11,6 +11,7 @@ import {AuthService} from './auth.service';
 import {Message, MessagesService, MessageType} from '../messages/messages.service';
 import {PassDataGetRequest} from '../model/pass-data-get-request';
 import {PassDataFileInfo} from '../model/pass-data-file-info';
+import {ArrayUtils} from '../utils/array-utils';
 
 export enum OperationMode {
   OM_VIEW,
@@ -177,24 +178,6 @@ export class PassDataService {
     return items.sort();
   }
 
-  private deleteArrayElement<T>(array: T[], value: T): void {
-    const deleteIndex = array.indexOf(value);
-    if (deleteIndex > -1) {
-      array.splice(deleteIndex, 1);
-    }
-  }
-
-  private updateArrayElement<T>(array: T[], value: T): void {
-    const updateIndex = array.indexOf(value);
-    if (updateIndex > -1) {
-      array[updateIndex] = value;
-    }
-  }
-
-  private moveArrayElement<T>(array: T[], fromIndex: number, toIndex: number): void {
-    array.splice(toIndex, 0, array.splice(fromIndex, 1)[0]);
-  }
-
   public insertPassCategory(value: PassCategory): void {
     this.getPassData().passCategoryList.push(value);
     this.currentPassDataDirty.next(true);
@@ -218,7 +201,7 @@ export class PassDataService {
         .length === 0
     ) {
 
-      this.deleteArrayElement(this.getPassData().passCategoryList, value);
+      ArrayUtils.deleteArrayElement(this.getPassData().passCategoryList, value);
 
       /*
       this.getPassData().passCategoryList =
@@ -233,7 +216,7 @@ export class PassDataService {
 
   public movePassCategory(fromIndex: number, toIndex: number): void {
     if (fromIndex !== toIndex) {
-      this.moveArrayElement(this.getPassData().passCategoryList, fromIndex, toIndex)
+      ArrayUtils.moveArrayElement(this.getPassData().passCategoryList, fromIndex, toIndex);
 
       this.currentPassData.next(this.getPassData());
       this.currentPassDataDirty.next(true);
@@ -248,7 +231,7 @@ export class PassDataService {
   }
 
   public deletePassNote(value: PassNote): void {
-    this.deleteArrayElement(this.getPassData().passNoteList, value);
+    ArrayUtils.deleteArrayElement(this.getPassData().passNoteList, value);
     this.passNoteChanged();
   }
 
@@ -268,7 +251,7 @@ export class PassDataService {
 
   public movePassNote(fromIndex: number, toIndex: number): void {
     if (fromIndex !== toIndex) {
-      this.moveArrayElement(this.getPassData().passNoteList, fromIndex, toIndex);
+      ArrayUtils.moveArrayElement(this.getPassData().passNoteList, fromIndex, toIndex);
 
       this.passNoteChanged();
     }
