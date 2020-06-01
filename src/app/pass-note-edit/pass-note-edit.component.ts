@@ -22,6 +22,8 @@ export class PassNoteEditComponent implements OnInit {
   editForm: FormGroup;
   submitted = false;
 
+  systemTypeAheadStrings: Array<string>;
+
   constructor(public bsModalRef: BsModalRef) { }
 
   static getOptionalStringValue(value: string): string {
@@ -61,6 +63,8 @@ export class PassNoteEditComponent implements OnInit {
         this.editForm.controls.password.updateValueAndValidity();
       }
     });
+
+    this.systemTypeAheadStrings = this.items && Array.from(new Set(this.items.map(pn => pn.system)));
   }
 
   onConfirmClick() {

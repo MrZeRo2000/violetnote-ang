@@ -14,6 +14,8 @@
       id="inputSystem"
       formControlName="system"
       appInitFocus
+      [typeahead]="systemTypeAheadStrings"
+      [typeaheadMinLength]="2"
     >
 
     <label for="inputUser"><strong>User</strong></label>
