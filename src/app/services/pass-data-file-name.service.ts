@@ -45,7 +45,7 @@ export class PassDataFileNameService {
     this.setFileName(this.fileName);
   }
 
-  public requestPassDataFileInfo(): Observable<HttpResponse<PassDataFileInfo>> {
+  public requestPassDataFileInfo(): Observable<HttpResponse<any>> {
     return this.dataSource.postResponse('fileinfo', new PassDataFileRequest(this.fileName));
   }
 
@@ -61,6 +61,19 @@ export class PassDataFileNameService {
     }
   }
 
+  private handleLoadError(errorMessage: string): void {
+    this.setPassDataFileInfo(null);
+    this.messagesService.reportMessage(
+      new Message(
+        MessageType.MT_ERROR,
+        'Error reading file name info:' + errorMessage,
+        false,
+        'Critical'
+      )
+    );
+    this.setFileName(null);
+  }
+
   public loadFileInfo(): void {
     this.loading = true;
     this.setPassDataFileInfo(null);
@@ -68,19 +81,15 @@ export class PassDataFileNameService {
     this.requestPassDataFileInfo().subscribe(
       data => {
         this.loading = false;
-        this.setPassDataFileInfo(data.body);
+        if (data.body.errorMessage) {
+          this.handleLoadError(data.body.errorMessage);
+        } else {
+          this.setPassDataFileInfo(data.body);
+        }
       },
       error => {
         this.loading = false;
-        this.setPassDataFileInfo(null);
-        this.messagesService.reportMessage(
-          new Message(
-            MessageType.MT_ERROR,
-            'Error reading file name info:' + error.message,
-            false,
-            'Critical'
-            )
-        );
+        this.handleLoadError(error.message);
       }
     );
   }
