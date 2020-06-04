@@ -12,6 +12,7 @@ import {Message, MessagesService, MessageType} from '../messages/messages.servic
 import {PassDataGetRequest} from '../model/pass-data-get-request';
 import {PassDataFileInfo} from '../model/pass-data-file-info';
 import {ArrayUtils} from '../utils/array-utils';
+import {PassDataPersistRequest} from '../model/pass-data-persist-request';
 
 export enum OperationMode {
   OM_VIEW,
@@ -86,6 +87,12 @@ export class PassDataService {
       );
   }
 
+  private editPassData(): Observable<HttpResponse<any>> {
+    return this.dataSource.postResponse('/edit',
+      new PassDataPersistRequest(this.passDataFileInfo.name, this.authService.getPassword(), this.getPassData())
+    );
+  }
+
   private reportLoadErrorMessage(message: string) {
     this.messagesService.reportMessage(
       new Message(
@@ -101,11 +108,8 @@ export class PassDataService {
     this.messagesService.reportMessage(null);
   }
 
-  public loadPassData() {
-    this.clearLoadErrorMessage();
-    // this.clearPassData();
-
-    this.requestPassData().subscribe(data => {
+  private handleDataAction(action: Observable<HttpResponse<any>>): void {
+    action.subscribe(data => {
       if (data.body.errorMessage) {
         this.reportLoadErrorMessage(data.body.errorMessage);
         this.clearPassData();
@@ -118,8 +122,32 @@ export class PassDataService {
     });
   }
 
+  public loadPassData() {
+    this.clearLoadErrorMessage();
+    // this.clearPassData();
+    this.handleDataAction(this.requestPassData());
+  }
+
   public isPassData(): boolean {
     return !!this.currentPassData.getValue();
+  }
+
+  public savePassData() {
+    this.clearLoadErrorMessage();
+
+    let action: Observable<HttpResponse<any>>;
+
+    switch (this.getOperationMode()) {
+      case OperationMode.OM_EDIT:
+        action = this.editPassData();
+        break;
+
+    }
+
+    if (action) {
+      this.handleDataAction(action);
+    }
+
   }
 
   public getSelectedPassCategory() {
