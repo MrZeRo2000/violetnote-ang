@@ -2,34 +2,27 @@
   <div *ngIf="editing">
     <form class="form-group form-inline mb-0 text-nowrap">
       <div class="form-check-inline mr-0">
-      <label>
-        <input
-          #fileNameControl
-          type="text"
-          [size]="editing? 40: 1"
-          class="form-control"
-          placeholder="Enter the file name here"
-          [(ngModel)]="editFileName"
-          (keyup)="onFileNameControlKeyUp($event)"
-          name="fileName"
-        >
-      </label>
+        <label>
+          <input
+            #fileNameControl
+            type="text"
+            [size]="editing? 40: 1"
+            class="form-control"
+            placeholder="Enter the file name here"
+            [(ngModel)]="editFileName"
+            (keyup)="onFileNameControlKeyUp($event)"
+            name="fileName"
+          >
+        </label>
 
-      <button
-        class="btn btn-outline-primary bg-transparent border-0 ml-2"
-        type="button"
-        (click)="onSubmit($event)"
-      >
-        <i class="fa fa-check-circle"></i>
-      </button>
+        <a href="#" class="btn btn-link" (click)="onSubmit($event)">
+          <i class="fa fa-check-circle"></i>
+        </a>
 
-      <button
-        class="btn btn-outline-primary bg-transparent border-0 mr-0"
-        type="button"
-        (click)="onCancel($event)"
-      >
-        <i class="fa fa-window-close"></i>
-      </button>
+        <a href="#" class="btn btn-link" (click)="onCancel($event)">
+          <i class="fa fa-window-close"></i>
+        </a>
+
       </div>
     </form>
   </div>

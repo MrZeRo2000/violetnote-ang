@@ -70,11 +70,13 @@ export class PassDataFileNameComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   onSubmit(event: any) {
+    event.preventDefault();
     this.editing = false;
     this.saveFileName(this.editFileName);
   }
 
   onCancel(event: any) {
+    event.preventDefault();
     this.editing = false;
   }
 
