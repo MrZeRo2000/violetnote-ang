@@ -5,6 +5,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
+import {ModalModule} from 'ngx-bootstrap';
 
 describe('OperationControlComponent', () => {
   let component: OperationControlComponent;
@@ -16,6 +17,7 @@ describe('OperationControlComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
+        ModalModule.forRoot(),
         DataSourceModule,
         AppConfigModule
       ]

@@ -37,6 +37,7 @@ import { PassCategoryEditComponent } from './pass-category-edit/pass-category-ed
 import { InitFocusDirective } from './directives/init-focus.directive';
 import {ConfirmationModalDialogComponent} from './confirmation-modal-dialog/confirmation-modal-dialog.component';
 import { PassNoteEditComponent } from './pass-note-edit/pass-note-edit.component';
+import { ExportViewComponent } from './export-view/export-view.component';
 
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
@@ -71,7 +72,8 @@ const appRoutes: Routes = [
     PassCategoryEditComponent,
     InitFocusDirective,
     ConfirmationModalDialogComponent,
-    PassNoteEditComponent
+    PassNoteEditComponent,
+    ExportViewComponent
   ],
   // modal component not directly referenced in templates
   entryComponents: [

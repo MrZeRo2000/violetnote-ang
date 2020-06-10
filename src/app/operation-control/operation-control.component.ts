@@ -3,6 +3,9 @@ import {AuthService} from '../services/auth.service';
 import {OperationMode, PassDataService} from '../services/pass-data.service';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {ConfirmationModalDialogComponent} from '../confirmation-modal-dialog/confirmation-modal-dialog.component';
+import {ExportViewComponent} from '../export-view/export-view.component';
 
 @Component({
   selector: 'app-operation-control',
@@ -14,12 +17,15 @@ export class OperationControlComponent implements OnInit, OnDestroy {
   passDataDirty = false;
   operationMode: OperationMode;
 
+  bsModalRef: BsModalRef;
+
   private passDataDirtySubscription: Subscription;
 
   constructor(
     public authService: AuthService,
     public passDataService: PassDataService,
-    private router: Router
+    private router: Router,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +41,11 @@ export class OperationControlComponent implements OnInit, OnDestroy {
 
   onSaveButtonClick(event: any) {
     this.passDataService.savePassData();
+  }
+
+  onExportClick(event: any) {
+    event.preventDefault();
+    this.modalService.show(ExportViewComponent, {});
   }
 
   onExitButtonClick(event: any) {

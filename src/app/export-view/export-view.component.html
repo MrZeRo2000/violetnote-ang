@@ -1,0 +1,36 @@
+<div class="modal-header">
+  <h5 class="modal-title pull-left">{{title}}</h5>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+
+  <div class="h6 mt-2">Export scope</div>
+  <div class="custom-control custom-radio">
+    <input type="radio" id="exportScopeCategory" name="exportScope" class="custom-control-input" [(ngModel)]="exportScope" [value]="ExportScope.ES_CATEGORY">
+    <label class="custom-control-label" for="exportScopeCategory">Category</label>
+  </div>
+  <div class="custom-control custom-radio">
+    <input type="radio" id="exportScopeAll" name="exportScope" class="custom-control-input" [(ngModel)]="exportScope" [value]="ExportScope.ES_ALL">
+    <label class="custom-control-label" for="exportScopeAll">All</label>
+  </div>
+
+  <div class="h6 mt-2">Export format</div>
+  <div class="custom-control custom-radio">
+    <input type="radio" id="exportFormatJSON" name="exportFormat" class="custom-control-input" [(ngModel)]="exportFormat" [value]="ExportFormat.EF_JSON">
+    <label class="custom-control-label" for="exportFormatJSON">JSON</label>
+  </div>
+  <div class="custom-control custom-radio">
+    <input type="radio" id="exportFormatCSV" name="exportFormat" class="custom-control-input" [(ngModel)]="exportFormat" [value]="ExportFormat.EF_CSV">
+    <label class="custom-control-label" for="exportFormatCSV">CSV</label>
+  </div>
+
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="onExportButtonClick($event)">{{exportBtnName}}</button>
+  <button type="button" class="btn btn-primary" (click)="bsModalRef.hide()">{{closeBtnName}}</button>
+</div>
+
+
