@@ -4,6 +4,9 @@ import { ExportViewComponent } from './export-view.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {BsModalRef, ModalModule} from 'ngx-bootstrap';
+import {PassDataService} from '../services/pass-data.service';
+import {DataSourceModule} from '../data-source/data-source.module';
+import {AppConfigModule} from '../app-config/app-config.module';
 
 describe('ExportViewComponent', () => {
   let component: ExportViewComponent;
@@ -12,8 +15,16 @@ describe('ExportViewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ExportViewComponent ],
-      imports: [FormsModule],
-      providers: [BsModalRef]
+      imports: [
+        FormsModule,
+        HttpClientTestingModule,
+        DataSourceModule,
+        AppConfigModule
+      ],
+      providers: [
+        BsModalRef,
+        PassDataService
+      ]
     })
     .compileComponents();
   }));
