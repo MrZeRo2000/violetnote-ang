@@ -15,6 +15,7 @@ export class PasswordComponent implements OnInit, AfterViewInit, OnDestroy {
   OperationMode = OperationMode;
 
   @Input() inputPassword: string;
+  @Input() inputPasswordRetype: string;
 
   @Input() operationMode: OperationMode = OperationMode.OM_VIEW;
 
