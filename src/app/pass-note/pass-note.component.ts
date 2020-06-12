@@ -19,7 +19,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
   EditButtonType = EditButtonType;
 
   bsModalRef: BsModalRef;
-  maxPageSize = 8;
+  maxPageSize = 3;
 
   private pagerHandler: PagerHandler<PassNote> = new PagerHandler<PassNote>(this.maxPageSize);
   pagerStatus: PagerStatus<PassNote>;
@@ -29,6 +29,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
 
   private passCategorySubscription: Subscription;
   private passNoteSubscription: Subscription;
+  private passNotesSubscription: Subscription;
   private pagerStatusSubscription: Subscription;
   private operationModeSubscription: Subscription;
 
@@ -40,6 +41,10 @@ export class PassNoteComponent implements OnInit, OnDestroy {
       this.pagerStatus = pagerStatus;
     });
     this.passNoteSubscription = this.passDataService.currentPassNote.subscribe(pn => this.selectedPassNote = pn);
+    this.passNotesSubscription = this.passDataService.currentPassNotes.subscribe(passNotes => {
+      console.log(`PassNote: currentPassNotes changed`);
+      this.pagerHandler.updatePageItems(passNotes, this.maxPageSize);
+    });
     this.operationModeSubscription =
       this.passDataService.currentOperationMode.subscribe(om => this.editMode = om === OperationMode.OM_EDIT);
   }
@@ -48,6 +53,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
     this.passCategorySubscription.unsubscribe();
     this.pagerStatusSubscription.unsubscribe();
     this.passNoteSubscription.unsubscribe();
+    this.passNotesSubscription.unsubscribe();
     this.operationModeSubscription.unsubscribe();
   }
 
@@ -95,7 +101,13 @@ export class PassNoteComponent implements OnInit, OnDestroy {
     const fromIndex = event.previousIndex;
     const toIndex = event.currentIndex;
     if (fromIndex !== toIndex) {
-      this.passDataService.movePassNote(fromIndex, toIndex);
+      const globalFromIndex =
+        this.passDataService.getPassData().passNoteList.indexOf(this.pagerStatus.displayedItems[fromIndex]);
+      const globalToIndex =
+        this.passDataService.getPassData().passNoteList.indexOf(this.pagerStatus.displayedItems[toIndex]);
+      if (globalFromIndex !== -1 && globalToIndex !== -1 && globalFromIndex !== globalToIndex) {
+        this.passDataService.movePassNote(globalFromIndex, globalToIndex);
+      }
     }
   }
 
