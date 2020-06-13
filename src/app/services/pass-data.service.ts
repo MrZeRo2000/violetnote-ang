@@ -29,6 +29,7 @@ export class PassDataService {
   currentPassData: BehaviorSubject<PassData> = new BehaviorSubject<PassData>(null);
   currentPassCategory: BehaviorSubject<PassCategory> = new BehaviorSubject<PassCategory>(null);
   currentPassNotes: BehaviorSubject<Array<PassNote>> = new BehaviorSubject<Array<PassNote>>(null);
+  updatedPassNotes: Subject<Array<PassNote>> = new Subject<Array<PassNote>>();
   currentPassNote: BehaviorSubject<PassNote> = new BehaviorSubject<PassNote>(null);
   currentSearchStrings: Subject<Array<string>> = new BehaviorSubject<Array<string>>(null);
   currentOperationMode: BehaviorSubject<OperationMode> = new BehaviorSubject<OperationMode>(null);
@@ -251,16 +252,13 @@ export class PassDataService {
   }
 
   private passNoteChanged(): void {
-    this.currentPassNote.next(null);
+    // this.currentPassNote.next(null);
     // this.setSelectedPassCategory(this.getSelectedPassCategory());
     this.currentPassNotes.next(this.getPassNotesByCategory(this.getSelectedPassCategory()));
+    if (this.currentPassNotes.value) {
+      this.updatedPassNotes.next(this.currentPassNotes.value);
+    }
     this.currentSearchStrings.next(this.getSearchStrings());
-    this.currentPassDataDirty.next(true);
-  }
-
-  private passNoteMoved(): void {
-    this.currentPassNote.next(null);
-    this.currentPassNotes.next(this.getPassNotesByCategory(this.getSelectedPassCategory()));
     this.currentPassDataDirty.next(true);
   }
 
@@ -287,7 +285,7 @@ export class PassDataService {
     if (fromIndex !== toIndex) {
       ArrayUtils.moveArrayElement(this.getPassData().passNoteList, fromIndex, toIndex);
 
-      this.passNoteMoved();
+      this.passNoteChanged();
     }
   }
 

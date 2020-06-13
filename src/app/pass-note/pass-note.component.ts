@@ -41,8 +41,8 @@ export class PassNoteComponent implements OnInit, OnDestroy {
       this.pagerStatus = pagerStatus;
     });
     this.passNoteSubscription = this.passDataService.currentPassNote.subscribe(pn => this.selectedPassNote = pn);
-    this.passNotesSubscription = this.passDataService.currentPassNotes.subscribe(passNotes => {
-      console.log(`PassNote: currentPassNotes changed`);
+    this.passNotesSubscription = this.passDataService.updatedPassNotes.subscribe(passNotes => {
+      console.log(`PassNote: updatedPassNotes changed`);
       this.pagerHandler.updatePageItems(passNotes, this.maxPageSize);
     });
     this.operationModeSubscription =
