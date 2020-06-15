@@ -93,6 +93,12 @@ export class PassDataService {
     );
   }
 
+  private newPassData(): Observable<HttpResponse<any>> {
+    return this.dataSource.postResponse('/new',
+      new PassDataPersistRequest(this.passDataFileInfo.name, this.authService.getPassword(), this.getPassData())
+    );
+  }
+
   private reportLoadErrorMessage(message: string) {
     this.messagesService.reportMessage(
       new Message(
@@ -110,16 +116,29 @@ export class PassDataService {
 
   private handleDataAction(action: Observable<HttpResponse<any>>): void {
     action.subscribe(data => {
+      // this.passDataFileNameService.loadFileInfo();
+      this.passDataFileNameService.updateFileInfo();
+
       if (data.body.errorMessage) {
         this.reportLoadErrorMessage(data.body.errorMessage);
         this.clearPassData();
       } else {
         this.setPassData(data.body);
+        if (this.getOperationMode() === OperationMode.OM_NEW) {
+          this.currentOperationMode.next(OperationMode.OM_EDIT);
+        }
       }
     }, error => {
       this.reportLoadErrorMessage(error.message);
       this.clearPassData();
     });
+  }
+
+  public initPassData() {
+    this.clearLoadErrorMessage();
+    const newPassData = new PassData(null);
+    newPassData.passCategoryList.push(new PassCategory('New category'));
+    this.setPassData(newPassData);
   }
 
   public loadPassData() {
@@ -142,6 +161,9 @@ export class PassDataService {
         action = this.editPassData();
         break;
 
+      case OperationMode.OM_NEW:
+        action = this.newPassData();
+        break;
     }
 
     if (action) {

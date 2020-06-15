@@ -5,6 +5,7 @@ import {PassDataFileInfo} from '../model/pass-data-file-info';
 import {PassDataFileNameService} from '../services/pass-data-file-name.service';
 import {OperationMode, PassDataService} from '../services/pass-data.service';
 import {Subscription} from 'rxjs';
+import {Message, MessagesService, MessageType} from '../messages/messages.service';
 
 @Component({
   selector: 'app-password',
@@ -27,6 +28,7 @@ export class PasswordComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private router: Router,
     private authService: AuthService,
+    private messagesService: MessagesService,
     private passDataFileNameService: PassDataFileNameService,
     private passDataService: PassDataService
     ) { }
@@ -87,6 +89,7 @@ export class PasswordComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onPasswordKeyUp(event: any) {
+    this.messagesService.clearMessage();
     if (event.key === 'Enter') {
       this.submitPassword(this.inputPassword);
     }
@@ -100,10 +103,33 @@ export class PasswordComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  private checkNewPassword(): boolean {
+    if (!this.inputPassword) {
+      this.messagesService.reportMessage(new Message(MessageType.MT_ERROR, 'Password should not be empty', true, 'PassData'));
+      return false;
+    }
+
+    if (this.inputPassword !== this.inputPasswordRetype) {
+      this.messagesService.reportMessage(new Message(MessageType.MT_ERROR, 'Password and retype password are not equal', true, 'PassData'));
+      return false;
+    }
+
+    return true;
+  }
+
   private submitPassword(password: string) {
-    this.loading = true;
-    this.authService.setPassword(password);
-    this.passDataService.setOperationMode(this.getOperationMode());
-    this.passDataService.loadPassData();
+    if (this.getOperationMode() === this.OperationMode.OM_NEW) {
+      //
+      if (this.checkNewPassword()) {
+        this.authService.setPassword(password);
+        this.passDataService.setOperationMode(OperationMode.OM_NEW);
+        this.passDataService.initPassData();
+      }
+    } else {
+      this.loading = true;
+      this.authService.setPassword(password);
+      this.passDataService.setOperationMode(this.getOperationMode());
+      this.passDataService.loadPassData();
+    }
   }
 }

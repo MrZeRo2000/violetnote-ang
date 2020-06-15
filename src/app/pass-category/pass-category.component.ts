@@ -24,6 +24,7 @@ export class PassCategoryComponent implements OnInit, OnDestroy {
 
   private passDataSubscription: Subscription;
   private passCategorySubscription: Subscription;
+  private passNotesSubscription: Subscription;
   private operationModeSubscription: Subscription;
 
   constructor(private modalService: BsModalService, private passDataService: PassDataService) {
@@ -34,8 +35,12 @@ export class PassCategoryComponent implements OnInit, OnDestroy {
         this.selectedPassCategory = passCategory;
         this.hasSelectedNotes = this.passDataService.getPassNotes().length > 0;
       });
+    this.passNotesSubscription =
+      this.passDataService.updatedPassNotes.subscribe(passNotes => {
+        this.hasSelectedNotes = this.passDataService.getPassNotes().length > 0;
+      });
     this.operationModeSubscription =
-      passDataService.currentOperationMode.subscribe(value => this.editMode = value === OperationMode.OM_EDIT);
+      passDataService.currentOperationMode.subscribe(value => this.editMode = value !== OperationMode.OM_VIEW);
   }
 
   ngOnInit() {
@@ -44,6 +49,7 @@ export class PassCategoryComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.passDataSubscription.unsubscribe();
     this.passCategorySubscription.unsubscribe();
+    this.passNotesSubscription.unsubscribe();
     this.operationModeSubscription.unsubscribe();
   }
 

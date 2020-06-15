@@ -17,6 +17,7 @@ export class PassDataFileNameService {
 
   currentFileName: Subject<string> = new BehaviorSubject<string>(null);
   currentPassDataFileInfo: Subject<PassDataFileInfo> = new BehaviorSubject<PassDataFileInfo>(null);
+  updatedPassDataFileInfo: Subject<PassDataFileInfo> = new Subject<PassDataFileInfo>();
 
   passDataFileInfo: PassDataFileInfo = null;
 
@@ -27,6 +28,11 @@ export class PassDataFileNameService {
   private setFileName(value: string) {
     this.fileName = value;
     this.currentFileName.next(this.fileName);
+  }
+
+  private updatePassDataFileInfo(value: PassDataFileInfo): void {
+    this.passDataFileInfo.exists = value.exists;
+    this.updatedPassDataFileInfo.next(this.passDataFileInfo);
   }
 
   private setPassDataFileInfo(value: PassDataFileInfo): void {
@@ -94,5 +100,14 @@ export class PassDataFileNameService {
     );
   }
 
+  public updateFileInfo(): void {
+    this.requestPassDataFileInfo().subscribe(
+      data => {
+        if (!data.body.errorMessage) {
+          this.updatePassDataFileInfo(data.body);
+        }
+      }
+    );
+  }
 
 }

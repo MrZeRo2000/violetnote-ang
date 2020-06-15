@@ -6,7 +6,7 @@ export class PassData {
   passNoteList: Array<PassNote>;
 
   constructor(data: PassData) {
-    this.passCategoryList = data.passCategoryList as Array<PassCategory>;
-    this.passNoteList = data.passNoteList as Array<PassNote>;
+    this.passCategoryList = data ? data.passCategoryList as Array<PassCategory> : [];
+    this.passNoteList = data ? data.passNoteList as Array<PassNote> : [];
   }
 }

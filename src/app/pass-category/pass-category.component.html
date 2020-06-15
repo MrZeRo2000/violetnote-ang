@@ -1,7 +1,7 @@
 <app-edit-panel
   *ngIf="editMode"
   [selectedItem]="selectedPassCategory"
-  [disableDelete]="hasSelectedNotes"
+  [disableDelete]="hasSelectedNotes || passData.passCategoryList.length === 1"
   (editButtonClick)="onEditButtonClick($event)"
 ></app-edit-panel>
 

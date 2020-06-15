@@ -54,4 +54,8 @@ export class OperationControlComponent implements OnInit, OnDestroy {
     this.router.navigate(['']).then();
   }
 
+  passDataSaveAllowed(): boolean {
+    return this.passDataDirty && this.passDataService.getPassData().passNoteList.length > 0;
+  }
+
 }

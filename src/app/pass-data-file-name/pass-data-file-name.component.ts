@@ -21,6 +21,7 @@ export class PassDataFileNameComponent implements OnInit, AfterViewInit, OnDestr
 
   private fileNameSubscription: Subscription;
   private passDataFileNameSubscription: Subscription;
+  private updatedPassDataFileNameSubscription: Subscription;
 
   constructor(private passDataFileNameService: PassDataFileNameService) { }
 
@@ -34,6 +35,10 @@ export class PassDataFileNameComponent implements OnInit, AfterViewInit, OnDestr
     this.passDataFileNameSubscription = this.passDataFileNameService.currentPassDataFileInfo.subscribe(value => {
       this.passDataFileInfo = value;
     });
+    this.updatedPassDataFileNameSubscription =
+      this.passDataFileNameService.updatedPassDataFileInfo.subscribe(value => {
+        this.passDataFileInfo.exists = value.exists;
+      });
   }
 
   ngAfterViewInit(): void {
@@ -50,6 +55,9 @@ export class PassDataFileNameComponent implements OnInit, AfterViewInit, OnDestr
     }
     if (this.passDataFileNameSubscription) {
       this.passDataFileNameSubscription.unsubscribe();
+    }
+    if (this.updatedPassDataFileNameSubscription){
+      this.updatedPassDataFileNameSubscription.unsubscribe();
     }
   }
 

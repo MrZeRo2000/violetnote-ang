@@ -46,7 +46,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
       this.pagerHandler.updatePageItems(passNotes, this.maxPageSize);
     });
     this.operationModeSubscription =
-      this.passDataService.currentOperationMode.subscribe(om => this.editMode = om === OperationMode.OM_EDIT);
+      this.passDataService.currentOperationMode.subscribe(om => this.editMode = om !== OperationMode.OM_VIEW);
   }
 
   ngOnDestroy(): void {

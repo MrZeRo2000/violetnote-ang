@@ -26,6 +26,10 @@ export class MessagesService {
     this.lastMessage.next(message);
   }
 
+  clearMessage(): void {
+    this.lastMessage.next(null);
+  }
+
   getLastMessage(): Observable<Message> {
     return this.lastMessage;
   }
