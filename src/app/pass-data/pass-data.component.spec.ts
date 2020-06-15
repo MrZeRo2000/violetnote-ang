@@ -9,6 +9,7 @@ import {FormsModule} from '@angular/forms';
 import {PaginationComponent} from 'ngx-bootstrap';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
+import {EditPanelComponent} from '../edit-panel/edit-panel.component';
 
 describe('PassDataComponent', () => {
   let component: PassDataComponent;
@@ -16,7 +17,7 @@ describe('PassDataComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PassDataComponent, PassCategoryComponent, PassNoteComponent, PaginationComponent ],
+      declarations: [ PassDataComponent, PassCategoryComponent, PassNoteComponent, PaginationComponent, EditPanelComponent ],
       imports: [
         FormsModule,
         RouterTestingModule,

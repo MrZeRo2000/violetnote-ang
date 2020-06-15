@@ -11,6 +11,7 @@ import {AppConfigModule} from './app-config/app-config.module';
 import {PassDataFileNameComponent} from './pass-data-file-name/pass-data-file-name.component';
 import {DataSourceModule} from './data-source/data-source.module';
 import {MessagesModule} from './messages/messages.module';
+import {EditPanelComponent} from './edit-panel/edit-panel.component';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -18,6 +19,7 @@ describe('AppComponent', () => {
         AppComponent,
         PassDataFileInfoComponent,
         PassDataFileNameComponent,
+        EditPanelComponent,
         ExitComponent,
         SearchComponent
       ],

@@ -10,6 +10,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
 import {ModalModule} from 'ngx-bootstrap';
+import {EditPanelComponent} from '../edit-panel/edit-panel.component';
 
 describe('PassCategoryComponent', () => {
   let component: PassCategoryComponent;
@@ -18,7 +19,7 @@ describe('PassCategoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PassCategoryComponent ],
+      declarations: [ PassCategoryComponent, EditPanelComponent ],
       imports: [
         FormsModule,
         HttpClientTestingModule,

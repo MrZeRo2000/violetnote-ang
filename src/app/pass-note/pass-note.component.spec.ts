@@ -9,6 +9,7 @@ import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
 import {AuthService} from '../services/auth.service';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {EditPanelComponent} from '../edit-panel/edit-panel.component';
 
 describe('PassNoteComponent', () => {
   let component: PassNoteComponent;
@@ -17,7 +18,7 @@ describe('PassNoteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PassNoteComponent, PaginationComponent ],
+      declarations: [ PassNoteComponent, PaginationComponent, EditPanelComponent ],
       imports: [
         FormsModule,
         HttpClientTestingModule,

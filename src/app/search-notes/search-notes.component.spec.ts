@@ -14,6 +14,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
 import {AuthService} from '../services/auth.service';
+import {EditPanelComponent} from '../edit-panel/edit-panel.component';
 
 // https://github.com/jasmine/jasmine/issues/1523
 /*
@@ -35,6 +36,7 @@ describe('SearchNotesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SearchNotesComponent, PasswordComponent, PassDataComponent, PassCategoryComponent, PassNoteComponent,
+        EditPanelComponent,
         PaginationComponent ],
       imports: [
         FormsModule,
