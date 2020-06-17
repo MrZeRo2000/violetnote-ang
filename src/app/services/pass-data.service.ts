@@ -35,7 +35,7 @@ export class PassDataService {
   currentOperationMode: BehaviorSubject<OperationMode> = new BehaviorSubject<OperationMode>(null);
   currentPassDataDirty: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  currentLoadingState: Subject<boolean> = new BehaviorSubject(false);
+  currentLoadingState: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private dataSource: RestDataSourceService,
@@ -154,7 +154,7 @@ export class PassDataService {
   }
 
   public isPassData(): boolean {
-    return !!this.currentPassData.getValue();
+    return !this.currentLoadingState.getValue() && !!this.currentPassData.getValue();
   }
 
   public savePassData() {

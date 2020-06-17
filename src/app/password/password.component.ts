@@ -37,18 +37,21 @@ export class PasswordComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private passDataFileInfoSubscription: Subscription;
   private passDataSubscription: Subscription;
+  private passDataLoadingStateSubscription: Subscription;
 
   ngOnInit() {
     this.passDataFileInfoSubscription = this.passDataFileNameService.currentPassDataFileInfo.subscribe(value => {
       this.passDataFileInfo = value;
     });
     this.passDataSubscription = this.passDataService.currentPassData.subscribe(value => {
-      this.loading = false;
       if (value) {
         this.router.navigate(['main']);
       } else {
         this.setPasswordFocus();
       }
+    });
+    this.passDataLoadingStateSubscription = this.passDataService.currentLoadingState.subscribe(value => {
+      this.loading = value;
     });
 
     this.setPasswordFocus();
@@ -69,12 +72,9 @@ export class PasswordComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.passDataFileInfoSubscription) {
-      this.passDataFileInfoSubscription.unsubscribe();
-    }
-    if (this.passDataSubscription) {
-      this.passDataSubscription.unsubscribe();
-    }
+    this.passDataFileInfoSubscription.unsubscribe();
+    this.passDataSubscription.unsubscribe();
+    this.passDataLoadingStateSubscription.unsubscribe();
   }
 
   private setPasswordFocus() {
@@ -126,7 +126,6 @@ export class PasswordComponent implements OnInit, AfterViewInit, OnDestroy {
         this.passDataService.initPassData();
       }
     } else {
-      this.loading = true;
       this.authService.setPassword(password);
       this.passDataService.setOperationMode(this.getOperationMode());
       this.passDataService.loadPassData();

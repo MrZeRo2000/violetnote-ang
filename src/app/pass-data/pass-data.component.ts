@@ -16,14 +16,13 @@ export class PassDataComponent implements OnInit, OnDestroy {
   isLoading = false;
   loadErrorMessage = null;
 
-  passData: PassData = null;
-
   constructor(private authService: AuthService,
               private passDataReaderService: PassDataReaderService,
               public passDataService: PassDataService,
               private router: Router) { }
 
   private passDataServiceSubscription: Subscription;
+  private passDataLoadingStateSubscription: Subscription;
 
   ngOnInit() {
     this.passDataServiceSubscription = this.passDataService.currentPassData.subscribe(data => {
@@ -31,6 +30,9 @@ export class PassDataComponent implements OnInit, OnDestroy {
         this.authService.resetPassword();
         this.router.navigate(['']);
       }
+      this.passDataLoadingStateSubscription = this.passDataService.currentLoadingState.subscribe(value => {
+        this.isLoading = value;
+      });
     });
     /*
     this.passDataService.currentPassData.subscribe(data => {
@@ -47,13 +49,11 @@ export class PassDataComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.passDataServiceSubscription) {
-      this.passDataServiceSubscription.unsubscribe();
-    }
+    this.passDataServiceSubscription.unsubscribe();
+    this.passDataLoadingStateSubscription.unsubscribe();
   }
 
   private loadPassData() {
-    this.isLoading = true;
     this.passDataService.loadPassData();
   }
 
