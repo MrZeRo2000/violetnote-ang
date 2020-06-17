@@ -35,6 +35,8 @@ export class PassDataService {
   currentOperationMode: BehaviorSubject<OperationMode> = new BehaviorSubject<OperationMode>(null);
   currentPassDataDirty: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  currentLoadingState: Subject<boolean> = new BehaviorSubject(false);
+
   constructor(
     private dataSource: RestDataSourceService,
     private passDataFileNameService: PassDataFileNameService,
@@ -82,18 +84,21 @@ export class PassDataService {
   }
 
   private requestPassData(): Observable<HttpResponse<any>> {
+    this.currentLoadingState.next(true);
     return this.dataSource.postResponse('',
       new PassDataGetRequest(this.passDataFileInfo.name, this.authService.getPassword())
       );
   }
 
   private editPassData(): Observable<HttpResponse<any>> {
+    this.currentLoadingState.next(true);
     return this.dataSource.postResponse('/edit',
       new PassDataPersistRequest(this.passDataFileInfo.name, this.authService.getPassword(), this.getPassData())
     );
   }
 
   private newPassData(): Observable<HttpResponse<any>> {
+    this.currentLoadingState.next(true);
     return this.dataSource.postResponse('/new',
       new PassDataPersistRequest(this.passDataFileInfo.name, this.authService.getPassword(), this.getPassData())
     );
@@ -116,7 +121,8 @@ export class PassDataService {
 
   private handleDataAction(action: Observable<HttpResponse<any>>): void {
     action.subscribe(data => {
-      // this.passDataFileNameService.loadFileInfo();
+      this.currentLoadingState.next(false);
+
       this.passDataFileNameService.updateFileInfo();
 
       if (data.body.errorMessage) {
@@ -129,6 +135,8 @@ export class PassDataService {
         }
       }
     }, error => {
+      this.currentLoadingState.next(false);
+
       this.reportLoadErrorMessage(error.message);
       this.clearPassData();
     });
@@ -136,9 +144,7 @@ export class PassDataService {
 
   public initPassData() {
     this.clearLoadErrorMessage();
-    const newPassData = new PassData(null);
-    newPassData.passCategoryList.push(new PassCategory('New category'));
-    this.setPassData(newPassData);
+    this.setPassData(PassData.createNew());
   }
 
   public loadPassData() {
