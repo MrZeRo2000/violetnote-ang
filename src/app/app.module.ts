@@ -19,14 +19,12 @@ import { PassDataComponent } from './pass-data/pass-data.component';
 import {AuthService} from './services/auth.service';
 import { PassCategoryComponent } from './pass-category/pass-category.component';
 import {PassDataService} from './services/pass-data.service';
-import {PassDataReaderService} from './services/pass-data-reader.service';
 import { PassNoteComponent } from './pass-note/pass-note.component';
 import { PassNoteViewComponent } from './pass-note-view/pass-note-view.component';
 import { SearchComponent } from './search/search.component';
 import { ExitComponent } from './exit/exit.component';
 import { SearchNotesComponent } from './search-notes/search-notes.component';
 import {PassDataRequiredGuard} from './guards/pass-data-required.guard';
-import { PassDataFileInfoComponent } from './pass-data-file-info/pass-data-file-info.component';
 import { PassDataFileNameComponent } from './pass-data-file-name/pass-data-file-name.component';
 import {AppConfigModule} from './app-config/app-config.module';
 import {DataSourceModule} from './data-source/data-source.module';
@@ -59,7 +57,6 @@ const appRoutes: Routes = [
     AppComponent,
     PasswordComponent,
     PassDataComponent,
-    PassDataFileInfoComponent,
     PassCategoryComponent,
     PassNoteComponent,
     PassNoteViewComponent,
@@ -102,7 +99,6 @@ const appRoutes: Routes = [
   providers: [
     AuthService,
     PassDataService,
-    PassDataReaderService,
     HttpClientModule
   ],
   bootstrap: [AppComponent]

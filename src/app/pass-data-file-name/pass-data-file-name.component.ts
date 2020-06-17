@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, View
 import {PassDataFileNameService} from '../services/pass-data-file-name.service';
 import {Subscription} from 'rxjs';
 import {PassDataFileInfo} from '../model/pass-data-file-info';
+import {PassDataService} from '../services/pass-data.service';
 
 @Component({
   selector: 'app-pass-data-file-name',
@@ -16,14 +17,20 @@ export class PassDataFileNameComponent implements OnInit, AfterViewInit, OnDestr
 
   editing = false;
 
+  passDataLoading = false;
+
   @ViewChild('fileNameControl') fileNameControl: ElementRef;
   @ViewChildren('fileNameControl') fileNameControls: QueryList<ElementRef>;
 
   private fileNameSubscription: Subscription;
   private passDataFileNameSubscription: Subscription;
   private updatedPassDataFileNameSubscription: Subscription;
+  private passDataLoadingState: Subscription;
 
-  constructor(private passDataFileNameService: PassDataFileNameService) { }
+  constructor(
+    private passDataFileNameService: PassDataFileNameService,
+    private passDataService: PassDataService
+  ) { }
 
   ngOnInit(): void {
     this.fileNameSubscription = this.passDataFileNameService.currentFileName.subscribe(value => {
@@ -39,6 +46,10 @@ export class PassDataFileNameComponent implements OnInit, AfterViewInit, OnDestr
       this.passDataFileNameService.updatedPassDataFileInfo.subscribe(value => {
         this.passDataFileInfo.exists = value.exists;
       });
+
+    this.passDataLoadingState = this.passDataService.currentLoadingState.subscribe(value => {
+      this.passDataLoading = value;
+    });
   }
 
   ngAfterViewInit(): void {
@@ -50,23 +61,20 @@ export class PassDataFileNameComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngOnDestroy(): void {
-    if (this.fileNameSubscription) {
-      this.fileNameSubscription.unsubscribe();
-    }
-    if (this.passDataFileNameSubscription) {
-      this.passDataFileNameSubscription.unsubscribe();
-    }
-    if (this.updatedPassDataFileNameSubscription){
-      this.updatedPassDataFileNameSubscription.unsubscribe();
-    }
+    this.fileNameSubscription.unsubscribe();
+    this.passDataFileNameSubscription.unsubscribe();
+    this.updatedPassDataFileNameSubscription.unsubscribe();
+    this.passDataLoadingState.unsubscribe();
   }
 
   onFileNameClick(event: any) {
     event.preventDefault();
-    this.editing = true;
-    this.editFileName = this.fileName;
-    // this.fileNameControl.nativeElement.focus();
-    // setTimeout(() => this.fileNameControl.nativeElement.focus());
+    if (this.passDataLoading) {
+      this.editing = true;
+      this.editFileName = this.fileName;
+      // this.fileNameControl.nativeElement.focus();
+      // setTimeout(() => this.fileNameControl.nativeElement.focus());
+    }
   }
 
   onFileNameControlKeyUp(event: any) {

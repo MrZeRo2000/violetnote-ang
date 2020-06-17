@@ -1,10 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
-import {PassDataReaderService} from '../services/pass-data-reader.service';
 import {PassDataService} from '../services/pass-data.service';
 import {Router} from '@angular/router';
-import {environment} from '../../environments/environment';
-import {PassData} from '../model/pass-data';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -17,7 +14,6 @@ export class PassDataComponent implements OnInit, OnDestroy {
   loadErrorMessage = null;
 
   constructor(private authService: AuthService,
-              private passDataReaderService: PassDataReaderService,
               public passDataService: PassDataService,
               private router: Router) { }
 
