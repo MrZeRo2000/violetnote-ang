@@ -17,7 +17,7 @@
      class="list-group-item list-group-item-action"
      data-toggle="modal"
      *ngFor="let passNote of pagerStatus.displayedItems"
-     [ngClass] = "{'active': passNote == selectedPassNote}"
+     [ngClass] = "{'active': noteSelected(passNote)}"
      (click)="onPassNoteClick($event, passNote)"
      cdkDrag
      [cdkDragDisabled] = dragDisabled()

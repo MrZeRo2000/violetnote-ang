@@ -25,11 +25,14 @@ export class PassNoteComponent implements OnInit, OnDestroy {
   pagerStatus: PagerStatus<PassNote>;
 
   selectedPassNote: PassNote;
+  selectedPassNotes: Array<PassNote>;
+
   editMode = false;
 
   private passCategorySubscription: Subscription;
   private passNoteSubscription: Subscription;
   private passNotesSubscription: Subscription;
+  private selectedPassNotesSubscription: Subscription;
   private pagerStatusSubscription: Subscription;
   private operationModeSubscription: Subscription;
 
@@ -41,6 +44,9 @@ export class PassNoteComponent implements OnInit, OnDestroy {
       this.pagerStatus = pagerStatus;
     });
     this.passNoteSubscription = this.passDataService.currentPassNote.subscribe(pn => this.selectedPassNote = pn);
+    this.selectedPassNotesSubscription = this.passDataService.selectedPassNotes.subscribe(passNotes => {
+      this.selectedPassNotes = passNotes;
+    });
     this.passNotesSubscription = this.passDataService.updatedPassNotes.subscribe(passNotes => {
       console.log(`PassNote: updatedPassNotes changed`);
       this.pagerHandler.updatePageItems(passNotes, this.maxPageSize);
@@ -54,11 +60,16 @@ export class PassNoteComponent implements OnInit, OnDestroy {
     this.pagerStatusSubscription.unsubscribe();
     this.passNoteSubscription.unsubscribe();
     this.passNotesSubscription.unsubscribe();
+    this.selectedPassNotesSubscription.unsubscribe();
     this.operationModeSubscription.unsubscribe();
   }
 
   public dragDisabled(): boolean {
     return !this.editMode || !this.pagerStatus || this.pagerStatus.displayedItems.length < 2;
+  }
+
+  public noteSelected(passNote: PassNote): boolean {
+    return passNote === this.selectedPassNote || (this.selectedPassNotes && this.selectedPassNotes.includes(passNote));
   }
 
   private passCategoryChanged() {
@@ -71,7 +82,13 @@ export class PassNoteComponent implements OnInit, OnDestroy {
 
   onPassNoteClick(event, passNote: PassNote) {
     if (this.editMode) {
-     this.passDataService.currentPassNote.next(passNote);
+      if (event.ctrlKey) {
+        // for multiple selection
+        this.passDataService.selectMultipleNote(passNote);
+      } else {
+        this.passDataService.selectOneNote(passNote);
+        // this.passDataService.currentPassNote.next(passNote);
+      }
     } else {
       const viewPassNote = new PassNote(
         passNote.passCategory,
@@ -118,7 +135,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
 
   pageChanged(event: PageChangedEvent): void {
     this.pagerHandler.pageChanged(event.page, event.itemsPerPage);
-    this.passDataService.currentPassNote.next(null);
+    this.passDataService.clearNoteSelection();
   }
 
   private performEdit(event: EditButtonType): void {

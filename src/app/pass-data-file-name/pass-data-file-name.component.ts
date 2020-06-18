@@ -69,7 +69,7 @@ export class PassDataFileNameComponent implements OnInit, AfterViewInit, OnDestr
 
   onFileNameClick(event: any) {
     event.preventDefault();
-    if (this.passDataLoading) {
+    if (!this.passDataLoading) {
       this.editing = true;
       this.editFileName = this.fileName;
       // this.fileNameControl.nativeElement.focus();

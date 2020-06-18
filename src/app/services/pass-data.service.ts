@@ -31,6 +31,7 @@ export class PassDataService {
   currentPassNotes: BehaviorSubject<Array<PassNote>> = new BehaviorSubject<Array<PassNote>>(null);
   updatedPassNotes: Subject<Array<PassNote>> = new Subject<Array<PassNote>>();
   currentPassNote: BehaviorSubject<PassNote> = new BehaviorSubject<PassNote>(null);
+  selectedPassNotes: BehaviorSubject<Array<PassNote>> = new BehaviorSubject<Array<PassNote>>(null);
   currentSearchStrings: Subject<Array<string>> = new BehaviorSubject<Array<string>>(null);
   currentOperationMode: BehaviorSubject<OperationMode> = new BehaviorSubject<OperationMode>(null);
   currentPassDataDirty: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -75,8 +76,9 @@ export class PassDataService {
     }
   }
 
-  private clearNoteSelection(): void {
+  public clearNoteSelection(): void {
     this.currentPassNote.next(null);
+    this.selectedPassNotes.next(null);
   }
 
   public clearPassData() {
@@ -291,8 +293,10 @@ export class PassDataService {
   }
 
   public deletePassNote(value: PassNote): void {
-    ArrayUtils.deleteArrayElement(this.getPassData().passNoteList, value);
-    this.passNoteChanged();
+    if (ArrayUtils.deleteArrayElement(this.getPassData().passNoteList, value)) {
+      this.clearNoteSelection();
+      this.passNoteChanged();
+    }
   }
 
   public insertPassNote(value: PassNote): void {
@@ -317,4 +321,31 @@ export class PassDataService {
     }
   }
 
+  public selectOneNote(passNote: PassNote): void {
+    if (this.selectedPassNotes.getValue()) {
+      this.selectedPassNotes.next(null);
+    }
+    this.currentPassNote.next(passNote);
+  }
+
+  public selectMultipleNote(passNote: PassNote): void {
+    const passNotes = this.selectedPassNotes.getValue() || [];
+
+    const deleted = ArrayUtils.deleteArrayElement(passNotes, passNote);
+    if (deleted) {
+      if (passNotes.length < 2) {
+        this.currentPassNote.next(passNotes[0]);
+        this.selectedPassNotes.next(null);
+      } else {
+        this.selectedPassNotes.next(passNotes);
+      }
+    } else {
+      if (this.currentPassNote.getValue()) {
+        passNotes.push(this.currentPassNote.getValue());
+        this.currentPassNote.next(null);
+      }
+      passNotes.push(passNote);
+      this.selectedPassNotes.next(passNotes);
+    }
+  }
 }

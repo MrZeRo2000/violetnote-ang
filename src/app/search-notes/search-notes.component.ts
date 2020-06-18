@@ -80,7 +80,7 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
 
   onPassNoteClick(event, passNote: PassNote) {
     if (this.editMode) {
-      this.passDataService.currentPassNote.next(passNote);
+      this.passDataService.selectOneNote(passNote);
     } else {
       const viewPassNote = new PassNote(
         passNote.passCategory,
@@ -106,15 +106,15 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
   private updateCurrentPassNote(): void {
     if (this.editMode) {
       if (this.searchPassNotes && this.searchPassNotes.length > 0) {
-        this.passDataService.currentPassNote.next(this.searchPassNotes[0]);
+        this.passDataService.selectOneNote(this.searchPassNotes[0]);
       }
     } else {
-      this.passDataService.currentPassNote.next(null);
+      this.passDataService.clearNoteSelection();
     }
   }
 
   searchInfoButtonClick(event) {
-    this.passDataService.currentPassNote.next(null);
+    this.passDataService.clearNoteSelection();
     this.router.navigate(['main']);
   }
 
@@ -133,7 +133,11 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
 
   pageChanged(event: PageChangedEvent): void {
     this.pagerHandler.pageChanged(event.page, event.itemsPerPage);
-    this.passDataService.currentPassNote.next(null);
+    if (this.editMode && this.pagerStatus.displayedItems && this.pagerStatus.displayedItems.length > 0) {
+      this.passDataService.selectOneNote(this.pagerStatus.displayedItems[0]);
+    } else {
+      this.passDataService.clearNoteSelection();
+    }
   }
 
   private passNoteChanged(): void {
