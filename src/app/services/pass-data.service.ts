@@ -322,9 +322,7 @@ export class PassDataService {
   }
 
   public selectOneNote(passNote: PassNote): void {
-    if (this.selectedPassNotes.getValue()) {
-      this.selectedPassNotes.next(null);
-    }
+    this.selectedPassNotes.next([passNote]);
     this.currentPassNote.next(passNote);
   }
 
@@ -332,20 +330,22 @@ export class PassDataService {
     const passNotes = this.selectedPassNotes.getValue() || [];
 
     const deleted = ArrayUtils.deleteArrayElement(passNotes, passNote);
-    if (deleted) {
-      if (passNotes.length < 2) {
-        this.currentPassNote.next(passNotes[0]);
-        this.selectedPassNotes.next(null);
-      } else {
-        this.selectedPassNotes.next(passNotes);
-      }
-    } else {
-      if (this.currentPassNote.getValue()) {
-        passNotes.push(this.currentPassNote.getValue());
-        this.currentPassNote.next(null);
-      }
+    if (!deleted) {
       passNotes.push(passNote);
-      this.selectedPassNotes.next(passNotes);
+    }
+
+    switch (passNotes.length) {
+      case 0:
+        this.currentPassNote.next(null);
+        this.selectedPassNotes.next(null);
+        break;
+      case 1:
+        this.currentPassNote.next(passNotes[0]);
+        this.selectedPassNotes.next(passNotes);
+        break;
+      default:
+        this.currentPassNote.next(null);
+        this.selectedPassNotes.next(passNotes);
     }
   }
 }
