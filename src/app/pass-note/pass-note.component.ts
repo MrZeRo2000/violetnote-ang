@@ -20,7 +20,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
   EditButtonType = EditButtonType;
 
   bsModalRef: BsModalRef;
-  maxPageSize = 3;
+  maxPageSize = 8;
 
   private pagerHandler: PagerHandler<PassNote> = new PagerHandler<PassNote>(this.maxPageSize);
   pagerStatus: PagerStatus<PassNote>;
