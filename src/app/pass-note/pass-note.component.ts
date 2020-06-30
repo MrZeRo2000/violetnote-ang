@@ -9,6 +9,7 @@ import {PagerStatus} from '../model/pager-status';
 import {Subject, Subscription} from 'rxjs';
 import {ConfirmationModalDialogComponent} from '../confirmation-modal-dialog/confirmation-modal-dialog.component';
 import {PassNoteEditComponent} from '../pass-note-edit/pass-note-edit.component';
+import {PassCategory} from '../model/pass-category';
 
 @Component({
   selector: 'app-pass-note',
@@ -26,6 +27,8 @@ export class PassNoteComponent implements OnInit, OnDestroy {
 
   selectedPassNote: PassNote;
   selectedPassNotes: Array<PassNote>;
+
+  movePassCategoryList: Array<PassCategory>;
 
   editMode = false;
 
@@ -78,6 +81,9 @@ export class PassNoteComponent implements OnInit, OnDestroy {
       this.pagerStatus.currentPage = 1;
     }, 0);
     this.pagerHandler.setPageItems(this.passDataService.getPassNotes());
+    this.movePassCategoryList = this.passDataService.getPassData().passCategoryList.filter(
+      v => v !== this.passDataService.getSelectedPassCategory()
+    );
   }
 
   onPassNoteClick(event, passNote: PassNote) {
@@ -126,6 +132,23 @@ export class PassNoteComponent implements OnInit, OnDestroy {
         this.passDataService.movePassNote(globalFromIndex, globalToIndex);
       }
     }
+  }
+
+  onMoveToOtherCategory(event, passCategory: PassCategory): void {
+    event.preventDefault();
+    const result: Subject<PassCategory> = new Subject<PassCategory>();
+    result.subscribe(value => {
+      // this.passDataService.deletePassNote(value);
+      console.log(`Moving to ${value.categoryName}`);
+      this.selectedPassNotes.forEach(pn => pn.passCategory = value);
+      this.passDataService.currentPassDataDirty.next(true);
+      this.passDataService.setSelectedPassCategory(this.passDataService.getSelectedPassCategory());
+    });
+    const message = `Selected notes will be moved to <strong>${passCategory.categoryName}</strong>. Are you sure?`;
+    const initialState = {message, item: passCategory, result};
+
+    this.modalService.show(ConfirmationModalDialogComponent, {initialState});
+
   }
 
   onPageAllClick(event) {
