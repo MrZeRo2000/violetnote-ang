@@ -151,7 +151,7 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
   private performDelete(): void {
     const result: Subject<PassNote> = new Subject<PassNote>();
     result.subscribe(value => {
-      this.passDataService.deletePassNote(value);
+      this.passDataService.deletePassNote(this.selectedPassNote.passCategory, value);
       this.passNoteChanged();
     });
     const message = `<strong>${this.selectedPassNote.passNote.system}/${this.selectedPassNote.passNote.user}</strong> will be deleted. Are you sure?`;
@@ -163,7 +163,7 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
   private performEdit(): void {
     const result: Subject<PassNote> = new Subject<PassNote>();
     result.subscribe(value => {
-      this.passDataService.updatePassNote(this.selectedPassNote.passNote, value);
+      this.passDataService.updatePassNote(this.selectedPassNote.passCategory, this.selectedPassNote.passNote, value);
       this.passNoteChanged();
     });
     const item = this.selectedPassNote;

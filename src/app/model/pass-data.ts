@@ -17,9 +17,7 @@ export class PassData {
   }
 
   public calcNoteList(): void {
-    if (!this.passNoteList) {
-      this.passNoteList = [];
-    }
+    this.passNoteList = [];
     this.categoryList.forEach(value => this.passNoteList.push(...value.noteList));
   }
 }

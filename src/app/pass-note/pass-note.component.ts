@@ -25,6 +25,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
   private pagerHandler: PagerHandler<PassNote> = new PagerHandler<PassNote>(this.maxPageSize);
   pagerStatus: PagerStatus<PassNote>;
 
+  selectedPassCategory: PassCategory;
   selectedPassNote: PassNote;
   selectedPassNotes: Array<PassNote>;
 
@@ -42,7 +43,10 @@ export class PassNoteComponent implements OnInit, OnDestroy {
   constructor(public passDataService: PassDataService, private modalService: BsModalService) { }
 
   ngOnInit(): void {
-    this.passCategorySubscription = this.passDataService.currentPassCategory.subscribe(() => this.passCategoryChanged());
+    this.passCategorySubscription = this.passDataService.currentPassCategory.subscribe((passCategory) => {
+      this.selectedPassCategory = passCategory;
+      this.passCategoryChanged();
+    });
     this.pagerStatusSubscription = this.pagerHandler.pagerStatusSubject.subscribe((pagerStatus) => {
       this.pagerStatus = pagerStatus;
     });
@@ -80,9 +84,9 @@ export class PassNoteComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.pagerStatus.currentPage = 1;
     }, 0);
-    this.pagerHandler.setPageItems(this.passDataService.getPassNotes());
+    this.pagerHandler.setPageItems(this.selectedPassCategory.noteList);
     this.movePassCategoryList = this.passDataService.getPassData().categoryList.filter(
-      v => v !== this.passDataService.getSelectedPassCategory()
+      v => v !== this.selectedPassCategory
     );
   }
 
@@ -163,9 +167,9 @@ export class PassNoteComponent implements OnInit, OnDestroy {
     const result: Subject<PassNote> = new Subject<PassNote>();
     result.subscribe(value => {
       if (event === this.EditButtonType.BT_EDIT) {
-        this.passDataService.updatePassNote(this.selectedPassNote, value);
+        this.passDataService.updatePassNote(this.selectedPassCategory, this.selectedPassNote, value);
       } else {
-        this.passDataService.insertPassNote(value);
+        this.passDataService.insertPassNote(this.selectedPassCategory, value);
       }
     });
     const item = event === this.EditButtonType.BT_EDIT ? this.selectedPassNote : null;
@@ -184,7 +188,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
   private performDelete(): void {
     const result: Subject<PassNote> = new Subject<PassNote>();
     result.subscribe(value => {
-      this.passDataService.deletePassNote(value);
+      this.passDataService.deletePassNote(this.selectedPassCategory, value);
     });
     const message = `<strong>${this.selectedPassNote.system}/${this.selectedPassNote.user}</strong> will be deleted. Are you sure?`;
     const initialState = {message, item: this.selectedPassNote, result};

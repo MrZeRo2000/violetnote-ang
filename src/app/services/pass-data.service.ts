@@ -308,22 +308,22 @@ export class PassDataService {
     this.currentPassDataDirty.next(true);
   }
 
-  public deletePassNote(value: PassNote): void {
-    if (ArrayUtils.deleteArrayElement(this.getPassData().passNoteList, value)) {
+  public deletePassNote(passCategory: PassCategory, value: PassNote): void {
+    if (ArrayUtils.deleteArrayElement(passCategory.noteList, value)) {
       this.clearNoteSelection();
       this.passNoteChanged();
     }
   }
 
-  public insertPassNote(value: PassNote): void {
-    this.getPassData().passNoteList.push(value);
+  public insertPassNote(passCategory: PassCategory, value: PassNote): void {
+    passCategory.noteList.push(value);
     this.passNoteChanged();
   }
 
-  public updatePassNote(oldValue: PassNote, newValue: PassNote): void {
-    const oldValueIndex = this.getPassData().passNoteList.indexOf(oldValue);
+  public updatePassNote(passCategory: PassCategory, oldValue: PassNote, newValue: PassNote): void {
+    const oldValueIndex = passCategory.noteList.indexOf(oldValue);
     if (oldValueIndex > -1) {
-      this.getPassData().passNoteList[oldValueIndex] = newValue;
+      passCategory.noteList[oldValueIndex] = newValue;
       this.passNoteChanged();
       this.currentPassNote.next(newValue);
     }
