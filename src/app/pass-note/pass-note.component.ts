@@ -81,7 +81,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
       this.pagerStatus.currentPage = 1;
     }, 0);
     this.pagerHandler.setPageItems(this.passDataService.getPassNotes());
-    this.movePassCategoryList = this.passDataService.getPassData().passCategoryList.filter(
+    this.movePassCategoryList = this.passDataService.getPassData().categoryList.filter(
       v => v !== this.passDataService.getSelectedPassCategory()
     );
   }
@@ -97,12 +97,10 @@ export class PassNoteComponent implements OnInit, OnDestroy {
       }
     } else {
       const viewPassNote = new PassNote(
-        passNote.passCategory,
         passNote.system,
         passNote.user,
         passNote.password,
-        passNote.comments,
-        passNote.custom,
+        passNote.url,
         passNote.info
       );
       const initialState = {
@@ -140,7 +138,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
     result.subscribe(value => {
       // this.passDataService.deletePassNote(value);
       console.log(`Moving to ${value.categoryName}`);
-      this.selectedPassNotes.forEach(pn => pn.passCategory = value);
+      // this.selectedPassNotes.forEach(pn => pn.passCategory = value);
       this.passDataService.currentPassDataDirty.next(true);
       this.passDataService.setSelectedPassCategory(this.passDataService.getSelectedPassCategory());
     });

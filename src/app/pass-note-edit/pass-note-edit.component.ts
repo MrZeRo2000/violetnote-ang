@@ -46,9 +46,8 @@ export class PassNoteEditComponent implements OnInit {
         new FormControl((this.item && this.item.password) || (this.duplicateItem && this.duplicateItem.password), Validators.required),
       passwordRetype:
         new FormControl((this.item && this.item.password) || (this.duplicateItem && this.duplicateItem.password), Validators.required),
-      comments:
-        new FormControl((this.item && this.item.comments) || (this.duplicateItem && this.duplicateItem.comments)),
-      custom: new FormControl((this.item && this.item.custom) || (this.duplicateItem && this.duplicateItem.custom)),
+      url:
+        new FormControl((this.item && this.item.url) || (this.duplicateItem && this.duplicateItem.url)),
       info: new FormControl((this.item && this.item.info) || (this.duplicateItem && this.duplicateItem.info))
     });
 
@@ -78,12 +77,10 @@ export class PassNoteEditComponent implements OnInit {
 
     if (this.editForm.valid) {
       const resultItem = new PassNote(
-        this.passCategory,
         this.editForm.controls.system.value,
         this.editForm.controls.user.value,
         this.editForm.controls.password.value,
-        PassNoteEditComponent.getOptionalStringValue(this.editForm.controls.comments.value),
-        PassNoteEditComponent.getOptionalStringValue(this.editForm.controls.custom.value),
+        PassNoteEditComponent.getOptionalStringValue(this.editForm.controls.url.value),
         PassNoteEditComponent.getOptionalStringValue(this.editForm.controls.info.value)
       );
 

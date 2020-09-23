@@ -12,12 +12,10 @@ class MockModalService {
 }
 
 class MockPassNote {
-  passCategory: PassCategory = {categoryName: 'TestCategoryName'};
   system = 'System';
   user = 'User';
   password = 'Password';
-  comments = 'Comments';
-  custom = 'Custom';
+  url = 'Url';
   info = 'Info';
   public getURL(): string {
     return null;

@@ -35,8 +35,7 @@ describe('PassCategoryComponent', () => {
     .compileComponents();
     service = TestBed.inject(PassDataService);
     service.setPassData({
-      passCategoryList: [{categoryName: 'TestCategoryName'}],
-      passNoteList: [{passCategory: {categoryName: 'TestCategoryName'}, user: 'TestUser', system: 'TestSystem'}]
+      categoryList: [{categoryName: 'TestCategoryName', noteList: [{user: 'TestUser', system: 'TestSystem'}]}]
     });
   }));
 

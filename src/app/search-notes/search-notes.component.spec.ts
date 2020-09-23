@@ -15,6 +15,9 @@ import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
 import {AuthService} from '../services/auth.service';
 import {EditPanelComponent} from '../edit-panel/edit-panel.component';
+import {PassCategory} from '../model/pass-category';
+import {PassNote} from '../model/pass-note';
+import {PassData} from '../model/pass-data';
 
 // https://github.com/jasmine/jasmine/issues/1523
 /*
@@ -32,6 +35,14 @@ describe('SearchNotesComponent', () => {
   let component: SearchNotesComponent;
   let fixture: ComponentFixture<SearchNotesComponent>;
   let service: PassDataService;
+
+  const passCategory = new PassCategory('TestCategoryName');
+  passCategory.noteList = [
+    new PassNote('system', 'user', 'password', 'url', 'info')
+  ];
+
+  const passData = new PassData(null);
+  passData.categoryList = [passCategory];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -56,15 +67,7 @@ describe('SearchNotesComponent', () => {
     })
     .compileComponents();
     service = TestBed.inject(PassDataService);
-    service.setPassData({
-      passCategoryList: [{categoryName: 'TestCategoryName'}],
-      passNoteList: [{
-        passCategory: {categoryName: 'TestCategoryName'},
-        system: 'System',
-        user: 'User',
-        custom: 'Custom'
-      }]
-    });
+    service.setPassData(passData);
   }));
 
   beforeEach(() => {

@@ -13,6 +13,7 @@ import {PassDataGetRequest} from '../model/pass-data-get-request';
 import {PassDataFileInfo} from '../model/pass-data-file-info';
 import {ArrayUtils} from '../utils/array-utils';
 import {PassDataPersistRequest} from '../model/pass-data-persist-request';
+import {PassNoteSearch} from '../model/pass-note-search';
 
 export enum OperationMode {
   OM_VIEW,
@@ -70,8 +71,8 @@ export class PassDataService {
 
   private selectFirstCategory(): void {
     const passData = this.getPassData();
-    if (passData && passData.passCategoryList && passData.passCategoryList.length > 0) {
-      this.setSelectedPassCategory(passData.passCategoryList[0]);
+    if (passData && passData.categoryList && passData.categoryList.length > 0) {
+      this.setSelectedPassCategory(passData.categoryList[0]);
       this.clearNoteSelection();
     }
   }
@@ -207,9 +208,7 @@ export class PassDataService {
   }
 
   public getPassNotesByCategory(passCategory: PassCategory): Array<PassNote> {
-    return this.getPassData() && passCategory ? this.getPassData().passNoteList.filter(
-      (note) => note.passCategory.categoryName === passCategory.categoryName
-    ) : [];
+    return this.getPassData() && passCategory ? passCategory.noteList : [];
   }
 
   public getSearchPassNotes(searchString: string): Array<PassNote>  {
@@ -224,6 +223,29 @@ export class PassDataService {
     }
   }
 
+  public getPassNotesSearch(searchString: string): Array<PassNoteSearch>  {
+    let searchExp;
+
+    if (searchString) {
+      searchExp = new RegExp(`.*${searchString}.*`, 'i');
+    }
+
+    const passNotesSearch = [];
+
+    this.getPassData().categoryList.forEach(
+      passCategory => passCategory.noteList.forEach(
+        passNote => {
+          if ((!searchExp) || (searchExp && (searchExp.test(passNote.system) || searchExp.test(passNote.user)))) {
+            passNotesSearch.push(new PassNoteSearch(passCategory, passNote));
+          }
+        }
+      )
+    );
+
+    return passNotesSearch;
+  }
+
+
   public getSearchStrings(): Array<string> {
     const items = Array.from(
       new Set<string>(
@@ -237,14 +259,11 @@ export class PassDataService {
   }
 
   public insertPassCategory(value: PassCategory): void {
-    this.getPassData().passCategoryList.push(value);
+    this.getPassData().categoryList.push(value);
     this.currentPassDataDirty.next(true);
   }
 
   public updatePassCategory(value: PassCategory): void {
-    // update category in notes
-    this.getPassNotes()
-      .map(pn => pn.passCategory.categoryName = value.categoryName);
     // update category
     this.currentPassCategory.getValue().categoryName = value.categoryName;
 
@@ -253,13 +272,9 @@ export class PassDataService {
 
   public deletePassCategory(value: PassCategory): void {
     // check if the category is empty
-    if (
-      this.getPassData().passNoteList
-        .filter(pn => pn.passCategory.categoryName === value.categoryName)
-        .length === 0
-    ) {
+    if (value.noteList.length === 0) {
 
-      ArrayUtils.deleteArrayElement(this.getPassData().passCategoryList, value);
+      ArrayUtils.deleteArrayElement(this.getPassData().categoryList, value);
 
       /*
       this.getPassData().passCategoryList =
@@ -274,7 +289,7 @@ export class PassDataService {
 
   public movePassCategory(fromIndex: number, toIndex: number): void {
     if (fromIndex !== toIndex) {
-      ArrayUtils.moveArrayElement(this.getPassData().passCategoryList, fromIndex, toIndex);
+      ArrayUtils.moveArrayElement(this.getPassData().categoryList, fromIndex, toIndex);
 
       this.currentPassData.next(this.getPassData());
       this.currentPassDataDirty.next(true);
@@ -284,6 +299,7 @@ export class PassDataService {
   private passNoteChanged(): void {
     // this.currentPassNote.next(null);
     // this.setSelectedPassCategory(this.getSelectedPassCategory());
+    this.getPassData().calcNoteList();
     this.currentPassNotes.next(this.getPassNotesByCategory(this.getSelectedPassCategory()));
     if (this.currentPassNotes.value) {
       this.updatedPassNotes.next(this.currentPassNotes.value);

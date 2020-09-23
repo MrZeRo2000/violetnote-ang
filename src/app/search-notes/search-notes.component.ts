@@ -10,6 +10,7 @@ import {Subject, Subscription} from 'rxjs';
 import {EditButtonType} from '../edit-panel/edit-panel.component';
 import {ConfirmationModalDialogComponent} from '../confirmation-modal-dialog/confirmation-modal-dialog.component';
 import {PassNoteEditComponent} from '../pass-note-edit/pass-note-edit.component';
+import {PassNoteSearch} from '../model/pass-note-search';
 
 @Component({
   selector: 'app-search-notes',
@@ -23,11 +24,11 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
   searchText: string;
   maxPageSize = 8;
 
-  private pagerHandler: PagerHandler<PassNote> = new PagerHandler<PassNote>(this.maxPageSize);
-  pagerStatus: PagerStatus<PassNote>;
+  private pagerHandler: PagerHandler<PassNoteSearch> = new PagerHandler<PassNoteSearch>(this.maxPageSize);
+  pagerStatus: PagerStatus<PassNoteSearch>;
 
-  searchPassNotes: Array<PassNote>;
-  selectedPassNote: PassNote;
+  searchPassNotes: Array<PassNoteSearch>;
+  selectedPassNote: PassNoteSearch;
   editMode = false;
 
   private activatedRouteParamsSubscription: Subscription;
@@ -50,7 +51,11 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
           this.pagerStatus = pagerStatus;
         });
 
-        this.passNoteSubscription = this.passDataService.currentPassNote.subscribe(pn => this.selectedPassNote = pn);
+        this.passNoteSubscription = this.passDataService.currentPassNote.subscribe(pn => {
+          if (this.selectedPassNote) {
+            this.selectedPassNote.passNote = pn;
+          }
+        });
         this.operationModeSubscription =
           this.passDataService.currentOperationMode.subscribe(om => {
             this.editMode = om === OperationMode.OM_EDIT;
@@ -78,18 +83,16 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
     this.activatedRouteParamsSubscription.unsubscribe();
   }
 
-  onPassNoteClick(event, passNote: PassNote) {
+  onPassNoteClick(event, passNoteSearch: PassNoteSearch) {
     if (this.editMode) {
-      this.passDataService.selectOneNote(passNote);
+      this.passDataService.selectOneNote(passNoteSearch.passNote);
     } else {
       const viewPassNote = new PassNote(
-        passNote.passCategory,
-        passNote.system,
-        passNote.user,
-        passNote.password,
-        passNote.comments,
-        passNote.custom,
-        passNote.info
+        passNoteSearch.passNote.system,
+        passNoteSearch.passNote.user,
+        passNoteSearch.passNote.password,
+        passNoteSearch.passNote.url,
+        passNoteSearch.passNote.info
       );
       const initialState = {
         passNote: viewPassNote
@@ -99,14 +102,14 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
   }
 
   private updateSearchPassNotes(): void {
-    this.searchPassNotes = this.passDataService.getSearchPassNotes(this.searchText);
+    this.searchPassNotes = this.passDataService.getPassNotesSearch(this.searchText);
     this.pagerHandler.setPageItems(this.searchPassNotes);
   }
 
   private updateCurrentPassNote(): void {
     if (this.editMode) {
       if (this.searchPassNotes && this.searchPassNotes.length > 0) {
-        this.passDataService.selectOneNote(this.searchPassNotes[0]);
+        this.passDataService.selectOneNote(this.searchPassNotes[0].passNote);
       }
     } else {
       this.passDataService.clearNoteSelection();
@@ -134,7 +137,7 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
   pageChanged(event: PageChangedEvent): void {
     this.pagerHandler.pageChanged(event.page, event.itemsPerPage);
     if (this.editMode && this.pagerStatus.displayedItems && this.pagerStatus.displayedItems.length > 0) {
-      this.passDataService.selectOneNote(this.pagerStatus.displayedItems[0]);
+      this.passDataService.selectOneNote(this.pagerStatus.displayedItems[0].passNote);
     } else {
       this.passDataService.clearNoteSelection();
     }
@@ -151,7 +154,7 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
       this.passDataService.deletePassNote(value);
       this.passNoteChanged();
     });
-    const message = `<strong>${this.selectedPassNote.system}/${this.selectedPassNote.user}</strong> will be deleted. Are you sure?`;
+    const message = `<strong>${this.selectedPassNote.passNote.system}/${this.selectedPassNote.passNote.user}</strong> will be deleted. Are you sure?`;
     const initialState = {message, item: this.selectedPassNote, result};
 
     this.modalService.show(ConfirmationModalDialogComponent, {initialState});
@@ -160,7 +163,7 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
   private performEdit(): void {
     const result: Subject<PassNote> = new Subject<PassNote>();
     result.subscribe(value => {
-      this.passDataService.updatePassNote(this.selectedPassNote, value);
+      this.passDataService.updatePassNote(this.selectedPassNote.passNote, value);
       this.passNoteChanged();
     });
     const item = this.selectedPassNote;

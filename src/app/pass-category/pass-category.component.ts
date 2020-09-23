@@ -54,7 +54,7 @@ export class PassCategoryComponent implements OnInit, OnDestroy {
   }
 
   public dragDisabled(): boolean {
-    return !this.editMode || !this.passData.passCategoryList || this.passData.passCategoryList.length < 2;
+    return !this.editMode || !this.passData.categoryList || this.passData.categoryList.length < 2;
   }
 
   onPassCategoryClick(event, passCategory) {
@@ -89,7 +89,7 @@ export class PassCategoryComponent implements OnInit, OnDestroy {
       }
     });
     const item = editing ? this.selectedPassCategory : null;
-    const initialState = {item, items: this.passDataService.getPassData().passCategoryList, result};
+    const initialState = {item, items: this.passDataService.getPassData().categoryList, result};
 
     this.modalService.show(PassCategoryEditComponent, {initialState, ignoreBackdropClick: true});
   }

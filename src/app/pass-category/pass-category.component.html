@@ -1,14 +1,14 @@
 <app-edit-panel
   *ngIf="editMode"
   [selectedItem]="selectedPassCategory"
-  [disableDelete]="hasSelectedNotes || passData.passCategoryList.length === 1"
+  [disableDelete]="hasSelectedNotes || passData.categoryList.length === 1"
   (editButtonClick)="onEditButtonClick($event)"
 ></app-edit-panel>
 
 <div class="list-group" cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="onDrop($event)">
   <a href="#"
      class="list-group-item list-group-item-action"
-     *ngFor="let passCategory of passData.passCategoryList"
+     *ngFor="let passCategory of passData.categoryList"
      [ngClass] = "{'active': passCategory==selectedPassCategory}"
      (click)="onPassCategoryClick($event, passCategory)"
      cdkDrag
