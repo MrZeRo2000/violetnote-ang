@@ -33,7 +33,6 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
 
   private activatedRouteParamsSubscription: Subscription;
   private pagerStatusSubscription: Subscription;
-  private passNoteSubscription: Subscription;
   private operationModeSubscription: Subscription;
 
   constructor(
@@ -51,11 +50,6 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
           this.pagerStatus = pagerStatus;
         });
 
-        this.passNoteSubscription = this.passDataService.currentPassNote.subscribe(pn => {
-          if (this.selectedPassNote) {
-            this.selectedPassNote.passNote = pn;
-          }
-        });
         this.operationModeSubscription =
           this.passDataService.currentOperationMode.subscribe(om => {
             this.editMode = om === OperationMode.OM_EDIT;
@@ -74,9 +68,6 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
     if (this.pagerStatusSubscription) {
       this.pagerStatusSubscription.unsubscribe();
     }
-    if (this.passNoteSubscription) {
-      this.passNoteSubscription.unsubscribe();
-    }
     if (this.operationModeSubscription) {
       this.operationModeSubscription.unsubscribe();
     }
@@ -85,6 +76,7 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
 
   onPassNoteClick(event, passNoteSearch: PassNoteSearch) {
     if (this.editMode) {
+      this.selectedPassNote = passNoteSearch;
       this.passDataService.selectOneNote(passNoteSearch.passNote);
     } else {
       const viewPassNote = new PassNote(
@@ -155,7 +147,7 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
       this.passNoteChanged();
     });
     const message = `<strong>${this.selectedPassNote.passNote.system}/${this.selectedPassNote.passNote.user}</strong> will be deleted. Are you sure?`;
-    const initialState = {message, item: this.selectedPassNote, result};
+    const initialState = {message, item: this.selectedPassNote.passNote, result};
 
     this.modalService.show(ConfirmationModalDialogComponent, {initialState});
   }
@@ -168,7 +160,7 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
     });
     const item = this.selectedPassNote;
     const initialState = {
-      item,
+      item: item.passNote,
       items: this.passDataService.getPassNotesByCategory(item.passCategory),
       passCategory: item.passCategory,
       result

@@ -10,7 +10,7 @@
     <app-edit-panel
       *ngIf="editMode"
       hideAdd="true"
-      [selectedItem]="selectedPassNote"
+      [selectedItem]="selectedPassNote && selectedPassNote.passNote"
       (editButtonClick)="onEditButtonClick($event)"
     ></app-edit-panel>
 
