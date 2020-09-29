@@ -4,7 +4,6 @@ import {OperationMode, PassDataService} from '../services/pass-data.service';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {ConfirmationModalDialogComponent} from '../confirmation-modal-dialog/confirmation-modal-dialog.component';
 import {ExportViewComponent} from '../export-view/export-view.component';
 
 @Component({
@@ -55,7 +54,7 @@ export class OperationControlComponent implements OnInit, OnDestroy {
   }
 
   passDataSaveAllowed(): boolean {
-    return this.passDataDirty && this.passDataService.getPassData().passNoteList.length > 0;
+    return this.passDataDirty && this.passDataService.getPassData().getPassNoteList().length > 0;
   }
 
 }

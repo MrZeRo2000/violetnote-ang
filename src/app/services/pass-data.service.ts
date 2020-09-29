@@ -213,11 +213,11 @@ export class PassDataService {
 
   public getSearchPassNotes(searchString: string): Array<PassNote>  {
     if ((searchString === undefined) || (searchString == null)) {
-      return this.getPassData().passNoteList;
+      return this.getPassData().getPassNoteList();
     } else {
       const searchExp = new RegExp(`.*${searchString}.*`, 'i');
 
-      return this.getPassData().passNoteList.filter(
+      return this.getPassData().getPassNoteList().filter(
         (note) => searchExp.test(note.system) || searchExp.test(note.user)
       );
     }
@@ -249,7 +249,7 @@ export class PassDataService {
   public getSearchStrings(): Array<string> {
     const items = Array.from(
       new Set<string>(
-        [].concat.apply([], this.getPassData().passNoteList.map(
+        [].concat.apply([], this.getPassData().getPassNoteList().map(
           a => [a.user.toLowerCase(), a.system.toLowerCase()]
         )
         )
@@ -331,7 +331,7 @@ export class PassDataService {
 
   public movePassNote(fromIndex: number, toIndex: number): void {
     if (fromIndex !== toIndex) {
-      ArrayUtils.moveArrayElement(this.getPassData().passNoteList, fromIndex, toIndex);
+      ArrayUtils.moveArrayElement(this.getPassData().getPassNoteList(), fromIndex, toIndex);
 
       this.passNoteChanged();
     }

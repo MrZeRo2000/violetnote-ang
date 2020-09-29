@@ -3,7 +3,8 @@ import {PassNote} from './pass-note';
 
 export class PassData {
   categoryList: Array<PassCategory>;
-  passNoteList: Array<PassNote>;
+
+  private passNoteList: Array<PassNote> = [];
 
   public static createNew(): PassData {
     const newPassData = new PassData(null);
@@ -19,5 +20,9 @@ export class PassData {
   public calcNoteList(): void {
     this.passNoteList = [];
     this.categoryList.forEach(value => this.passNoteList.push(...value.noteList));
+  }
+
+  public getPassNoteList(): Array<PassNote> {
+    return this.passNoteList;
   }
 }

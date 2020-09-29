@@ -48,7 +48,7 @@ export class ExportViewComponent implements OnInit {
         exportName = this.passDataService.getSelectedPassCategory().categoryName;
         break;
       case ExportScope.ES_ALL:
-        exportData = [...this.passDataService.getPassData().passNoteList];
+        exportData = [...this.passDataService.getPassData().getPassNoteList()];
         exportName = 'All';
         break;
     }
