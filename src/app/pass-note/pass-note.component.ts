@@ -29,7 +29,7 @@ export class PassNoteComponent implements OnInit, OnDestroy {
   selectedPassNote: PassNote;
   selectedPassNotes: Array<PassNote>;
 
-  movePassCategoryList: Array<PassCategory>;
+  movePassCategoryNameList: Array<String> = [];
 
   editMode = false;
 
@@ -85,9 +85,11 @@ export class PassNoteComponent implements OnInit, OnDestroy {
       this.pagerStatus.currentPage = 1;
     }, 0);
     this.pagerHandler.setPageItems(this.selectedPassCategory.noteList);
-    this.movePassCategoryList = this.passDataService.getPassData().categoryList.filter(
-      v => v !== this.selectedPassCategory
-    );
+
+    this.movePassCategoryNameList = this.passDataService.getPassData().categoryList
+      .filter(v => v !== this.selectedPassCategory)
+      .map(value => value.categoryName);
+    console.log('movePassCategoryNameList:' + JSON.stringify(this.movePassCategoryNameList));
   }
 
   onPassNoteClick(event, passNote: PassNote) {
@@ -136,20 +138,24 @@ export class PassNoteComponent implements OnInit, OnDestroy {
     }
   }
 
-  onMoveToOtherCategory(event, passCategory: PassCategory): void {
+  onMoveToOtherCategory(event, passCategoryName): void {
     event.preventDefault();
     const result: Subject<PassCategory> = new Subject<PassCategory>();
     result.subscribe(value => {
       // this.passDataService.deletePassNote(value);
-      console.log(`Moving to ${value.categoryName}`);
+      console.log(`Moving ${JSON.stringify(this.selectedPassNotes)} to ${value.categoryName}`);
       // this.selectedPassNotes.forEach(pn => pn.passCategory = value);
       this.passDataService.currentPassDataDirty.next(true);
       this.passDataService.setSelectedPassCategory(this.passDataService.getSelectedPassCategory());
     });
-    const message = `Selected notes will be moved to <strong>${passCategory.categoryName}</strong>. Are you sure?`;
-    const initialState = {message, item: passCategory, result};
 
-    this.modalService.show(ConfirmationModalDialogComponent, {initialState});
+    const passCategory: PassCategory = this.passDataService.getPassData().categoryList
+      .find(value => value.categoryName === passCategoryName);
+    if (passCategory) {
+      const message = `Selected notes will be moved to <strong>${passCategory.categoryName}</strong>. Are you sure?`;
+      const initialState = {message, item: passCategory, result};
+      this.modalService.show(ConfirmationModalDialogComponent, {initialState});
+    }
 
   }
 

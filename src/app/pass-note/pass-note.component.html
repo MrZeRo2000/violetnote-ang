@@ -6,14 +6,18 @@
 ></app-edit-panel>
 
 <div class="dropdown d-inline-block"
-     *ngIf="selectedPassNotes && selectedPassNotes.length > 0 && movePassCategoryList && movePassCategoryList.length > 0">
+     *ngIf="selectedPassNotes && selectedPassNotes.length > 0 && movePassCategoryNameList && movePassCategoryNameList.length > 0">
   <button class="btn btn-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <i class="fas fa-ellipsis-h"></i>
   </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" *ngFor="let passCategory of movePassCategoryList">
-    <h6 class="dropdown-header" *ngIf="movePassCategoryList.length > 0">Move to other category</h6>
-    <a class="dropdown-item" href="#" (click)="onMoveToOtherCategory($event, passCategory)">{{passCategory.categoryName}}</a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <h6 class="dropdown-header">Move to other category</h6>
+    <div *ngFor="let passCategoryName of movePassCategoryNameList">
+      <a class="dropdown-item" href="#" (click)="onMoveToOtherCategory($event, passCategoryName)">{{passCategoryName}}</a>
+    </div>
   </div>
+
 </div>
 
 <div class="list-group" cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="onDrop($event)">
