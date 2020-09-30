@@ -329,9 +329,9 @@ export class PassDataService {
     }
   }
 
-  public movePassNote(fromIndex: number, toIndex: number): void {
+  public movePassNote(passCategory: PassCategory, fromIndex: number, toIndex: number): void {
     if (fromIndex !== toIndex) {
-      ArrayUtils.moveArrayElement(this.getPassData().getPassNoteList(), fromIndex, toIndex);
+      ArrayUtils.moveArrayElement(passCategory.noteList, fromIndex, toIndex);
 
       this.passNoteChanged();
     }

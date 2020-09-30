@@ -127,11 +127,11 @@ export class PassNoteComponent implements OnInit, OnDestroy {
     const toIndex = event.currentIndex;
     if (fromIndex !== toIndex) {
       const globalFromIndex =
-        this.passDataService.getPassData().getPassNoteList().indexOf(this.pagerStatus.displayedItems[fromIndex]);
+        this.selectedPassCategory.noteList.indexOf(this.pagerStatus.displayedItems[fromIndex]);
       const globalToIndex =
-        this.passDataService.getPassData().getPassNoteList().indexOf(this.pagerStatus.displayedItems[toIndex]);
+        this.selectedPassCategory.noteList.indexOf(this.pagerStatus.displayedItems[toIndex]);
       if (globalFromIndex !== -1 && globalToIndex !== -1 && globalFromIndex !== globalToIndex) {
-        this.passDataService.movePassNote(globalFromIndex, globalToIndex);
+        this.passDataService.movePassNote(this.selectedPassCategory, globalFromIndex, globalToIndex);
       }
     }
   }
