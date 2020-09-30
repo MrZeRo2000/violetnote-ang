@@ -337,6 +337,12 @@ export class PassDataService {
     }
   }
 
+  public movePassNotesToOtherCategory(movePassNoteList: Array<PassNote>, fromPassCategory: PassCategory, toPassCategory: PassCategory) {
+    toPassCategory.noteList.push(...movePassNoteList);
+    movePassNoteList.forEach(value => ArrayUtils.deleteArrayElement(fromPassCategory.noteList, value));
+    this.passNoteChanged();
+  }
+
   public selectOneNote(passNote: PassNote): void {
     this.selectedPassNotes.next([passNote]);
     this.currentPassNote.next(passNote);

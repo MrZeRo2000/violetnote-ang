@@ -145,7 +145,8 @@ export class PassNoteComponent implements OnInit, OnDestroy {
       // this.passDataService.deletePassNote(value);
       console.log(`Moving ${JSON.stringify(this.selectedPassNotes)} to ${value.categoryName}`);
       // this.selectedPassNotes.forEach(pn => pn.passCategory = value);
-      this.passDataService.currentPassDataDirty.next(true);
+      // this.passDataService.currentPassDataDirty.next(true);
+      this.passDataService.movePassNotesToOtherCategory(this.selectedPassNotes, this.selectedPassCategory, value);
       this.passDataService.setSelectedPassCategory(this.passDataService.getSelectedPassCategory());
     });
 
