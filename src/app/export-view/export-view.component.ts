@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap';
 import {DownloadUtils} from '../utils/download-utils';
 import {PassDataService} from '../services/pass-data.service';
+import {PassNoteExport} from '../model/pass-note-export';
 
 
 enum ExportScope {
@@ -39,23 +40,29 @@ export class ExportViewComponent implements OnInit {
     event.preventDefault();
 
     // export data
-    let exportData = [];
+    let exportData: Array<PassNoteExport> = [];
     let exportName = '';
 
     switch (this.exportScope) {
       case ExportScope.ES_CATEGORY:
-        exportData = [...this.passDataService.getPassNotes()];
+        exportData =  this.passDataService.getSelectedPassCategory().noteList
+          .map(value => new PassNoteExport(this.passDataService.getSelectedPassCategory().categoryName, value));
         exportName = this.passDataService.getSelectedPassCategory().categoryName;
         break;
       case ExportScope.ES_ALL:
-        exportData = [...this.passDataService.getPassData().getPassNoteList()];
+        this.passDataService.getPassData().categoryList.forEach(
+          passCategory => exportData.push(...passCategory.noteList.map(passNote => new PassNoteExport(passCategory.categoryName, passNote)))
+        );
+//        exportData = [...this.passDataService.getPassData().getPassNoteList()];
         exportName = 'All';
         break;
     }
 
     if (exportData) {
-      const exportObj = exportData.map(v => JSON.parse(JSON.stringify(v)));
-      exportObj.forEach(v => v.passCategory = v.passCategory.categoryName);
+//      const exportObj = exportData.map(v => JSON.parse(JSON.stringify(v)));
+//      exportObj.forEach(v => v.passCategory = v.passCategory.categoryName);
+
+      const exportObj = exportData;
 
       switch (this.exportFormat) {
         case ExportFormat.EF_JSON:
