@@ -13,6 +13,7 @@ import {EditPanelComponent} from '../edit-panel/edit-panel.component';
 import {PassCategory} from '../model/pass-category';
 import {PassNote} from '../model/pass-note';
 import {PassData} from '../model/pass-data';
+import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';
 
 describe('PassNoteComponent', () => {
   let component: PassNoteComponent;
@@ -28,8 +29,8 @@ describe('PassNoteComponent', () => {
   passData.categoryList = [passCategory];
   passData.calcNoteList();
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ PassNoteComponent, PaginationComponent, EditPanelComponent ],
       imports: [
         FormsModule,
@@ -37,7 +38,8 @@ describe('PassNoteComponent', () => {
         ModalModule.forRoot(),
         DragDropModule,
         DataSourceModule,
-        AppConfigModule
+        AppConfigModule,
+        FontAwesomeIconsModule
       ],
       providers: [
         {provide: PaginationConfig, useValue: {
@@ -54,7 +56,7 @@ describe('PassNoteComponent', () => {
     .compileComponents();
     service = TestBed.inject(PassDataService);
     service.setPassData(passData);
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PassNoteComponent);

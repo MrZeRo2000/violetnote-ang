@@ -18,6 +18,7 @@ import {EditPanelComponent} from '../edit-panel/edit-panel.component';
 import {PassCategory} from '../model/pass-category';
 import {PassNote} from '../model/pass-note';
 import {PassData} from '../model/pass-data';
+import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';
 
 // https://github.com/jasmine/jasmine/issues/1523
 /*
@@ -44,8 +45,8 @@ describe('SearchNotesComponent', () => {
   const passData = new PassData(null);
   passData.categoryList = [passCategory];
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ SearchNotesComponent, PasswordComponent, PassDataComponent, PassCategoryComponent, PassNoteComponent,
         EditPanelComponent,
         PaginationComponent ],
@@ -58,7 +59,8 @@ describe('SearchNotesComponent', () => {
         ]),
         HttpClientTestingModule,
         DataSourceModule,
-        AppConfigModule
+        AppConfigModule,
+        FontAwesomeIconsModule
       ],
       providers: [
         AuthService,
@@ -68,7 +70,7 @@ describe('SearchNotesComponent', () => {
     .compileComponents();
     service = TestBed.inject(PassDataService);
     service.setPassData(passData);
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchNotesComponent);

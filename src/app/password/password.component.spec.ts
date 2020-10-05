@@ -7,13 +7,14 @@ import {DataSourceModule} from '../data-source/data-source.module';
 import {MessagesModule} from '../messages/messages.module';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {AppConfigModule} from '../app-config/app-config.module';
+import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';
 
 describe('PasswordComponent', () => {
   let component: PasswordComponent;
   let fixture: ComponentFixture<PasswordComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ PasswordComponent ],
       imports: [
         FormsModule,
@@ -21,11 +22,12 @@ describe('PasswordComponent', () => {
         RouterTestingModule,
         DataSourceModule,
         MessagesModule,
-        AppConfigModule
+        AppConfigModule,
+        FontAwesomeIconsModule
       ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PasswordComponent);

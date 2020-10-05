@@ -8,14 +8,14 @@ describe('PassNoteEditComponent', () => {
   let component: PassNoteEditComponent;
   let fixture: ComponentFixture<PassNoteEditComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ PassNoteEditComponent ],
       imports: [ReactiveFormsModule, TypeaheadModule.forRoot()],
       providers: [BsModalRef]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PassNoteEditComponent);

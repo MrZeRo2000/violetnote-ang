@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <button type="button" class="btn btn-labeled btn-info btn-xs mb-2" *ngIf="searchText !== undefined" (click)="searchInfoButtonClick($event)">
-    <span class="btn-label-xs"><i class="fa fa-times" aria-hidden="true"></i></span>{{searchText}}
+    <span class="btn-label-xs"><fa-icon [icon]="['fas', 'times']"></fa-icon></span>{{searchText}}
   </button>
   <div class="alert alert-warning" role="alert" *ngIf="!searchPassNotes || searchPassNotes.length === 0">
     No data found

@@ -26,15 +26,15 @@ describe('PassNoteViewComponent', () => {
   let component: PassNoteViewComponent;
   let fixture: ComponentFixture<PassNoteViewComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ PassNoteViewComponent ],
       providers: [
         {provide: BsModalRef, useClass: MockModalService}
       ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PassNoteViewComponent);

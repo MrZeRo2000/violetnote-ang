@@ -30,5 +30,8 @@ npm install @types/jasmine@latest @types/node@latest codelyzer@latest karma@late
 Update dependency to latest version:
 ng update ngx-bootstrap
 
+Full update angular to latest version:
+ng update @angular/cli @angular/core @angular/animations @angular/cdk @angular/common  @angular/compiler @angular/forms @angular/platform-browser @angular/platform-browser-dynamic @angular/router
+
 Dummy image settings:
 https://i.pickadummy.com/300x100&wash=AF7FA1&brightness=0

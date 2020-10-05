@@ -10,24 +10,26 @@ import {PaginationComponent} from 'ngx-bootstrap';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
 import {EditPanelComponent} from '../edit-panel/edit-panel.component';
+import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';
 
 describe('PassDataComponent', () => {
   let component: PassDataComponent;
   let fixture: ComponentFixture<PassDataComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ PassDataComponent, PassCategoryComponent, PassNoteComponent, PaginationComponent, EditPanelComponent ],
       imports: [
         FormsModule,
         RouterTestingModule,
         HttpClientTestingModule,
         DataSourceModule,
-        AppConfigModule
+        AppConfigModule,
+        FontAwesomeIconsModule
       ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PassDataComponent);

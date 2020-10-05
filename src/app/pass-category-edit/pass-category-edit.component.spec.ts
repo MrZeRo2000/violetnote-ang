@@ -8,14 +8,14 @@ describe('PassCategoryEditComponent', () => {
   let component: PassCategoryEditComponent;
   let fixture: ComponentFixture<PassCategoryEditComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ PassCategoryEditComponent ],
       imports: [ReactiveFormsModule],
       providers: [BsModalRef]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PassCategoryEditComponent);

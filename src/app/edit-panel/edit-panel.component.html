@@ -1,25 +1,25 @@
 <div class="mb-1 d-inline-block">
   <div class="d-inline">
     <a href="#" class="btn btn-link" *ngIf="!hideAdd" [ngClass]="{'disabled': disableAdd}" (click)="onButtonClick($event, EditButtonType.BT_ADD)">
-      <i class="fa fa-plus-circle"></i>
+      <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
     </a>
   </div>
 
   <div class="d-inline" *ngIf="selectedItem">
     <a href="#" class="btn btn-link" [ngClass]="{'disabled': disableDelete}" (click)="onButtonClick($event, EditButtonType.BT_DELETE)">
-      <i class="fa fa-trash"></i>
+      <fa-icon [icon]="['fas', 'trash']"></fa-icon>
     </a>
   </div>
 
   <div class="d-inline" *ngIf="selectedItem">
     <a href="#" class="btn btn-link" (click)="onButtonClick($event, EditButtonType.BT_EDIT)">
-      <i class="fa fa-pen"></i>
+      <fa-icon [icon]="['fas', 'pen']"></fa-icon>
     </a>
   </div>
 
   <div class="d-inline" *ngIf="selectedItem && showDuplicate">
     <a href="#" class="btn btn-link" (click)="onButtonClick($event, EditButtonType.BT_DUPLICATE)">
-      <i class="fa fa-clone"></i>
+      <fa-icon [icon]="['fas', 'clone']"></fa-icon>
     </a>
   </div>
 

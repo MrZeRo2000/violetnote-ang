@@ -1,6 +1,5 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import {ExitComponent} from './exit/exit.component';
 import {SearchComponent} from './search/search.component';
 import {FormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -11,14 +10,14 @@ import {PassDataFileNameComponent} from './pass-data-file-name/pass-data-file-na
 import {DataSourceModule} from './data-source/data-source.module';
 import {MessagesModule} from './messages/messages.module';
 import {EditPanelComponent} from './edit-panel/edit-panel.component';
+
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [
         AppComponent,
         PassDataFileNameComponent,
         EditPanelComponent,
-        ExitComponent,
         SearchComponent
       ],
       imports: [
@@ -31,7 +30,7 @@ describe('AppComponent', () => {
         MessagesModule
       ]
     }).compileComponents();
-  }));
+  });
   it('should create the app', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;

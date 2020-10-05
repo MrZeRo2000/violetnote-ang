@@ -6,24 +6,26 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
 import {ModalModule} from 'ngx-bootstrap';
+import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';
 
 describe('OperationControlComponent', () => {
   let component: OperationControlComponent;
   let fixture: ComponentFixture<OperationControlComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async() => {
+    await TestBed.configureTestingModule({
       declarations: [ OperationControlComponent ],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
         ModalModule.forRoot(),
         DataSourceModule,
-        AppConfigModule
+        AppConfigModule,
+        FontAwesomeIconsModule
       ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OperationControlComponent);

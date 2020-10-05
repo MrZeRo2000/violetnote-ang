@@ -5,23 +5,25 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
+import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';
 
 describe('PassDataFileNameComponent', () => {
   let component: PassDataFileNameComponent;
   let fixture: ComponentFixture<PassDataFileNameComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ PassDataFileNameComponent ],
       imports: [
         FormsModule,
         HttpClientTestingModule,
         DataSourceModule,
-        AppConfigModule
+        AppConfigModule,
+        FontAwesomeIconsModule
       ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PassDataFileNameComponent);

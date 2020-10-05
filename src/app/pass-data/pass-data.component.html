@@ -1,5 +1,5 @@
 <div class="container text-center" *ngIf="isLoading">
-    <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+  <fa-icon [icon]="['fas', 'spinner']" [spin]="true" transform="grow-12"></fa-icon>
 </div>
 
 <div class="container" *ngIf="loadErrorMessage != null">

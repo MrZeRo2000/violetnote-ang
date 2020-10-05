@@ -12,6 +12,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // drag drop features for editing
 import {DragDropModule} from '@angular/cdk/drag-drop';
+// fontawesome
+import {FontAwesomeIconsModule} from './font-awesome-icons/font-awesome-icons.module';
 
 import { AppComponent } from './app.component';
 import { PasswordComponent } from './password/password.component';
@@ -22,7 +24,6 @@ import {PassDataService} from './services/pass-data.service';
 import { PassNoteComponent } from './pass-note/pass-note.component';
 import { PassNoteViewComponent } from './pass-note-view/pass-note-view.component';
 import { SearchComponent } from './search/search.component';
-import { ExitComponent } from './exit/exit.component';
 import { SearchNotesComponent } from './search-notes/search-notes.component';
 import {PassDataRequiredGuard} from './guards/pass-data-required.guard';
 import { PassDataFileNameComponent } from './pass-data-file-name/pass-data-file-name.component';
@@ -61,7 +62,6 @@ const appRoutes: Routes = [
     PassNoteComponent,
     PassNoteViewComponent,
     SearchComponent,
-    ExitComponent,
     SearchNotesComponent,
     PassDataFileNameComponent,
     OperationControlComponent,
@@ -94,7 +94,10 @@ const appRoutes: Routes = [
     // data source
     DataSourceModule,
     // messages
-    MessagesModule, ReactiveFormsModule
+    MessagesModule,
+    ReactiveFormsModule,
+    // fontawesome
+    FontAwesomeIconsModule
   ],
   providers: [
     AuthService,
