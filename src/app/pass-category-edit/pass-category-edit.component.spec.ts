@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PassCategoryEditComponent } from './pass-category-edit.component';
 import {BsModalRef, ModalModule} from 'ngx-bootstrap';

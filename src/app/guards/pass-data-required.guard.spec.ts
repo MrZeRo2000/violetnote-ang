@@ -1,4 +1,4 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject, waitForAsync } from '@angular/core/testing';
 
 import { PassDataRequiredGuard } from './pass-data-required.guard';
 import {RouterTestingModule} from '@angular/router/testing';

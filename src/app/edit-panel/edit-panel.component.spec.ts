@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { EditPanelComponent } from './edit-panel.component';
 import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';

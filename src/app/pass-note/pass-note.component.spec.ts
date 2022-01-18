@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ModalModule, PaginationComponent, PaginationConfig} from 'ngx-bootstrap';
 import {FormsModule} from '@angular/forms';

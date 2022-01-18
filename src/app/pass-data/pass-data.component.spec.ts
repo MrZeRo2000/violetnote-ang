@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PassDataComponent } from './pass-data.component';
 import {PassCategoryComponent} from '../pass-category/pass-category.component';

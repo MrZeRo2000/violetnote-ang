@@ -84,7 +84,7 @@ const appRoutes: Routes = [
     ModalModule.forRoot(),
     RouterModule.forRoot(
         appRoutes,
-        {enableTracing: false, useHash: true}
+        { enableTracing: false, useHash: true, relativeLinkResolution: 'legacy' }
     ),
     PaginationModule.forRoot(),
     TypeaheadModule.forRoot(),
