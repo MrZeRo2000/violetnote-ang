@@ -54,56 +54,49 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PasswordComponent,
-    PassDataComponent,
-    PassCategoryComponent,
-    PassNoteComponent,
-    PassNoteViewComponent,
-    SearchComponent,
-    SearchNotesComponent,
-    PassDataFileNameComponent,
-    OperationControlComponent,
-    EditPanelComponent,
-    PassCategoryEditComponent,
-    InitFocusDirective,
-    ConfirmationModalDialogComponent,
-    PassNoteEditComponent,
-    ExportViewComponent
-  ],
-  // modal component not directly referenced in templates
-  entryComponents: [
-    PassNoteViewComponent
-  ],
-  imports: [
-    BrowserModule,
-    DragDropModule,
-    FormsModule,
-    HttpClientModule,
-    ModalModule.forRoot(),
-    RouterModule.forRoot(
-        appRoutes,
-        { enableTracing: false, useHash: true, relativeLinkResolution: 'legacy' }
-    ),
-    PaginationModule.forRoot(),
-    TypeaheadModule.forRoot(),
-    BrowserAnimationsModule,
-    // load configuration support
-    AppConfigModule,
-    // data source
-    DataSourceModule,
-    // messages
-    MessagesModule,
-    ReactiveFormsModule,
-    // fontawesome
-    FontAwesomeIconsModule
-  ],
-  providers: [
-    AuthService,
-    PassDataService,
-    HttpClientModule
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        PasswordComponent,
+        PassDataComponent,
+        PassCategoryComponent,
+        PassNoteComponent,
+        PassNoteViewComponent,
+        SearchComponent,
+        SearchNotesComponent,
+        PassDataFileNameComponent,
+        OperationControlComponent,
+        EditPanelComponent,
+        PassCategoryEditComponent,
+        InitFocusDirective,
+        ConfirmationModalDialogComponent,
+        PassNoteEditComponent,
+        ExportViewComponent
+    ],
+    imports: [
+        BrowserModule,
+        DragDropModule,
+        FormsModule,
+        HttpClientModule,
+        ModalModule.forRoot(),
+        RouterModule.forRoot(appRoutes, { enableTracing: false, useHash: true, relativeLinkResolution: 'legacy' }),
+        PaginationModule.forRoot(),
+        TypeaheadModule.forRoot(),
+        BrowserAnimationsModule,
+        // load configuration support
+        AppConfigModule,
+        // data source
+        DataSourceModule,
+        // messages
+        MessagesModule,
+        ReactiveFormsModule,
+        // fontawesome
+        FontAwesomeIconsModule
+    ],
+    providers: [
+        AuthService,
+        PassDataService,
+        HttpClientModule
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
