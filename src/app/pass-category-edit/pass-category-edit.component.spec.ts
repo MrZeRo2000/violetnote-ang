@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PassCategoryEditComponent } from './pass-category-edit.component';
-import {BsModalRef, ModalModule} from 'ngx-bootstrap';
+import {BsModalRef} from 'ngx-bootstrap/modal';
 import {ReactiveFormsModule} from '@angular/forms';
 
 describe('PassCategoryEditComponent', () => {

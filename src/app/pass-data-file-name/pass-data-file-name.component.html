@@ -1,7 +1,7 @@
 <div class="d-flex flex-row text-nowrap align-items-center">
   <div *ngIf="editing">
     <form class="form-group form-inline mb-0 text-nowrap">
-      <div class="form-check-inline mr-0">
+      <div class="form-check-inline me-0">
         <label>
           <input
             #fileNameControl
@@ -26,7 +26,7 @@
       </div>
     </form>
   </div>
-  <div class="text-right form-control bg-transparent border-0 pr-0">
+  <div class="text-end form-control bg-transparent border-0 pe-0">
     <a
       class="h6 text-danger"
       *ngIf="!fileName && !editing"

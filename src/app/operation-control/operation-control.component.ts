@@ -3,7 +3,7 @@ import {AuthService} from '../services/auth.service';
 import {OperationMode, PassDataService} from '../services/pass-data.service';
 import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {ExportViewComponent} from '../export-view/export-view.component';
 
 @Component({

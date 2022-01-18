@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {BsModalRef} from 'ngx-bootstrap';
+import { Component, OnInit} from '@angular/core';
+import {BsModalRef} from 'ngx-bootstrap/modal';
 import {Subject} from 'rxjs';
 import {PassCategory} from '../model/pass-category';
 import {FormControl, FormGroup, Validators} from '@angular/forms';

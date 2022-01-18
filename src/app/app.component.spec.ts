@@ -4,7 +4,7 @@ import {SearchComponent} from './search/search.component';
 import {FormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {TypeaheadModule} from 'ngx-bootstrap';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {AppConfigModule} from './app-config/app-config.module';
 import {PassDataFileNameComponent} from './pass-data-file-name/pass-data-file-name.component';
 import {DataSourceModule} from './data-source/data-source.module';

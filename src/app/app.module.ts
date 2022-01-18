@@ -5,7 +5,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // for Http
 import {HttpClientModule} from '@angular/common/http';
 // for modal, typeahead
-import {ModalModule, PaginationModule, TypeaheadModule} from 'ngx-bootstrap';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {PaginationModule} from 'ngx-bootstrap/pagination';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 // routing support
 import { RouterModule, Routes } from '@angular/router';
 // animation for typeahead

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {BsModalRef} from 'ngx-bootstrap';
+import {BsModalRef} from 'ngx-bootstrap/modal';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {PassCategory} from '../model/pass-category';
 import {PassNote} from '../model/pass-note';

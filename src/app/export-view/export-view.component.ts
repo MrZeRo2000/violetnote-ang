@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {BsModalRef} from 'ngx-bootstrap';
+import {BsModalRef} from 'ngx-bootstrap/modal';
 import {DownloadUtils} from '../utils/download-utils';
 import {PassDataService} from '../services/pass-data.service';
 import {PassNoteExport} from '../model/pass-note-export';

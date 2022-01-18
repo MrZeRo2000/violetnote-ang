@@ -4,7 +4,7 @@ import {PassData} from '../model/pass-data';
 import {PassCategory} from '../model/pass-category';
 import {Subject, Subscription} from 'rxjs';
 import {EditButtonType} from '../edit-panel/edit-panel.component';
-import {BsModalService} from 'ngx-bootstrap';
+import {BsModalService} from 'ngx-bootstrap/modal';
 import {PassCategoryEditComponent} from '../pass-category-edit/pass-category-edit.component';
 import {ConfirmationModalDialogComponent} from '../confirmation-modal-dialog/confirmation-modal-dialog.component';
 

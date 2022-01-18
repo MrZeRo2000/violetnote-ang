@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {ModalModule, PaginationComponent, PaginationConfig} from 'ngx-bootstrap';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {PaginationComponent, PaginationConfig} from 'ngx-bootstrap/pagination';
 import {FormsModule} from '@angular/forms';
 import { PassNoteComponent } from './pass-note.component';
 import {PassDataService} from '../services/pass-data.service';

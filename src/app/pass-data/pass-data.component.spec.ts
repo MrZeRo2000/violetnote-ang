@@ -6,7 +6,7 @@ import {PassNoteComponent} from '../pass-note/pass-note.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormsModule} from '@angular/forms';
-import {PaginationComponent} from 'ngx-bootstrap';
+import {PaginationComponent} from 'ngx-bootstrap/pagination';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
 import {EditPanelComponent} from '../edit-panel/edit-panel.component';

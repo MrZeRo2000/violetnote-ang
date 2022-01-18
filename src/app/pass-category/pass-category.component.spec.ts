@@ -8,7 +8,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
-import {ModalModule} from 'ngx-bootstrap';
+import {ModalModule} from 'ngx-bootstrap/modal';
 import {EditPanelComponent} from '../edit-panel/edit-panel.component';
 import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';
 

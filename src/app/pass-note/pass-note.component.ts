@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OperationMode, PassDataService} from '../services/pass-data.service';
-import {BsModalRef, BsModalService, PageChangedEvent} from 'ngx-bootstrap';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import {PageChangedEvent} from 'ngx-bootstrap/pagination';
 import {PassNoteViewComponent} from '../pass-note-view/pass-note-view.component';
 import {EditButtonType} from '../edit-panel/edit-panel.component';
 import {PassNote} from '../model/pass-note';

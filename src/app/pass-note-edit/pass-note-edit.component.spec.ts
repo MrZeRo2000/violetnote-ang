@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PassNoteEditComponent } from './pass-note-edit.component';
-import {BsModalRef, TypeaheadModule} from 'ngx-bootstrap';
+import {BsModalRef} from 'ngx-bootstrap/modal';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {ReactiveFormsModule} from '@angular/forms';
 
 describe('PassNoteEditComponent', () => {
