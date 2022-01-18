@@ -1,7 +1,7 @@
 <div class="d-flex flex-row text-nowrap align-items-center">
   <div *ngIf="editing">
-    <form class="form-group form-inline mb-0 text-nowrap">
-      <div class="form-check-inline me-0">
+    <form class="d-inline-flex mb-0 me-0 form-check-inline text-nowrap justify-content-end">
+      <div>
         <label>
           <input
             #fileNameControl
@@ -14,23 +14,25 @@
             name="fileName"
           >
         </label>
+      </div>
 
+      <div>
         <a href="#" class="btn btn-link" (click)="onSubmit($event)">
           <fa-icon [icon]="['fas', 'check-circle']"></fa-icon>
         </a>
 
-        <a href="#" class="btn btn-link" (click)="onCancel($event)">
+        <a href="#" class="btn btn-link pe-0" (click)="onCancel($event)">
           <fa-icon [icon]="['fas', 'window-close']"></fa-icon>
         </a>
-
       </div>
+
     </form>
   </div>
-  <div class="text-end form-control bg-transparent border-0 pe-0">
+  <div class="text-end form-control bg-transparent border-0 pe-0" *ngIf="!editing">
     <a
       class="h6 text-danger"
-      *ngIf="!fileName && !editing"
       href="#"
+      *ngIf="!fileName && !editing"
       (click)="onFileNameClick($event)"
     >Please, click to configure data file name
     </a>
