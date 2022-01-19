@@ -1,46 +1,41 @@
 <div class="modal-header">
   <h5 class="modal-title pull-left">{{title}}</h5>
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-    <span aria-hidden="true">&times;</span>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
   </button>
 </div>
 <div class="modal-body">
-  <div class="form-group">
-    <label for="system">System</label>
-    <input type="text" class="form-control" id="system" readonly value="{{passNote.system}}">
-  </div>
-  <div class="form-group form-row">
-    <div class="col">
-      <label for="user">User</label>
+    <div class="mb-2">
+      <label for="system" class="mb-1">System</label>
+      <input type="text" class="form-control" id="system" readonly value="{{passNote.system}}">
+    </div>
+    <div class="mb-2">
+      <label for="user" class="mb-1">User</label>
       <input type="text" class="form-control" id="user" readonly value="{{passNote.user}}">
     </div>
-    <div class="col">
-      <label for="password">Password</label>
+    <div class="mb-2">
+      <label for="password" class="mb-1">Password</label>
       <input type="text" class="form-control" id="password" readonly value="{{passNote.password}}">
     </div>
-  </div>
-  <div class="form-group" *ngIf="passNote.url && !(passNote.getURL())">
-    <label for="comments">Comments</label>
+  <div class="mb-2" *ngIf="passNote.url && !(passNote.getURL())">
+    <label for="comments" class="mb-1">Comments</label>
     <input type="text" class="form-control" id="comments" readonly value="{{passNote.url}}">
   </div>
-  <div class="form-group" *ngIf="passNote.getURL()">
-    <label for="url">Link</label>
+  <div class="d-flex flex-column mb-2" *ngIf="passNote.getURL()">
+    <label for="url" class="mb-1">Link</label>
     <a href="{{passNote.getURL()}}" class="form-control-file" id="url" target="_blank">{{passNote.getURL()}}</a>
   </div>
 
   <a
-    data-toggle="collapse"
+    data-bs-toggle="collapse"
     href="#collapseInfo"
     role="button"
     *ngIf="passNote.info && passNote.info.length > 0"
     aria-expanded="false"
-    aria-controls="collapseExample">
-    <label for="infoCollapse">Info</label>
+    aria-controls="collapseInfo">
+    <label for="infoCollapse" class="mb-1">Info</label>
   </a>
   <div class="collapse" id="collapseInfo">
-    <div class="form-group">
-      <textarea rows = "5" class="form-control" id="infoCollapse" readonly >{{passNote.info}}</textarea>
-    </div>
+    <textarea rows = "5" class="form-control" id="infoCollapse" readonly >{{passNote.info}}</textarea>
   </div>
 </div>
 

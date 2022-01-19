@@ -1,8 +1,8 @@
 <div class="mb-2" >
-  <button type="button" class="btn btn-outline-primary mr-2" (click)="onSaveButtonClick($event)" *ngIf="passDataSaveAllowed()">
+  <button type="button" class="btn btn-outline-primary me-2" (click)="onSaveButtonClick($event)" *ngIf="passDataSaveAllowed()">
     <fa-icon [icon]="['fas', 'save']"></fa-icon> Save
   </button>
-  <button type="button" class="btn btn-outline-primary mr-2" (click)="onExportClick($event)">
+  <button type="button" class="btn btn-outline-primary me-2" (click)="onExportClick($event)">
     <fa-icon [icon]="['fas', 'file-export']"></fa-icon> Export
   </button>
   <button type="button" class="btn btn-outline-primary" (click)="onExitButtonClick($event)">

@@ -6,11 +6,9 @@
          [typeahead]="searchStrings"
          [typeaheadMinLength]="2"
   >
-  <span class="input-group-append ml-1">
-        <button class="btn btn-outline-primary" type="button" (click)="onSubmitSearch($event)">
-          <fa-icon [icon]="['fas', 'search']"></fa-icon>
-        </button>
-      </span>
+  <button class="btn btn-outline-primary ms-1" type="button" (click)="onSubmitSearch($event)">
+    <fa-icon [icon]="['fas', 'search']"></fa-icon>
+  </button>
 </div>
 
 <div *ngIf="!isValidSearch">

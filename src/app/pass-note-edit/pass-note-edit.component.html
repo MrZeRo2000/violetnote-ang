@@ -1,35 +1,38 @@
 <div class="modal-header">
   <h4 class="modal-title pull-left">Note</h4>
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-    <span aria-hidden="true">&times;</span>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
   </button>
 </div>
 <div class="modal-body">
-  <form class="form-group" [formGroup]="editForm">
-    <label for="inputSystem"><strong>System</strong></label>
-    <input
-      #inputSystem type="text"
-      class="form-control"
-      [ngClass]="{'is-invalid': editForm.controls.system.errors && submitted}"
-      id="inputSystem"
-      formControlName="system"
-      appInitFocus
-      [typeahead]="systemTypeAheadStrings"
-      [typeaheadMinLength]="2"
-    >
+  <form [formGroup]="editForm">
+    <div class="mb-2">
+      <label for="inputSystem" class="mb-1"><strong>System</strong></label>
+      <input
+        #inputSystem type="text"
+        class="form-control"
+        [ngClass]="{'is-invalid': editForm.controls.system.errors && submitted}"
+        id="inputSystem"
+        formControlName="system"
+        appInitFocus
+        [typeahead]="systemTypeAheadStrings"
+        [typeaheadMinLength]="2"
+      >
+    </div>
 
-    <label for="inputUser"><strong>User</strong></label>
-    <input
-      type="text"
-      class="form-control"
-      [ngClass]="{'is-invalid': editForm.controls.user.errors && submitted}"
-      id="inputUser"
-      formControlName="user"
-    >
+    <div class="mb-2">
+      <label for="inputUser" class="mb-1"><strong>User</strong></label>
+      <input
+        type="text"
+        class="form-control"
+        [ngClass]="{'is-invalid': editForm.controls.user.errors && submitted}"
+        id="inputUser"
+        formControlName="user"
+      >
+    </div>
 
-    <div class="row" [ngClass]="{'is-invalid': editForm.controls.password.errors && submitted}">
+    <div class="row mb-2" [ngClass]="{'is-invalid': editForm.controls.password.errors && submitted}">
       <div class="col">
-        <label for="inputPassword"><strong>Password</strong></label>
+        <label for="inputPassword" class="mb-1"><strong>Password</strong></label>
         <input
           type="text"
           class="form-control"
@@ -39,7 +42,7 @@
         >
       </div>
       <div class="col">
-        <label for="inputPasswordRetype"><strong>Retype password</strong></label>
+        <label for="inputPasswordRetype" class="mb-1"><strong>Retype password</strong></label>
         <input
           type="password"
           class="form-control"
@@ -50,23 +53,27 @@
       </div>
     </div>
 
-    <label for="inputUrl">Url</label>
-    <input
-      type="text"
-      class="form-control"
-      id="inputUrl"
-      formControlName="url"
-    >
+    <div class="mb-2">
+      <label for="inputUrl" class="mb-1">Url</label>
+      <input
+        type="text"
+        class="form-control"
+        id="inputUrl"
+        formControlName="url"
+      >
+    </div>
 
-    <label for="inputInfo">Info</label>
-    <textarea
-      type="text"
-      class="form-control"
-      rows="3"
-      id="inputInfo"
-      formControlName="info"
-    >
-    </textarea>
+    <div class="mb-2">
+      <label for="inputInfo" class="mb-1">Info</label>
+      <textarea
+        type="text"
+        class="form-control"
+        rows="3"
+        id="inputInfo"
+        formControlName="info"
+      >
+      </textarea>
+    </div>
 
     <div *ngIf="editForm.controls.system.errors && submitted" class="invalid-feedback">
       <div *ngIf="editForm.controls.system.errors.required">System should not be empty</div>
