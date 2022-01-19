@@ -1,20 +1,21 @@
 <div class="modal-header">
   <h4 class="modal-title pull-left">Category</h4>
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-    <span aria-hidden="true">&times;</span>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
   </button>
 </div>
 <div class="modal-body">
-  <form class="form-group" [formGroup]="editForm">
-    <label for="inputName"><strong>Category name</strong></label>
-    <input
-      #inputName type="text"
-      class="form-control"
-      [ngClass]="{'is-invalid': editForm.controls.name.errors && submitted}"
-      id="inputName"
-      formControlName="name"
-      appInitFocus
-    >
+  <form [formGroup]="editForm">
+    <div class="mb-2">
+      <label for="inputName" class="mb-1"><strong>Category name</strong></label>
+      <input
+        #inputName type="text"
+        class="form-control"
+        [ngClass]="{'is-invalid': editForm.controls.name.errors && submitted}"
+        id="inputName"
+        formControlName="name"
+        appInitFocus
+      >
+    </div>
 
     <div *ngIf="editForm.controls.name.errors && submitted" class="invalid-feedback">
       <div *ngIf="editForm.controls.name.errors.required">Category name should not be empty</div>
