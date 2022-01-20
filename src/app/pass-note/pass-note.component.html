@@ -3,22 +3,23 @@
   [selectedItem]="selectedPassNote"
   [showDuplicate]="true"
   (editButtonClick)="onEditButtonClick($event)"
-></app-edit-panel>
+>
+  <div class="dropdown"
+       *ngIf="selectedPassNotes && selectedPassNotes.length > 0 && movePassCategoryNameList && movePassCategoryNameList.length > 0">
+    <button class="btn btn-link" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <fa-icon [icon]="['fas', 'ellipsis-h']"></fa-icon>
+    </button>
 
-<div class="dropdown d-inline-block"
-     *ngIf="selectedPassNotes && selectedPassNotes.length > 0 && movePassCategoryNameList && movePassCategoryNameList.length > 0">
-  <button class="btn btn-link" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <fa-icon [icon]="['fas', 'ellipsis-h']"></fa-icon>
-  </button>
-
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <h6 class="dropdown-header">Move to other category</h6>
-    <div *ngFor="let passCategoryName of movePassCategoryNameList">
-      <a class="dropdown-item" href="#" (click)="onMoveToOtherCategory($event, passCategoryName)">{{passCategoryName}}</a>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <h6 class="dropdown-header">Move to other category</h6>
+      <div *ngFor="let passCategoryName of movePassCategoryNameList">
+        <a class="dropdown-item" href="#" (click)="onMoveToOtherCategory($event, passCategoryName)">{{passCategoryName}}</a>
+      </div>
     </div>
-  </div>
 
-</div>
+  </div>
+</app-edit-panel>
+
 
 <div class="list-group" cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="onDrop($event)">
   <div class="list-group-item list-group-item-secondary">

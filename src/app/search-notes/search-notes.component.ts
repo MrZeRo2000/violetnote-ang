@@ -76,6 +76,8 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
   }
 
   onPassNoteClick(event, passNoteSearch: PassNoteSearch) {
+    event.preventDefault();
+
     if (this.editMode) {
       this.selectedPassNote = passNoteSearch;
       this.passDataService.selectOneNote(passNoteSearch.passNote);
@@ -139,6 +141,7 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
   private passNoteChanged(): void {
     this.updateSearchPassNotes();
     this.updateCurrentPassNote();
+    this.selectedPassNote = undefined;
   }
 
   private performDelete(): void {

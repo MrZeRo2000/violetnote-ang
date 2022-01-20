@@ -6,14 +6,15 @@
     No data found
   </div>
 
-  <div *ngIf="searchPassNotes && searchPassNotes.length > 0">
+  <div *ngIf="editMode && !!selectedPassNote?.passNote">
     <app-edit-panel
-      *ngIf="editMode"
       hideAdd="true"
-      [selectedItem]="selectedPassNote && selectedPassNote.passNote"
+      [selectedItem]="selectedPassNote?.passNote"
       (editButtonClick)="onEditButtonClick($event)"
     ></app-edit-panel>
+  </div>
 
+  <div *ngIf="searchPassNotes?.length > 0">
     <div class="list-group">
       <div class="list-group-item list-group-item-secondary">
         <div class="row h5">
