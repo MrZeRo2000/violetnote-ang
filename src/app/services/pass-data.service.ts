@@ -25,6 +25,8 @@ export enum OperationMode {
   providedIn: 'root'
 })
 export class PassDataService {
+  private static readonly PATH = '/v2/passdata2/'
+
   private passDataFileInfo: PassDataFileInfo = null;
 
   currentPassData: BehaviorSubject<PassData> = new BehaviorSubject<PassData>(null);
@@ -88,21 +90,21 @@ export class PassDataService {
 
   private requestPassData(): Observable<HttpResponse<any>> {
     this.currentLoadingState.next(true);
-    return this.dataSource.postResponse('',
+    return this.dataSource.postResponse(PassDataService.PATH,
       new PassDataGetRequest(this.passDataFileInfo.name, this.authService.getPassword())
       );
   }
 
   private editPassData(): Observable<HttpResponse<any>> {
     this.currentLoadingState.next(true);
-    return this.dataSource.postResponse('/edit',
+    return this.dataSource.postResponse(`${PassDataService.PATH}edit`,
       new PassDataPersistRequest(this.passDataFileInfo.name, this.authService.getPassword(), this.getPassData())
     );
   }
 
   private newPassData(): Observable<HttpResponse<any>> {
     this.currentLoadingState.next(true);
-    return this.dataSource.postResponse('/new',
+    return this.dataSource.postResponse(`${PassDataService.PATH}new`,
       new PassDataPersistRequest(this.passDataFileInfo.name, this.authService.getPassword(), this.getPassData())
     );
   }

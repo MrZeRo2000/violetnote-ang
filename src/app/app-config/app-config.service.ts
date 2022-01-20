@@ -18,7 +18,7 @@ export class AppConfigService {
   }
 
   getRestUrl(): string {
-    return this.envConfig && this.envConfig.restUrl;
+    return this.envConfig?.restUrl;
   }
 
   constructor(private http: HttpClient) { }

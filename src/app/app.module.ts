@@ -39,6 +39,7 @@ import { InitFocusDirective } from './directives/init-focus.directive';
 import {ConfirmationModalDialogComponent} from './confirmation-modal-dialog/confirmation-modal-dialog.component';
 import { PassNoteEditComponent } from './pass-note-edit/pass-note-edit.component';
 import { ExportViewComponent } from './export-view/export-view.component';
+import { AppInfoComponent } from './app-info/app-info.component';
 
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
@@ -72,7 +73,8 @@ const appRoutes: Routes = [
         InitFocusDirective,
         ConfirmationModalDialogComponent,
         PassNoteEditComponent,
-        ExportViewComponent
+        ExportViewComponent,
+        AppInfoComponent
     ],
     imports: [
         BrowserModule,

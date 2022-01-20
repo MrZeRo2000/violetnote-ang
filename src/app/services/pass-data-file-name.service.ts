@@ -10,7 +10,8 @@ import {Message, MessagesService, MessageType} from '../messages/messages.servic
   providedIn: 'root'
 })
 export class PassDataFileNameService {
-  private readonly LOCAL_STORAGE_FILE_NAME_KEY = 'passDataFileName';
+  private static readonly LOCAL_STORAGE_FILE_NAME_KEY = 'passDataFileName';
+  private static readonly PATH = '/v2/passdata2/'
 
   private fileName: string;
   private loading = false;
@@ -22,7 +23,7 @@ export class PassDataFileNameService {
   passDataFileInfo: PassDataFileInfo = null;
 
   constructor(private dataSource: RestDataSourceService, private messagesService: MessagesService) {
-    this.setFileName(this.getLocalFileName());
+    this.setFileName(PassDataFileNameService.getLocalFileName());
   }
 
   private setFileName(value: string) {
@@ -52,18 +53,18 @@ export class PassDataFileNameService {
   }
 
   public requestPassDataFileInfo(): Observable<HttpResponse<any>> {
-    return this.dataSource.postResponse('fileinfo', new PassDataFileRequest(this.fileName));
+    return this.dataSource.postResponse(`${PassDataFileNameService.PATH}fileinfo`, new PassDataFileRequest(this.fileName));
   }
 
-  private getLocalFileName(): string {
-    return localStorage.getItem(this.LOCAL_STORAGE_FILE_NAME_KEY);
+  private static getLocalFileName(): string {
+    return localStorage.getItem(PassDataFileNameService.LOCAL_STORAGE_FILE_NAME_KEY);
   }
 
   private writeLocalFileName(): void {
     if (this.fileName) {
-      localStorage.setItem(this.LOCAL_STORAGE_FILE_NAME_KEY, this.fileName);
+      localStorage.setItem(PassDataFileNameService.LOCAL_STORAGE_FILE_NAME_KEY, this.fileName);
     } else {
-      localStorage.removeItem(this.LOCAL_STORAGE_FILE_NAME_KEY);
+      localStorage.removeItem(PassDataFileNameService.LOCAL_STORAGE_FILE_NAME_KEY);
     }
   }
 

@@ -13,6 +13,10 @@ export class RestDataSourceService {
     this.restUrl = restUrl;
   }
 
+  getResponse(resourceName: string, params?: HttpParams): Observable<HttpResponse<any>> {
+    return this.http.get(this.restUrl + resourceName, { observe: 'response', params });
+  }
+
   postResponse(resourceName: string, body: any, httpParams?: HttpParams, headers?: HttpHeaders): Observable<HttpResponse<any>> {
     return this.http.post(this.restUrl + resourceName, body, { headers, observe: 'response', params: httpParams });
   }
