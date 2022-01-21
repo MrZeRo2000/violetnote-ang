@@ -18,10 +18,10 @@
     <div class="list-group">
       <div class="list-group-item list-group-item-secondary">
         <div class="row h5">
-          <div class="col-md-2">Category</div>
-          <div class="col-md-2">System</div>
-          <div class="col-md-2">User</div>
-          <div class="col-md-6">Url</div>
+          <div class="col-3">Category</div>
+          <div class="col-3">System</div>
+          <div class="col-3">User</div>
+          <div class="col-3">Url</div>
         </div>
       </div>
       <a href="#"
@@ -32,10 +32,10 @@
          (click)="onPassNoteClick($event, passNote)"
       >
         <div class="row">
-          <div class="col-md-2">{{passNote.passCategory.categoryName}}</div>
-          <div class="col-md-2">{{passNote.passNote.system}}</div>
-          <div class="col-md-2">{{passNote.passNote.user}}</div>
-          <div class="col-md-6">{{passNote.passNote.url}}</div>
+          <div class="col-3">{{passNote.passCategory.categoryName}}</div>
+          <div class="col-3">{{passNote.passNote.system}}</div>
+          <div class="col-3">{{passNote.passNote.user}}</div>
+          <div class="col-3">{{passNote.passNote.url}}</div>
         </div>
       </a>
     </div>
@@ -44,7 +44,7 @@
       <div class="d-inline-block">
         <pagination [totalItems]="pagerStatus.totalCount" [maxSize]="maxPageSize" [itemsPerPage]="maxPageSize" (pageChanged)="pageChanged($event)"></pagination>
       </div>
-      <div class="d-inline-block ml-2">
+      <div class="d-inline-block ms-2">
         <ul class="pagination"><li class="pagination-page page-item"><a href="#" class="page-link" (click)="onPageAllClick($event)">All</a></li></ul>
       </div>
     </div>
