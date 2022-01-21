@@ -11,7 +11,8 @@ import {
   faSave, faSearch,
   faSignInAlt,
   faSignOutAlt, faSpinner, faTimes,
-  faTrash, faWindowClose
+  faTrash, faWindowClose,
+  faFilter
 } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -28,6 +29,6 @@ import {
 export class FontAwesomeIconsModule {
   constructor(private library: FaIconLibrary) {
     library.addIcons(faLock, faSignInAlt, faSignOutAlt, faSave, faFileExport, faPlusCircle, faTrash, faPen, faClone, faSpinner, faSearch,
-      faCheckCircle, faWindowClose, faEllipsisH, faTimes);
+      faCheckCircle, faWindowClose, faEllipsisH, faTimes, faFilter);
   }
 }

@@ -16,6 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 // fontawesome
 import {FontAwesomeIconsModule} from './font-awesome-icons/font-awesome-icons.module';
+// dropdowns
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 
 import { AppComponent } from './app.component';
 import { PasswordComponent } from './password/password.component';
@@ -40,6 +42,7 @@ import {ConfirmationModalDialogComponent} from './confirmation-modal-dialog/conf
 import { PassNoteEditComponent } from './pass-note-edit/pass-note-edit.component';
 import { ExportViewComponent } from './export-view/export-view.component';
 import { AppInfoComponent } from './app-info/app-info.component';
+import { DropDownFilterComponent } from './drop-down-filter/drop-down-filter.component';
 
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
@@ -74,28 +77,30 @@ const appRoutes: Routes = [
         ConfirmationModalDialogComponent,
         PassNoteEditComponent,
         ExportViewComponent,
-        AppInfoComponent
+        AppInfoComponent,
+        DropDownFilterComponent
     ],
-    imports: [
-        BrowserModule,
-        DragDropModule,
-        FormsModule,
-        HttpClientModule,
-        ModalModule.forRoot(),
-        RouterModule.forRoot(appRoutes, { enableTracing: false, useHash: true, relativeLinkResolution: 'legacy' }),
-        PaginationModule.forRoot(),
-        TypeaheadModule.forRoot(),
-        BrowserAnimationsModule,
-        // load configuration support
-        AppConfigModule,
-        // data source
-        DataSourceModule,
-        // messages
-        MessagesModule,
-        ReactiveFormsModule,
-        // fontawesome
-        FontAwesomeIconsModule
-    ],
+  imports: [
+    BrowserModule,
+    DragDropModule,
+    FormsModule,
+    HttpClientModule,
+    ModalModule.forRoot(),
+    RouterModule.forRoot(appRoutes, {enableTracing: false, useHash: true, relativeLinkResolution: 'legacy'}),
+    PaginationModule.forRoot(),
+    TypeaheadModule.forRoot(),
+    BrowserAnimationsModule,
+    // load configuration support
+    AppConfigModule,
+    // data source
+    DataSourceModule,
+    // messages
+    MessagesModule,
+    ReactiveFormsModule,
+    // fontawesome
+    FontAwesomeIconsModule,
+    BsDropdownModule
+  ],
     providers: [
         AuthService,
         PassDataService,
