@@ -7,6 +7,10 @@ export class FilterItem {
   public static getFilterItemValues(items: Array<FilterItem>): Array<string> {
     return items.filter(value => value.isSelected).map(value => value.value);
   }
+
+  public static getSelectedFilterItems(items: Array<FilterItem>): number {
+    return items.reduce((a, c) => a + (c.isSelected ? 1 : 0), 0);
+  }
 }
 
 @Component({
@@ -42,6 +46,10 @@ export class DropDownFilterComponent implements OnInit {
       filterItem.isSelected = !filterItem.isSelected;
       this.filterChanged.emit(this.filterItems);
     }
+  }
+
+  isFilterActive(): boolean {
+    return this.filterItems.length !== FilterItem.getSelectedFilterItems(this.filterItems);
   }
 
 }
