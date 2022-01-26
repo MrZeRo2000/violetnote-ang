@@ -49,7 +49,7 @@ export class DropDownFilterComponent implements OnInit {
   }
 
   isFilterActive(): boolean {
-    return this.filterItems.length !== FilterItem.getSelectedFilterItems(this.filterItems);
+    return this.filterItems && this.filterItems.length !== FilterItem.getSelectedFilterItems(this.filterItems);
   }
 
 }

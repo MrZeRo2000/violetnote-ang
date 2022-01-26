@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DropDownFilterComponent } from './drop-down-filter.component';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {BrowserModule} from '@angular/platform-browser';
 
 describe('DropDownFilterComponent', () => {
   let component: DropDownFilterComponent;
@@ -8,7 +11,12 @@ describe('DropDownFilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DropDownFilterComponent ]
+      declarations: [ DropDownFilterComponent ],
+      imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        BsDropdownModule
+      ]
     })
     .compileComponents();
   });
