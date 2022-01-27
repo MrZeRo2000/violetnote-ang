@@ -14,13 +14,13 @@
     ></app-edit-panel>
   </div>
 
-  <div *ngIf="searchPassNotes?.length > 0">
+  <div *ngIf="displaySearchPassNotes?.length > 0">
     <div class="list-group">
       <div class="list-group-item list-group-item-secondary">
         <div class="row h5">
-          <div class="col-3">Category</div>
-          <div class="col-3">System</div>
-          <div class="col-3">User</div>
+          <div class="col-3">Category <app-drop-down-filter [filterItems]="filterSearchCategoryNames" (filterChanged)="categoryFilterChanged($event)"></app-drop-down-filter></div>
+          <div class="col-3">System<app-drop-down-filter [filterItems]="filterSearchSystems" (filterChanged)="systemFilterChanged($event)"></app-drop-down-filter></div>
+          <div class="col-3">User<app-drop-down-filter [filterItems]="filterSearchUsers" (filterChanged)="userFilterChanged($event)"></app-drop-down-filter></div>
           <div class="col-3">Url</div>
         </div>
       </div>

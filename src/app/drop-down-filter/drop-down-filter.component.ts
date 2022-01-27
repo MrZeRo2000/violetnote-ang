@@ -5,11 +5,15 @@ export class FilterItem {
   }
 
   public static getFilterItemValues(items: Array<FilterItem>): Array<string> {
-    return items.filter(value => value.isSelected).map(value => value.value);
+    return items?.filter(value => value.isSelected).map(value => value.value);
   }
 
   public static getSelectedFilterItems(items: Array<FilterItem>): number {
-    return items.reduce((a, c) => a + (c.isSelected ? 1 : 0), 0);
+    return items?.reduce((a, c) => a + (c.isSelected ? 1 : 0), 0);
+  }
+
+  public static allSelected(items: Array<FilterItem>): boolean {
+    return items?.length === FilterItem.getSelectedFilterItems(items);
   }
 }
 
@@ -34,6 +38,7 @@ export class DropDownFilterComponent implements OnInit {
   dropDownAllClick(event: any) {
     event.preventDefault();
     this.filterItems.forEach(value => value.isSelected = true);
+    this.filterChanged.emit(this.filterItems);
   }
 
 

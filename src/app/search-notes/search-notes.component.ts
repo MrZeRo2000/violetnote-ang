@@ -12,6 +12,7 @@ import {EditButtonType} from '../edit-panel/edit-panel.component';
 import {ConfirmationModalDialogComponent} from '../confirmation-modal-dialog/confirmation-modal-dialog.component';
 import {PassNoteEditComponent} from '../pass-note-edit/pass-note-edit.component';
 import {PassNoteSearch} from '../model/pass-note-search';
+import {FilterItem} from '../drop-down-filter/drop-down-filter.component';
 
 @Component({
   selector: 'app-search-notes',
@@ -29,6 +30,18 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
   pagerStatus: PagerStatus<PassNoteSearch>;
 
   searchPassNotes: Array<PassNoteSearch>;
+  displaySearchPassNotes: Array<PassNoteSearch>;
+
+  searchCategoryNames: Array<FilterItem> = [];
+  searchSystems: Array<FilterItem> = [];
+  searchUsers: Array<FilterItem> = [];
+
+  filterSearchCategoryNames: Array<FilterItem> = [];
+  filterSearchSystems: Array<FilterItem> = [];
+  filterSearchUsers: Array<FilterItem> = [];
+
+  filters: Array<Array<FilterItem>> = [];
+
   selectedPassNote: PassNoteSearch;
   editMode = false;
 
@@ -98,7 +111,20 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
 
   private updateSearchPassNotes(): void {
     this.searchPassNotes = this.passDataService.getPassNotesSearch(this.searchText);
-    this.pagerHandler.setPageItems(this.searchPassNotes);
+    this.displaySearchPassNotes = this.searchPassNotes;
+
+    this.searchCategoryNames = [...new Set(this.displaySearchPassNotes.map(v => v.passCategory.categoryName))].map(v => new FilterItem(v, true));
+    this.filterSearchCategoryNames = this.searchCategoryNames;
+
+    this.searchSystems = [...new Set(this.displaySearchPassNotes.map(v => v.passNote.system))].map(v => new FilterItem(v, true));
+    this.filterSearchSystems = this.searchSystems
+
+    this.searchUsers = [...new Set(this.displaySearchPassNotes.map(v => v.passNote.user))].map(v => new FilterItem(v, true));
+    this.filterSearchUsers = this.searchUsers
+
+    this.filters = [];
+
+    this.pagerHandler.setPageItems(this.displaySearchPassNotes);
   }
 
   private updateCurrentPassNote(): void {
@@ -109,6 +135,48 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
     } else {
       this.passDataService.clearNoteSelection();
     }
+  }
+
+  private processFilterSelection(items: Array<FilterItem>, selectedItems: Array<FilterItem>) {
+    items = selectedItems;
+
+    const allSelected = FilterItem.allSelected(items);
+    const filterIndex = this.filters.indexOf(items);
+
+    console.log(`AllSelected:${allSelected}, FilterIndex:${filterIndex}`);
+    console.log(`Filters before: ${JSON.stringify(this.filters)}`)
+
+    if ((this.filters.indexOf(items) === -1) && (!allSelected)) {
+      console.log('Add filter')
+      this.filters.push(items);
+    } else if (allSelected && filterIndex > -1) {
+      console.log('Removing filter')
+      this.filters.splice(filterIndex, 1);
+    }
+
+    console.log(`Filters after: ${JSON.stringify(this.filters)}`)
+
+    this.applyFilters();
+
+  }
+
+  categoryFilterChanged(items: Array<FilterItem>):void {
+    console.log('Category Filter changed')
+    this.processFilterSelection(this.filterSearchCategoryNames, items);
+  }
+
+  systemFilterChanged(items: Array<FilterItem>):void {
+    console.log('System Filter changed')
+    this.processFilterSelection(this.filterSearchSystems, items);
+  }
+
+  userFilterChanged(items: Array<FilterItem>):void {
+    console.log('User Filter changed')
+    this.processFilterSelection(this.filterSearchUsers, items);
+  }
+
+  private applyFilters(): void {
+
   }
 
   searchInfoButtonClick(event) {
