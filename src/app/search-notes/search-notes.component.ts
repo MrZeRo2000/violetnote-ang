@@ -26,6 +26,8 @@ enum FilterTypes {
   styleUrls: ['./search-notes.component.scss']
 })
 export class SearchNotesComponent implements OnInit, OnDestroy {
+  FilterTypes = FilterTypes;
+
   EditButtonType = EditButtonType;
 
   bsModalRef: BsModalRef;
@@ -38,19 +40,15 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
   searchPassNotes: Array<PassNoteSearch>;
   displaySearchPassNotes: Array<PassNoteSearch>;
 
-  filterSearchCategoryNames: Array<FilterItem> = [];
-  filterSearchSystems: Array<FilterItem> = [];
-  filterSearchUsers: Array<FilterItem> = [];
-
   filters: Array<{filterType: FilterTypes, filterItems: Array<FilterItem>}> = [];
 
-  filterTypeDefs: {[filterType in FilterTypes] : (value: PassNoteSearch) => string} = {
+  readonly filterTypeDefs: {[filterType in FilterTypes] : (value: PassNoteSearch) => string} = {
     [FilterTypes.CATEGORY]: v => v.passCategory.categoryName,
     [FilterTypes.SYSTEM]: v => v.passNote.system,
     [FilterTypes.USER]: v => v.passNote.user
   }
 
-  filterSearch: {[filterType in FilterTypes] : Array<FilterItem>} = {
+  readonly filterSearch: {[filterType in FilterTypes] : Array<FilterItem>} = {
     [FilterTypes.CATEGORY]: [],
     [FilterTypes.SYSTEM]: [],
     [FilterTypes.USER]: []
@@ -138,33 +136,33 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
     }
   }
 
-  private processFilterSelection(filterType: FilterTypes, items: Array<FilterItem>, selectedItems: Array<FilterItem>) {
-    items = selectedItems;
+  private processFilterSelection(filterType: FilterTypes, selectedItems: Array<FilterItem>) {
+    this.filterSearch[filterType] = selectedItems;
 
-    const allSelected = FilterItem.allSelected(items);
+    const allSelected = FilterItem.allSelected(this.filterSearch[filterType]);
     const filterIndex = this.filters.findIndex(v => v.filterType === filterType);
 
     if ((filterIndex === -1) && (!allSelected)) {
-      this.filters.push({filterType, filterItems: items});
+      this.filters.push({filterType, filterItems: this.filterSearch[filterType]});
     } else if (allSelected && filterIndex > -1) {
       this.filters.splice(filterIndex, 1);
     } else if (filterIndex > -1) {
-      this.filters[filterIndex].filterItems = items;
+      this.filters[filterIndex].filterItems = this.filterSearch[filterType];
     }
 
     this.applyFilters();
   }
 
   categoryFilterChanged(items: Array<FilterItem>):void {
-    this.processFilterSelection(FilterTypes.CATEGORY, this.filterSearchCategoryNames, items);
+    this.processFilterSelection(FilterTypes.CATEGORY, items);
   }
 
   systemFilterChanged(items: Array<FilterItem>):void {
-    this.processFilterSelection(FilterTypes.SYSTEM, this.filterSearchSystems, items);
+    this.processFilterSelection(FilterTypes.SYSTEM, items);
   }
 
   userFilterChanged(items: Array<FilterItem>):void {
-    this.processFilterSelection(FilterTypes.USER, this.filterSearchUsers, items);
+    this.processFilterSelection(FilterTypes.USER, items);
   }
 
   private getSearchItems(m: (value: PassNoteSearch) => string, notes: Array<PassNoteSearch>, items: Array<FilterItem>): Array<FilterItem> {
@@ -175,56 +173,32 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
   private applyFilters(): void {
     let filteredNotes = this.searchPassNotes;
 
-    /*
+    // set initial selection
     for (let filterSearchKey in this.filterSearch) {
       this.filterSearch[filterSearchKey] = this.getSearchItems(this.filterTypeDefs[filterSearchKey], filteredNotes, this.filterSearch[filterSearchKey]);
     }
-    
-     */
 
-    this.filterSearchCategoryNames = this.getSearchItems(v => v.passCategory.categoryName, filteredNotes, this.filterSearchCategoryNames);
-    this.filterSearchSystems = this.getSearchItems(v => v.passNote.system, filteredNotes, this.filterSearchSystems);
-    this.filterSearchUsers = this.getSearchItems(v => v.passNote.user, filteredNotes, this.filterSearchUsers);
-
+    // apply filters in order
     this.filters.forEach((value, index) => {
       const selectedItemValues = FilterItem.getFilterItemValues(value.filterItems);
-      if (value.filterType === FilterTypes.CATEGORY) {
-        filteredNotes = filteredNotes.filter(v => selectedItemValues.indexOf(v.passCategory.categoryName) !== -1);
 
-        FilterItem.setSelected(this.filterSearchCategoryNames, selectedItemValues);
-        this.filterSearchSystems = this.getSearchItems(v => v.passNote.system, filteredNotes, this.filterSearchSystems);
-        this.filterSearchUsers = this.getSearchItems(v => v.passNote.user, filteredNotes, this.filterSearchUsers);
+      filteredNotes = filteredNotes.filter(v => selectedItemValues.indexOf(this.filterTypeDefs[value.filterType](v)) !== -1);
 
-      } else if (value.filterType == FilterTypes.SYSTEM) {
-        filteredNotes = filteredNotes.filter(v => selectedItemValues.indexOf(v.passNote.system) !== -1);
-
-        FilterItem.setSelected(this.filterSearchSystems, selectedItemValues);
-        this.filterSearchCategoryNames = this.getSearchItems(v => v.passCategory.categoryName, filteredNotes, this.filterSearchCategoryNames);
-        this.filterSearchUsers = this.getSearchItems(v => v.passNote.user, filteredNotes, this.filterSearchUsers);
-
-      } else if (value.filterType == FilterTypes.USER) {
-        filteredNotes = filteredNotes.filter(v => selectedItemValues.indexOf(v.passNote.user) !== -1);
-
-        FilterItem.setSelected(this.filterSearchUsers, selectedItemValues);
-        this.filterSearchCategoryNames = this.getSearchItems(v => v.passCategory.categoryName, filteredNotes, this.filterSearchCategoryNames);
-        this.filterSearchSystems = this.getSearchItems(v => v.passNote.system, filteredNotes, this.filterSearchSystems);
-
-      } else {
-        console.error(`Filter not found: ${JSON.stringify(value)}`)
+      FilterItem.setSelected(this.filterSearch[value.filterType], selectedItemValues);
+      for (let filterSearchKey in this.filterSearch) {
+        if (filterSearchKey !== value.filterType.toString()) {
+          this.filterSearch[filterSearchKey] = this.getSearchItems(this.filterTypeDefs[filterSearchKey], filteredNotes, this.filterSearch[filterSearchKey]);
+        }
       }
-
     });
 
+    // remove filters when all items are selected
     this.filters = this.filters.filter(v => !FilterItem.allSelected(v.filterItems));
 
-    if (this.filters.findIndex(v => v.filterType === FilterTypes.CATEGORY) === -1) {
-      FilterItem.setAllSelected(this.filterSearchCategoryNames);
-    }
-    if (this.filters.findIndex(v => v.filterType === FilterTypes.SYSTEM) === -1) {
-      FilterItem.setAllSelected(this.filterSearchSystems);
-    }
-    if (this.filters.findIndex(v => v.filterType === FilterTypes.USER) === -1) {
-      FilterItem.setAllSelected(this.filterSearchUsers);
+    for (let filterSearchKey in this.filterSearch) {
+      if (this.filters.findIndex(v => v.filterType.toString() === filterSearchKey) === -1) {
+        FilterItem.setAllSelected(this.filterSearch[filterSearchKey]);
+      }
     }
 
     this.displaySearchPassNotes = filteredNotes;
