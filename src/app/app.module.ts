@@ -43,6 +43,8 @@ import { PassNoteEditComponent } from './pass-note-edit/pass-note-edit.component
 import { ExportViewComponent } from './export-view/export-view.component';
 import { AppInfoComponent } from './app-info/app-info.component';
 import { DropDownFilterComponent } from './drop-down-filter/drop-down-filter.component';
+import { CopyPasswordPanelComponent } from './copy-password-panel/copy-password-panel.component';
+import {PopoverModule} from 'ngx-bootstrap/popover';
 
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
@@ -78,7 +80,8 @@ const appRoutes: Routes = [
         PassNoteEditComponent,
         ExportViewComponent,
         AppInfoComponent,
-        DropDownFilterComponent
+        DropDownFilterComponent,
+        CopyPasswordPanelComponent
     ],
   imports: [
     BrowserModule,
@@ -89,6 +92,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes, {enableTracing: false, useHash: true, relativeLinkResolution: 'legacy'}),
     PaginationModule.forRoot(),
     TypeaheadModule.forRoot(),
+    PopoverModule.forRoot(),
     BrowserAnimationsModule,
     // load configuration support
     AppConfigModule,
