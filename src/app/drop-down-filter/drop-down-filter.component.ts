@@ -15,6 +15,15 @@ export class FilterItem {
   public static allSelected(items: Array<FilterItem>): boolean {
     return items?.length === FilterItem.getSelectedFilterItems(items);
   }
+
+  public static setAllSelected(items: Array<FilterItem>): void {
+    items.forEach(v => v.isSelected = true);
+  }
+
+  public static setSelected(items: Array<FilterItem>, selected: Array<string>): void {
+    items.forEach(v => v.isSelected = selected.indexOf(v.value) !== -1);
+  }
+
 }
 
 @Component({

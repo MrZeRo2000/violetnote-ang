@@ -14,6 +14,12 @@ import {PassNoteEditComponent} from '../pass-note-edit/pass-note-edit.component'
 import {PassNoteSearch} from '../model/pass-note-search';
 import {FilterItem} from '../drop-down-filter/drop-down-filter.component';
 
+enum FilterTypes {
+  CATEGORY,
+  SYSTEM,
+  USER
+}
+
 @Component({
   selector: 'app-search-notes',
   templateUrl: './search-notes.component.html',
@@ -32,15 +38,23 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
   searchPassNotes: Array<PassNoteSearch>;
   displaySearchPassNotes: Array<PassNoteSearch>;
 
-  searchCategoryNames: Array<FilterItem> = [];
-  searchSystems: Array<FilterItem> = [];
-  searchUsers: Array<FilterItem> = [];
-
   filterSearchCategoryNames: Array<FilterItem> = [];
   filterSearchSystems: Array<FilterItem> = [];
   filterSearchUsers: Array<FilterItem> = [];
 
-  filters: Array<Array<FilterItem>> = [];
+  filters: Array<{filterType: FilterTypes, filterItems: Array<FilterItem>}> = [];
+
+  filterTypeDefs: {[filterType in FilterTypes] : (value: PassNoteSearch) => string} = {
+    [FilterTypes.CATEGORY]: v => v.passCategory.categoryName,
+    [FilterTypes.SYSTEM]: v => v.passNote.system,
+    [FilterTypes.USER]: v => v.passNote.user
+  }
+
+  filterSearch: {[filterType in FilterTypes] : Array<FilterItem>} = {
+    [FilterTypes.CATEGORY]: [],
+    [FilterTypes.SYSTEM]: [],
+    [FilterTypes.USER]: []
+  }
 
   selectedPassNote: PassNoteSearch;
   editMode = false;
@@ -55,7 +69,6 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
     private passDataService: PassDataService,
     private modalService: BsModalService
   ) {
-    console.log('search-notes constructor');
     this.activatedRouteParamsSubscription = activatedRoute.params.subscribe(
       params => {
         this.searchText = params['text'];
@@ -111,20 +124,8 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
 
   private updateSearchPassNotes(): void {
     this.searchPassNotes = this.passDataService.getPassNotesSearch(this.searchText);
-    this.displaySearchPassNotes = this.searchPassNotes;
-
-    this.searchCategoryNames = [...new Set(this.displaySearchPassNotes.map(v => v.passCategory.categoryName))].map(v => new FilterItem(v, true));
-    this.filterSearchCategoryNames = this.searchCategoryNames;
-
-    this.searchSystems = [...new Set(this.displaySearchPassNotes.map(v => v.passNote.system))].map(v => new FilterItem(v, true));
-    this.filterSearchSystems = this.searchSystems
-
-    this.searchUsers = [...new Set(this.displaySearchPassNotes.map(v => v.passNote.user))].map(v => new FilterItem(v, true));
-    this.filterSearchUsers = this.searchUsers
-
     this.filters = [];
-
-    this.pagerHandler.setPageItems(this.displaySearchPassNotes);
+    this.applyFilters();
   }
 
   private updateCurrentPassNote(): void {
@@ -137,46 +138,97 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
     }
   }
 
-  private processFilterSelection(items: Array<FilterItem>, selectedItems: Array<FilterItem>) {
+  private processFilterSelection(filterType: FilterTypes, items: Array<FilterItem>, selectedItems: Array<FilterItem>) {
     items = selectedItems;
 
     const allSelected = FilterItem.allSelected(items);
-    const filterIndex = this.filters.indexOf(items);
+    const filterIndex = this.filters.findIndex(v => v.filterType === filterType);
 
-    console.log(`AllSelected:${allSelected}, FilterIndex:${filterIndex}`);
-    console.log(`Filters before: ${JSON.stringify(this.filters)}`)
-
-    if ((this.filters.indexOf(items) === -1) && (!allSelected)) {
-      console.log('Add filter')
-      this.filters.push(items);
+    if ((filterIndex === -1) && (!allSelected)) {
+      this.filters.push({filterType, filterItems: items});
     } else if (allSelected && filterIndex > -1) {
-      console.log('Removing filter')
       this.filters.splice(filterIndex, 1);
+    } else if (filterIndex > -1) {
+      this.filters[filterIndex].filterItems = items;
     }
 
-    console.log(`Filters after: ${JSON.stringify(this.filters)}`)
-
     this.applyFilters();
-
   }
 
   categoryFilterChanged(items: Array<FilterItem>):void {
-    console.log('Category Filter changed')
-    this.processFilterSelection(this.filterSearchCategoryNames, items);
+    this.processFilterSelection(FilterTypes.CATEGORY, this.filterSearchCategoryNames, items);
   }
 
   systemFilterChanged(items: Array<FilterItem>):void {
-    console.log('System Filter changed')
-    this.processFilterSelection(this.filterSearchSystems, items);
+    this.processFilterSelection(FilterTypes.SYSTEM, this.filterSearchSystems, items);
   }
 
   userFilterChanged(items: Array<FilterItem>):void {
-    console.log('User Filter changed')
-    this.processFilterSelection(this.filterSearchUsers, items);
+    this.processFilterSelection(FilterTypes.USER, this.filterSearchUsers, items);
+  }
+
+  private getSearchItems(m: (value: PassNoteSearch) => string, notes: Array<PassNoteSearch>, items: Array<FilterItem>): Array<FilterItem> {
+    return [...new Set(notes.map(m))]
+      .map(v => new FilterItem(v, items.findIndex(f => f.isSelected && f.value === v) !== -1));
   }
 
   private applyFilters(): void {
+    let filteredNotes = this.searchPassNotes;
 
+    /*
+    for (let filterSearchKey in this.filterSearch) {
+      this.filterSearch[filterSearchKey] = this.getSearchItems(this.filterTypeDefs[filterSearchKey], filteredNotes, this.filterSearch[filterSearchKey]);
+    }
+    
+     */
+
+    this.filterSearchCategoryNames = this.getSearchItems(v => v.passCategory.categoryName, filteredNotes, this.filterSearchCategoryNames);
+    this.filterSearchSystems = this.getSearchItems(v => v.passNote.system, filteredNotes, this.filterSearchSystems);
+    this.filterSearchUsers = this.getSearchItems(v => v.passNote.user, filteredNotes, this.filterSearchUsers);
+
+    this.filters.forEach((value, index) => {
+      const selectedItemValues = FilterItem.getFilterItemValues(value.filterItems);
+      if (value.filterType === FilterTypes.CATEGORY) {
+        filteredNotes = filteredNotes.filter(v => selectedItemValues.indexOf(v.passCategory.categoryName) !== -1);
+
+        FilterItem.setSelected(this.filterSearchCategoryNames, selectedItemValues);
+        this.filterSearchSystems = this.getSearchItems(v => v.passNote.system, filteredNotes, this.filterSearchSystems);
+        this.filterSearchUsers = this.getSearchItems(v => v.passNote.user, filteredNotes, this.filterSearchUsers);
+
+      } else if (value.filterType == FilterTypes.SYSTEM) {
+        filteredNotes = filteredNotes.filter(v => selectedItemValues.indexOf(v.passNote.system) !== -1);
+
+        FilterItem.setSelected(this.filterSearchSystems, selectedItemValues);
+        this.filterSearchCategoryNames = this.getSearchItems(v => v.passCategory.categoryName, filteredNotes, this.filterSearchCategoryNames);
+        this.filterSearchUsers = this.getSearchItems(v => v.passNote.user, filteredNotes, this.filterSearchUsers);
+
+      } else if (value.filterType == FilterTypes.USER) {
+        filteredNotes = filteredNotes.filter(v => selectedItemValues.indexOf(v.passNote.user) !== -1);
+
+        FilterItem.setSelected(this.filterSearchUsers, selectedItemValues);
+        this.filterSearchCategoryNames = this.getSearchItems(v => v.passCategory.categoryName, filteredNotes, this.filterSearchCategoryNames);
+        this.filterSearchSystems = this.getSearchItems(v => v.passNote.system, filteredNotes, this.filterSearchSystems);
+
+      } else {
+        console.error(`Filter not found: ${JSON.stringify(value)}`)
+      }
+
+    });
+
+    this.filters = this.filters.filter(v => !FilterItem.allSelected(v.filterItems));
+
+    if (this.filters.findIndex(v => v.filterType === FilterTypes.CATEGORY) === -1) {
+      FilterItem.setAllSelected(this.filterSearchCategoryNames);
+    }
+    if (this.filters.findIndex(v => v.filterType === FilterTypes.SYSTEM) === -1) {
+      FilterItem.setAllSelected(this.filterSearchSystems);
+    }
+    if (this.filters.findIndex(v => v.filterType === FilterTypes.USER) === -1) {
+      FilterItem.setAllSelected(this.filterSearchUsers);
+    }
+
+    this.displaySearchPassNotes = filteredNotes;
+    this.pagerHandler.setPageItems(this.displaySearchPassNotes);
   }
 
   searchInfoButtonClick(event) {
