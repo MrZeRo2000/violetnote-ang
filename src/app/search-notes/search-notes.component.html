@@ -18,10 +18,11 @@
     <div class="list-group">
       <div class="list-group-item list-group-item-secondary">
         <div class="row h5">
-          <div class="col-3">Category <app-drop-down-filter [filterItems]="filterSearch[FilterTypes.CATEGORY]" (filterChanged)="categoryFilterChanged($event)"></app-drop-down-filter></div>
-          <div class="col-3">System<app-drop-down-filter [filterItems]="filterSearch[FilterTypes.SYSTEM]" (filterChanged)="systemFilterChanged($event)"></app-drop-down-filter></div>
-          <div class="col-3">User<app-drop-down-filter [filterItems]="filterSearch[FilterTypes.USER]" (filterChanged)="userFilterChanged($event)"></app-drop-down-filter></div>
-          <div class="col-3">Url</div>
+          <div class="col-md-2 col-sm-12 text-center">Category <app-drop-down-filter [filterItems]="filterSearch[FilterTypes.CATEGORY]" (filterChanged)="categoryFilterChanged($event)"></app-drop-down-filter></div>
+          <div class="col-md-2 col-sm-12 text-center">System<app-drop-down-filter [filterItems]="filterSearch[FilterTypes.SYSTEM]" (filterChanged)="systemFilterChanged($event)"></app-drop-down-filter></div>
+          <div class="col-md-3 col-sm-12 text-center">User<app-drop-down-filter [filterItems]="filterSearch[FilterTypes.USER]" (filterChanged)="userFilterChanged($event)"></app-drop-down-filter></div>
+          <div class="col-md-2 col-sm-12 text-center d-none d-sm-none d-md-block">Password</div>
+          <div class="col-md-3 col-sm-12 text-center">Url</div>
         </div>
       </div>
       <a href="#"
@@ -32,10 +33,16 @@
          (click)="onPassNoteClick($event, passNote)"
       >
         <div class="row">
-          <div class="col-3">{{passNote.passCategory.categoryName}}</div>
-          <div class="col-3">{{passNote.passNote.system}}</div>
-          <div class="col-3">{{passNote.passNote.user}}</div>
-          <div class="col-3">{{passNote.passNote.url}}</div>
+          <div class="col-md-2 col-sm-12">{{passNote.passCategory.categoryName}}</div>
+          <div class="col-md-2 col-sm-12">{{passNote.passNote.system}}</div>
+          <div class="col-md-3 col-sm-12 position-relative">
+            {{passNote.passNote.user}}
+            <div class="btn-clipboard"><app-copy-value-panel name="User" value={{passNote.passNote.user}}></app-copy-value-panel></div>
+          </div>
+          <div class="col-md-2 col-sm-12 d-none d-sm-none d-md-flex align-items-center justify-content-center">
+              <app-copy-value-panel name="Password" value={{passNote.passNote.password}}></app-copy-value-panel>
+          </div>
+          <div class="col-md-3 col-sm-12">{{passNote.passNote.url}}</div>
         </div>
       </a>
     </div>

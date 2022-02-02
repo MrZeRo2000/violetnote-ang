@@ -43,7 +43,7 @@ import { PassNoteEditComponent } from './pass-note-edit/pass-note-edit.component
 import { ExportViewComponent } from './export-view/export-view.component';
 import { AppInfoComponent } from './app-info/app-info.component';
 import { DropDownFilterComponent } from './drop-down-filter/drop-down-filter.component';
-import { CopyPasswordPanelComponent } from './copy-password-panel/copy-password-panel.component';
+import { CopyValueComponent } from './copy-value-panel/copy-value.component';
 import {PopoverModule} from 'ngx-bootstrap/popover';
 
 const appRoutes: Routes = [
@@ -81,7 +81,7 @@ const appRoutes: Routes = [
         ExportViewComponent,
         AppInfoComponent,
         DropDownFilterComponent,
-        CopyPasswordPanelComponent
+        CopyValueComponent
     ],
   imports: [
     BrowserModule,

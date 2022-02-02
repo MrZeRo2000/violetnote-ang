@@ -1,22 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CopyPasswordPanelComponent } from './copy-password-panel.component';
+import { CopyValueComponent } from './copy-value.component';
 import {PopoverModule} from 'ngx-bootstrap/popover';
 
 describe('CopyPasswordPanelComponent', () => {
-  let component: CopyPasswordPanelComponent;
-  let fixture: ComponentFixture<CopyPasswordPanelComponent>;
+  let component: CopyValueComponent;
+  let fixture: ComponentFixture<CopyValueComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CopyPasswordPanelComponent ],
+      declarations: [ CopyValueComponent ],
       imports: [PopoverModule]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CopyPasswordPanelComponent);
+    fixture = TestBed.createComponent(CopyValueComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
