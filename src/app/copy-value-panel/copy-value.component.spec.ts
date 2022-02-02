@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CopyValueComponent } from './copy-value.component';
 import {PopoverModule} from 'ngx-bootstrap/popover';
+import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';
 
 describe('CopyPasswordPanelComponent', () => {
   let component: CopyValueComponent;
@@ -10,7 +11,7 @@ describe('CopyPasswordPanelComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ CopyValueComponent ],
-      imports: [PopoverModule]
+      imports: [PopoverModule, FontAwesomeIconsModule]
     })
     .compileComponents();
   });

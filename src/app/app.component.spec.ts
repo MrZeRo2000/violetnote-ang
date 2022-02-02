@@ -10,6 +10,8 @@ import {PassDataFileNameComponent} from './pass-data-file-name/pass-data-file-na
 import {DataSourceModule} from './data-source/data-source.module';
 import {MessagesModule} from './messages/messages.module';
 import {EditPanelComponent} from './edit-panel/edit-panel.component';
+import {AppInfoComponent} from './app-info/app-info.component';
+import {FontAwesomeIconsModule} from './font-awesome-icons/font-awesome-icons.module';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -18,7 +20,8 @@ describe('AppComponent', () => {
         AppComponent,
         PassDataFileNameComponent,
         EditPanelComponent,
-        SearchComponent
+        SearchComponent,
+        AppInfoComponent
       ],
       imports: [
         FormsModule,

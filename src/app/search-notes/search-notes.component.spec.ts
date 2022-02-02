@@ -19,6 +19,12 @@ import {PassCategory} from '../model/pass-category';
 import {PassNote} from '../model/pass-note';
 import {PassData} from '../model/pass-data';
 import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';
+import {CopyValueComponent} from '../copy-value-panel/copy-value.component';
+import {PopoverModule} from 'ngx-bootstrap/popover';
+import {DropDownFilterComponent} from '../drop-down-filter/drop-down-filter.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 // https://github.com/jasmine/jasmine/issues/1523
 /*
@@ -49,9 +55,13 @@ describe('SearchNotesComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ SearchNotesComponent, PasswordComponent, PassDataComponent, PassCategoryComponent, PassNoteComponent,
         EditPanelComponent,
-        PaginationComponent ],
+        PaginationComponent,
+        CopyValueComponent,
+        DropDownFilterComponent
+      ],
       imports: [
         FormsModule,
+        BrowserAnimationsModule,
         // https://github.com/jasmine/jasmine/issues/1523
         RouterTestingModule.withRoutes([
           { path: 'password', component: PasswordComponent },
@@ -60,7 +70,9 @@ describe('SearchNotesComponent', () => {
         HttpClientTestingModule,
         DataSourceModule,
         AppConfigModule,
-        FontAwesomeIconsModule
+        FontAwesomeIconsModule,
+        PopoverModule,
+        BsDropdownModule
       ],
       providers: [
         AuthService,
