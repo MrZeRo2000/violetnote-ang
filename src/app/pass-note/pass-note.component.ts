@@ -11,6 +11,7 @@ import {Subject, Subscription} from 'rxjs';
 import {ConfirmationModalDialogComponent} from '../confirmation-modal-dialog/confirmation-modal-dialog.component';
 import {PassNoteEditComponent} from '../pass-note-edit/pass-note-edit.component';
 import {PassCategory} from '../model/pass-category';
+import {UrlUtils} from '../utils/url-utils';
 
 @Component({
   selector: 'app-pass-note',
@@ -19,6 +20,7 @@ import {PassCategory} from '../model/pass-category';
 })
 export class PassNoteComponent implements OnInit, OnDestroy {
   EditButtonType = EditButtonType;
+  UrlUtils = UrlUtils;
 
   bsModalRef: BsModalRef;
   maxPageSize = 8;

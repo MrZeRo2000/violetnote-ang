@@ -41,7 +41,14 @@
     <div class="row">
       <div class="col-md-3">{{passNote.system}}</div>
       <div class="col-md-3">{{passNote.user}}</div>
-      <div class="col-md-6">{{passNote.url}}</div>
+      <div class="col-md-6">
+        <span *ngIf="!UrlUtils.isValidURL(passNote.url)">
+          {{passNote.url}}
+        </span>
+        <span *ngIf="UrlUtils.isValidURL(passNote.url)">
+          <a [href]=passNote.url target="_blank" (click)="$event.stopPropagation()">{{passNote.url}}</a>
+        </span>
+      </div>
     </div>
   </a>
 </div>

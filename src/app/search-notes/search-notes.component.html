@@ -47,7 +47,7 @@
               {{passNote.passNote.url}}
             </div>
             <div *ngIf="UrlUtils.isValidURL(passNote.passNote.url)">
-              <a [href]=passNote.passNote.url target="_blank" (click)="$event.stopPropagation()">{{passNote.passNote.url}}e</a>
+              <a [href]=passNote.passNote.url target="_blank" (click)="$event.stopPropagation()">{{passNote.passNote.url}}</a>
             </div>
           </div>
         </div>
