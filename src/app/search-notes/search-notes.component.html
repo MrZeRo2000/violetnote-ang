@@ -42,7 +42,14 @@
           <div class="col-md-2 col-sm-12 d-none d-sm-none d-md-flex align-items-center justify-content-center">
               <app-copy-value-panel name="Password" value={{passNote.passNote.password}}></app-copy-value-panel>
           </div>
-          <div class="col-md-3 col-sm-12">{{passNote.passNote.url}}</div>
+          <div class="col-md-3 col-sm-12">
+            <div *ngIf="!UrlUtils.isValidURL(passNote.passNote.url)">
+              {{passNote.passNote.url}}
+            </div>
+            <div *ngIf="UrlUtils.isValidURL(passNote.passNote.url)">
+              <a [href]=passNote.passNote.url target="_blank" (click)="$event.stopPropagation()">{{passNote.passNote.url}}e</a>
+            </div>
+          </div>
         </div>
       </a>
     </div>

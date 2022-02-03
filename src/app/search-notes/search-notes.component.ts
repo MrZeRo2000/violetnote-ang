@@ -13,6 +13,7 @@ import {ConfirmationModalDialogComponent} from '../confirmation-modal-dialog/con
 import {PassNoteEditComponent} from '../pass-note-edit/pass-note-edit.component';
 import {PassNoteSearch} from '../model/pass-note-search';
 import {FilterItem} from '../drop-down-filter/drop-down-filter.component';
+import {UrlUtils} from '../utils/url-utils';
 
 enum FilterTypes {
   CATEGORY,
@@ -27,6 +28,7 @@ enum FilterTypes {
 })
 export class SearchNotesComponent implements OnInit, OnDestroy {
   FilterTypes = FilterTypes;
+  UrlUtils = UrlUtils;
 
   EditButtonType = EditButtonType;
 
