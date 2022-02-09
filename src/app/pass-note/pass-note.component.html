@@ -24,9 +24,9 @@
 <div class="list-group" cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="onDrop($event)">
   <div class="list-group-item list-group-item-secondary">
     <div class="row h5">
-      <div class="col-md-3">System</div>
-      <div class="col-md-3">User</div>
-      <div class="col-md-6">Url</div>
+      <div class="col-lg-2 col-md-12">System</div>
+      <div class="col-lg-4 col-md-12">User</div>
+      <div class="col-lg-6 col-md-12">Url</div>
     </div>
   </div>
   <a href="#"
@@ -39,9 +39,14 @@
      [cdkDragDisabled] = dragDisabled()
   >
     <div class="row">
-      <div class="col-md-3">{{passNote.system}}</div>
-      <div class="col-md-3">{{passNote.user}}</div>
-      <div class="col-md-6">
+      <div class="col-lg-2 col-md-12">{{passNote.system}}</div>
+      <div class="col-lg-4 col-md-12 d-inline-flex">
+        <div class="d-flex flex-grow-1">{{passNote.user}}</div>
+        <div class="d-flex align-items-center">
+          <app-copy-user-name-password-panel userName={{passNote.user}} password={{passNote.password}}></app-copy-user-name-password-panel>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12">
         <span *ngIf="!UrlUtils.isValidURL(passNote.url)">
           {{passNote.url}}
         </span>

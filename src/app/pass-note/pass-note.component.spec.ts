@@ -15,6 +15,8 @@ import {PassCategory} from '../model/pass-category';
 import {PassNote} from '../model/pass-note';
 import {PassData} from '../model/pass-data';
 import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';
+import {CopyUserNamePasswordPanelComponent} from '../copy-user-name-password-panel/copy-user-name-password-panel.component';
+import {PopoverModule} from 'ngx-bootstrap/popover';
 
 describe('PassNoteComponent', () => {
   let component: PassNoteComponent;
@@ -32,7 +34,7 @@ describe('PassNoteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PassNoteComponent, PaginationComponent, EditPanelComponent ],
+      declarations: [ PassNoteComponent, PaginationComponent, EditPanelComponent, CopyUserNamePasswordPanelComponent ],
       imports: [
         FormsModule,
         HttpClientTestingModule,
@@ -40,7 +42,8 @@ describe('PassNoteComponent', () => {
         DragDropModule,
         DataSourceModule,
         AppConfigModule,
-        FontAwesomeIconsModule
+        FontAwesomeIconsModule,
+        PopoverModule
       ],
       providers: [
         {provide: PaginationConfig, useValue: {
