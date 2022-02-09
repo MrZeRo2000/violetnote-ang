@@ -45,6 +45,7 @@ import { AppInfoComponent } from './app-info/app-info.component';
 import { DropDownFilterComponent } from './drop-down-filter/drop-down-filter.component';
 import { CopyValueComponent } from './copy-value-panel/copy-value.component';
 import {PopoverModule} from 'ngx-bootstrap/popover';
+import { CopyUserNamePasswordPanelComponent } from './copy-user-name-password-panel/copy-user-name-password-panel.component';
 
 const appRoutes: Routes = [
   { path: 'password', component: PasswordComponent },
@@ -81,7 +82,8 @@ const appRoutes: Routes = [
         ExportViewComponent,
         AppInfoComponent,
         DropDownFilterComponent,
-        CopyValueComponent
+        CopyValueComponent,
+        CopyUserNamePasswordPanelComponent
     ],
   imports: [
     BrowserModule,

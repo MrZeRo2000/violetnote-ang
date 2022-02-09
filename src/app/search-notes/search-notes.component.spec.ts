@@ -25,6 +25,7 @@ import {DropDownFilterComponent} from '../drop-down-filter/drop-down-filter.comp
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CopyUserNamePasswordPanelComponent} from '../copy-user-name-password-panel/copy-user-name-password-panel.component';
 
 // https://github.com/jasmine/jasmine/issues/1523
 /*
@@ -57,7 +58,8 @@ describe('SearchNotesComponent', () => {
         EditPanelComponent,
         PaginationComponent,
         CopyValueComponent,
-        DropDownFilterComponent
+        DropDownFilterComponent,
+        CopyUserNamePasswordPanelComponent
       ],
       imports: [
         FormsModule,

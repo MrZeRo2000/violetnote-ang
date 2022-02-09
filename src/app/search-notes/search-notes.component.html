@@ -21,8 +21,7 @@
           <div class="col-md-2 col-sm-12 text-center">Category <app-drop-down-filter [filterItems]="filterSearch[FilterTypes.CATEGORY]" (filterChanged)="categoryFilterChanged($event)"></app-drop-down-filter></div>
           <div class="col-md-2 col-sm-12 text-center">System<app-drop-down-filter [filterItems]="filterSearch[FilterTypes.SYSTEM]" (filterChanged)="systemFilterChanged($event)"></app-drop-down-filter></div>
           <div class="col-md-3 col-sm-12 text-center">User<app-drop-down-filter [filterItems]="filterSearch[FilterTypes.USER]" (filterChanged)="userFilterChanged($event)"></app-drop-down-filter></div>
-          <div class="col-md-2 col-sm-12 text-center d-none d-sm-none d-md-block">Password</div>
-          <div class="col-md-3 col-sm-12 text-center">Url</div>
+          <div class="col-md-5 col-sm-12 text-center">Url</div>
         </div>
       </div>
       <a href="#"
@@ -37,12 +36,11 @@
           <div class="col-md-2 col-sm-12">{{passNote.passNote.system}}</div>
           <div class="col-md-3 col-sm-12 position-relative">
             {{passNote.passNote.user}}
-            <div class="btn-clipboard"><app-copy-value-panel name="User" value={{passNote.passNote.user}}></app-copy-value-panel></div>
+            <div class="btn-clipboard">
+              <app-copy-user-name-password-panel userName={{passNote.passNote.user}} password={{passNote.passNote.password}}></app-copy-user-name-password-panel>
+            </div>
           </div>
-          <div class="col-md-2 col-sm-12 d-none d-sm-none d-md-flex align-items-center justify-content-center">
-              <app-copy-value-panel name="Password" value={{passNote.passNote.password}}></app-copy-value-panel>
-          </div>
-          <div class="col-md-3 col-sm-12">
+          <div class="col-md-5 col-sm-12">
             <div *ngIf="!UrlUtils.isValidURL(passNote.passNote.url)">
               {{passNote.passNote.url}}
             </div>

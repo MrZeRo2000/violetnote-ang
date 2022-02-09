@@ -30,7 +30,8 @@ describe('AppComponent', () => {
         TypeaheadModule,
         DataSourceModule,
         AppConfigModule,
-        MessagesModule
+        MessagesModule,
+        FontAwesomeIconsModule
       ]
     }).compileComponents();
   });
