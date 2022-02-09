@@ -96,6 +96,8 @@ export class PassNoteComponent implements OnInit, OnDestroy {
   }
 
   onPassNoteClick(event, passNote: PassNote) {
+    event.preventDefault();
+
     if (this.editMode) {
       if (event.ctrlKey) {
         // for multiple selection
