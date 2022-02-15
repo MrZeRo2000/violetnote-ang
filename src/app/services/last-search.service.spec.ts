@@ -12,6 +12,10 @@ describe('LastSearchService', () => {
     service.deleteSearches();
   });
 
+  afterAll(() => {
+    service.deleteSearches();
+  })
+
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
