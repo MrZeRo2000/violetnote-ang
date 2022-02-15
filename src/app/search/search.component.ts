@@ -3,6 +3,7 @@ import {NavigationEnd, Router, RouterEvent} from '@angular/router';
 import {PassDataService} from '../services/pass-data.service';
 import {BehaviorSubject, Subject, Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
+import {LastSearchService} from '../services/last-search.service';
 
 @Component({
   selector: 'app-search',
@@ -16,18 +17,26 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy  {
   isValidSearch = true;
   isFocusRequired = false;
   searchStrings: string[];
+  lastSearches: Array<string>;
 
   private passDataSubscription: Subscription;
   private searchStringsSubscription: Subscription;
+  private routerEventsSubscription: Subscription;
+  private lastSearchesSubscription: Subscription;
 
-  constructor(private router: Router, passDataService: PassDataService) {
+  constructor(private router: Router, private passDataService: PassDataService, private lastSearchService: LastSearchService) {
     this.passDataSubscription =
       passDataService.currentPassData.subscribe(() => this.currentPassDataChanged());
     this.searchStringsSubscription =
       passDataService.currentSearchStrings.subscribe((searchStrings) => this.setSearchStrings(searchStrings));
-    this.router.events.pipe(
+    this.routerEventsSubscription = this.router.events.pipe(
       filter(e => e instanceof NavigationEnd)
     ).subscribe(e => {if ((e as NavigationEnd).url === '/main') {this.requireFocus(); }});
+    this.lastSearchesSubscription = this.lastSearchService.currentLastSearches.subscribe(
+      value => {
+        this.lastSearches = value;
+      }
+    )
   }
 
   ngOnInit() {
@@ -49,8 +58,10 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy  {
   }
 
   ngOnDestroy(): void {
-    this.passDataSubscription.unsubscribe();
-    this.searchStringsSubscription.unsubscribe();
+    this.passDataSubscription?.unsubscribe();
+    this.searchStringsSubscription?.unsubscribe();
+    this.routerEventsSubscription?.unsubscribe();
+    this.lastSearchesSubscription?.unsubscribe();
   }
 
   private currentPassDataChanged() {
@@ -87,6 +98,16 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy  {
 
   resetValidSearch(): void {
     this.isValidSearch = true;
+  }
+
+  onLastSearchesClick(event, item) {
+    event.preventDefault();
+    this.router.navigate(['search', item]);
+  }
+
+  onClearHistoryClick(event) {
+    event.preventDefault();
+    this.lastSearchService.deleteSearches();
   }
 
 }

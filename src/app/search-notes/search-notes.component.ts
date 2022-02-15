@@ -14,6 +14,7 @@ import {PassNoteEditComponent} from '../pass-note-edit/pass-note-edit.component'
 import {PassNoteSearch} from '../model/pass-note-search';
 import {FilterItem} from '../drop-down-filter/drop-down-filter.component';
 import {UrlUtils} from '../utils/url-utils';
+import {LastSearchService} from '../services/last-search.service';
 
 enum FilterTypes {
   CATEGORY,
@@ -67,12 +68,21 @@ export class SearchNotesComponent implements OnInit, OnDestroy {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private passDataService: PassDataService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private lastSearchService: LastSearchService
   ) {
     this.activatedRouteParamsSubscription = activatedRoute.params.subscribe(
       params => {
         this.searchText = params['text'];
         this.updateSearchPassNotes();
+
+        // handle last searches
+        if (this.searchPassNotes?.length > 0) {
+          this.lastSearchService.addSearchValue(this.searchText);
+        } else {
+          this.lastSearchService.deleteSearchValue(this.searchText);
+        }
+
         this.pagerStatusSubscription = this.pagerHandler.pagerStatusSubject.subscribe((pagerStatus) => {
           this.pagerStatus = pagerStatus;
         });
