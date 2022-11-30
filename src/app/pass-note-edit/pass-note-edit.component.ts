@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {PassCategory} from '../model/pass-category';
 import {PassNote} from '../model/pass-note';
 import {Subject} from 'rxjs';
@@ -19,7 +19,7 @@ export class PassNoteEditComponent implements OnInit {
 
   confirmButtonText: string;
 
-  editForm: FormGroup;
+  editForm: UntypedFormGroup;
   submitted = false;
 
   systemTypeAheadStrings: Array<string>;
@@ -37,18 +37,18 @@ export class PassNoteEditComponent implements OnInit {
   ngOnInit(): void {
     this.confirmButtonText = !!this.item ? 'Save' : 'Create';
 
-    this.editForm = new FormGroup({
+    this.editForm = new UntypedFormGroup({
       system:
-        new FormControl((this.item && this.item.system) || (this.duplicateItem && this.duplicateItem.system), Validators.required),
+        new UntypedFormControl((this.item && this.item.system) || (this.duplicateItem && this.duplicateItem.system), Validators.required),
       user:
-        new FormControl((this.item && this.item.user) || (this.duplicateItem && this.duplicateItem.user), Validators.required),
+        new UntypedFormControl((this.item && this.item.user) || (this.duplicateItem && this.duplicateItem.user), Validators.required),
       password:
-        new FormControl((this.item && this.item.password) || (this.duplicateItem && this.duplicateItem.password), Validators.required),
+        new UntypedFormControl((this.item && this.item.password) || (this.duplicateItem && this.duplicateItem.password), Validators.required),
       passwordRetype:
-        new FormControl((this.item && this.item.password) || (this.duplicateItem && this.duplicateItem.password), Validators.required),
+        new UntypedFormControl((this.item && this.item.password) || (this.duplicateItem && this.duplicateItem.password), Validators.required),
       url:
-        new FormControl((this.item && this.item.url) || (this.duplicateItem && this.duplicateItem.url)),
-      info: new FormControl((this.item && this.item.info) || (this.duplicateItem && this.duplicateItem.info))
+        new UntypedFormControl((this.item && this.item.url) || (this.duplicateItem && this.duplicateItem.url)),
+      info: new UntypedFormControl((this.item && this.item.info) || (this.duplicateItem && this.duplicateItem.info))
     });
 
     this.editForm.valueChanges.subscribe(value => {

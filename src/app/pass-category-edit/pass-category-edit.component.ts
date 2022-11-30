@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {Subject} from 'rxjs';
 import {PassCategory} from '../model/pass-category';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-pass-category-edit',
@@ -16,15 +16,15 @@ export class PassCategoryEditComponent implements OnInit {
 
   confirmButtonText: string;
 
-  editForm: FormGroup;
+  editForm: UntypedFormGroup;
   submitted = false;
 
   constructor(public bsModalRef: BsModalRef) { }
 
   ngOnInit(): void {
     this.confirmButtonText = !!this.item ? 'Save' : 'Create';
-    this.editForm = new FormGroup({
-      name: new FormControl(this.item && this.item.categoryName, Validators.required)
+    this.editForm = new UntypedFormGroup({
+      name: new UntypedFormControl(this.item && this.item.categoryName, Validators.required)
     });
   }
 
