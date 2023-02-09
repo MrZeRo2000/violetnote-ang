@@ -91,7 +91,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     ModalModule.forRoot(),
-    RouterModule.forRoot(appRoutes, {enableTracing: false, useHash: true, relativeLinkResolution: 'legacy'}),
+    RouterModule.forRoot(appRoutes, {enableTracing: false, useHash: true}),
     PaginationModule.forRoot(),
     TypeaheadModule.forRoot(),
     PopoverModule.forRoot(),
