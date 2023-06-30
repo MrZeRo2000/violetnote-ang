@@ -25,11 +25,10 @@ export enum OperationMode {
   providedIn: 'root'
 })
 export class PassDataService {
-  private static readonly PATH = '/v2/passdata2/'
-
-  private passDataFileInfo: PassDataFileInfo = null;
+  private static readonly PATH = '/v2/passdata2'
 
   currentPassData: BehaviorSubject<PassData> = new BehaviorSubject<PassData>(null);
+
   currentPassCategory: BehaviorSubject<PassCategory> = new BehaviorSubject<PassCategory>(null);
   currentPassNotes: BehaviorSubject<Array<PassNote>> = new BehaviorSubject<Array<PassNote>>(null);
   updatedPassNotes: Subject<Array<PassNote>> = new Subject<Array<PassNote>>();
@@ -38,8 +37,9 @@ export class PassDataService {
   currentSearchStrings: Subject<Array<string>> = new BehaviorSubject<Array<string>>(null);
   currentOperationMode: BehaviorSubject<OperationMode> = new BehaviorSubject<OperationMode>(null);
   currentPassDataDirty: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
   currentLoadingState: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  private passDataFileInfo: PassDataFileInfo = null;
 
   constructor(
     private dataSource: RestDataSourceService,
@@ -71,14 +71,6 @@ export class PassDataService {
     this.currentPassDataDirty.next(false);
   }
 
-  private selectFirstCategory(): void {
-    const passData = this.getPassData();
-    if (passData && passData.categoryList && passData.categoryList.length > 0) {
-      this.setSelectedPassCategory(passData.categoryList[0]);
-      this.clearNoteSelection();
-    }
-  }
-
   public clearNoteSelection(): void {
     this.currentPassNote.next(null);
     this.selectedPassNotes.next(null);
@@ -86,6 +78,14 @@ export class PassDataService {
 
   public clearPassData() {
     this.setPassData(null);
+  }
+
+  private selectFirstCategory(): void {
+    const passData = this.getPassData();
+    if (passData && passData.categoryList && passData.categoryList.length > 0) {
+      this.setSelectedPassCategory(passData.categoryList[0]);
+      this.clearNoteSelection();
+    }
   }
 
   private requestPassData(): Observable<HttpResponse<any>> {
@@ -97,14 +97,14 @@ export class PassDataService {
 
   private editPassData(): Observable<HttpResponse<any>> {
     this.currentLoadingState.next(true);
-    return this.dataSource.postResponse(`${PassDataService.PATH}edit`,
+    return this.dataSource.postResponse(`${PassDataService.PATH}/edit`,
       new PassDataPersistRequest(this.passDataFileInfo.name, this.authService.getPassword(), this.getPassData())
     );
   }
 
   private newPassData(): Observable<HttpResponse<any>> {
     this.currentLoadingState.next(true);
-    return this.dataSource.postResponse(`${PassDataService.PATH}new`,
+    return this.dataSource.postResponse(`${PassDataService.PATH}/new`,
       new PassDataPersistRequest(this.passDataFileInfo.name, this.authService.getPassword(), this.getPassData())
     );
   }
