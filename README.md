@@ -62,3 +62,6 @@ https://i.pickadummy.com/300x100&wash=AF7FA1&brightness=0
 
 ## Upgrade to Angular 13
 npx @angular/cli@13 update @angular/core@13 @angular/cli@13 --force
+
+## Upgrade to Angular 16
+ng update @angular/core@16 @angular/cli@16 @angular/cdk@16 --allow-dirty --force
