@@ -32,7 +32,19 @@
 
     <div class="row mb-2" [ngClass]="{'is-invalid': editForm.controls.password.errors && submitted}">
       <div class="col">
-        <label for="inputPassword" class="mb-1"><strong>Password</strong></label>
+        <label for="inputPassword" class="mb-1">
+          <strong>Password</strong>
+          <div class="d-inline dropdown">
+            <div class="d-inline p-0 ms-2 align-top btn btn-link" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <fa-icon [icon]="['fas', 'gears']"></fa-icon>
+            </div>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <div *ngFor="let passwordLength of passwordLengths">
+                <a class="dropdown-item" href="#" (click)="onGeneratePassword($event, passwordLength)">{{ passwordLength }}</a>
+              </div>
+            </div>
+          </div>
+        </label>
         <input
           type="text"
           class="form-control"

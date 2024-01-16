@@ -4,6 +4,7 @@ import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {PassCategory} from '../model/pass-category';
 import {PassNote} from '../model/pass-note';
 import {Subject} from 'rxjs';
+import {PasswordGenerator} from "../utils/password-generator";
 
 @Component({
   selector: 'app-pass-note-edit',
@@ -11,6 +12,8 @@ import {Subject} from 'rxjs';
   styleUrls: ['./pass-note-edit.component.scss']
 })
 export class PassNoteEditComponent implements OnInit {
+  passwordLengths = [8, 10, 12, 14, 16]
+
   item: PassNote;
   duplicateItem: PassNote;
   items: Array<PassNote>;
@@ -87,6 +90,11 @@ export class PassNoteEditComponent implements OnInit {
       this.bsModalRef.hide();
       this.result.next(resultItem);
     }
+  }
+
+  onGeneratePassword(event: any, passwordLength: number): void {
+    event.preventDefault();
+    this.editForm.controls.password.setValue(PasswordGenerator.randomPassword(passwordLength));
   }
 
   private validateCreate(): void {
