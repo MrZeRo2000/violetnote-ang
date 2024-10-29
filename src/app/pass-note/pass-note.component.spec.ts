@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {PaginationComponent, PaginationConfig} from 'ngx-bootstrap/pagination';
 import {FormsModule} from '@angular/forms';
 import { PassNoteComponent } from './pass-note.component';
 import {PassDataService} from '../services/pass-data.service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
 import {AuthService} from '../services/auth.service';
@@ -17,6 +17,7 @@ import {PassData} from '../model/pass-data';
 import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';
 import {CopyUserNamePasswordPanelComponent} from '../copy-user-name-password-panel/copy-user-name-password-panel.component';
 import {PopoverModule} from 'ngx-bootstrap/popover';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('PassNoteComponent', () => {
   let component: PassNoteComponent;
@@ -34,29 +35,29 @@ describe('PassNoteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PassNoteComponent, PaginationComponent, EditPanelComponent, CopyUserNamePasswordPanelComponent ],
-      imports: [
-        FormsModule,
-        HttpClientTestingModule,
+    declarations: [PassNoteComponent, PaginationComponent, EditPanelComponent, CopyUserNamePasswordPanelComponent],
+    imports: [FormsModule,
         ModalModule.forRoot(),
         DragDropModule,
         DataSourceModule,
         AppConfigModule,
         FontAwesomeIconsModule,
-        PopoverModule
-      ],
-      providers: [
-        {provide: PaginationConfig, useValue: {
-          boundaryLinks: true,
-            firstText: 'First',
-            previousText: '&lsaquo;',
-            nextText: '&rsaquo;',
-            lastText: 'Last',
-            maxSize: 1 }
+        PopoverModule],
+    providers: [
+        { provide: PaginationConfig, useValue: {
+                boundaryLinks: true,
+                firstText: 'First',
+                previousText: '&lsaquo;',
+                nextText: '&rsaquo;',
+                lastText: 'Last',
+                maxSize: 1
+            }
         },
-        AuthService
-      ]
-    })
+        AuthService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
     .compileComponents();
     service = TestBed.inject(PassDataService);
     service.setPassData(passData);

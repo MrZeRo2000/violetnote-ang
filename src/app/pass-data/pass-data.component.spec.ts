@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PassDataComponent } from './pass-data.component';
 import {PassCategoryComponent} from '../pass-category/pass-category.component';
 import {PassNoteComponent} from '../pass-note/pass-note.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormsModule} from '@angular/forms';
 import {PaginationComponent} from 'ngx-bootstrap/pagination';
@@ -11,6 +11,7 @@ import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
 import {EditPanelComponent} from '../edit-panel/edit-panel.component';
 import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('PassDataComponent', () => {
   let component: PassDataComponent;
@@ -18,16 +19,14 @@ describe('PassDataComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PassDataComponent, PassCategoryComponent, PassNoteComponent, PaginationComponent, EditPanelComponent ],
-      imports: [
-        FormsModule,
+    declarations: [PassDataComponent, PassCategoryComponent, PassNoteComponent, PaginationComponent, EditPanelComponent],
+    imports: [FormsModule,
         RouterTestingModule,
-        HttpClientTestingModule,
         DataSourceModule,
         AppConfigModule,
-        FontAwesomeIconsModule
-      ]
-    })
+        FontAwesomeIconsModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   });
 

@@ -2,11 +2,12 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ExportViewComponent } from './export-view.component';
 import {FormsModule} from '@angular/forms';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {PassDataService} from '../services/pass-data.service';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ExportViewComponent', () => {
   let component: ExportViewComponent;
@@ -14,18 +15,17 @@ describe('ExportViewComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExportViewComponent ],
-      imports: [
-        FormsModule,
-        HttpClientTestingModule,
+    declarations: [ExportViewComponent],
+    imports: [FormsModule,
         DataSourceModule,
-        AppConfigModule
-      ],
-      providers: [
+        AppConfigModule],
+    providers: [
         BsModalRef,
-        PassDataService
-      ]
-    })
+        PassDataService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
     .compileComponents();
   }));
 

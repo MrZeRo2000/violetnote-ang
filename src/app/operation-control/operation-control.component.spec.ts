@@ -1,12 +1,13 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OperationControlComponent } from './operation-control.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('OperationControlComponent', () => {
   let component: OperationControlComponent;
@@ -14,16 +15,14 @@ describe('OperationControlComponent', () => {
 
   beforeEach(async() => {
     await TestBed.configureTestingModule({
-      declarations: [ OperationControlComponent ],
-      imports: [
-        RouterTestingModule,
-        HttpClientTestingModule,
+    declarations: [OperationControlComponent],
+    imports: [RouterTestingModule,
         ModalModule.forRoot(),
         DataSourceModule,
         AppConfigModule,
-        FontAwesomeIconsModule
-      ]
-    })
+        FontAwesomeIconsModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   });
 

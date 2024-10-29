@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchNotesComponent } from './search-notes.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -10,7 +10,7 @@ import {PassNoteComponent} from '../pass-note/pass-note.component';
 import {PassCategoryComponent} from '../pass-category/pass-category.component';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {PaginationComponent} from 'ngx-bootstrap/pagination';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
 import {AuthService} from '../services/auth.service';
@@ -22,10 +22,10 @@ import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.m
 import {CopyValueComponent} from '../copy-value-panel/copy-value.component';
 import {PopoverModule} from 'ngx-bootstrap/popover';
 import {DropDownFilterComponent} from '../drop-down-filter/drop-down-filter.component';
-import {DragDropModule} from '@angular/cdk/drag-drop';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CopyUserNamePasswordPanelComponent} from '../copy-user-name-password-panel/copy-user-name-password-panel.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 // https://github.com/jasmine/jasmine/issues/1523
 /*
@@ -54,33 +54,32 @@ describe('SearchNotesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SearchNotesComponent, PasswordComponent, PassDataComponent, PassCategoryComponent, PassNoteComponent,
+    declarations: [SearchNotesComponent, PasswordComponent, PassDataComponent, PassCategoryComponent, PassNoteComponent,
         EditPanelComponent,
         PaginationComponent,
         CopyValueComponent,
         DropDownFilterComponent,
         CopyUserNamePasswordPanelComponent
-      ],
-      imports: [
-        FormsModule,
+    ],
+    imports: [FormsModule,
         BrowserAnimationsModule,
         // https://github.com/jasmine/jasmine/issues/1523
         RouterTestingModule.withRoutes([
-          { path: 'password', component: PasswordComponent },
-          { path: 'main', component: PassDataComponent}
+            { path: 'password', component: PasswordComponent },
+            { path: 'main', component: PassDataComponent }
         ]),
-        HttpClientTestingModule,
         DataSourceModule,
         AppConfigModule,
         FontAwesomeIconsModule,
         PopoverModule,
-        BsDropdownModule
-      ],
-      providers: [
+        BsDropdownModule],
+    providers: [
         AuthService,
-        {provide: BsModalService, useClass: MockModalService}
-      ]
-    })
+        { provide: BsModalService, useClass: MockModalService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+})
     .compileComponents();
     service = TestBed.inject(PassDataService);
     service.setPassData(passData);

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 // added for data binding to work
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // for Http
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 // for modal, typeahead
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
@@ -62,8 +62,7 @@ const appRoutes: Routes = [
   { path: '**', component: PasswordComponent }
 ];
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppComponent,
         PasswordComponent,
         PassDataComponent,
@@ -85,33 +84,27 @@ const appRoutes: Routes = [
         CopyValueComponent,
         CopyUserNamePasswordPanelComponent
     ],
-  imports: [
-    BrowserModule,
-    DragDropModule,
-    FormsModule,
-    HttpClientModule,
-    ModalModule.forRoot(),
-    RouterModule.forRoot(appRoutes, {enableTracing: false, useHash: true}),
-    PaginationModule.forRoot(),
-    TypeaheadModule.forRoot(),
-    PopoverModule.forRoot(),
-    BrowserAnimationsModule,
-    // load configuration support
-    AppConfigModule,
-    // data source
-    DataSourceModule,
-    // messages
-    MessagesModule,
-    ReactiveFormsModule,
-    // fontawesome
-    FontAwesomeIconsModule,
-    BsDropdownModule
-  ],
-    providers: [
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        DragDropModule,
+        FormsModule,
+        ModalModule.forRoot(),
+        RouterModule.forRoot(appRoutes, { enableTracing: false, useHash: true }),
+        PaginationModule.forRoot(),
+        TypeaheadModule.forRoot(),
+        PopoverModule.forRoot(),
+        BrowserAnimationsModule,
+        // load configuration support
+        AppConfigModule,
+        // data source
+        DataSourceModule,
+        // messages
+        MessagesModule,
+        ReactiveFormsModule,
+        // fontawesome
+        FontAwesomeIconsModule,
+        BsDropdownModule], providers: [
         AuthService,
         PassDataService,
-        HttpClientModule
-    ],
-    bootstrap: [AppComponent]
-})
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }

@@ -1,11 +1,12 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PassDataFileNameComponent } from './pass-data-file-name.component';
 import {FormsModule} from '@angular/forms';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
 import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('PassDataFileNameComponent', () => {
   let component: PassDataFileNameComponent;
@@ -13,15 +14,13 @@ describe('PassDataFileNameComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PassDataFileNameComponent ],
-      imports: [
-        FormsModule,
-        HttpClientTestingModule,
+    declarations: [PassDataFileNameComponent],
+    imports: [FormsModule,
         DataSourceModule,
         AppConfigModule,
-        FontAwesomeIconsModule
-      ]
-    })
+        FontAwesomeIconsModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   });
 

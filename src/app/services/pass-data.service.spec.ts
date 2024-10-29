@@ -1,26 +1,27 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { PassDataService } from './pass-data.service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
 import {AuthService} from './auth.service';
 import {PassCategory} from '../model/pass-category';
 import {PassNote} from '../model/pass-note';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('PassDataService', () => {
   let service: PassDataService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        DataSourceModule,
-        AppConfigModule
-      ], providers: [
-        AuthService
-      ]
-    });
+    imports: [DataSourceModule,
+        AppConfigModule],
+    providers: [
+        AuthService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
     service = TestBed.inject(PassDataService);
   });
 
@@ -48,14 +49,14 @@ describe('PassDataService operations', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        DataSourceModule,
-        AppConfigModule
-      ], providers: [
-        AuthService
-      ]
-    });
+    imports: [DataSourceModule,
+        AppConfigModule],
+    providers: [
+        AuthService,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
     service = TestBed.inject(PassDataService);
 
     service.setPassData({

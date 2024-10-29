@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {PassDataFileInfo} from '../model/pass-data-file-info';
 import {RestDataSourceService} from '../data-source/rest-data-source.service';
-import {HttpResponse} from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import {PassDataFileRequest} from '../model/pass-data-file-request';
 import {Message, MessagesService, MessageType} from '../messages/messages.service';
 

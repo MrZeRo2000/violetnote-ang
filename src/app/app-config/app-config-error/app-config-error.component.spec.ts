@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AppConfigErrorComponent } from './app-config-error.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AppConfigErrorComponent', () => {
   let component: AppConfigErrorComponent;
@@ -9,9 +10,10 @@ describe('AppConfigErrorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppConfigErrorComponent ],
-      imports: [HttpClientTestingModule]
-    })
+    declarations: [AppConfigErrorComponent],
+    imports: [],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
     .compileComponents();
   }));
 

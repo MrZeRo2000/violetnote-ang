@@ -6,7 +6,7 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {PassDataFileNameService} from './pass-data-file-name.service';
 import {RestDataSourceService} from '../data-source/rest-data-source.service';
 
-import {HttpResponse} from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {Message, MessagesService, MessageType} from '../messages/messages.service';
 import {PassDataGetRequest} from '../model/pass-data-get-request';

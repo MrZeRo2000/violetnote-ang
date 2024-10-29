@@ -3,7 +3,7 @@ import { AppComponent } from './app.component';
 import {SearchComponent} from './search/search.component';
 import {FormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {AppConfigModule} from './app-config/app-config.module';
 import {PassDataFileNameComponent} from './pass-data-file-name/pass-data-file-name.component';
@@ -12,28 +12,27 @@ import {MessagesModule} from './messages/messages.module';
 import {EditPanelComponent} from './edit-panel/edit-panel.component';
 import {AppInfoComponent} from './app-info/app-info.component';
 import {FontAwesomeIconsModule} from './font-awesome-icons/font-awesome-icons.module';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         AppComponent,
         PassDataFileNameComponent,
         EditPanelComponent,
         SearchComponent,
         AppInfoComponent
-      ],
-      imports: [
-        FormsModule,
+    ],
+    imports: [FormsModule,
         RouterTestingModule,
-        HttpClientTestingModule,
         TypeaheadModule,
         DataSourceModule,
         AppConfigModule,
         MessagesModule,
-        FontAwesomeIconsModule
-      ]
-    }).compileComponents();
+        FontAwesomeIconsModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
   });
   it('should create the app', waitForAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);
