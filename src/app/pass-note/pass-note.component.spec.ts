@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import {ModalModule} from 'ngx-bootstrap/modal';
-import {PaginationComponent, PaginationConfig} from 'ngx-bootstrap/pagination';
+import {PaginationConfig, PaginationModule} from 'ngx-bootstrap/pagination';
 import {FormsModule} from '@angular/forms';
 import { PassNoteComponent } from './pass-note.component';
 import {PassDataService} from '../services/pass-data.service';
@@ -35,9 +35,10 @@ describe('PassNoteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [PassNoteComponent, PaginationComponent, EditPanelComponent, CopyUserNamePasswordPanelComponent],
+    declarations: [PassNoteComponent, EditPanelComponent, CopyUserNamePasswordPanelComponent],
     imports: [FormsModule,
         ModalModule.forRoot(),
+        PaginationModule,
         DragDropModule,
         DataSourceModule,
         AppConfigModule,

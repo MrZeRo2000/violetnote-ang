@@ -4,14 +4,14 @@ import { PassDataComponent } from './pass-data.component';
 import {PassCategoryComponent} from '../pass-category/pass-category.component';
 import {PassNoteComponent} from '../pass-note/pass-note.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import {RouterTestingModule} from '@angular/router/testing';
 import {FormsModule} from '@angular/forms';
-import {PaginationComponent} from 'ngx-bootstrap/pagination';
+import {PaginationModule} from 'ngx-bootstrap/pagination';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
 import {EditPanelComponent} from '../edit-panel/edit-panel.component';
 import {FontAwesomeIconsModule} from '../font-awesome-icons/font-awesome-icons.module';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {RouterModule} from "@angular/router";
 
 describe('PassDataComponent', () => {
   let component: PassDataComponent;
@@ -19,11 +19,14 @@ describe('PassDataComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [PassDataComponent, PassCategoryComponent, PassNoteComponent, PaginationComponent, EditPanelComponent],
+    declarations: [PassDataComponent, PassCategoryComponent, PassNoteComponent, EditPanelComponent],
     imports: [FormsModule,
-        RouterTestingModule,
+        RouterModule. forRoot(
+          [{path: '', component: PassDataComponent}, {path: 'simple', component: PassDataComponent}]
+        ),
         DataSourceModule,
         AppConfigModule,
+        PaginationModule,
         FontAwesomeIconsModule],
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 })

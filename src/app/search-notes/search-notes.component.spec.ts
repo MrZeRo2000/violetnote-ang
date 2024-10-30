@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchNotesComponent } from './search-notes.component';
-import {RouterTestingModule} from '@angular/router/testing';
 import {PasswordComponent} from '../password/password.component';
 import {FormsModule} from '@angular/forms';
 import {PassDataService} from '../services/pass-data.service';
@@ -9,7 +8,7 @@ import {PassDataComponent} from '../pass-data/pass-data.component';
 import {PassNoteComponent} from '../pass-note/pass-note.component';
 import {PassCategoryComponent} from '../pass-category/pass-category.component';
 import {BsModalService} from 'ngx-bootstrap/modal';
-import {PaginationComponent} from 'ngx-bootstrap/pagination';
+import {PaginationModule} from 'ngx-bootstrap/pagination';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {DataSourceModule} from '../data-source/data-source.module';
 import {AppConfigModule} from '../app-config/app-config.module';
@@ -26,6 +25,7 @@ import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CopyUserNamePasswordPanelComponent} from '../copy-user-name-password-panel/copy-user-name-password-panel.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {RouterModule} from "@angular/router";
 
 // https://github.com/jasmine/jasmine/issues/1523
 /*
@@ -56,7 +56,6 @@ describe('SearchNotesComponent', () => {
     await TestBed.configureTestingModule({
     declarations: [SearchNotesComponent, PasswordComponent, PassDataComponent, PassCategoryComponent, PassNoteComponent,
         EditPanelComponent,
-        PaginationComponent,
         CopyValueComponent,
         DropDownFilterComponent,
         CopyUserNamePasswordPanelComponent
@@ -64,13 +63,14 @@ describe('SearchNotesComponent', () => {
     imports: [FormsModule,
         BrowserAnimationsModule,
         // https://github.com/jasmine/jasmine/issues/1523
-        RouterTestingModule.withRoutes([
+      RouterModule. forRoot([
             { path: 'password', component: PasswordComponent },
             { path: 'main', component: PassDataComponent }
         ]),
         DataSourceModule,
         AppConfigModule,
         FontAwesomeIconsModule,
+        PaginationModule,
         PopoverModule,
         BsDropdownModule],
     providers: [
