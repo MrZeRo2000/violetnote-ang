@@ -5,9 +5,10 @@ import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-pass-data',
-  templateUrl: './pass-data.component.html',
-  styleUrls: ['./pass-data.component.scss']
+    selector: 'app-pass-data',
+    templateUrl: './pass-data.component.html',
+    styleUrls: ['./pass-data.component.scss'],
+    standalone: false
 })
 export class PassDataComponent implements OnInit, OnDestroy {
   isLoading = false;

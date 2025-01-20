@@ -39,7 +39,7 @@ npm install bootstrap@4.1.1 jquery --save
 ng generate component password
 
 ## Generate service:
-ng generate service PassData
+ng generate service PassData  
 
 ## Deploy:
 ng build --prod --base-href=/violetnote-ang/

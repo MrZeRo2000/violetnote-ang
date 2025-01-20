@@ -9,9 +9,10 @@ import {PassCategoryEditComponent} from '../pass-category-edit/pass-category-edi
 import {ConfirmationModalDialogComponent} from '../confirmation-modal-dialog/confirmation-modal-dialog.component';
 
 @Component({
-  selector: 'app-pass-category',
-  templateUrl: './pass-category.component.html',
-  styleUrls: ['./pass-category.component.scss']
+    selector: 'app-pass-category',
+    templateUrl: './pass-category.component.html',
+    styleUrls: ['./pass-category.component.scss'],
+    standalone: false
 })
 export class PassCategoryComponent implements OnInit, OnDestroy {
   EditButtonType = EditButtonType;

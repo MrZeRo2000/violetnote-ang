@@ -27,9 +27,10 @@ export class FilterItem {
 }
 
 @Component({
-  selector: 'app-drop-down-filter',
-  templateUrl: './drop-down-filter.component.html',
-  styleUrls: ['./drop-down-filter.component.scss']
+    selector: 'app-drop-down-filter',
+    templateUrl: './drop-down-filter.component.html',
+    styleUrls: ['./drop-down-filter.component.scss'],
+    standalone: false
 })
 export class DropDownFilterComponent implements OnInit {
 

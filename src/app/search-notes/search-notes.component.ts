@@ -23,9 +23,10 @@ enum FilterTypes {
 }
 
 @Component({
-  selector: 'app-search-notes',
-  templateUrl: './search-notes.component.html',
-  styleUrls: ['./search-notes.component.scss']
+    selector: 'app-search-notes',
+    templateUrl: './search-notes.component.html',
+    styleUrls: ['./search-notes.component.scss'],
+    standalone: false
 })
 export class SearchNotesComponent implements OnInit, OnDestroy {
   FilterTypes = FilterTypes;

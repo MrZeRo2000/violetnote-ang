@@ -1,9 +1,10 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 
 @Component({
-  selector: 'app-copy-value-panel',
-  templateUrl: './copy-value.component.html',
-  styleUrls: ['./copy-value.component.scss']
+    selector: 'app-copy-value-panel',
+    templateUrl: './copy-value.component.html',
+    styleUrls: ['./copy-value.component.scss'],
+    standalone: false
 })
 export class CopyValueComponent implements OnInit {
 

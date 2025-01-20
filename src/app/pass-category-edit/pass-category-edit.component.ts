@@ -5,9 +5,10 @@ import {PassCategory} from '../model/pass-category';
 import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 
 @Component({
-  selector: 'app-pass-category-edit',
-  templateUrl: './pass-category-edit.component.html',
-  styleUrls: ['./pass-category-edit.component.scss']
+    selector: 'app-pass-category-edit',
+    templateUrl: './pass-category-edit.component.html',
+    styleUrls: ['./pass-category-edit.component.scss'],
+    standalone: false
 })
 export class PassCategoryEditComponent implements OnInit {
   item: PassCategory;

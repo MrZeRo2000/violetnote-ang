@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import { NgModule, inject, provideAppInitializer } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {AppConfigService, RestUrl} from './app-config.service';
@@ -16,7 +16,10 @@ export function restUrlFactory(appConfigService: AppConfigService) {
     exports: [
         AppConfigErrorComponent
     ], imports: [CommonModule], providers: [
-        { provide: APP_INITIALIZER, useFactory: configAppFactory, deps: [AppConfigService], multi: true },
+        provideAppInitializer(() => {
+        const initializerFn = (configAppFactory)(inject(AppConfigService));
+        return initializerFn();
+      }),
         { provide: RestUrl, useFactory: restUrlFactory, deps: [AppConfigService], multi: false },
         provideHttpClient(withInterceptorsFromDi())
     ] })

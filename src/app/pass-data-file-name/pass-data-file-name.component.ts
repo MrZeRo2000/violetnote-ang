@@ -5,9 +5,10 @@ import {PassDataFileInfo} from '../model/pass-data-file-info';
 import {PassDataService} from '../services/pass-data.service';
 
 @Component({
-  selector: 'app-pass-data-file-name',
-  templateUrl: './pass-data-file-name.component.html',
-  styleUrls: ['./pass-data-file-name.component.scss']
+    selector: 'app-pass-data-file-name',
+    templateUrl: './pass-data-file-name.component.html',
+    styleUrls: ['./pass-data-file-name.component.scss'],
+    standalone: false
 })
 export class PassDataFileNameComponent implements OnInit, AfterViewInit, OnDestroy {
   fileName: string;

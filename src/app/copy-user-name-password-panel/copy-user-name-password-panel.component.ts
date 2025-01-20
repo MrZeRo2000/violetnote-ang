@@ -1,9 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-copy-user-name-password-panel',
-  templateUrl: './copy-user-name-password-panel.component.html',
-  styleUrls: ['./copy-user-name-password-panel.component.scss']
+    selector: 'app-copy-user-name-password-panel',
+    templateUrl: './copy-user-name-password-panel.component.html',
+    styleUrls: ['./copy-user-name-password-panel.component.scss'],
+    standalone: false
 })
 export class CopyUserNamePasswordPanelComponent implements OnInit {
 

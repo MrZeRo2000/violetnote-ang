@@ -7,9 +7,10 @@ import {Subject} from 'rxjs';
 import {PasswordGenerator} from "../utils/password-generator";
 
 @Component({
-  selector: 'app-pass-note-edit',
-  templateUrl: './pass-note-edit.component.html',
-  styleUrls: ['./pass-note-edit.component.scss']
+    selector: 'app-pass-note-edit',
+    templateUrl: './pass-note-edit.component.html',
+    styleUrls: ['./pass-note-edit.component.scss'],
+    standalone: false
 })
 export class PassNoteEditComponent implements OnInit {
   passwordLengths = [8, 10, 12, 14, 16]

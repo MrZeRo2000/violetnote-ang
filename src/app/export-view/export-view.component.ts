@@ -16,9 +16,10 @@ enum ExportFormat {
 }
 
 @Component({
-  selector: 'app-export-view',
-  templateUrl: './export-view.component.html',
-  styleUrls: ['./export-view.component.scss']
+    selector: 'app-export-view',
+    templateUrl: './export-view.component.html',
+    styleUrls: ['./export-view.component.scss'],
+    standalone: false
 })
 export class ExportViewComponent implements OnInit {
   ExportScope = ExportScope;

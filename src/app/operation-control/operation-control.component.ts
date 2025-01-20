@@ -7,9 +7,10 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {ExportViewComponent} from '../export-view/export-view.component';
 
 @Component({
-  selector: 'app-operation-control',
-  templateUrl: './operation-control.component.html',
-  styleUrls: ['./operation-control.component.scss']
+    selector: 'app-operation-control',
+    templateUrl: './operation-control.component.html',
+    styleUrls: ['./operation-control.component.scss'],
+    standalone: false
 })
 export class OperationControlComponent implements OnInit, OnDestroy {
 

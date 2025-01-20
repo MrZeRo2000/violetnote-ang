@@ -10,9 +10,10 @@ export enum EditButtonType {
 }
 
 @Component({
-  selector: 'app-edit-panel',
-  templateUrl: './edit-panel.component.html',
-  styleUrls: ['./edit-panel.component.scss']
+    selector: 'app-edit-panel',
+    templateUrl: './edit-panel.component.html',
+    styleUrls: ['./edit-panel.component.scss'],
+    standalone: false
 })
 export class EditPanelComponent implements OnInit {
   EditButtonType = EditButtonType;

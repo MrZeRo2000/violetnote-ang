@@ -14,9 +14,10 @@ import {PassCategory} from '../model/pass-category';
 import {UrlUtils} from '../utils/url-utils';
 
 @Component({
-  selector: 'app-pass-note',
-  templateUrl: './pass-note.component.html',
-  styleUrls: ['./pass-note.component.scss']
+    selector: 'app-pass-note',
+    templateUrl: './pass-note.component.html',
+    styleUrls: ['./pass-note.component.scss'],
+    standalone: false
 })
 export class PassNoteComponent implements OnInit, OnDestroy {
   EditButtonType = EditButtonType;
