@@ -1,0 +1,24 @@
+<mat-toolbar class="top-toolbar">
+  <span class="app-title">My App</span>
+
+  <span class="spacer"></span>
+
+  <button matButton="filled" mat-button [matMenuTriggerFor]="docsMenu">Docs</button>
+  <mat-menu #docsMenu="matMenu">
+    <button mat-menu-item>Guide</button>
+    <button mat-menu-item>API</button>
+    <button mat-menu-item>Examples</button>
+  </mat-menu>
+
+  <button mat-icon-button aria-label="Search">
+    <mat-icon>search</mat-icon>
+  </button>
+    <div>
+        some text
+    </div>
+
+  <button mat-icon-button aria-label="Settings" class="icon-bright" matTooltip="Info about the action">
+    <mat-icon>settings</mat-icon>
+  </button>
+</mat-toolbar>
+
