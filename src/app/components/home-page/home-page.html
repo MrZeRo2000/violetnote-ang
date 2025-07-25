@@ -1,2 +1,7 @@
 <p>home-page works!</p>
-<app-loader></app-loader>
+
+@if(data$ | async; as data) {
+  <p>Data read result: {{JSON.stringify(data)}}</p>
+} @else if (!errorObject) {
+  <app-loader></app-loader>
+}
