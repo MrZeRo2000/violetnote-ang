@@ -1,8 +1,9 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnDestroy} from '@angular/core';
 import {Loader} from '../loader/loader';
 import {AppConfigService} from '../../services/app-config-service';
 import {catchError, concat, of} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
+import {MessageService} from '../../services/message-service';
 
 @Component({
   selector: 'app-home-page',
@@ -13,11 +14,11 @@ import {AsyncPipe} from '@angular/common';
   templateUrl: './home-page.html',
   styleUrl: './home-page.scss'
 })
-export class HomePage {
+export class HomePage implements OnDestroy {
   protected readonly JSON = JSON;
 
   private appConfigService = inject(AppConfigService);
-
+  private messageService = inject(MessageService);
 
   errorObject: any = undefined;
 
@@ -31,9 +32,13 @@ export class HomePage {
       })
     ),
   ).pipe(
-    catchError(() => {
+    catchError(e => {
+      this.messageService.showError(e)
       return of({});
     })
   )
 
+  ngOnDestroy(): void {
+    this.messageService.dismiss()
+  }
 }

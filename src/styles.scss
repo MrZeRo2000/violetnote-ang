@@ -32,5 +32,29 @@ html {
   font: var(--mat-sys-body-medium);
 }/* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+  font-size: 1.25rem;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.custom-snackbar-error .mat-mdc-snackbar-surface .mat-mdc-snack-bar-label {
+  font-size: 1.25rem; // ~20px
+  color: var(--mat-sys-error);
+  padding: 0.75rem 0.75rem;
+  max-width: 600px;
+  border-radius: 8px;
+}
+
+.custom-snackbar-error .mat-mdc-snackbar-surface .mat-mdc-snack-bar-label {
+  background-color: var(--mat-sys-error-container);
+  color: var(--mat-sys-error);}
+
+.custom-snackbar-error .mat-mdc-snackbar-surface{
+  background-color: var(--mat-sys-error-container)!important;
+}
+
+
