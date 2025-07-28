@@ -12,7 +12,7 @@ export class AppConfigService {
 
   getAppInfo(): Observable<AppInfo> {
     if (!this.appInfo$) {
-      return this.dataSource.getResponseData<AppInfo>("/app-info").pipe(
+      return this.dataSource.getResponseData<AppInfo>("app-info").pipe(
         tap(() => console.log(`Loaded appInfo`)),
         delay(0),
         shareReplay(1)
