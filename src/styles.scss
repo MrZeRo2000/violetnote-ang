@@ -7,6 +7,15 @@
 @use '@angular/material' as mat;
 @use '_theme-colors' as violetnote-theme; // location of generated file
 
+/* Styles for 4K screens (3840px width and up) */
+@media (min-width: 2560px) {
+  :root {
+    --mat-sys-body-large-size: 1.5rem;
+    --mat-sys-body-medium-size: 1.25rem;
+    --mat-sys-body-medium-line-height: 2rem;
+  }
+}
+
 html {
   @include mat.theme((
     color: (
@@ -30,31 +39,37 @@ html {
   background-color: var(--mat-sys-background);
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
+  font-size: var(--mat-sys-body-medium-size);
 }/* You can add global styles to this file, and also import other style files */
 
 html, body {
   height: 100%;
-  font-size: 1.25rem;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.custom-snackbar-error .mat-mdc-snackbar-surface .mat-mdc-snack-bar-label {
-  font-size: 1.25rem; // ~20px
-  color: var(--mat-sys-error);
-  padding: 0.75rem 0.75rem;
-  max-width: 600px;
-  border-radius: 8px;
+.app-title {
+  font-size: var(--mat-sys-body-large-size);
+  font-weight: 500;
 }
 
-.custom-snackbar-error .mat-mdc-snackbar-surface .mat-mdc-snack-bar-label {
-  background-color: var(--mat-sys-error-container);
-  color: var(--mat-sys-error);}
+@mixin custom-snackbar($text-color, $bg-color) {
+  .mat-mdc-snackbar-surface .mat-mdc-snack-bar-label {
+    font-size: var(--mat-sys-body-medium-size);
+    color: $text-color;
+    padding: 0.75rem 0.75rem;
+    max-width: 600px;
+    border-radius: 8px;
+  }
 
-.custom-snackbar-error .mat-mdc-snackbar-surface{
-  background-color: var(--mat-sys-error-container)!important;
+  .mat-mdc-snackbar-surface {
+    background-color: $bg-color !important;
+  }
 }
 
-
+.custom-snackbar-error {
+  @include custom-snackbar(var(--mat-sys-error), var(--mat-sys-error-container));
+}
