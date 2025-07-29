@@ -2,6 +2,11 @@
 
 @if(data$ | async; as data) {
   <p>Data read result: {{JSON.stringify(data)}}</p>
+  @if(data.passDataFileInfo?.exists) {
+    Exists
+  } @else {
+    not exists ...
+  }
 } @else if (!errorObject) {
   <app-loader></app-loader>
 }

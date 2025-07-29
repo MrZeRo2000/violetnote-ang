@@ -50,7 +50,10 @@ export class HomePage implements OnDestroy {
     }),
     catchError(e => {
       this.messageService.showError(e)
-      return of({});
+      return of({
+          appInfo: null,
+          passDataFileInfo: null
+      });
     }),
     tap(v => {
       console.log(`Data result: ${JSON.stringify(v)}`);
