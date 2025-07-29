@@ -1,6 +1,6 @@
 import {BehaviorSubject, Observable, shareReplay, switchMap} from 'rxjs';
 
-export class SharedHandler<T> {
+export class SharedObservableHandler<T> {
 
   constructor(private sharedFunction: () => Observable<T>) {
   }
