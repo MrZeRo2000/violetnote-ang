@@ -1,6 +1,7 @@
 .example-container {
   margin:auto;
-  width: 1000px;
+  min-width: 200px;
+  max-width: 1000px;
 }
 
 .example-form {
@@ -22,6 +23,6 @@
 
 @media (min-width: 2560px) {
   .example-container {
-    width: 1500px;
+    max-width: 1500px;
   }
 }
