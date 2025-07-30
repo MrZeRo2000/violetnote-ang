@@ -2,15 +2,18 @@ import {Component, inject, OnDestroy} from '@angular/core';
 import {Loader} from '../loader/loader';
 import {AppConfigService} from '../../services/app-config-service';
 import {catchError, combineLatest, map, of, tap} from 'rxjs';
-import {AsyncPipe} from '@angular/common';
+import {AsyncPipe, JsonPipe} from '@angular/common';
 import {MessageService} from '../../services/message-service';
 import {PassDataFileService} from '../../services/pass-data-file-service';
+import {PassDataFileName} from '../pass-data-file-name/pass-data-file-name';
 
 @Component({
   selector: 'app-home-page',
   imports: [
     Loader,
-    AsyncPipe
+    AsyncPipe,
+    PassDataFileName,
+    JsonPipe
   ],
   templateUrl: './home-page.html',
   styleUrl: './home-page.scss'

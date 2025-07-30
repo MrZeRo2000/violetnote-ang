@@ -1,0 +1,13 @@
+<p>pass-data-file-name works!</p>
+<div class="example-container">
+  <form [formGroup]="editForm" class="example-form">
+    <mat-form-field class="example-form-element">
+      <mat-label>File name</mat-label>
+      <input type="email" matInput formControlName="fileNameControl" placeholder="Enter a valid file name">
+      @if (editForm.controls.fileNameControl.hasError('required')) {
+        <mat-error>File name is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+    <button matButton="filled" color="primary" type="submit" class="button example-button-container" [disabled]="!editForm.valid">Update</button>
+  </form>
+</div>
