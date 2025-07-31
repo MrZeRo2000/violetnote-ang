@@ -5,7 +5,7 @@
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
-@use '_theme-colors' as violetnote-theme; // location of generated file
+@use '_theme-colors' as violetnote-theme-colors;
 
 /* Styles for 4K screens (3840px width and up) */
 @media (min-width: 2560px) {
@@ -28,11 +28,28 @@
   }
 }
 
+@media (min-width: 1980px) and (max-width: 2559px) {
+  :root {
+    --mat-sys-body-large-size: 1.25rem;
+    --mat-sys-body-medium-size: 1.15rem;
+    --mat-sys-body-medium-line-height: 1rem;
+
+    .mat-mdc-form-field-infix {
+      margin: 0.75rem 0 0.25rem 0
+    }
+
+    .mat-mdc-unelevated-button, .mat-mdc-button {
+      height: var(--mat-button-protected-container-height, 50px) !important;
+    }
+  }
+}
+
+
 html {
   @include mat.theme((
     color: (
-      primary: violetnote-theme.$primary-palette,
-      tertiary: violetnote-theme.$tertiary-palette,
+      primary: violetnote-theme-colors.$primary-palette,
+      tertiary: violetnote-theme-colors.$tertiary-palette,
     ),
     typography: Roboto,
     density: 0,
