@@ -1,8 +1,37 @@
 import {Component, inject} from '@angular/core';
-import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder, ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators
+} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import {startWith, Subject, tap} from 'rxjs';
+import {MatRadioModule} from '@angular/material/radio';
+import {AsyncPipe} from '@angular/common';
+
+enum FileMode {
+  FM_NEW,
+  FM_EXISTING
+}
+
+export const formValidator: ValidatorFn = (
+  control: AbstractControl,
+): ValidationErrors | null => {
+  const fileMode = control.get("fileModeControl")?.value
+  const fileName = control.get("fileNameControl")?.value
+  const password = control.get("passwordControl")?.value
+  console.log('Const', fileMode, fileName, password);
+  if ((fileMode === FileMode.FM_NEW) && (!password)) {
+    control.get("passwordControl")?.setErrors({'required': true})
+    console.log('returning error')
+    return {'passwordRequired': true};
+  }
+  return null
+};
 
 @Component({
   selector: 'app-pass-data-file-name',
@@ -11,14 +40,46 @@ import {MatButtonModule} from '@angular/material/button';
     MatFormFieldModule,
     MatInput,
     MatButtonModule,
+    MatRadioModule,
+    AsyncPipe
   ],
   templateUrl: './pass-data-file-name.html',
   styleUrl: './pass-data-file-name.scss'
 })
 export class PassDataFileName {
+
+  FileMode = FileMode
+
   fb = inject(FormBuilder)
 
   editForm = this.fb.group({
-    fileNameControl: ['', Validators.required],
-  })
+        fileModeControl: [FileMode.FM_EXISTING, Validators.required],
+        fileNameControl: ['', Validators.required],
+        passwordControl: [''],
+    },{
+        validators: [
+          (control: AbstractControl): ValidationErrors | null => {
+            const fileMode = control.get("fileModeControl")?.value
+            const password = control.get("passwordControl")?.value
+
+            if ((fileMode === FileMode.FM_NEW) && (!password)) {
+              control.get("passwordControl")?.setErrors({'required': true})
+            }
+            return null
+        }]
+    })
+
+  editFormAction$ = this.editForm.valueChanges.pipe(
+    startWith(this.editForm.value),
+    tap(v => {
+      console.log(`Form changed: ${JSON.stringify(v)}`)
+    })
+  )
+
+  submitSubject = new Subject<string>();
+
+  submitAction$ = this.submitSubject.asObservable().pipe(
+
+  )
+
 }
