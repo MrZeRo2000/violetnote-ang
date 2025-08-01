@@ -30,7 +30,12 @@
         color="primary"
         type="submit"
         class="button example-button-container"
-        [disabled]="!editForm.valid">Update
+        [disabled]="!editForm.valid">
+        @if(editValue.fileModeControl === FileMode.FM_NEW) {
+          Create
+        } @else if (editValue.fileModeControl === FileMode.FM_EXISTING) {
+          Update
+        }
       </button>
     </form>
   }
