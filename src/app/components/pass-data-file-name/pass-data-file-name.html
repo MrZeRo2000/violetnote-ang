@@ -9,6 +9,7 @@
 
       <mat-form-field class="example-form-element">
         <mat-label>File name</mat-label>
+        <mat-icon matPrefix>save_as</mat-icon>
         <input type="text" matInput formControlName="fileNameControl" placeholder="Enter a valid file name">
         @if (editForm.controls.fileNameControl.hasError('required')) {
           <mat-error>File name is <strong>required</strong></mat-error>
@@ -17,6 +18,7 @@
       @if(editValue.fileModeControl === FileMode.FM_NEW) {
         <mat-form-field class="example-form-element">
           <mat-label>Password</mat-label>
+          <mat-icon matPrefix>lock</mat-icon>
           <input type="password" autocomplete="on" matInput formControlName="passwordControl" placeholder="Password">
           @if (editForm.controls.passwordControl.hasError('required')) {
             <mat-error>Password is <strong>required</strong></mat-error>

@@ -3,7 +3,6 @@ import {
   AbstractControl,
   FormBuilder, ReactiveFormsModule,
   ValidationErrors,
-  ValidatorFn,
   Validators
 } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -12,26 +11,12 @@ import {MatButtonModule} from '@angular/material/button';
 import {startWith, Subject, tap} from 'rxjs';
 import {MatRadioModule} from '@angular/material/radio';
 import {AsyncPipe} from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
 
 enum FileMode {
   FM_NEW,
   FM_EXISTING
 }
-
-export const formValidator: ValidatorFn = (
-  control: AbstractControl,
-): ValidationErrors | null => {
-  const fileMode = control.get("fileModeControl")?.value
-  const fileName = control.get("fileNameControl")?.value
-  const password = control.get("passwordControl")?.value
-  console.log('Const', fileMode, fileName, password);
-  if ((fileMode === FileMode.FM_NEW) && (!password)) {
-    control.get("passwordControl")?.setErrors({'required': true})
-    console.log('returning error')
-    return {'passwordRequired': true};
-  }
-  return null
-};
 
 @Component({
   selector: 'app-pass-data-file-name',
@@ -41,6 +26,7 @@ export const formValidator: ValidatorFn = (
     MatInput,
     MatButtonModule,
     MatRadioModule,
+    MatIconModule,
     AsyncPipe
   ],
   templateUrl: './pass-data-file-name.html',
