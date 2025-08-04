@@ -8,14 +8,25 @@ import {
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
-import {startWith, Subject, tap} from 'rxjs';
+import {catchError, iif, map, of, startWith, Subject, switchMap, tap} from 'rxjs';
 import {MatRadioModule} from '@angular/material/radio';
 import {AsyncPipe} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
+import {Loader} from '../loader/loader';
+import {PassDataFileService} from '../../services/pass-data-file-service';
+import {MessageService} from '../../services/message-service';
+import {PassDataPersistRequest} from '../../models/pass-data';
+import {Router} from '@angular/router';
 
 enum FileMode {
   FM_NEW,
   FM_EXISTING
+}
+
+interface FormValues {
+  fileMode: FileMode;
+  fileName: string;
+  password: string;
 }
 
 @Component({
@@ -27,12 +38,19 @@ enum FileMode {
     MatButtonModule,
     MatRadioModule,
     MatIconModule,
-    AsyncPipe
+    AsyncPipe,
+    Loader
   ],
   templateUrl: './pass-data-file-name.html',
   styleUrl: './pass-data-file-name.scss'
 })
 export class PassDataFileName {
+  private router = inject(Router);
+  private passDataFileService = inject(PassDataFileService);
+  private messageService = inject(MessageService);
+
+  errorObject: any = undefined;
+  submitted = false;
 
   FileMode = FileMode
 
@@ -62,10 +80,60 @@ export class PassDataFileName {
     })
   )
 
-  submitSubject = new Subject<string>();
+  getEditFormData(): FormValues {
+    return {
+      fileMode: this.editForm.value.fileModeControl,
+      fileName: this.editForm.value.fileNameControl,
+      password: this.editForm.value.passwordControl,
+    } as FormValues
+  }
+
+  submitSubject = new Subject<FormValues>();
 
   submitAction$ = this.submitSubject.asObservable().pipe(
-
+    tap(v => {
+      console.log(`Submit: ${JSON.stringify(v)}`)
+    }),
+    switchMap(v =>
+      iif(() => v.fileMode === FileMode.FM_NEW,
+        this.passDataFileService.create({
+          fileName: v.fileName,
+          password: v.password,
+        } as PassDataPersistRequest).pipe(
+          map(v1 => {
+            // error message returned by service
+            if (!!v1.errorMessage) {
+              throw Error(v1.errorMessage)
+            } else {
+              return v;
+            }
+          }),
+          catchError(err => {
+            this.errorObject = err
+            console.error(`Error creating file: ${JSON.stringify(v)}`)
+            console.error(err)
+            return of(`Error creating file: ${err.message}`)
+          }),
+        ),
+        of(v))
+    ),
+    tap(v => {
+      this.submitted = false;
+      if (v && typeof v === 'string') {
+        this.messageService.showError(v)
+      } else {
+        const vf = v as FormValues
+        console.log(`Submit success: ${JSON.stringify(vf)}`)
+        this.passDataFileService.setPassDataFileName(vf.fileName)
+        this.router.navigate(['/']).then();
+      }
+    })
   )
+
+  onSubmit(event: any): void {
+    event.preventDefault()
+    this.submitted = true;
+    this.submitSubject.next(this.getEditFormData());
+  }
 
 }
