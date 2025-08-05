@@ -24,6 +24,10 @@ export class PassDataFileService {
     this.passDataFileInfoSharedObservable.reload();
   }
 
+  public getPassDataFileName(): string | null {
+    return this.passDataFileName;
+  }
+
   private passDataFileInfoSharedObservable =
     new SharedObservableHandler<PassDataFileInfo>(() => this.getFileInfo())
 

@@ -58,7 +58,7 @@ export class PassDataFileName {
 
   editForm = this.fb.group({
         fileModeControl: [FileMode.FM_EXISTING, Validators.required],
-        fileNameControl: ['', Validators.required],
+        fileNameControl: [this.passDataFileService.getPassDataFileName() || '', Validators.required],
         passwordControl: [''],
     },{
         validators: [
@@ -115,7 +115,10 @@ export class PassDataFileName {
             return of(`Error creating file: ${err.message}`)
           }),
         ),
-        of(v))
+        of(v).pipe(
+          tap(() => this.passDataFileService.setPassDataFileName(v.fileName))
+        ),
+      )
     ),
     tap(v => {
       this.submitted = false;

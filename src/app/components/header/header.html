@@ -13,12 +13,16 @@
   <button mat-icon-button aria-label="Search">
     <mat-icon>search</mat-icon>
   </button>
-    <h6>
-      Text <small>(small text)</small>
-    </h6>
+    @if(data$ | async; as data){
+      <h6>
+        Version <small>({{data.appInfo.version}})</small>
+      </h6>
+    }
 
-  <button mat-icon-button aria-label="Settings" class="icon-bright" matTooltip="Info about the action">
-    <mat-icon>settings</mat-icon>
-  </button>
+  @if(data$ | async; as data){
+    <button mat-icon-button aria-label="Settings" class="icon-bright" [matTooltip]="'File name: ' + (data.passDataFileInfo.name?? 'not set up')">
+      <mat-icon>settings</mat-icon>
+    </button>
+  }
 </mat-toolbar>
 
