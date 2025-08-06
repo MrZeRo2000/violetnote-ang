@@ -25,19 +25,30 @@
           }
         </mat-form-field>
       }
-      <button
-        matButton="filled"
-        color="primary"
-        type="submit"
-        class="button example-button-container"
-        [disabled]="!editForm.valid || submitted"
-        (click)="onSubmit($event)">
-        @if(editValue.fileModeControl === FileMode.FM_NEW) {
-          Create
-        } @else if (editValue.fileModeControl === FileMode.FM_EXISTING) {
-          Update
-        }
-      </button>
+      <div class="example-button-container">
+        <button
+          matButton="outlined"
+          color="primary"
+          type="submit"
+          class="button mr-2"
+          (click)="onCancel($event)">
+          Cancel
+        </button>
+
+        <button
+          matButton="filled"
+          color="primary"
+          type="submit"
+          class="button"
+          [disabled]="!editForm.valid || submitted"
+          (click)="onSubmit($event)">
+          @if(editValue.fileModeControl === FileMode.FM_NEW) {
+            Create
+          } @else if (editValue.fileModeControl === FileMode.FM_EXISTING) {
+            Update
+          }
+        </button>
+      </div>
     </form>
   }
 </div>

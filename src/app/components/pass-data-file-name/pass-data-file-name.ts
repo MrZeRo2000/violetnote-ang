@@ -133,6 +133,11 @@ export class PassDataFileName {
     })
   )
 
+  onCancel(event: any): void {
+    event.preventDefault();
+    this.router.navigate(['']).then()
+  }
+
   onSubmit(event: any): void {
     event.preventDefault()
     this.submitted = true;

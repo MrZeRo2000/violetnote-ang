@@ -12,11 +12,11 @@
   :root {
     --mat-sys-body-large-size: 1.5rem;
     --mat-sys-body-medium-size: 1.25rem;
-    --mat-sys-body-medium-line-height: 2rem;
+    --mat-sys-body-medium-line-height: 1.25rem;
   }
 
   .mat-mdc-form-field-infix {
-    margin: 1rem 0 0.5rem 0
+    margin: 1rem 0 0.75rem 0
   }
 
   .mat-mdc-unelevated-button, .mat-mdc-button {
@@ -25,6 +25,10 @@
 
   .mr {
     margin-right: 0.5rem;
+  }
+
+  .mr-2 {
+    margin-right: 1rem!important;
   }
 }
 
@@ -88,6 +92,11 @@ body {
 .mr {
   margin-right: 0.25rem;
 }
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
 
 @mixin custom-snackbar($text-color, $bg-color) {
   .mat-mdc-snackbar-surface .mat-mdc-snack-bar-label {
