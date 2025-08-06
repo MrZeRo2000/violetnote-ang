@@ -73,7 +73,9 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
+      console.log(`HomePage onInit with params: ${JSON.stringify(params)}`)
       this.configurationRequired = !!params['configurationRequired']
+      console.log(`HomePage onInit with params: ${JSON.stringify(params)}, configuration required: ${this.configurationRequired}`)
     })
   }
 

@@ -1,11 +1,11 @@
-<p>home-page works!</p>
-
 @if(data$ | async; as data) {
   <p>Data read result: {{data | json}}</p>
-  @if(data.passDataFileInfo?.exists || this.configurationRequired) {
-    Exists
-  } @else {
-    <app-pass-data-file-name></app-pass-data-file-name>
+  @if (data.passDataFileInfo && data.appInfo) {
+    @if(data.passDataFileInfo.exists && !this.configurationRequired) {
+      Exists
+    } @else {
+      <app-pass-data-file-name></app-pass-data-file-name>
+    }
   }
 } @else if (!errorObject) {
   <app-loader></app-loader>

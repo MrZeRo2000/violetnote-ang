@@ -8,6 +8,8 @@ import {PassDataFileService} from '../../services/pass-data-file-service';
 import {combineLatest, map} from 'rxjs';
 import {AppConfigService} from '../../services/app-config-service';
 import {AsyncPipe} from '@angular/common';
+import {Router } from '@angular/router';
+import packageJson from '../../../../package.json';
 
 @Component({
   selector: 'app-header',
@@ -23,8 +25,11 @@ import {AsyncPipe} from '@angular/common';
   styleUrl: './header.scss'
 })
 export class Header {
+  router = inject(Router)
   appConfigService = inject(AppConfigService)
   passDataFileService = inject(PassDataFileService)
+
+  readonly version?: string = packageJson.version;
 
   data$ = combineLatest([
     this.appConfigService.getAppInfo(),
@@ -38,4 +43,12 @@ export class Header {
       }
     })
   )
+
+  onSettingsClick() {
+    this.router.navigate([""], {
+      queryParams: {
+        'configurationRequired': true
+      }
+    })
+  }
 }

@@ -17,7 +17,7 @@ export class MessageService {
     if (!!severity) {
       config.panelClass = `custom-snackbar-${severity}`
     }
-    console.info(`Opening snackbar with config: ${JSON.stringify(config)} `);
+    console.info(`Opening snackbar with config: ${JSON.stringify(config)} message: ${message}`);
     this.snackBar.open(message, '', config);
   }
 

@@ -10,17 +10,19 @@
     <button mat-menu-item>Examples</button>
   </mat-menu>
 
-  <button mat-icon-button aria-label="Search">
-    <mat-icon>search</mat-icon>
-  </button>
-    @if(data$ | async; as data){
-      <h6>
-        Version <small>({{data.appInfo.version}})</small>
-      </h6>
-    }
+  @if(data$ | async; as data){
+    <h6>
+      Version: {{version}} <small>({{data.appInfo.version}})</small>
+    </h6>
+  }
 
   @if(data$ | async; as data){
-    <button mat-icon-button aria-label="Settings" class="icon-bright" [matTooltip]="'File name: ' + (data.passDataFileInfo.name?? 'not set up')">
+    <button
+      mat-icon-button
+      aria-label="Settings"
+      class="icon-bright"
+      [matTooltip]="'File name: ' + (data.passDataFileInfo.name?? 'not set up')"
+      (click)="onSettingsClick()">
       <mat-icon>settings</mat-icon>
     </button>
   }

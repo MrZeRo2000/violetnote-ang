@@ -4,7 +4,7 @@ export interface PassDataFileName {
 }
 
 export interface PassDataFileInfo {
-  name: string;
+  name?: string;
   exists: boolean;
 }
 
