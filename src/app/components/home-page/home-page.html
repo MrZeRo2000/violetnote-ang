@@ -2,7 +2,7 @@
   <p>Data read result: {{data | json}}</p>
   @if (data.passDataFileInfo && data.appInfo) {
     @if(data.passDataFileInfo.exists && !this.configurationRequired) {
-      Exists
+      <app-password></app-password>
     } @else {
       <app-pass-data-file-name></app-pass-data-file-name>
     }

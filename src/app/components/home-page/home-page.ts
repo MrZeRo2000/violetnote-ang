@@ -7,6 +7,7 @@ import {MessageService} from '../../services/message-service';
 import {PassDataFileService} from '../../services/pass-data-file-service';
 import {PassDataFileName} from '../pass-data-file-name/pass-data-file-name';
 import {ActivatedRoute} from '@angular/router';
+import {Password} from '../password/password';
 
 @Component({
   selector: 'app-home-page',
@@ -14,7 +15,8 @@ import {ActivatedRoute} from '@angular/router';
     Loader,
     AsyncPipe,
     PassDataFileName,
-    JsonPipe
+    JsonPipe,
+    Password
   ],
   templateUrl: './home-page.html',
   styleUrl: './home-page.scss'
