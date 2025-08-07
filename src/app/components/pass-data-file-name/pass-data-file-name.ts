@@ -17,6 +17,7 @@ import {PassDataFileService} from '../../services/pass-data-file-service';
 import {MessageService} from '../../services/message-service';
 import {PassDataPersistRequest} from '../../models/pass-data';
 import {Router} from '@angular/router';
+import {PassDataService} from '../../services/pass-data-service';
 
 enum FileMode {
   FM_NEW,
@@ -47,6 +48,7 @@ interface FormValues {
 export class PassDataFileName {
   private router = inject(Router);
   private passDataFileService = inject(PassDataFileService);
+  private passDataService = inject(PassDataService);
   private messageService = inject(MessageService);
 
   errorObject: any = undefined;
@@ -96,7 +98,7 @@ export class PassDataFileName {
     }),
     switchMap(v =>
       iif(() => v.fileMode === FileMode.FM_NEW,
-        this.passDataFileService.create({
+        this.passDataService.create({
           fileName: v.fileName,
           password: v.password,
         } as PassDataPersistRequest).pipe(

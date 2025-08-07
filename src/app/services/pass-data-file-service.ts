@@ -3,7 +3,6 @@ import {DataSource} from './data-source';
 import {PassDataFileInfo, PassDataFileName} from '../models/pass-data-file';
 import {Observable, of} from 'rxjs';
 import {SharedObservableHandler} from '../utils/rxjs-utils';
-import {PassDataPersistRequest, PassData} from '../models/pass-data';
 
 @Injectable({
   providedIn: 'root'
@@ -43,12 +42,5 @@ export class PassDataFileService {
         "v2/passdata2/fileinfo",
         {fileName: this.passDataFileName} as PassDataFileName) :
       of({exists: false} as PassDataFileInfo);
-  }
-
-  public create(persistRequest: PassDataPersistRequest): Observable<PassData> {
-    return this.dataSource.postResponseData<PassData>(
-      "v2/passdata2/new",
-      persistRequest
-    )
   }
 }
