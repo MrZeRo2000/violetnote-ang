@@ -4,8 +4,21 @@ export interface ServiceError {
   errorMessage?: string;
 }
 
-export interface PassData extends ServiceError {
+export interface PassNote {
+  system: string,
+  user: string,
+  password: string,
+  url?: string,
+  info?: string,
+}
 
+export interface PassCategory {
+  categoryName: string,
+  noteList: Array<PassNote>
+}
+
+export interface PassData extends ServiceError {
+  categoryList: Array<PassCategory>
 }
 
 export interface PassDataPersistRequest {
@@ -13,3 +26,4 @@ export interface PassDataPersistRequest {
   password?: string;
   passData?: PassData;
 }
+

@@ -8,6 +8,7 @@ import {PassDataFileService} from '../../services/pass-data-file-service';
 import {PassDataFileName} from '../pass-data-file-name/pass-data-file-name';
 import {ActivatedRoute} from '@angular/router';
 import {Password} from '../password/password';
+import {PassDataService} from '../../services/pass-data-service';
 
 @Component({
   selector: 'app-home-page',
@@ -28,6 +29,7 @@ export class HomePage implements OnInit, OnDestroy {
 
   private messageService = inject(MessageService);
   private appConfigService = inject(AppConfigService);
+  private passDataService = inject(PassDataService)
   private passDataFileService = inject(PassDataFileService);
 
   errorObject: any = undefined;
@@ -74,6 +76,7 @@ export class HomePage implements OnInit, OnDestroy {
   )
 
   ngOnInit(): void {
+    this.passDataService.clearPassData();
     this.route.queryParams.subscribe(params => {
       console.log(`HomePage onInit with params: ${JSON.stringify(params)}`)
       this.configurationRequired = !!params['configurationRequired']

@@ -17,14 +17,25 @@
   }
 
   @if(data$ | async; as data){
-    <button
-      mat-icon-button
-      aria-label="Settings"
-      class="icon-bright"
-      [matTooltip]="'File name: ' + (data.passDataFileInfo.name?? 'not set up')"
-      (click)="onSettingsClick()">
-      <mat-icon>settings</mat-icon>
-    </button>
+    @if(!data.passData) {
+      <button
+        mat-icon-button
+        aria-label="Settings"
+        class="icon-bright"
+        [matTooltip]="'File name: ' + (data.passDataFileInfo.name?? 'not set up')"
+        (click)="onSettingsClick()">
+        <mat-icon>settings</mat-icon>
+      </button>
+    } @else {
+      <button
+        mat-icon-button
+        aria-label="Exit"
+        class="icon-bright"
+        matTooltip="Exit"
+        (click)="onLogoutClick()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    }
   }
 </mat-toolbar>
 

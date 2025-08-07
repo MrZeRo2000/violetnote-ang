@@ -10,6 +10,7 @@ import {AppConfigService} from '../../services/app-config-service';
 import {AsyncPipe} from '@angular/common';
 import {Router } from '@angular/router';
 import packageJson from '../../../../package.json';
+import {PassDataService} from '../../services/pass-data-service';
 
 @Component({
   selector: 'app-header',
@@ -27,19 +28,22 @@ import packageJson from '../../../../package.json';
 export class Header {
   router = inject(Router)
   appConfigService = inject(AppConfigService)
+  passDataService = inject(PassDataService)
   passDataFileService = inject(PassDataFileService)
 
   readonly version?: string = packageJson.version;
 
   data$ = combineLatest([
     this.appConfigService.getAppInfo(),
-    this.passDataFileService.getPassDataFileInfo()
+    this.passDataFileService.getPassDataFileInfo(),
+    this.passDataService.getPassData(),
     ]
   ).pipe(
     map(v => {
       return {
         appInfo: v[0],
-        passDataFileInfo: v[1]
+        passDataFileInfo: v[1],
+        passData: v[2],
       }
     })
   )
@@ -51,4 +55,9 @@ export class Header {
       }
     })
   }
+
+  onLogoutClick() {
+    this.router.navigate([""])
+  }
+
 }
