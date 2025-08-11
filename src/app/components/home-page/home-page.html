@@ -1,5 +1,4 @@
 @if(data$ | async; as data) {
-  <p>Data read result: {{data | json}}</p>
   @if (data.passDataFileInfo && data.appInfo) {
     @if(data.passDataFileInfo.exists && !this.configurationRequired) {
       <app-password></app-password>

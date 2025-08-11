@@ -1,0 +1,10 @@
+.selected-list-item, .selected-list-item p, .selected-list-item, .selected-list-item button {
+  background-color: var(--mat-sys-primary) !important;
+  color: var(--mat-sys-on-primary) !important;
+}
+
+.fab-right {
+  display: flex;
+  justify-content: flex-end; /* This aligns content to the right */
+  padding-right: 16px;
+}

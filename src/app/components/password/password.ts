@@ -75,7 +75,6 @@ export class Password implements AfterViewInit {
       if (v && typeof v === 'string') {
         this.messageService.showError(v)
       } else {
-        console.log(`Submit success: ${JSON.stringify(v)}`)
         this.router.navigate(['main']).then()
       }
     })
