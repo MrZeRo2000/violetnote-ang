@@ -12,6 +12,7 @@ import {MessageService} from '../../services/message-service';
 import {AsyncPipe} from '@angular/common';
 import {Loader} from '../loader/loader';
 import {Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-password',
@@ -83,7 +84,16 @@ export class Password implements AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.passwordInput.nativeElement.focus();
+      if (!!environment.password && !!this.passDataFileService.getPassDataFileName()) {
+        this.submitSubject.next(
+          {
+            fileName: this.passDataFileService.getPassDataFileName() as string,
+            password: environment.password
+          } as PassDataPersistRequest
+        )
+      } else {
+        this.passwordInput.nativeElement.focus();
+      }
     }, 0);
   }
 

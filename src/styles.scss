@@ -7,6 +7,10 @@
 @use '@angular/material' as mat;
 @use '_theme-colors' as violetnote-theme-colors;
 
+:root {
+  --mat-sidenav-container-background-color: #ffffff
+}
+
 /* Styles for 4K screens (3840px width and up) */
 @media (min-width: 2560px) {
   :root {
