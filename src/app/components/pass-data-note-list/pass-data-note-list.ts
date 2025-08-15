@@ -4,6 +4,8 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from '@angular/material/sort';
 import {PassNote} from '../../models/pass-data';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-pass-data-note-list',
@@ -11,6 +13,8 @@ import {PassNote} from '../../models/pass-data';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   templateUrl: './pass-data-note-list.html',
   styleUrl: './pass-data-note-list.scss'
@@ -29,7 +33,7 @@ export class PassDataNoteList implements AfterViewInit {
     return newDataSource
   })
 
-  displayedColumns: string[] = ['system', 'user', 'url'];
+  displayedColumns: string[] = ['system', 'user', 'url', 'actions'];
 
   ngAfterViewInit(): void {
     // Initial setup for paginator and sort.
