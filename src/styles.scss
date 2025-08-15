@@ -8,7 +8,10 @@
 @use '_theme-colors' as violetnote-theme-colors;
 
 :root {
-  --mat-sidenav-container-background-color: #ffffff
+  --mat-sidenav-container-background-color: #ffffff;
+  --mat-table-background-color: #ffffff;
+  --mat-paginator-container-background-color: #ffffff;
+  --mat-sidenav-container-shape: 0
 }
 
 /* Styles for 4K screens (3840px width and up) */
@@ -18,6 +21,8 @@
     --mat-sys-body-medium-size: 1.25rem;
     --mat-sys-body-medium-line-height: 1.25rem;
     --mat-list-list-item-one-line-container-height: 76px;
+
+    --mat-table-row-item-container-height: 72px;
   }
 
   .mat-mdc-form-field-infix {
@@ -43,6 +48,8 @@
     --mat-sys-body-medium-size: 1.15rem;
     --mat-sys-body-medium-line-height: 1rem;
     --mat-list-list-item-one-line-container-height: 64px;
+
+    --mat-table-row-item-container-height: 64px;
 
     .mat-mdc-form-field-infix {
       margin: 0.75rem 0 0.25rem 0
@@ -94,6 +101,11 @@ body {
   font-size: var(--mat-sys-body-large-size);
   font-weight: 500;
 }
+
+.p0 {
+  padding: 0 !important;
+}
+
 
 .mr {
   margin-right: 0.25rem;

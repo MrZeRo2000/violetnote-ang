@@ -11,6 +11,7 @@ import {AsyncPipe} from '@angular/common';
 import {Router } from '@angular/router';
 import packageJson from '../../../../package.json';
 import {PassDataService} from '../../services/pass-data-service';
+import {ScreenService} from '../../services/screen-service';
 
 @Component({
   selector: 'app-header',
@@ -30,6 +31,7 @@ export class Header {
   appConfigService = inject(AppConfigService)
   passDataService = inject(PassDataService)
   passDataFileService = inject(PassDataFileService)
+  screenService = inject(ScreenService);
 
   readonly version?: string = packageJson.version;
 

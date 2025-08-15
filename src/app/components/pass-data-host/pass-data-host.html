@@ -1,9 +1,10 @@
-<mat-sidenav-container  class="example-container">
-  <mat-sidenav mode="side" opened class="example-sidenav">
-    <app-pass-data-category-list></app-pass-data-category-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    Main
-  </mat-sidenav-content>
-</mat-sidenav-container>
-
+@if(screenService.smallScreen$ | async; as smallScreen) {
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav [mode]="smallScreen['matches'] ? 'over' : 'side'" [opened]="!smallScreen['matches']" class="example-sidenav">
+      <app-pass-data-category-list></app-pass-data-category-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <app-pass-data-note-list></app-pass-data-note-list>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+}

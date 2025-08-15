@@ -1,5 +1,5 @@
 @if(data$ | async; as data) {
-  <mat-action-list>
+  <mat-action-list class="p0">
     @for(item of data; track item) {
       <mat-list-item [ngClass]="selectedCategories().has(item) ? 'selected-list-item' : ''" (click)="onListItemClick(item)">
         <p>{{item.categoryName}}</p>

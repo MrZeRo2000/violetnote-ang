@@ -1,4 +1,17 @@
 <mat-toolbar class="top-toolbar">
+  @if(screenService.smallScreen$ | async; as smallScreen) {
+    @if(smallScreen['matches']) {
+      <button
+        mat-icon-button
+        aria-label="Menu"
+        class="icon-bright"
+        (click)="screenService.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    }
+  }
+
+
   <span class="app-title">My App</span>
 
   <span class="spacer"></span>
