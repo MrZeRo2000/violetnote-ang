@@ -2,3 +2,11 @@
   width: 1%;
   white-space: nowrap
 }
+
+.mat-mdc-row {
+  cursor: pointer; /* Changes the cursor to a pointer when hovering over a row */
+}
+
+.mat-mdc-row:hover {
+  background-color: rgba(0, 0, 0, 0.01); /* Provides a hover effect */
+}

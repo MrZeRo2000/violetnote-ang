@@ -41,4 +41,8 @@ export class PassDataNoteList implements AfterViewInit {
     this.dataSource().paginator = this.paginator;
     this.dataSource().sort = this.sort;
   }
+
+  onRowClicked(row: PassNote) {
+    console.log(`Clicked: ${row}`);
+  }
 }
