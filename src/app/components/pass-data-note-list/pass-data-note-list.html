@@ -20,31 +20,35 @@
     <th mat-header-cell *matHeaderCellDef></th>
 
     <td mat-cell *matCellDef>
-      <button mat-icon-button color="accent">
-        <mat-icon aria-label="User">person</mat-icon>
-      </button>
+      @if(passDataModeReadOnly()) {
+        <button mat-icon-button color="accent">
+          <mat-icon aria-label="User">person</mat-icon>
+        </button>
 
-      <button mat-icon-button color="accent">
-        <mat-icon aria-label="User">password</mat-icon>
-      </button>
+        <button mat-icon-button color="accent">
+          <mat-icon aria-label="User">password</mat-icon>
+        </button>
+      } @else {
+        <button mat-icon-button color="accent">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
 
-      <button mat-icon-button color="accent">
-        <mat-icon aria-label="Edit">edit</mat-icon>
-      </button>
-
-      <button mat-icon-button color="accent">
-        <mat-icon aria-label="Delete">delete</mat-icon>
-      </button>
+        <button mat-icon-button color="accent">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      }
     </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></tr>
 </table>
-<div class="fab-right">
-  <button matMiniFab>
-    <mat-icon>add</mat-icon>
-  </button>
-</div>
+@if(!passDataModeReadOnly()) {
+  <div class="fab-right">
+    <button matMiniFab>
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+}
 
 <mat-paginator #paginator
                [length]="dataSource().filteredData.length"

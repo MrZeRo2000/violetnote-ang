@@ -1,4 +1,4 @@
-import {inject, Injectable, Signal, signal} from '@angular/core';
+import {computed, inject, Injectable, Signal, signal} from '@angular/core';
 import {DataSource} from './data-source';
 import {PassData, PassDataMode, PassDataPersistRequest} from '../models/pass-data';
 import {BehaviorSubject, Observable, tap} from 'rxjs';
@@ -30,6 +30,10 @@ export class PassDataService {
 
   setPassDataMode(mode: PassDataMode): void {
     this.passDataMode.set(mode);
+  }
+
+  get passDataModeReadOnlySignal(): Signal<Boolean> {
+    return computed(() => this.passDataMode() === PassDataMode.PDM_VIEW)
   }
 
   get passDataChangedSignal(): Signal<Boolean> {

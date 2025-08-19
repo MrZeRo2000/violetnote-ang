@@ -6,6 +6,7 @@ import {MatSort, MatSortModule} from '@angular/material/sort';
 import {PassNote} from '../../models/pass-data';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import {PassDataService} from '../../services/pass-data-service';
 
 @Component({
   selector: 'app-pass-data-note-list',
@@ -23,7 +24,9 @@ export class PassDataNoteList implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   private passDataSelectionService = inject(PassDataSelectionService)
+  private passDataService = inject(PassDataService)
 
+  passDataModeReadOnly = this.passDataService.passDataModeReadOnlySignal
   selectedNotes = this.passDataSelectionService.selectedNotesSignal
   dataSource = computed(() => {
     const currentSelectedNotes = this.selectedNotes();

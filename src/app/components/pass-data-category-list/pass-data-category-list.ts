@@ -27,6 +27,7 @@ export class PassDataCategoryList {
   private passDataService = inject(PassDataService);
   private passDataSelectionService = inject(PassDataSelectionService)
 
+  passDataModeReadOnly = this.passDataService.passDataModeReadOnlySignal
   selectedCategories = this.passDataSelectionService.selectedCategoriesSignal
 
   data$ = this.passDataService.getPassData().pipe(
