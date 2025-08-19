@@ -12,7 +12,12 @@
   }
 
 
-  <span class="app-title">My App</span>
+  <span class="mr-2">My App</span>
+  @if(data$ | async; as data){
+    <span class="font-label">
+      {{version}} <small>({{data.appInfo.version}})</small>
+    </span>
+  }
 
   <span class="spacer"></span>
 
@@ -23,11 +28,14 @@
     <button mat-menu-item>Examples</button>
   </mat-menu>
 
-  @if(data$ | async; as data){
-    <h6>
-      Version: {{version}} <small>({{data.appInfo.version}})</small>
-    </h6>
-  }
+  <mat-button-toggle-group name="passDataMode" aria-label="Mode" class="mr-2" [ngModel]="passDataService.passDataModeSignal()" (ngModelChange)="passDataService.setPassDataMode($event)">
+    <mat-button-toggle [value]="PassDataMode.PDM_VIEW">View</mat-button-toggle>
+    <mat-button-toggle [value]="PassDataMode.PDM_EDIT">Edit</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <button mat-icon-button class="icon-bright mr-2">
+    <mat-icon>save</mat-icon>
+  </button>
 
   @if(data$ | async; as data){
     @if(!data.passData) {

@@ -1,6 +1,6 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, Signal, signal} from '@angular/core';
 import {DataSource} from './data-source';
-import {PassData, PassDataPersistRequest} from '../models/pass-data';
+import {PassData, PassDataMode, PassDataPersistRequest} from '../models/pass-data';
 import {BehaviorSubject, Observable, tap} from 'rxjs';
 
 @Injectable({
@@ -9,6 +9,8 @@ import {BehaviorSubject, Observable, tap} from 'rxjs';
 export class PassDataService {
   private dataSource = inject(DataSource);
   private passDataSubject = new BehaviorSubject<PassData | null>(null);
+  private passDataMode = signal<PassDataMode>(PassDataMode.PDM_VIEW);
+  private passDataChanged = signal(false);
 
   getPassDataValue(): PassData | null {
     return this.passDataSubject.getValue()
@@ -20,6 +22,18 @@ export class PassDataService {
 
   getPassData(): Observable<PassData | null> {
     return this.passDataSubject.asObservable();
+  }
+
+  get passDataModeSignal(): Signal<PassDataMode> {
+    return this.passDataMode.asReadonly();
+  }
+
+  setPassDataMode(mode: PassDataMode): void {
+    this.passDataMode.set(mode);
+  }
+
+  get passDataChangedSignal(): Signal<Boolean> {
+    return this.passDataChanged.asReadonly();
   }
 
   public create(persistRequest: PassDataPersistRequest): Observable<PassData> {
@@ -39,4 +53,10 @@ export class PassDataService {
       }),
     )
   }
+
+  public update(passData: PassData) {
+    this.passDataSubject.next(passData);
+    this.passDataChanged.set(true);
+  }
+
 }

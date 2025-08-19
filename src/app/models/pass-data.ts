@@ -1,4 +1,10 @@
 
+export enum PassDataMode {
+  PDM_VIEW,
+  PDM_EDIT,
+}
+
+
 export interface ServiceError {
   errorCode?: number;
   errorMessage?: string;

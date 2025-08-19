@@ -14,3 +14,7 @@
 .icon-bright {
   color: var(--mat-sys-on-primary);
 }
+
+.font-label {
+  font-size: var(--mat-button-filled-label-text-size, var(--mat-sys-label-large-size));
+}
