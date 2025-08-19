@@ -40,6 +40,11 @@ export class PassDataService {
     return this.dataSource.postResponseData<PassData>(
       "v2/passdata2/new",
       persistRequest
+    ).pipe(
+      tap(() => {
+        this.passDataMode.set(PassDataMode.PDM_VIEW)
+        this.passDataChanged.set(false);
+      })
     )
   }
 
@@ -50,6 +55,8 @@ export class PassDataService {
     ).pipe(
       tap(v => {
         this.passDataSubject.next(v);
+        this.passDataMode.set(PassDataMode.PDM_VIEW)
+        this.passDataChanged.set(false);
       }),
     )
   }

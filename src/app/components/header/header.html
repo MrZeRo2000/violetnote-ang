@@ -33,9 +33,11 @@
     <mat-button-toggle [value]="PassDataMode.PDM_EDIT">Edit</mat-button-toggle>
   </mat-button-toggle-group>
 
-  <button mat-icon-button class="icon-bright mr-2">
-    <mat-icon>save</mat-icon>
-  </button>
+  @if(passDataService.passDataChangedSignal()) {
+    <button mat-icon-button class="icon-bright mr-2">
+      <mat-icon>save</mat-icon>
+    </button>
+  }
 
   @if(data$ | async; as data){
     @if(!data.passData) {
