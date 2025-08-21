@@ -7,6 +7,8 @@ import {PassNote} from '../../models/pass-data';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {PassDataService} from '../../services/pass-data-service';
+import {MatDialog} from '@angular/material/dialog';
+import {PassDataNoteViewForm} from '../pass-data-note-view-form/pass-data-note-view-form';
 
 @Component({
   selector: 'app-pass-data-note-list',
@@ -23,8 +25,9 @@ import {PassDataService} from '../../services/pass-data-service';
 export class PassDataNoteList implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  private passDataSelectionService = inject(PassDataSelectionService)
-  private passDataService = inject(PassDataService)
+  private readonly passDataSelectionService = inject(PassDataSelectionService)
+  private readonly passDataService = inject(PassDataService)
+  private readonly dialog = inject(MatDialog);
 
   passDataModeReadOnly = this.passDataService.passDataModeReadOnlySignal
   selectedNotes = this.passDataSelectionService.selectedNotesSignal
@@ -46,6 +49,10 @@ export class PassDataNoteList implements AfterViewInit {
   }
 
   onRowClicked(row: PassNote) {
-    console.log(`Clicked: ${row}`);
+    console.log(`Clicked: ${JSON.stringify(row)}`);
+    this.dialog.open(PassDataNoteViewForm, {
+      data: row,
+      minWidth: "450px"
+    })
   }
 }

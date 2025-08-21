@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>Dialog with elements</h2>
+<mat-dialog-content>
+  <form [formGroup]="viewForm" class="container">
+    <mat-form-field class="form-control">
+      <mat-label>System</mat-label>
+      <input type="text" matInput formControlName="systemControl" readonly>
+      <mat-icon
+        matSuffix
+        #system_tooltip="matTooltip"
+        matTooltip="System copied"
+        matTooltipPosition="after"
+        matTooltipDisabled="true"
+        matTooltipHideDelay="1000"
+        (click)="onCopy(this.viewForm.value.systemControl, system_tooltip)">
+        content_copy
+      </mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="form-control">
+      <mat-label>User</mat-label>
+      <input type="text" matInput formControlName="userControl" readonly>
+      <mat-icon
+        matSuffix
+        #user_tooltip="matTooltip"
+        matTooltip="User copied"
+        matTooltipPosition="after"
+        matTooltipDisabled="true"
+        matTooltipHideDelay="1000"
+        (click)="onCopy(this.viewForm.value.userControl, user_tooltip)">
+        content_copy
+      </mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="form-control">
+      <mat-label>Password</mat-label>
+      <input type="text" matInput formControlName="passwordControl" readonly>
+      <mat-icon
+        matSuffix
+        #password_tooltip="matTooltip"
+        matTooltip="Password copied"
+        matTooltipPosition="after"
+        matTooltipDisabled="true"
+        matTooltipHideDelay="1000"
+        (click)="onCopy(this.viewForm.value.passwordControl, password_tooltip)">
+        content_copy
+      </mat-icon>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton mat-dialog-close>Close</button>
+</mat-dialog-actions>
