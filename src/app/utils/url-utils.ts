@@ -28,4 +28,13 @@ export class UrlUtils {
       return url;
     }
   }
+
+  public static getUrl(url: string | null | undefined): string | undefined {
+    if (url && UrlUtils.isValidURL(url)) {
+      return UrlUtils.ensureProtocol(url);
+    } else {
+      return undefined;
+    }
+  }
+
 }

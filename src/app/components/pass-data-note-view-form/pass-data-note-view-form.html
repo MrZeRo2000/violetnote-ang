@@ -45,6 +45,10 @@
         content_copy
       </mat-icon>
     </mat-form-field>
+
+    @if(this.viewForm.value.urlControl) {
+      <a matButton [href]="this.viewForm.value.urlControl" target="_blank">Link</a>
+    }
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>

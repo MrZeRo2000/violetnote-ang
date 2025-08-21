@@ -8,6 +8,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {environment} from '../../../environments/environment';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
+import {UrlUtils} from '../../utils/url-utils';
 
 @Component({
   selector: 'app-pass-data-note-view-form',
@@ -29,7 +30,8 @@ export class PassDataNoteViewForm implements OnInit {
   viewForm = this.fb.group({
     systemControl: [''],
     userControl: [''],
-    passwordControl: ['']
+    passwordControl: [''],
+    urlControl: [''],
   })
 
   constructor(
@@ -38,7 +40,8 @@ export class PassDataNoteViewForm implements OnInit {
     this.viewForm.patchValue({
       systemControl: this.data.system,
       userControl: this.data.user,
-      passwordControl: this.data.password
+      passwordControl: this.data.password,
+      urlControl: UrlUtils.getUrl(this.data.url)
     })
   }
 
