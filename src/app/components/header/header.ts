@@ -15,6 +15,8 @@ import {ScreenService} from '../../services/screen-service';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {PassDataMode} from '../../models/pass-data';
 import {FormsModule} from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 @Component({
   selector: 'app-header',
@@ -25,6 +27,8 @@ import {FormsModule} from '@angular/forms';
     MatIconModule,
     MatTooltipModule,
     MatButtonToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
 
     AsyncPipe,
     FormsModule,

@@ -14,12 +14,23 @@
 
   <span class="mr-2">My App</span>
   @if(data$ | async; as data){
-    <span class="font-label">
+    <span class="font-label mr-2">
       {{version}} <small>({{data.appInfo.version}})</small>
     </span>
   }
 
+  <div class="search-bar">
+    <form>
+        <mat-form-field appearance="outline" class="search-control">
+          <mat-icon matPrefix class="icon-bright">search</mat-icon>
+          <input type="text" placeholder="Search" matInput>
+        </mat-form-field>
+    </form>
+  </div>
+
+  <!--
   <span class="spacer"></span>
+  -->
 
   <button matButton="filled" mat-button [matMenuTriggerFor]="docsMenu">Docs</button>
   <mat-menu #docsMenu="matMenu">
