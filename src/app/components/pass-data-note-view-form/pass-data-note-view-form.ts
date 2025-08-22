@@ -9,6 +9,8 @@ import {environment} from '../../../environments/environment';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
 import {UrlUtils} from '../../utils/url-utils';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
   selector: 'app-pass-data-note-view-form',
@@ -20,6 +22,8 @@ import {UrlUtils} from '../../utils/url-utils';
     MatInputModule,
     MatIconModule,
     MatTooltipModule,
+    MatDividerModule,
+    MatExpansionModule,
   ],
   templateUrl: './pass-data-note-view-form.html',
   styleUrl: './pass-data-note-view-form.scss'
@@ -32,6 +36,7 @@ export class PassDataNoteViewForm implements OnInit {
     userControl: [''],
     passwordControl: [''],
     urlControl: [''],
+    infoControl: [''],
   })
 
   constructor(
@@ -41,7 +46,8 @@ export class PassDataNoteViewForm implements OnInit {
       systemControl: this.data.system,
       userControl: this.data.user,
       passwordControl: this.data.password,
-      urlControl: UrlUtils.getUrl(this.data.url)
+      urlControl: UrlUtils.getUrl(this.data.url),
+      infoControl: this.data.info,
     })
   }
 

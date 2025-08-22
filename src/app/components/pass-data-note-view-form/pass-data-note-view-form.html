@@ -47,8 +47,22 @@
     </mat-form-field>
 
     @if(this.viewForm.value.urlControl) {
-      <a matButton [href]="this.viewForm.value.urlControl" target="_blank">Link</a>
+      <a matButton [href]="this.viewForm.value.urlControl" target="_blank" class="mb-2">Link</a>
     }
+
+    @if(this.viewForm.value.infoControl && this.viewForm.value.infoControl.length > 0) {
+      <div class="mb-2 mt-2">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Info </mat-panel-title>
+            </mat-expansion-panel-header>
+            {{ this.viewForm.value.infoControl }}
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    }
+
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
