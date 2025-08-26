@@ -26,6 +26,7 @@ import {PassDataMode} from '../../models/pass-data';
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-header',
@@ -38,7 +39,7 @@ import {MatInputModule} from '@angular/material/input';
     MatButtonToggleModule,
     MatFormFieldModule,
     MatInputModule,
-
+    MatAutocompleteModule,
     AsyncPipe,
     FormsModule,
     ReactiveFormsModule,
