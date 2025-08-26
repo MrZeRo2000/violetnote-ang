@@ -1,11 +1,20 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {PassDataFileService} from '../../services/pass-data-file-service';
-import {combineLatest, map, tap} from 'rxjs';
+import {
+  combineLatest,
+  map,
+  startWith,
+  tap,
+  of,
+  switchMap,
+  Observable,
+  debounceTime, distinctUntilChanged
+} from 'rxjs';
 import {AppConfigService} from '../../services/app-config-service';
 import {AsyncPipe} from '@angular/common';
 import {Router } from '@angular/router';
@@ -14,7 +23,7 @@ import {PassDataService} from '../../services/pass-data-service';
 import {ScreenService} from '../../services/screen-service';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {PassDataMode} from '../../models/pass-data';
-import {FormsModule} from '@angular/forms';
+import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 
@@ -32,12 +41,15 @@ import {MatInputModule} from '@angular/material/input';
 
     AsyncPipe,
     FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })
-export class Header {
+export class Header implements OnInit {
   router = inject(Router)
+  fb = inject(FormBuilder)
+
   appConfigService = inject(AppConfigService)
   passDataService = inject(PassDataService)
   passDataFileService = inject(PassDataFileService)
@@ -64,6 +76,38 @@ export class Header {
       console.log(`Mode: ${this.passDataService.passDataModeSignal()}`)
     })
   )
+
+  searchForm = this.fb.group({
+    searchControl: ['', Validators.min(2)],
+  })
+
+  searchOptions$: Observable<Array<string>> | undefined;
+
+  ngOnInit() {
+    this.searchOptions$ = this.searchForm.valueChanges.pipe(
+      startWith(''),
+      tap(v => {
+        console.log(`Search action: ${JSON.stringify(v)}`);
+      }),
+      map(v => (typeof v === 'object' && v !== null && 'searchControl' in v) ? v.searchControl as string : ''),
+      map(v => v ? v : ' '),
+      tap(v => {
+        console.log(`Search action after map: ${v}`);
+      }),
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(v => {
+        if (v.length < 2) {
+          return of([])
+        } else {
+          return this.passDataService.searchStrings(v)
+        }
+      }),
+      tap(v => {
+        console.log(`Search options: ${JSON.stringify(v)}`);
+      })
+    )
+  }
 
   onSettingsClick() {
     this.router.navigate([""], {

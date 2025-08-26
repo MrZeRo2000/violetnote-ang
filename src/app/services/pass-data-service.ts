@@ -1,7 +1,7 @@
 import {computed, inject, Injectable, Signal, signal} from '@angular/core';
 import {DataSource} from './data-source';
 import {PassData, PassDataMode, PassDataPersistRequest} from '../models/pass-data';
-import {BehaviorSubject, Observable, tap} from 'rxjs';
+import {BehaviorSubject, Observable, of, tap} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +68,21 @@ export class PassDataService {
   public update(passData: PassData) {
     this.passDataSubject.next(passData);
     this.passDataChanged.set(true);
+  }
+
+  public searchStrings(searchString: string): Observable<Array<string>> {
+    const searchExp = new RegExp(`.*${searchString}.*`, 'i');
+    const passDataValue = this.getPassDataValue()
+    if (!passDataValue) {
+      return of([]);
+    } else {
+      const foundItems = passDataValue.categoryList
+        .flatMap(v => v.noteList)
+        .flatMap(v => [v.system, v.user])
+        .filter(v => searchExp.test(v))
+
+      return of(Array.from(new Set(foundItems)).sort());
+    }
   }
 
 }

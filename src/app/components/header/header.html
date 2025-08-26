@@ -20,12 +20,14 @@
   }
 
   <div class="search-bar">
-    <form>
-        <mat-form-field appearance="outline" class="search-control">
-          <mat-icon matPrefix class="icon-bright">search</mat-icon>
-          <input type="text" placeholder="Search" matInput>
-        </mat-form-field>
-    </form>
+    @if(searchOptions$ | async; as searchOptions) {
+      <form [formGroup]="searchForm">
+          <mat-form-field appearance="outline" class="search-control">
+            <mat-icon matPrefix class="icon-bright">search</mat-icon>
+            <input type="text" placeholder="Search" matInput formControlName="searchControl">
+          </mat-form-field>
+      </form>
+    }
   </div>
 
   <!--
