@@ -23,3 +23,7 @@
 .font-label {
   font-size: var(--mat-button-filled-label-text-size, var(--mat-sys-label-large-size));
 }
+
+.mat-mdc-icon-button {
+  color: var(--mat-sys-on-primary);
+}
