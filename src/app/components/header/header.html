@@ -10,8 +10,6 @@
       </button>
     }
   }
-
-
   <span class="mr-2">My App</span>
   @if(data$ | async; as data){
     <span class="font-label mr-2">
@@ -20,24 +18,8 @@
   }
 
   <div class="search-bar">
-    @if(searchOptions$ | async; as searchOptions) {
-      <form [formGroup]="searchForm">
-          <mat-form-field appearance="outline" class="search-control">
-            <mat-icon matPrefix class="icon-bright">search</mat-icon>
-            <input type="text" placeholder="Search" matInput formControlName="searchControl" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete">
-              @for (option of searchOptions; track option) {
-                <mat-option [value]="option">{{option}}</mat-option>
-              }
-            </mat-autocomplete>
-          </mat-form-field>
-      </form>
-    }
+    <app-search-input></app-search-input>
   </div>
-
-  <!--
-  <span class="spacer"></span>
-  -->
 
   <button matButton="filled" mat-button [matMenuTriggerFor]="docsMenu">Docs</button>
   <mat-menu #docsMenu="matMenu">
