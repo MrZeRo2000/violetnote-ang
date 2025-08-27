@@ -33,3 +33,7 @@ export interface PassDataPersistRequest {
   passData?: PassData;
 }
 
+export interface PassDataSearchResult {
+  categoryName: string;
+  passNote: PassNote;
+}
