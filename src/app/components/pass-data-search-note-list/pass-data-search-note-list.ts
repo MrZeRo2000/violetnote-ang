@@ -30,28 +30,14 @@ export class PassDataSearchNoteList {
   displayedColumns: string[] = ['category', 'system', 'user', 'url'];
 
   public dataSource: MatTableDataSource<PassDataSearchResult> = new MatTableDataSource<PassDataSearchResult>();
-  public searchResultAction$ = this.passDataSearchService.searchResultAction$
 
-  getDataSource(data: PassDataSearchResult[] | null): MatTableDataSource<PassDataSearchResult> {
-    console.log('Getting dataSource')
-    const result: MatTableDataSource<PassDataSearchResult> = new MatTableDataSource<PassDataSearchResult>()
-    /*
-    if(data) {
-      result.data = data
-      result.sort = this.sort
-      result.paginator = this.paginator
-    }
-
-     */
-    return result;
-  }
-
-  data$ = this.passDataSearchService.searchResultAction$.pipe(
-    tap(v => {
-      if (v) {
-        this.dataSource.data = v
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+  public data$ = this.passDataSearchService.searchResultAction$.pipe(
+    tap(data => {
+      console.log(`data$: ${JSON.stringify(data)}`);
+      if(data) {
+        this.dataSource.data = data
+        this.dataSource.sort = this.sort
+        this.dataSource.paginator = this.paginator
       }
     })
   )
