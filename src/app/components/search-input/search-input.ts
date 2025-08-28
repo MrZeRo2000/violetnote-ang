@@ -94,15 +94,14 @@ export class SearchInput implements OnInit {
   }
 
   onClear(event: any): void {
-    console.log('Clear pressed')
     event.stopPropagation();
     this.searchForm.patchValue({searchControl: undefined});
     this.searchValueSublect.next(null)
   }
 
-  onInputKeyDownEnter(event: any): void {
-    event.preventDefault()
-    console.log(`Input key down: ${JSON.stringify(event)}`)
+  onSearch(event: any): void {
+    event.stopPropagation();
+    event.stopPropagation();
     if (this.searchForm.valid) {
       this.searchValueSublect.next(this.searchForm.value.searchControl || null);
       this.autocompleteTrigger?.closePanel();
