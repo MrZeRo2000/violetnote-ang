@@ -18,6 +18,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatAutocompleteTrigger, MatAutocompleteModule, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatIconModule} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-search-input',
@@ -36,9 +37,10 @@ import {MatIconButton} from '@angular/material/button';
 export class SearchInput implements OnInit {
   @ViewChild('autoTrigger', { read: MatAutocompleteTrigger }) autocompleteTrigger?: MatAutocompleteTrigger;
 
-  fb = inject(FormBuilder)
-  passDataService = inject(PassDataService)
-  passDataSearchService = inject(PassDataSearchService);
+  private router = inject(Router);
+  private fb = inject(FormBuilder)
+  private passDataService = inject(PassDataService)
+  private passDataSearchService = inject(PassDataSearchService);
 
   passData$ = this.passDataService.getPassData()
 
@@ -55,7 +57,15 @@ export class SearchInput implements OnInit {
   searchResultAction$ = this.passDataSearchService.searchResultAction$.pipe(
     distinctUntilChanged(),
     tap((v) => {
-      console.log(`Search result: ${JSON.stringify(v)}`);
+      if (v != null) {
+        console.log('Ready to navigate');
+        setTimeout(() => {
+          this.router.navigate(['/search']).then();
+        }, 0)
+        //this.router.navigate(['/search']).then();
+      } else {
+        this.router.navigate(['/main']).then();
+      }
     })
   )
 

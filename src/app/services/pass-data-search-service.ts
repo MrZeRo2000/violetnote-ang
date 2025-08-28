@@ -1,6 +1,6 @@
 import {inject, Injectable, OnDestroy} from '@angular/core';
 import {PassDataService} from './pass-data-service';
-import {BehaviorSubject, Observable, of, Subscription} from 'rxjs';
+import {Observable, of, Subject, Subscription} from 'rxjs';
 import {PassData, PassDataSearchResult} from '../models/pass-data';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class PassDataSearchService implements OnDestroy {
 
   private passData: PassData | null = null;
 
-  private searchResultSubject = new BehaviorSubject<Array<PassDataSearchResult> | null>(null);
+  private searchResultSubject = new Subject<Array<PassDataSearchResult> | null>();
   searchResultAction$ = this.searchResultSubject.asObservable();
 
   constructor() {
@@ -50,6 +50,7 @@ export class PassDataSearchService implements OnDestroy {
         }))
         .filter(v => searchExp.test(v.passNote.system) || searchExp.test(v.passNote.user))
       this.searchResultSubject.next(foundItems);
+      console.log('Pushed something to search result');
     }
   }
 }
