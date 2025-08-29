@@ -1,37 +1,34 @@
-@if(data$ | async; as data) {
-  @if (data.length > 0) {
-    <table mat-table [dataSource]="dataSource" matSort>
-      <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
-        <td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
-      </ng-container>
+@if(data$ | async) {}
 
-      <ng-container matColumnDef="system">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> System </th>
-        <td mat-cell *matCellDef="let element"> {{element.passNote.system}} </td>
-      </ng-container>
+<table mat-table [dataSource]="dataSource()" matSort>
+  <ng-container matColumnDef="categoryName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+    <td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
+  </ng-container>
 
-      <ng-container matColumnDef="user">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> User </th>
-        <td mat-cell *matCellDef="let element"> {{element.passNote.user}} </td>
-      </ng-container>
+  <ng-container matColumnDef="system">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> System </th>
+    <td mat-cell *matCellDef="let element"> {{element.passNote.system}} </td>
+  </ng-container>
 
-      <ng-container matColumnDef="url">
-        <th mat-header-cell *matHeaderCellDef> URL </th>
-        <td mat-cell *matCellDef="let element"> {{element.passNote.url}} </td>
-      </ng-container>
+  <ng-container matColumnDef="user">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> User </th>
+    <td mat-cell *matCellDef="let element"> {{element.passNote.user}} </td>
+  </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></tr>
-    </table>
+  <ng-container matColumnDef="url">
+    <th mat-header-cell *matHeaderCellDef> URL </th>
+    <td mat-cell *matCellDef="let element"> {{element.passNote.url}} </td>
+  </ng-container>
 
-    <mat-paginator #paginator
-                   [length]="dataSource.filteredData.length"
-                   [pageIndex]="0"
-                   [pageSize]="2"
-                   [pageSizeOptions]="[2, 5, 10, 25, 100]">
-    </mat-paginator>
-  } @else {
-    No data found
-  }
-}
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></tr>
+</table>
+
+<mat-paginator #paginator
+               [length]="dataSource().filteredData.length"
+               [pageIndex]="0"
+               [pageSize]="2"
+               [pageSizeOptions]="[2, 5, 10, 25, 100]">
+</mat-paginator>
+
