@@ -7,10 +7,11 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {environment} from '../../../environments/environment';
 import {MatIconModule} from '@angular/material/icon';
-import {MatTooltip, MatTooltipModule} from '@angular/material/tooltip';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {UrlUtils} from '../../utils/url-utils';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
+import {TooltipUtils} from '../../utils/tooltip-utils';
 
 @Component({
   selector: 'app-pass-data-note-view-form',
@@ -30,6 +31,8 @@ import {MatDividerModule} from '@angular/material/divider';
 })
 export class PassDataNoteViewForm implements OnInit {
   fb = inject(FormBuilder)
+
+  copyToClipboard = TooltipUtils.copyToClipboard
 
   viewForm = this.fb.group({
     systemControl: [''],
@@ -56,19 +59,6 @@ export class PassDataNoteViewForm implements OnInit {
       setTimeout(() => {
         this.dialogRef.close(true);
       }, environment.autoHidePassNoteDelay);
-    }
-  }
-
-  onCopy(value: string | null | undefined, toolTip: MatTooltip): void {
-    console.log(`OnCopy value: ${value}`);
-    if (value) {
-      navigator.clipboard.writeText(value).then(() => {
-        toolTip.disabled = false
-        toolTip.show()
-        setTimeout(() => {
-          toolTip.disabled = true
-        }, 1000)
-      })
     }
   }
 }

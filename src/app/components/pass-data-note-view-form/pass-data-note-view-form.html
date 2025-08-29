@@ -11,7 +11,7 @@
         matTooltipPosition="after"
         matTooltipDisabled="true"
         matTooltipHideDelay="1000"
-        (click)="onCopy(this.viewForm.value.systemControl, system_tooltip)">
+        (click)="copyToClipboard(this.viewForm.value.systemControl, system_tooltip)">
         content_copy
       </mat-icon>
     </mat-form-field>
@@ -26,7 +26,7 @@
         matTooltipPosition="after"
         matTooltipDisabled="true"
         matTooltipHideDelay="1000"
-        (click)="onCopy(this.viewForm.value.userControl, user_tooltip)">
+        (click)="copyToClipboard(this.viewForm.value.userControl, user_tooltip)">
         content_copy
       </mat-icon>
     </mat-form-field>
@@ -41,7 +41,7 @@
         matTooltipPosition="after"
         matTooltipDisabled="true"
         matTooltipHideDelay="1000"
-        (click)="onCopy(this.viewForm.value.passwordControl, password_tooltip)">
+        (click)="copyToClipboard(this.viewForm.value.passwordControl, password_tooltip)">
         content_copy
       </mat-icon>
     </mat-form-field>

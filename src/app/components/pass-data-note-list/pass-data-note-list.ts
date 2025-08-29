@@ -9,6 +9,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {PassDataService} from '../../services/pass-data-service';
 import {MatDialog} from '@angular/material/dialog';
 import {PassDataNoteViewForm} from '../pass-data-note-view-form/pass-data-note-view-form';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {CopyUserPasswordPanel} from '../copy-user-password-panel/copy-user-password-panel';
 
 @Component({
   selector: 'app-pass-data-note-list',
@@ -18,6 +20,8 @@ import {PassDataNoteViewForm} from '../pass-data-note-view-form/pass-data-note-v
     MatSortModule,
     MatIconModule,
     MatButtonModule,
+    MatTooltipModule,
+    CopyUserPasswordPanel,
   ],
   templateUrl: './pass-data-note-list.html',
   styleUrl: './pass-data-note-list.scss'
