@@ -5,10 +5,10 @@
         <p>{{item.categoryName}}</p>
         @if(!passDataModeReadOnly()) {
           <div matListItemMeta>
-            <button mat-icon-button>
+            <button mat-icon-button (click)="onEditClick($event, item)">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button>
+            <button mat-icon-button (click)="onDeleteClick($event, item)">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
