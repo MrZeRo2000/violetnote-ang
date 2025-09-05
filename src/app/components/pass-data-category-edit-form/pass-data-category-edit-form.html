@@ -1,16 +1,20 @@
 <h2 mat-dialog-title>Category</h2>
 <mat-dialog-content>
-  <form [formGroup]="editForm" class="form-container">
-    <mat-form-field class="form-control">
-      <mat-label>Category name</mat-label>
-      <input type="text" matInput formControlName="categoryNameControl" autofocus>
-      @if (editForm.controls.categoryNameControl.hasError('required')) {
-        <mat-error>Category name is <strong>required</strong></mat-error>
-      } @else if (editForm.controls.categoryNameControl.hasError('minlength')) {
-        <mat-error>Minimum length is 2</mat-error>
-      }
-    </mat-form-field>
-  </form>
+  @if(data$ | async) {
+    <form [formGroup]="editForm" class="form-container">
+      <mat-form-field class="form-control">
+        <mat-label>Category name</mat-label>
+        <input type="text" matInput formControlName="categoryNameControl" autofocus>
+        @if (editForm.controls.categoryNameControl.hasError('required')) {
+          <mat-error>Category name is <strong>required</strong></mat-error>
+        } @else if (editForm.controls.categoryNameControl.hasError('minlength')) {
+          <mat-error>Minimum length is 2</mat-error>
+        } @else if (editForm.controls.categoryNameControl.hasError('existingName')) {
+          <mat-error>Category name already exists</mat-error>
+        }
+      </mat-form-field>
+    </form>
+  }
 </mat-dialog-content>
 <mat-dialog-actions>
   <button matButton [disabled]="!editForm.valid" [mat-dialog-close]="1" (click)="onSave()">Ok</button>

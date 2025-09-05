@@ -9,9 +9,19 @@ import {
   MatDialogTitle
 } from "@angular/material/dialog";
 import {MatInput, MatLabel} from "@angular/material/input";
-import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
+import {
+  AbstractControl,
+  FormBuilder,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators
+} from "@angular/forms";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {PassCategory} from '../../models/pass-data';
+import {PassDataService} from '../../services/pass-data-service';
+import {delay, of, tap} from 'rxjs';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-pass-data-category-edit-form',
@@ -25,17 +35,45 @@ import {PassCategory} from '../../models/pass-data';
     MatLabel,
     MatFormFieldModule,
     ReactiveFormsModule,
+    AsyncPipe,
   ],
   templateUrl: './pass-data-category-edit-form.html',
   styleUrl: './pass-data-category-edit-form.scss'
 })
 export class PassDataCategoryEditForm {
   fb = inject(FormBuilder)
+  passDataService = inject(PassDataService);
+
+  existingCategories = new Set<string>([])
+
+  data$ = this.passDataService.getPassData().pipe(
+    tap(v => {
+      this.existingCategories = new Set(v?.categoryList.map(v => v.categoryName))
+    })
+  )
+
+  existingNameValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value.trim()
+      if (!value) {
+        return null;
+      }
+
+      const existing = this.existingCategories.has(value);
+      return of(existing ? {existingName: {value}} : null).pipe(
+        delay(0)
+      );
+    };
+  }
 
   editForm = this.fb.group({
-    categoryNameControl: ['', [Validators.required, Validators.minLength(2)]],
+    categoryNameControl: ['', [
+      Validators.required,
+      Validators.minLength(2),
+      ],
+      this.existingNameValidator(),
+    ],
   })
-
 
   constructor(
     private dialogRef: MatDialogRef<PassDataCategoryEditForm>,
@@ -46,7 +84,7 @@ export class PassDataCategoryEditForm {
   }
 
   onSave() {
-    const newData = {...this.data, categoryName: this.editForm.value.categoryNameControl};
+    const newData = {...this.data, categoryName: this.editForm.value.categoryNameControl?.trim()};
     this.dialogRef.close(newData);
   }
 }

@@ -10,6 +10,7 @@ import {PassCategory} from '../../models/pass-data';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialog} from '@angular/material/dialog';
 import {PassDataCategoryEditForm} from '../pass-data-category-edit-form/pass-data-category-edit-form';
+import {PassDataCRUDService} from '../../services/pass-data-crud-service';
 
 @Component({
   selector: 'app-pass-data-category-list',
@@ -28,6 +29,7 @@ import {PassDataCategoryEditForm} from '../pass-data-category-edit-form/pass-dat
 export class PassDataCategoryList {
   private passDataService = inject(PassDataService);
   private passDataSelectionService = inject(PassDataSelectionService)
+  private passDataCRUDService = inject(PassDataCRUDService)
   private readonly dialog = inject(MatDialog);
 
   passDataModeReadOnly = this.passDataService.passDataModeReadOnlySignal
@@ -52,6 +54,8 @@ export class PassDataCategoryList {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log(`Closed with result ${JSON.stringify(result)}`);
+        this.passDataSelectionService.selectedCategoryName.set(result.categoryName)
+        this.passDataCRUDService.updatePassCategoryName(item, result);
       }
     })
   }

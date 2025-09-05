@@ -21,7 +21,9 @@ export class PassDataService {
   }
 
   getPassData(): Observable<PassData | null> {
-    return this.passDataSubject.asObservable();
+    return this.passDataSubject.asObservable().pipe(
+      tap(v => console.log(`getPassData: ${JSON.stringify(v)}`)),
+    );
   }
 
   get passDataModeSignal(): Signal<PassDataMode> {

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PassDataCrudService } from './pass-data-crud-service';
+import { PassDataCRUDService } from './pass-data-crud-service';
 
 describe('PassDataCrudService', () => {
-  let service: PassDataCrudService;
+  let service: PassDataCRUDService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(PassDataCrudService);
+    service = TestBed.inject(PassDataCRUDService);
   });
 
   it('should be created', () => {

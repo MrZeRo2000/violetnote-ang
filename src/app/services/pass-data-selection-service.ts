@@ -18,10 +18,25 @@ export class PassDataSelectionService implements OnDestroy {
   private selectedNotes = new Array<PassNote>()
   readonly selectedNotesSignal = signal(new Array<PassNote>())
 
+  selectedCategoryName = signal<string | null>(null)
+
   constructor() {
     this.passDataServiceSubscription = this.passDataService.getPassData().subscribe(v => {
       this.passData = v
-      this.selectCategory(v? v.categoryList[0] : null)
+
+      // restore selected category after update
+      if (v) {
+        if (this.selectedCategoryName()) {
+          const selectedCategory = v.categoryList.find(v => v.categoryName === this.selectedCategoryName())
+          this.selectCategory(selectedCategory ? selectedCategory : v.categoryList[0])
+        } else {
+          this.selectCategory(v.categoryList[0])
+        }
+      } else {
+        this.selectCategory(null)
+      }
+      this.selectedCategoryName.set(null)
+
     })
   }
 

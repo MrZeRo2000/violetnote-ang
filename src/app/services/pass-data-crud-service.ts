@@ -5,13 +5,14 @@ import {PassCategory} from '../models/pass-data';
 @Injectable({
   providedIn: 'root'
 })
-export class PassDataCrudService {
+export class PassDataCRUDService {
   private passDataService = inject(PassDataService);
+
   updatePassCategoryName(value: PassCategory, newValue: PassCategory): void {
     const passData = this.passDataService.getPassDataValue();
     const updateIndex = passData?.categoryList.indexOf(value)
-    if (passData && updateIndex && (updateIndex !== -1)) {
-      console.log(`Updating ${value} to ${newValue}`)
+    if (passData && (updateIndex !== undefined) && (updateIndex !== -1)) {
+      console.log(`Updating ${JSON.stringify(value)} to ${JSON.stringify(newValue)}`)
       passData.categoryList[updateIndex] = newValue;
 
       this.passDataService.update(passData)
