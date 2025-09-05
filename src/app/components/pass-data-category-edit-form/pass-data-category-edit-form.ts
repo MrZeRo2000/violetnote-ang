@@ -77,10 +77,12 @@ export class PassDataCategoryEditForm {
 
   constructor(
     private dialogRef: MatDialogRef<PassDataCategoryEditForm>,
-    @Inject(MAT_DIALOG_DATA) private data: PassCategory) {
-    this.editForm.patchValue({
-      categoryNameControl: data.categoryName
-    })
+    @Inject(MAT_DIALOG_DATA) private data?: PassCategory) {
+    if (data) {
+      this.editForm.patchValue({
+        categoryNameControl: data.categoryName
+      })
+    }
   }
 
   onSave() {

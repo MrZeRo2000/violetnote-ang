@@ -18,7 +18,7 @@
   </mat-action-list>
   @if(!passDataModeReadOnly()) {
     <div class="fab-right">
-      <button matMiniFab>
+      <button matMiniFab (click)="onAddClick($event)">
         <mat-icon>add</mat-icon>
       </button>
     </div>

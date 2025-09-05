@@ -18,4 +18,14 @@ export class PassDataCRUDService {
       this.passDataService.update(passData)
     }
   }
+
+  addPassCategory(newValue: PassCategory): void {
+    const passData = this.passDataService.getPassDataValue();
+    if (passData) {
+      console.log(`Adding ${JSON.stringify(newValue)}`)
+      passData.categoryList.push(newValue);
+
+      this.passDataService.update(passData)
+    }
+  }
 }

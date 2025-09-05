@@ -62,4 +62,21 @@ export class PassDataCategoryList {
     event.stopPropagation()
     console.log(`Deleting ${JSON.stringify(item)}`);
   }
+
+  onAddClick(event: any) {
+    event.stopPropagation()
+    console.log(`Adding`);
+
+    const dialogRef = this.dialog.open(PassDataCategoryEditForm, {
+      data: {},
+      minWidth: "450px"
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.passDataSelectionService.selectedCategoryName.set(result.categoryName)
+        this.passDataCRUDService.addPassCategory(result);
+      }
+    })
+  }
 }

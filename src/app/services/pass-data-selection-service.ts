@@ -52,7 +52,7 @@ export class PassDataSelectionService implements OnDestroy {
     }
     this.selectedCategoriesSignal.set(this.selectedCategories);
     this.selectNotes(
-      this.passData?.categoryList?.filter(v => this.selectedCategories.has(v)).flatMap(v => v.noteList) || []
+      this.passData?.categoryList?.filter(v => this.selectedCategories.has(v)).filter(v => !!v.noteList).flatMap(v => v.noteList) || []
     )
   }
 
