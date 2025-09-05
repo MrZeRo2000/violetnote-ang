@@ -86,7 +86,7 @@ export class PassDataCategoryEditForm {
   }
 
   onSave() {
-    const newData = {...this.data, categoryName: this.editForm.value.categoryNameControl?.trim()};
+    const newData = {noteList:[], ...this.data, categoryName: this.editForm.value.categoryNameControl?.trim()};
     this.dialogRef.close(newData);
   }
 }

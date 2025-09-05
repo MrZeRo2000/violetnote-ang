@@ -8,6 +8,7 @@ import {PassDataFileService} from '../../services/pass-data-file-service';
 import {PassDataPersistRequest} from '../../models/pass-data';
 import {AsyncPipe} from '@angular/common';
 import {MessageService} from '../../services/message-service';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-pass-data-save-button',
@@ -16,6 +17,7 @@ import {MessageService} from '../../services/message-service';
     MatButtonModule,
     AsyncPipe,
     ProgressSpinnerOverlayComponent,
+    MatTooltipModule,
   ],
   templateUrl: './pass-data-save-button.html',
   styleUrl: './pass-data-save-button.scss'

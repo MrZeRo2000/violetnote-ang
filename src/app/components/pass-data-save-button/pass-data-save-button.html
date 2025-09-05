@@ -1,5 +1,5 @@
 @if(passDataService.passDataChangedSignal()) {
-  <button mat-icon-button (click)="onSave($event)">
+  <button mat-icon-button matTooltip="Save" (click)="onSave($event)">
     <mat-icon>save</mat-icon>
   </button>
 
