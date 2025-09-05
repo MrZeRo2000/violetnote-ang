@@ -45,7 +45,6 @@ export class PassDataCategoryList {
 
   onEditClick(event: any, item: PassCategory) {
     event.stopPropagation()
-    console.log(`Editing ${JSON.stringify(item)}`);
     const dialogRef = this.dialog.open(PassDataCategoryEditForm, {
       data: item,
       minWidth: "450px"
@@ -53,7 +52,6 @@ export class PassDataCategoryList {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(`Closed with result ${JSON.stringify(result)}`);
         this.passDataSelectionService.selectedCategoryName.set(result.categoryName)
         this.passDataCRUDService.updatePassCategoryName(item, result);
       }

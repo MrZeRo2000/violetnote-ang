@@ -1,0 +1,11 @@
+@if(passDataService.passDataChangedSignal()) {
+  <button mat-icon-button (click)="onSave($event)">
+    <mat-icon>save</mat-icon>
+  </button>
+
+  @if(saveAction$ | async) {
+
+  } @else if (loading) {
+    <app-progress-spinner-overlay></app-progress-spinner-overlay>
+  }
+}

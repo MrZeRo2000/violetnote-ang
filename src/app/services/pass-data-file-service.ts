@@ -36,7 +36,7 @@ export class PassDataFileService {
     return this.passDataFileInfo$
   }
 
-  getFileInfo(): Observable<PassDataFileInfo> {
+  private getFileInfo(): Observable<PassDataFileInfo> {
     return !!this.passDataFileName ?
       this.dataSource.postResponseData<PassDataFileInfo>(
         "v2/passdata2/fileinfo",

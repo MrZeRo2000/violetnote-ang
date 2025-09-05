@@ -22,6 +22,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {SearchInput} from '../search-input/search-input';
+import {PassDataSaveButton} from '../pass-data-save-button/pass-data-save-button';
 
 @Component({
   selector: 'app-header',
@@ -38,6 +39,7 @@ import {SearchInput} from '../search-input/search-input';
     FormsModule,
     ReactiveFormsModule,
     SearchInput,
+    PassDataSaveButton,
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss'
