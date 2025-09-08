@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Confirmation</h2>
+<mat-dialog-content>
+  <ng-container
+    [ngTemplateOutlet]="data.contentTemplate"
+    [ngTemplateOutletContext]="data.contentContext"
+  ></ng-container>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton mat-dialog-close="true">Ok</button>
+  <button matButton mat-dialog-close cdkFocusInitial>Cancel</button>
+</mat-dialog-actions>
+

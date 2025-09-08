@@ -28,4 +28,12 @@ export class PassDataCRUDService {
       this.passDataService.update(passData)
     }
   }
+
+  deletePassCategory(value: PassCategory): void {
+    const passData = this.passDataService.getPassDataValue();
+    if (passData) {
+      passData.categoryList.splice(passData.categoryList.indexOf(value), 1);
+      this.passDataService.update(passData)
+    }
+  }
 }

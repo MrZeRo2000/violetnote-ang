@@ -8,6 +8,7 @@
             <button mat-icon-button (click)="onEditClick($event, item)">
               <mat-icon>edit</mat-icon>
             </button>
+
             <button mat-icon-button (click)="onDeleteClick($event, item)">
               <mat-icon>delete</mat-icon>
             </button>
@@ -23,4 +24,10 @@
       </button>
     </div>
   }
+
+  <ng-template #confirmationContentTemplate   let-item="item">
+    <p>Category <strong>{{item.categoryName}}</strong> will be deleted.</p>
+    <p>Are you sure?</p>
+  </ng-template>
+
 }
