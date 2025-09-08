@@ -8,10 +8,11 @@
             <button mat-icon-button (click)="onEditClick($event, item)">
               <mat-icon>edit</mat-icon>
             </button>
-
-            <button mat-icon-button (click)="onDeleteClick($event, item)">
-              <mat-icon>delete</mat-icon>
-            </button>
+            @if(data.length > 1) {
+              <button mat-icon-button (click)="onDeleteClick($event, item)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            }
           </div>
         }
       </mat-list-item>
