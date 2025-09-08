@@ -7,6 +7,7 @@ import {
 } from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
 import {NgTemplateOutlet} from '@angular/common';
+import {A11yModule} from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-confirmation-dialog-form',
@@ -15,7 +16,8 @@ import {NgTemplateOutlet} from '@angular/common';
     MatButton,
     MatDialogActions,
     MatDialogClose,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    A11yModule,
   ],
   templateUrl: './confirmation-dialog-form.html',
   styleUrl: './confirmation-dialog-form.scss'

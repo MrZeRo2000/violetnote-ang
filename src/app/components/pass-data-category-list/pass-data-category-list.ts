@@ -79,9 +79,8 @@ export class PassDataCategoryList {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result for confirmation ${JSON.stringify(result)}`);
       if (result) {
-        console.log('Positive result!')
-        //this.passDataSelectionService.selectedCategoryName.set(null)
-        //this.passDataCRUDService.deletePassCategory(item);
+        this.passDataSelectionService.selectedCategoryName.set(null)
+        this.passDataCRUDService.deletePassCategory(item);
       }
     })
 
