@@ -1,7 +1,12 @@
 @if(data$ | async; as data) {
-  <mat-action-list class="p0">
+  <mat-action-list class="p0" cdkDropList >
     @for(item of data; track item) {
-      <mat-list-item [ngClass]="selectedCategories().has(item) ? 'selected-list-item' : ''" (click)="onListItemClick(item)">
+      <mat-list-item
+        cdkDrag
+        cdkDragLockAxis="y"
+        [cdkDragDisabled]="passDataModeReadOnly()"
+        [ngClass]="selectedCategories().has(item) ? 'selected-list-item' : ''"
+        (click)="onListItemClick(item)">
         <p>{{item.categoryName}}</p>
         @if(!passDataModeReadOnly()) {
           <div matListItemMeta>

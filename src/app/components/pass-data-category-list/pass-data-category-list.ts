@@ -12,6 +12,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {PassDataCategoryEditForm} from '../pass-data-category-edit-form/pass-data-category-edit-form';
 import {PassDataCRUDService} from '../../services/pass-data-crud-service';
 import {ConfirmationDialogForm} from '../confirmation-dialog-form/confirmation-dialog-form';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-pass-data-category-list',
@@ -22,6 +23,7 @@ import {ConfirmationDialogForm} from '../confirmation-dialog-form/confirmation-d
     MatIconModule,
     AsyncPipe,
     NgClass,
+    DragDropModule,
   ],
   templateUrl: './pass-data-category-list.html',
   styleUrl: './pass-data-category-list.scss',
