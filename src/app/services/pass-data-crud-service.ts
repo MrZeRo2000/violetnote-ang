@@ -36,4 +36,12 @@ export class PassDataCRUDService {
       this.passDataService.update(passData)
     }
   }
+
+  movePassCategory(previousIndex: number, currentIndex: number): void {
+    const passData = this.passDataService.getPassDataValue();
+    if (passData) {
+      passData.categoryList.splice(currentIndex, 0, passData.categoryList.splice(previousIndex, 1)[0]);
+      this.passDataService.update(passData)
+    }
+  }
 }

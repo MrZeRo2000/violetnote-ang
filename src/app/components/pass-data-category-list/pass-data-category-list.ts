@@ -12,7 +12,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {PassDataCategoryEditForm} from '../pass-data-category-edit-form/pass-data-category-edit-form';
 import {PassDataCRUDService} from '../../services/pass-data-crud-service';
 import {ConfirmationDialogForm} from '../confirmation-dialog-form/confirmation-dialog-form';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, DragDropModule} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-pass-data-category-list',
@@ -103,5 +103,13 @@ export class PassDataCategoryList {
         this.passDataCRUDService.addPassCategory(result);
       }
     })
+  }
+
+  onDrop(event:  CdkDragDrop<any, any>): void {
+    const selectedCategoryName = this.passDataSelectionService.firstSelectedCategory()?.categoryName
+    if (selectedCategoryName) {
+      this.passDataSelectionService.selectedCategoryName.set(selectedCategoryName)
+    }
+    this.passDataCRUDService.movePassCategory(event.previousIndex, event.currentIndex);
   }
 }

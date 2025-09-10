@@ -1,5 +1,5 @@
 @if(data$ | async; as data) {
-  <mat-action-list class="p0" cdkDropList >
+  <mat-action-list class="p0" cdkDropList (cdkDropListDropped)="onDrop($event)" >
     @for(item of data; track item) {
       <mat-list-item
         cdkDrag

@@ -1,4 +1,4 @@
-import {inject, Injectable, OnDestroy, signal} from '@angular/core';
+import {computed, inject, Injectable, OnDestroy, signal} from '@angular/core';
 import {PassDataService} from './pass-data-service';
 import {Subscription} from 'rxjs';
 import {PassCategory, PassData, PassNote} from '../models/pass-data';
@@ -14,6 +14,9 @@ export class PassDataSelectionService implements OnDestroy {
 
   private selectedCategories = new Set<PassCategory>()
   readonly selectedCategoriesSignal = signal(new Set<PassCategory>())
+  readonly firstSelectedCategory = computed(() =>
+    this.selectedCategoriesSignal().size > 0 ? [...this.selectedCategoriesSignal()][0] : null
+  )
 
   private selectedNotes = new Array<PassNote>()
   readonly selectedNotesSignal = signal(new Array<PassNote>())
