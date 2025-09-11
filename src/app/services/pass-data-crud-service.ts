@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {PassDataService} from './pass-data-service';
-import {PassCategory} from '../models/pass-data';
+import {PassCategory, PassNote} from '../models/pass-data';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +42,22 @@ export class PassDataCRUDService {
     if (passData) {
       passData.categoryList.splice(currentIndex, 0, passData.categoryList.splice(previousIndex, 1)[0]);
       this.passDataService.update(passData)
+    }
+  }
+
+  updatePassNote(passCategory: PassCategory, value: PassNote, newValue: PassNote): void {
+    const passData = this.passDataService.getPassDataValue();
+
+    const categoryIndex = passData?.categoryList.indexOf(passCategory);
+    if (passData && (categoryIndex != undefined) && (categoryIndex !== -1)) {
+      const updateIndex = passCategory.noteList.indexOf(value)
+
+      if ((updateIndex !== undefined) && (updateIndex !== -1)) {
+        console.log(`Updating ${JSON.stringify(value)} to ${JSON.stringify(newValue)}`)
+        passData.categoryList[categoryIndex].noteList[updateIndex] = newValue;
+
+        this.passDataService.update(passData)
+      }
     }
   }
 }

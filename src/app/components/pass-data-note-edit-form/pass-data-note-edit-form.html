@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Note</h2>
+<mat-dialog-content>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton [disabled]="!editForm.valid" [mat-dialog-close]="1" (click)="onSave()">Ok</button>
+  <button matButton mat-dialog-close>Close</button>
+</mat-dialog-actions>
+

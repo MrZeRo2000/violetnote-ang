@@ -26,7 +26,7 @@
           [password]="element.password"
         ></app-copy-user-password-panel>
       } @else {
-        <button mat-icon-button color="accent">
+        <button mat-icon-button color="accent" (click)="onEditClick($event, element)">
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
 

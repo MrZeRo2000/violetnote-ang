@@ -11,6 +11,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {PassDataNoteViewForm} from '../pass-data-note-view-form/pass-data-note-view-form';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {CopyUserPasswordPanel} from '../copy-user-password-panel/copy-user-password-panel';
+import {PassDataNoteEditForm} from '../pass-data-note-edit-form/pass-data-note-edit-form';
+import {PassDataCRUDService} from '../../services/pass-data-crud-service';
 
 @Component({
   selector: 'app-pass-data-note-list',
@@ -31,6 +33,7 @@ export class PassDataNoteList implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   private readonly passDataSelectionService = inject(PassDataSelectionService)
   private readonly passDataService = inject(PassDataService)
+  private passDataCRUDService = inject(PassDataCRUDService)
   private readonly dialog = inject(MatDialog);
 
   passDataModeReadOnly = this.passDataService.passDataModeReadOnlySignal
@@ -58,5 +61,22 @@ export class PassDataNoteList implements AfterViewInit {
       data: row,
       minWidth: "450px"
     })
+  }
+
+  onEditClick(event: any, item: PassNote) {
+    event.stopPropagation();
+
+    const dialogRef = this.dialog.open(PassDataNoteEditForm, {
+      data: item,
+      minWidth: "450px"
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      const selectedCategory = this.passDataSelectionService.firstSelectedCategory();
+      if (result && selectedCategory) {
+        this.passDataCRUDService.updatePassNote(selectedCategory, item, result);
+      }
+    })
+
   }
 }
