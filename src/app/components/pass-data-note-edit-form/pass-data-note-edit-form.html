@@ -1,5 +1,16 @@
 <h2 mat-dialog-title>Note</h2>
 <mat-dialog-content>
+  <form [formGroup]="editForm" class="container">
+    <mat-form-field class="form-control">
+      <mat-label>System</mat-label>
+      <input type="text" matInput formControlName="systemControl">
+      @if (editForm.controls.systemControl.hasError('required')) {
+        <mat-error>System is <strong>required</strong></mat-error>
+      } @else if (editForm.controls.systemControl.hasError('minLength')) {
+        <mat-error>Minimum length is <strong>2</strong></mat-error>
+      }
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button matButton [disabled]="!editForm.valid" [mat-dialog-close]="1" (click)="onSave()">Ok</button>

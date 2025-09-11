@@ -1,0 +1,11 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 6px;
+}
+
+.form-control {
+  display: flex;
+  padding-top: 6px;
+  flex-grow: 1;
+}
