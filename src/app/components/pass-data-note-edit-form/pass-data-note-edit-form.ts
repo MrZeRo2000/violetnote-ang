@@ -1,5 +1,11 @@
-import {Component, inject} from '@angular/core';
-import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from '@angular/material/dialog';
+import {Component, Inject, inject} from '@angular/core';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogTitle
+} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
 import {
   AbstractControl,
@@ -11,6 +17,7 @@ import {
 } from '@angular/forms';
 import {PassDataService} from '../../services/pass-data-service';
 import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input'
+import {PassNote} from '../../models/pass-data';
 
 @Component({
   selector: 'app-pass-data-note-edit-form',
@@ -46,6 +53,14 @@ export class PassDataNoteEditForm {
       console.log('Validator returning error')
       return {'minLength': value.length};
     };
+  }
+
+  constructor(@Inject(MAT_DIALOG_DATA) private data?: PassNote) {
+    if (data) {
+      this.editForm.patchValue({
+        systemControl: data.system
+      })
+    }
   }
 
   onSave(): void {
