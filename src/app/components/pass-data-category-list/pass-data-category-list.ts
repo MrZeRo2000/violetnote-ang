@@ -44,8 +44,6 @@ export class PassDataCategoryList {
     map(v => v === null? [] : v.categoryList)
   )
 
-
-
   onListItemClick(item: PassCategory) {
     this.passDataSelectionService.selectCategory(item);
   }

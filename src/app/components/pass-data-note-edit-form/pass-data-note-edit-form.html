@@ -10,6 +10,25 @@
         <mat-error>Minimum length is <strong>2</strong></mat-error>
       }
     </mat-form-field>
+    <mat-form-field class="form-control">
+      <mat-label>User</mat-label>
+      <input type="text" matInput formControlName="userControl">
+      @if (editForm.controls.userControl.hasError('required')) {
+        <mat-error>User is <strong>required</strong></mat-error>
+      } @else if (editForm.controls.userControl.hasError('existing')) {
+        <mat-error>User for this system already exists</mat-error>
+      }
+    </mat-form-field>
+    <div class="form-container-row">
+      <mat-form-field class="form-control">
+        <mat-label>Password</mat-label>
+        <input type="input" matInput formControlName="passwordControl">
+      </mat-form-field>
+      <mat-form-field class="form-control">
+        <mat-label>Retype password</mat-label>
+        <input type="password" matInput formControlName="retypePasswordControl">
+      </mat-form-field>
+    </div>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
