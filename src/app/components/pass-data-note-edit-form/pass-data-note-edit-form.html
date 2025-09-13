@@ -23,12 +23,30 @@
       <mat-form-field class="form-control">
         <mat-label>Password</mat-label>
         <input type="input" matInput formControlName="passwordControl">
+        @if (editForm.controls.passwordControl.hasError('required')) {
+          <mat-error>Password is <strong>required</strong></mat-error>
+        }
       </mat-form-field>
       <mat-form-field class="form-control">
         <mat-label>Retype password</mat-label>
-        <input type="password" matInput formControlName="retypePasswordControl">
+        <input type="password" matInput formControlName="passwordRetypeControl">
+        @if (editForm.controls.passwordRetypeControl.hasError('required')) {
+          <mat-error>Password retype is <strong>required</strong></mat-error>
+        } @else if (editForm.controls.passwordRetypeControl.hasError('passwordMatch')) {
+          <mat-error>Password retype mismatch</mat-error>
+        }
       </mat-form-field>
     </div>
+
+    <mat-form-field class="form-control" subscriptSizing="dynamic">
+      <mat-label>URL</mat-label>
+      <input type="text" matInput formControlName="urlControl">
+    </mat-form-field>
+
+    <mat-form-field class="form-control" subscriptSizing="dynamic">
+      <mat-label>Info</mat-label>
+      <textarea matInput formControlName="infoControl" rows="2"></textarea>
+    </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>

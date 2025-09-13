@@ -47,7 +47,9 @@ export class PassDataNoteEditForm {
     systemControl: ['', [Validators.required, this.minLengthTrimmedValidator(2),]],
     userControl: ['', [Validators.required, this.existingUserValidator()]],
     passwordControl: ['', [Validators.required]],
-    retypePasswordControl: ['', [Validators.required]],
+    passwordRetypeControl: ['', [Validators.required, this.passwordMatchValidator()]],
+    urlControl: [''],
+    infoControl: [''],
   })
 
   minLengthTrimmedValidator(minLength: number): ValidatorFn {
@@ -82,6 +84,23 @@ export class PassDataNoteEditForm {
     };
   }
 
+  passwordMatchValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!this.editForm) {
+        return null;
+      }
+
+      const value = control.value
+      if (!value) {
+        return null;
+      }
+
+      const passwordValue = this.editForm.value.passwordControl;
+      return value === passwordValue ? null : {'passwordMatch': true};
+    };
+  }
+
+
   constructor(private dialogRef: MatDialogRef<PassDataNoteEditForm>,
     @Inject(MAT_DIALOG_DATA) private item?: PassNote) {
     if (item) {
@@ -89,7 +108,9 @@ export class PassDataNoteEditForm {
         systemControl: item.system,
         userControl: item.user,
         passwordControl: item.password,
-        retypePasswordControl: item.password,
+        passwordRetypeControl: item.password,
+        urlControl: item.url,
+        infoControl: item.info,
       })
     }
   }
@@ -99,7 +120,9 @@ export class PassDataNoteEditForm {
       ... this.item,
       system: this.editForm.value.systemControl!.trim(),
       user: this.editForm.value.userControl!.trim(),
-      password: this.editForm.value.passwordControl!
+      password: this.editForm.value.passwordControl!,
+      url: this.editForm.value.urlControl?.trim() || undefined,
+      info: this.editForm.value.infoControl?.trim() || undefined,
     }
     this.dialogRef.close(newItem);
   }
