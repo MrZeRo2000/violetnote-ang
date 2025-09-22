@@ -68,7 +68,7 @@ export class PassDataNoteList implements AfterViewInit {
 
     const dialogRef = this.dialog.open(PassDataNoteEditForm, {
       data: item,
-      minWidth: "450px",
+      minWidth: "650px",
     })
 
     dialogRef.afterClosed().subscribe(result => {

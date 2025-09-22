@@ -70,7 +70,7 @@ export class PassDataNoteEditForm {
       }
 
       const value = control.value.trim()
-      const systemValue = this.editForm.value.systemControl;
+      const systemValue = this.editForm.value.systemControl?.trim();
       if (!value || !systemValue) {
         return null;
       }
