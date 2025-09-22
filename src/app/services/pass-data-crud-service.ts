@@ -60,4 +60,14 @@ export class PassDataCRUDService {
       }
     }
   }
+
+  addPassNote(passCategory: PassCategory, newValue: PassNote): void {
+    const passData = this.passDataService.getPassDataValue();
+
+    const categoryIndex = passData?.categoryList.indexOf(passCategory);
+    if (passData && (categoryIndex != undefined) && (categoryIndex !== -1)) {
+      passData.categoryList[categoryIndex].noteList.push(newValue)
+      this.passDataService.update(passData)
+    }
+  }
 }

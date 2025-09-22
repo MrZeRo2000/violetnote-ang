@@ -38,11 +38,22 @@ export class PassDataNoteList implements AfterViewInit {
 
   passDataModeReadOnly = this.passDataService.passDataModeReadOnlySignal
   selectedNotes = this.passDataSelectionService.selectedNotesSignal
+  previousNotesCount = -1
   dataSource = computed(() => {
     const currentSelectedNotes = this.selectedNotes();
     const newDataSource = new MatTableDataSource<PassNote>(currentSelectedNotes)
+
+    const currentNotesCount = currentSelectedNotes.length;
+    if (this.previousNotesCount != -1) {
+      if (currentNotesCount > this.previousNotesCount) {
+        this.paginator.pageIndex = Math.ceil(this.paginator.length / this.paginator.pageSize);
+      }
+    }
+
     newDataSource.sort = this.sort
     newDataSource.paginator = this.paginator
+
+    this.previousNotesCount = currentNotesCount
     return newDataSource
   })
 
@@ -75,6 +86,22 @@ export class PassDataNoteList implements AfterViewInit {
       const selectedCategory = this.passDataSelectionService.firstSelectedCategory();
       if (result && selectedCategory) {
         this.passDataCRUDService.updatePassNote(selectedCategory, item, result);
+      }
+    })
+
+  }
+
+  onAddClick(event: any) {
+    event.stopPropagation();
+
+    const dialogRef = this.dialog.open(PassDataNoteEditForm, {
+      minWidth: "650px",
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      const selectedCategory = this.passDataSelectionService.firstSelectedCategory();
+      if (result && selectedCategory) {
+        this.passDataCRUDService.addPassNote(selectedCategory, result);
       }
     })
 
