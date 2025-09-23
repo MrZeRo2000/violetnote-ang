@@ -13,6 +13,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {CopyUserPasswordPanel} from '../copy-user-password-panel/copy-user-password-panel';
 import {PassDataNoteEditForm} from '../pass-data-note-edit-form/pass-data-note-edit-form';
 import {PassDataCRUDService} from '../../services/pass-data-crud-service';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-pass-data-note-list',
@@ -24,6 +25,7 @@ import {PassDataCRUDService} from '../../services/pass-data-crud-service';
     MatButtonModule,
     MatTooltipModule,
     CopyUserPasswordPanel,
+    DragDropModule,
   ],
   templateUrl: './pass-data-note-list.html',
   styleUrl: './pass-data-note-list.scss'
