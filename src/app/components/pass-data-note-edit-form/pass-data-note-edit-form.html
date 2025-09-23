@@ -3,12 +3,24 @@
   <form [formGroup]="editForm" class="container">
     <mat-form-field class="form-control">
       <mat-label>System</mat-label>
-      <input type="text" matInput formControlName="systemControl">
+      <input
+        type="text"
+        matInput
+        formControlName="systemControl"
+        [matAutocomplete]="auto"
+        #autoTrigger="matAutocompleteTrigger">
       @if (editForm.controls.systemControl.hasError('required')) {
         <mat-error>System is <strong>required</strong></mat-error>
       } @else if (editForm.controls.systemControl.hasError('minLength')) {
         <mat-error>Minimum length is <strong>2</strong></mat-error>
       }
+      <mat-autocomplete #auto="matAutocomplete">
+        @if(systemOptions$ | async; as systemOptions) {
+          @for (option of systemOptions; track option) {
+            <mat-option [value]="option">{{option}}</mat-option>
+          }
+        }
+      </mat-autocomplete>
     </mat-form-field>
     <mat-form-field class="form-control">
       <mat-label>User</mat-label>

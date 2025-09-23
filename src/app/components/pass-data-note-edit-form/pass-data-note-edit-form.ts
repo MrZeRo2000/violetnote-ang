@@ -1,4 +1,4 @@
-import {Component, Inject, inject} from '@angular/core';
+import {Component, Inject, inject, OnInit, ViewChild} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -18,6 +18,9 @@ import {
 import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input'
 import {PassNote} from '../../models/pass-data';
 import {PassDataSelectionService} from '../../services/pass-data-selection-service';
+import {debounceTime, distinctUntilChanged, map, Observable, of, startWith, switchMap} from 'rxjs';
+import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from '@angular/material/autocomplete';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-pass-data-note-edit-form',
@@ -32,16 +35,23 @@ import {PassDataSelectionService} from '../../services/pass-data-selection-servi
     MatInput,
     MatLabel,
     MatError,
+    MatAutocomplete,
+    MatOption,
+    AsyncPipe,
+    MatAutocompleteTrigger,
   ],
   templateUrl: './pass-data-note-edit-form.html',
   styleUrl: './pass-data-note-edit-form.scss'
 })
-export class PassDataNoteEditForm {
+export class PassDataNoteEditForm implements OnInit {
+  @ViewChild('autoTrigger', { read: MatAutocompleteTrigger }) autocompleteTrigger?: MatAutocompleteTrigger;
+
   fb = inject(FormBuilder)
   passDataSelectionService = inject(PassDataSelectionService);
 
   selectedCategory = this.passDataSelectionService.firstSelectedCategory()
-  systemOptions = [... new Set(this.selectedCategory?.noteList.map(v => v.system))].sort()
+  systemOptionsData = [... new Set(this.selectedCategory?.noteList.map(v => v.system))].sort()
+  systemOptions$: Observable<Array<string>> | undefined;
 
   editForm = this.fb.group({
     systemControl: ['', [Validators.required, this.minLengthTrimmedValidator(2),]],
@@ -127,4 +137,16 @@ export class PassDataNoteEditForm {
     this.dialogRef.close(newItem);
   }
 
+  ngOnInit(): void {
+    this.systemOptions$ = this.editForm.valueChanges.pipe(
+      startWith(null),
+      map(v => (typeof v === 'object' && v !== null && 'systemControl' in v) ? v.systemControl as string : ''),
+      map(v => v ? v : ' '),
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(v => v.length < 2 ?
+        of([]) :
+        of(this.systemOptionsData.filter(option => option.toLowerCase().includes(v.toLowerCase()))))
+    )
+  }
 }
