@@ -1,13 +1,17 @@
 <mat-table
   [dataSource]="dataSource()"
   matSort
+  [matSortDisabled]="!passDataModeReadOnly()"
   cdkDropList
-  cdkDropListData="dataSource()">
+  cdkDropListData="dataSource()"
+  (cdkDropListDropped)="onDrop($event)">
 
   <ng-container matColumnDef="system" sticky>
     <mat-header-cell *matHeaderCellDef mat-sort-header> System </mat-header-cell>
     <mat-cell *matCellDef="let element">
-        <mat-icon class="example-drag-cursor" cdkDragHandle>reorder</mat-icon>
+        @if(!passDataModeReadOnly()) {
+          <mat-icon class="example-drag-cursor" cdkDragHandle>reorder</mat-icon>
+        }
         <span>{{element.system}}</span>
     </mat-cell>
   </ng-container>
@@ -48,9 +52,14 @@
     </mat-cell>
   </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns" (click)="onRowClicked(row)" cdkDrag (cdkDragStarted)="onDragStart(row)"></mat-row>
+  <mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="onRowClicked(row)"
+    cdkDrag
+    [cdkDragData]="row"
+    (cdkDragStarted)="onDragStart(row)"></mat-row>
 </mat-table>
-@if(!passDataModeReadOnly()) {
+@if(passDataModeReadOnly()) {
   <div class="fab-right">
     <button matMiniFab (click)="onAddClick($event)">
       <mat-icon>add</mat-icon>
@@ -64,52 +73,3 @@
                [pageSize]="2"
                [pageSizeOptions]="[2, 5, 10, 25, 100]">
 </mat-paginator>
-
-<mat-table [dataSource]="dataSource()" cdkDropList matSort
-           cdkDropListData="dataSource()">
-  <!-- System Column -->
-  <ng-container matColumnDef="system" sticky>
-    <mat-header-cell *matHeaderCellDef mat-sort-header> System </mat-header-cell>
-    <mat-cell *matCellDef="let element">
-      <mat-icon class="example-drag-cursor" cdkDragHandle>reorder</mat-icon>
-      <span>{{element.system}}</span>
-    </mat-cell>
-  </ng-container>
-
-  <!-- User Column -->
-  <ng-container matColumnDef="user">
-    <mat-header-cell *matHeaderCellDef> User </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.user}} </mat-cell>
-  </ng-container>
-
-  <!-- URL Column -->
-  <ng-container matColumnDef="url">
-    <mat-header-cell *matHeaderCellDef> URL </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.url}} </mat-cell>
-  </ng-container>
-
-  <!-- actions -->
-  <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef></mat-header-cell>
-
-    <mat-cell *matCellDef="let element">
-      @if(passDataModeReadOnly()) {
-        <app-copy-user-password-panel
-          [user]="element.user"
-          [password]="element.password"
-        ></app-copy-user-password-panel>
-      } @else {
-        <button mat-icon-button color="accent" (click)="onEditClick($event, element)">
-          <mat-icon aria-label="Edit">edit</mat-icon>
-        </button>
-
-        <button mat-icon-button color="accent">
-          <mat-icon aria-label="Delete">delete</mat-icon>
-        </button>
-      }
-    </mat-cell>
-  </ng-container>
-
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;" cdkDrag [cdkDragData]="row"></mat-row>
-</mat-table>

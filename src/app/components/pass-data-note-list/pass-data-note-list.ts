@@ -13,7 +13,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {CopyUserPasswordPanel} from '../copy-user-password-panel/copy-user-password-panel';
 import {PassDataNoteEditForm} from '../pass-data-note-edit-form/pass-data-note-edit-form';
 import {PassDataCRUDService} from '../../services/pass-data-crud-service';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, DragDropModule} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-pass-data-note-list',
@@ -51,9 +51,10 @@ export class PassDataNoteList implements AfterViewInit {
         this.paginator.pageIndex = Math.ceil(this.paginator.length / this.paginator.pageSize);
       }
     }
-
-    newDataSource.sort = this.sort
-    newDataSource.paginator = this.paginator
+    if (this.passDataModeReadOnly()) {
+      newDataSource.sort = this.sort
+      newDataSource.paginator = this.paginator
+    }
 
     this.previousNotesCount = currentNotesCount
     return newDataSource
@@ -64,8 +65,10 @@ export class PassDataNoteList implements AfterViewInit {
   ngAfterViewInit(): void {
     // Initial setup for paginator and sort.
     // The computed signal will handle updates.
-    this.dataSource().paginator = this.paginator;
-    this.dataSource().sort = this.sort;
+    if (this.passDataModeReadOnly()) {
+      this.dataSource().paginator = this.paginator;
+      this.dataSource().sort = this.sort;
+    }
   }
 
   onRowClicked(row: PassNote) {
@@ -79,6 +82,17 @@ export class PassDataNoteList implements AfterViewInit {
   onDragStart(row: any) {
     console.log('Drag started for:', row);
     // Perform actions on drag start
+  }
+
+  onDrop(event: CdkDragDrop<any>) {
+     console.log('Drag drop from index:', event.previousIndex, ' to index:', event.currentIndex);
+    /*
+    const previousIndex = this.dataSource.findIndex(d => d === event.item.data);
+
+    moveItemInArray(this.dataSource, previousIndex, event.currentIndex);
+    this.table.renderRows();
+
+     */
   }
 
   onEditClick(event: any, item: PassNote) {
