@@ -12,7 +12,7 @@
 }
 
 .example-drag-cursor {
-  margin-right: 16px;
+  margin-right: 1rem;
   cursor: move;
 }
 
@@ -37,15 +37,6 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.system-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  white-space: nowrap;
-}
-
-.flex-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.mat-column-actions {
+  flex: 0 0 fit-content !important;
 }

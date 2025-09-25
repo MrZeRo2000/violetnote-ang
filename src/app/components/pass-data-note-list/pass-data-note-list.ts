@@ -76,6 +76,11 @@ export class PassDataNoteList implements AfterViewInit {
     })
   }
 
+  onDragStart(row: any) {
+    console.log('Drag started for:', row);
+    // Perform actions on drag start
+  }
+
   onEditClick(event: any, item: PassNote) {
     event.stopPropagation();
 
