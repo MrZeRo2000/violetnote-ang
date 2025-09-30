@@ -20,7 +20,7 @@
   --mat-table-row-item-label-text-size: 16px;
 }
 
-/* Styles for 4K screens (3840px width and up) */
+/*
 @media (min-width: 2560px) {
   :root {
     --mat-sys-body-large-size: 1.5rem;
@@ -67,6 +67,7 @@
   }
 }
 
+ */
 
 html {
   @include mat.theme((
