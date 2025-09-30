@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, computed, effect, inject, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, computed, effect, inject, TemplateRef, ViewChild} from '@angular/core';
 import {PassDataSelectionService} from '../../services/pass-data-selection-service';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
@@ -14,6 +14,7 @@ import {CopyUserPasswordPanel} from '../copy-user-password-panel/copy-user-passw
 import {PassDataNoteEditForm} from '../pass-data-note-edit-form/pass-data-note-edit-form';
 import {PassDataCRUDService} from '../../services/pass-data-crud-service';
 import {CdkDragDrop, DragDropModule} from '@angular/cdk/drag-drop';
+import {ConfirmationDialogForm} from '../confirmation-dialog-form/confirmation-dialog-form';
 
 @Component({
   selector: 'app-pass-data-note-list',
@@ -31,6 +32,7 @@ import {CdkDragDrop, DragDropModule} from '@angular/cdk/drag-drop';
   styleUrl: './pass-data-note-list.scss'
 })
 export class PassDataNoteList implements AfterViewInit {
+  @ViewChild('confirmationContentTemplate') confirmationContentTemplate?: TemplateRef<any>;
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   private readonly passDataSelectionService = inject(PassDataSelectionService)
@@ -143,6 +145,28 @@ export class PassDataNoteList implements AfterViewInit {
         this.passDataCRUDService.addPassNote(selectedCategory, result);
       }
     })
+  }
 
+  onDeleteClick(event: any, item: PassNote) {
+    event.stopPropagation()
+
+
+    const dialogRef = this.dialog.open(ConfirmationDialogForm, {
+      data: {
+        contentTemplate: this.confirmationContentTemplate,
+        contentContext: {item}
+      },
+      minWidth: "350px"
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result for confirmation ${JSON.stringify(result)}`);
+      if (result) {
+        const selectedCategory = this.passDataSelectionService.firstSelectedCategory();
+        if (selectedCategory) {
+          this.passDataCRUDService.deletePassNote(selectedCategory, item);
+        }
+      }
+    })
   }
 }

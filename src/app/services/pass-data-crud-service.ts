@@ -72,6 +72,17 @@ export class PassDataCRUDService {
     }
   }
 
+  deletePassNote(passCategory: PassCategory, value: PassNote): void {
+    const passData = this.passDataService.getPassDataValue();
+
+    const categoryIndex = passData?.categoryList.indexOf(passCategory);
+    if (passData && (categoryIndex != undefined) && (categoryIndex !== -1)) {
+      const noteList = passData.categoryList[categoryIndex].noteList
+      noteList.splice(noteList.indexOf(value), 1);
+      this.passDataService.update(passData)
+    }
+  }
+
   movePassNote(passCategory: PassCategory, previousIndex: number, currentIndex: number): void {
     const passData = this.passDataService.getPassDataValue();
 

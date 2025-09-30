@@ -45,7 +45,7 @@
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
 
-        <button mat-icon-button color="accent">
+        <button mat-icon-button color="accent" (click)="onDeleteClick($event, element)">
           <mat-icon aria-label="Delete">delete</mat-icon>
         </button>
       }
@@ -73,3 +73,7 @@
   </div>
 }
 
+<ng-template #confirmationContentTemplate   let-item="item">
+  <p>Note with system <strong>{{item.system}}</strong> and user <strong>{{item.user}}</strong> will be deleted.</p>
+  <p>Are you sure?</p>
+</ng-template>
