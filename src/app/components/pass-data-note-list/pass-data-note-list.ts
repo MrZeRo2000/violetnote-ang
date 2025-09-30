@@ -78,11 +78,12 @@ export class PassDataNoteList implements AfterViewInit {
         }, 0)
       } else {
         this.dataSource().paginator = null
-
-        this.sort.active = ''
-        this.sort.direction = ''
-        this.dataSource().sort = this.sort;
-        this.sort.sortChange.emit();
+        setTimeout(() => {
+          this.sort.active = ''
+          this.sort.direction = ''
+          this.dataSource().sort = this.sort;
+          this.sort.sortChange.emit();
+        }, 0)
       }
     })
   }
