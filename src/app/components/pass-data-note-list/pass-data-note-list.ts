@@ -104,20 +104,12 @@ export class PassDataNoteList implements AfterViewInit {
     })
   }
 
-  onDragStart(row: any) {
-    console.log('Drag started for:', row);
-    // Perform actions on drag start
-  }
-
   onDrop(event: CdkDragDrop<any>) {
-     console.log('Drag drop from index:', event.previousIndex, ' to index:', event.currentIndex);
-    /*
-    const previousIndex = this.dataSource.findIndex(d => d === event.item.data);
-
-    moveItemInArray(this.dataSource, previousIndex, event.currentIndex);
-    this.table.renderRows();
-
-     */
+    console.log('Drag drop from index:', event.previousIndex, ' to index:', event.currentIndex);
+    const selectedCategory = this.passDataSelectionService.firstSelectedCategory();
+    if (selectedCategory && (event.previousIndex !== event.currentIndex)) {
+      this.passDataCRUDService.movePassNote(selectedCategory, event.previousIndex, event.currentIndex);
+    }
   }
 
   onEditClick(event: any, item: PassNote) {

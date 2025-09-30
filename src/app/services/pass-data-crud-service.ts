@@ -1,6 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {PassDataService} from './pass-data-service';
 import {PassCategory, PassNote} from '../models/pass-data';
+import {moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,16 @@ export class PassDataCRUDService {
     const categoryIndex = passData?.categoryList.indexOf(passCategory);
     if (passData && (categoryIndex != undefined) && (categoryIndex !== -1)) {
       passData.categoryList[categoryIndex].noteList.push(newValue)
+      this.passDataService.update(passData)
+    }
+  }
+
+  movePassNote(passCategory: PassCategory, previousIndex: number, currentIndex: number): void {
+    const passData = this.passDataService.getPassDataValue();
+
+    const categoryIndex = passData?.categoryList.indexOf(passCategory);
+    if (passData && (categoryIndex != undefined) && (categoryIndex !== -1)) {
+      moveItemInArray(passData.categoryList[categoryIndex].noteList, previousIndex, currentIndex);
       this.passDataService.update(passData)
     }
   }

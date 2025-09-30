@@ -56,8 +56,7 @@
     *matRowDef="let row; columns: displayedColumns"
     (click)="onRowClicked(row)"
     cdkDrag
-    [cdkDragData]="row"
-    (cdkDragStarted)="onDragStart(row)"></mat-row>
+    [cdkDragData]="row"></mat-row>
 </mat-table>
 @if(passDataModeReadOnly()) {
   <mat-paginator #paginator
