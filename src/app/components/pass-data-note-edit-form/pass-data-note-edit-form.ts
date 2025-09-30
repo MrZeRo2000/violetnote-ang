@@ -86,7 +86,7 @@ export class PassDataNoteEditForm implements OnInit {
       }
 
       const duplicates = this.selectedCategory?.noteList.filter(
-        v => (v.system == systemValue) && (v.user = value) &&
+        v => (v.system == systemValue) && (v.user == value) &&
           (v.system !== this.item?.system) && (v.user !== this.item?.user)
       ) || []
 
@@ -122,6 +122,8 @@ export class PassDataNoteEditForm implements OnInit {
         urlControl: item.url,
         infoControl: item.info,
       })
+    } else {
+      console.log('No item provided');
     }
   }
 

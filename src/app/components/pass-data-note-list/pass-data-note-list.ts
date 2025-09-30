@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, computed, inject, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, computed, effect, inject, ViewChild} from '@angular/core';
 import {PassDataSelectionService} from '../../services/pass-data-selection-service';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
@@ -31,7 +31,7 @@ import {CdkDragDrop, DragDropModule} from '@angular/cdk/drag-drop';
   styleUrl: './pass-data-note-list.scss'
 })
 export class PassDataNoteList implements AfterViewInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   private readonly passDataSelectionService = inject(PassDataSelectionService)
   private readonly passDataService = inject(PassDataService)
@@ -45,27 +45,52 @@ export class PassDataNoteList implements AfterViewInit {
     const currentSelectedNotes = this.selectedNotes();
     const newDataSource = new MatTableDataSource<PassNote>(currentSelectedNotes)
 
-    const currentNotesCount = currentSelectedNotes.length;
-    if (this.previousNotesCount != -1) {
-      if (currentNotesCount > this.previousNotesCount) {
-        this.paginator.pageIndex = Math.ceil(this.paginator.length / this.paginator.pageSize);
+    if (this.paginator) {
+      const currentNotesCount = currentSelectedNotes.length;
+
+      if (this.previousNotesCount != -1) {
+        if (currentNotesCount > this.previousNotesCount) {
+          this.paginator.pageIndex = Math.ceil(this.paginator.length / this.paginator.pageSize);
+        }
       }
+
+      this.previousNotesCount = currentNotesCount
     }
-    if (this.passDataModeReadOnly()) {
+
+    if (this.passDataModeReadOnly() && this.paginator) {
       newDataSource.sort = this.sort
       newDataSource.paginator = this.paginator
     }
 
-    this.previousNotesCount = currentNotesCount
     return newDataSource
   })
 
   displayedColumns: string[] = ['system', 'user', 'url', 'actions'];
 
+  constructor() {
+    effect(() => {
+      if (this.passDataModeReadOnly()){
+        setTimeout(() => {
+          if (this.paginator) {
+            this.paginator.pageIndex = 0;
+            this.dataSource().paginator = this.paginator
+          }
+        }, 0)
+      } else {
+        this.dataSource().paginator = null
+
+        this.sort.active = ''
+        this.sort.direction = ''
+        this.dataSource().sort = this.sort;
+        this.sort.sortChange.emit();
+      }
+    })
+  }
+
   ngAfterViewInit(): void {
     // Initial setup for paginator and sort.
     // The computed signal will handle updates.
-    if (this.passDataModeReadOnly()) {
+    if (this.passDataModeReadOnly() && this.paginator) {
       this.dataSource().paginator = this.paginator;
       this.dataSource().sort = this.sort;
     }
