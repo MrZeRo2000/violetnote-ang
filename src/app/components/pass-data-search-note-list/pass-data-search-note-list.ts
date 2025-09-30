@@ -8,6 +8,10 @@ import {tap} from 'rxjs';
 import {PassDataNoteViewForm} from '../pass-data-note-view-form/pass-data-note-view-form';
 import {MatDialog} from '@angular/material/dialog';
 import {AsyncPipe} from '@angular/common';
+import {CopyUserPasswordPanel} from '../copy-user-password-panel/copy-user-password-panel';
+import {MatIconButton} from '@angular/material/button';
+import {PassDataService} from '../../services/pass-data-service';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-pass-data-search-note-list',
@@ -16,6 +20,9 @@ import {AsyncPipe} from '@angular/common';
     MatSortModule,
     MatPaginatorModule,
     AsyncPipe,
+    CopyUserPasswordPanel,
+    MatIcon,
+    MatIconButton,
   ],
   templateUrl: './pass-data-search-note-list.html',
   styleUrl: './pass-data-search-note-list.scss'
@@ -25,9 +32,11 @@ export class PassDataSearchNoteList implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   private readonly dialog = inject(MatDialog);
+  private passDataService = inject(PassDataService)
   private passDataSearchService = inject(PassDataSearchService)
+  passDataModeReadOnly = this.passDataService.passDataModeReadOnlySignal
 
-  displayedColumns: string[] = ['categoryName', 'system', 'user', 'url'];
+  displayedColumns: string[] = ['categoryName', 'system', 'user', 'url', 'actions'];
 
   private sortDataAccessor(item: PassDataSearchResult, headerId: string): string  {
       // Check if the headerId matches the dictionary property

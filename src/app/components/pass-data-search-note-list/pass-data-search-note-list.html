@@ -1,29 +1,51 @@
 @if(data$ | async) {}
 
-<table mat-table [dataSource]="dataSource()" matSort>
+<mat-table [dataSource]="dataSource()" matSort>
   <ng-container matColumnDef="categoryName">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
-    <td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.categoryName}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="system">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> System </th>
-    <td mat-cell *matCellDef="let element"> {{element.passNote.system}} </td>
+    <mat-header-cell *matHeaderCellDef mat-sort-header> System </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.passNote.system}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="user">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> User </th>
-    <td mat-cell *matCellDef="let element"> {{element.passNote.user}} </td>
+    <mat-header-cell *matHeaderCellDef mat-sort-header> User </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.passNote.user}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="url">
-    <th mat-header-cell *matHeaderCellDef> URL </th>
-    <td mat-cell *matCellDef="let element"> {{element.passNote.url}} </td>
+    <mat-header-cell *matHeaderCellDef> URL </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.passNote.url}} </mat-cell>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></tr>
-</table>
+  <!-- actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+
+    <mat-cell *matCellDef="let element">
+      @if(passDataModeReadOnly()) {
+        <app-copy-user-password-panel
+          [user]="element.passNote.user"
+          [password]="element.passNote.password"
+        ></app-copy-user-password-panel>
+      } @else {
+        <button mat-icon-button color="accent">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
+</mat-table>
 
 <mat-paginator #paginator
                [length]="dataSource().filteredData.length"
