@@ -3,7 +3,6 @@ import {PassDataService} from '../../services/pass-data-service';
 import {PassDataSearchService} from '../../services/pass-data-search-service';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {
-  BehaviorSubject,
   debounceTime,
   distinctUntilChanged, map,
   Observable,
@@ -48,11 +47,7 @@ export class SearchInput implements OnInit {
     searchControl: ['', Validators.min(2)],
   })
 
-  searchValueSublect = new BehaviorSubject<string | null>(null);
-  searchValueAction$ = this.searchValueSublect.asObservable().pipe(
-    map(v => v && v.length > 1 ? v : null),
-    tap(v => this.passDataSearchService.search(v))
-  )
+  searchValueAction$ = this.passDataSearchService.searchValueAction$
 
   searchResultAction$ = this.passDataSearchService.searchResultAction$.pipe(
     distinctUntilChanged(),
@@ -90,20 +85,20 @@ export class SearchInput implements OnInit {
 
   onOptionSelected(event: MatAutocompleteSelectedEvent) {
     console.log(`Search option selected: ${event.option.value}`);
-    this.searchValueSublect.next(event.option.value)
+    this.passDataSearchService.searchValueSublect.next(event.option.value)
   }
 
   onClear(event: any): void {
     event.stopPropagation();
     this.searchForm.patchValue({searchControl: undefined});
-    this.searchValueSublect.next(null)
+    this.passDataSearchService.searchValueSublect.next(null)
   }
 
   onSearch(event: any): void {
     event.stopPropagation();
     event.stopPropagation();
     if (this.searchForm.valid) {
-      this.searchValueSublect.next(this.searchForm.value.searchControl || null);
+      this.passDataSearchService.searchValueSublect.next(this.searchForm.value.searchControl || null);
       this.autocompleteTrigger?.closePanel();
     }
   }

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, signal, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, inject, signal, TemplateRef, ViewChild} from '@angular/core';
 import { PassDataSearchService } from "../../services/pass-data-search-service";
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from '@angular/material/sort';
@@ -12,6 +12,9 @@ import {CopyUserPasswordPanel} from '../copy-user-password-panel/copy-user-passw
 import {MatIconButton} from '@angular/material/button';
 import {PassDataService} from '../../services/pass-data-service';
 import {MatIcon} from '@angular/material/icon';
+import {PassDataNoteEditForm} from '../pass-data-note-edit-form/pass-data-note-edit-form';
+import {PassDataCRUDService} from '../../services/pass-data-crud-service';
+import {ConfirmationDialogForm} from '../confirmation-dialog-form/confirmation-dialog-form';
 
 @Component({
   selector: 'app-pass-data-search-note-list',
@@ -28,12 +31,14 @@ import {MatIcon} from '@angular/material/icon';
   styleUrl: './pass-data-search-note-list.scss'
 })
 export class PassDataSearchNoteList implements AfterViewInit {
+  @ViewChild('confirmationContentTemplate') confirmationContentTemplate?: TemplateRef<PassDataSearchResult>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   private readonly dialog = inject(MatDialog);
   private passDataService = inject(PassDataService)
   private passDataSearchService = inject(PassDataSearchService)
+  private passDataCRUDService = inject(PassDataCRUDService)
   passDataModeReadOnly = this.passDataService.passDataModeReadOnlySignal
 
   displayedColumns: string[] = ['categoryName', 'system', 'user', 'url', 'actions'];
@@ -82,5 +87,48 @@ export class PassDataSearchNoteList implements AfterViewInit {
     })
   }
 
+  onEditClick(event: any, item: PassDataSearchResult) {
+    event.stopPropagation();
+
+    const dialogRef = this.dialog.open(PassDataNoteEditForm, {
+      data: item.passNote,
+      minWidth: "650px",
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      const category = this.passDataService
+        .getPassDataValue()?.
+        categoryList?.
+        find(v => v.categoryName === item.categoryName)
+      if (result && category) {
+        this.passDataCRUDService.updatePassNote(category, item.passNote, result);
+        this.passDataSearchService.searchValueSublect.next(this.passDataSearchService.searchValueSublect.value)
+      }
+    })
+
+  }
+
+  onDeleteClick(event: any, item: PassDataSearchResult) {
+    event.stopPropagation()
+
+    const dialogRef = this.dialog.open(ConfirmationDialogForm, {
+      data: {
+        contentTemplate: this.confirmationContentTemplate,
+        contentContext: {item}
+      },
+      minWidth: "350px"
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      const category = this.passDataService
+        .getPassDataValue()?.
+        categoryList?.
+        find(v => v.categoryName === item.categoryName)
+      if (result && category) {
+        this.passDataCRUDService.deletePassNote(category, item.passNote);
+        this.passDataSearchService.searchValueSublect.next(this.passDataSearchService.searchValueSublect.value)
+      }
+    })
+  }
 
 }

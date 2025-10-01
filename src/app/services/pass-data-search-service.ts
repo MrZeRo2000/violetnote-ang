@@ -1,6 +1,6 @@
 import {inject, Injectable, OnDestroy} from '@angular/core';
 import {PassDataService} from './pass-data-service';
-import {BehaviorSubject, Observable, of, Subject, Subscription, tap} from 'rxjs';
+import {BehaviorSubject, map, Observable, of, Subscription, tap} from 'rxjs';
 import {PassData, PassDataSearchResult} from '../models/pass-data';
 
 @Injectable({
@@ -11,6 +11,12 @@ export class PassDataSearchService implements OnDestroy {
   private passDataServiceSubscription: Subscription
 
   private passData: PassData | null = null;
+
+  searchValueSublect = new BehaviorSubject<string | null>(null);
+  searchValueAction$ = this.searchValueSublect.asObservable().pipe(
+    map(v => v && v.length > 1 ? v : null),
+    tap(v => this.search(v))
+  )
 
   private searchResultSubject = new BehaviorSubject<Array<PassDataSearchResult> | null>(null);
   searchResultAction$ = this.searchResultSubject.asObservable().pipe(

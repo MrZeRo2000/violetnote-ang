@@ -32,11 +32,11 @@
           [password]="element.passNote.password"
         ></app-copy-user-password-panel>
       } @else {
-        <button mat-icon-button color="accent">
+        <button mat-icon-button color="accent" (click)="onEditClick($event, element)">
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
 
-        <button mat-icon-button color="accent">
+        <button mat-icon-button color="accent" (click)="onDeleteClick($event, element)">
           <mat-icon aria-label="Delete">delete</mat-icon>
         </button>
       }
@@ -54,3 +54,7 @@
                [pageSizeOptions]="[2, 5, 10, 25, 100]">
 </mat-paginator>
 
+<ng-template #confirmationContentTemplate   let-item="item">
+  <p>Note with system <strong>{{item.passNote.system}}</strong> and user <strong>{{item.passNote.user}}</strong> in category <strong>{{item.categoryName}}</strong> will be deleted .</p>
+  <p>Are you sure?</p>
+</ng-template>
