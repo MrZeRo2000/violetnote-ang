@@ -26,7 +26,11 @@
   <ng-container matColumnDef="url">
     <mat-header-cell *matHeaderCellDef> URL </mat-header-cell>
     <mat-cell *matCellDef="let element">
-      {{element.url}}
+      @if(UrlUtils.isValidURL(element.url)) {
+        <a [href]=element.url target="_blank" (click)="$event.stopPropagation()">{{element.url}}</a>
+      } @else {
+        {{element.url}}
+      }
     </mat-cell>
   </ng-container>
 

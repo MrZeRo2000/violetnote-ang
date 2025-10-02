@@ -15,6 +15,7 @@ import {MatIcon} from '@angular/material/icon';
 import {PassDataNoteEditForm} from '../pass-data-note-edit-form/pass-data-note-edit-form';
 import {PassDataCRUDService} from '../../services/pass-data-crud-service';
 import {ConfirmationDialogForm} from '../confirmation-dialog-form/confirmation-dialog-form';
+import {UrlUtils} from '../../utils/url-utils';
 
 @Component({
   selector: 'app-pass-data-search-note-list',
@@ -40,6 +41,8 @@ export class PassDataSearchNoteList implements AfterViewInit {
   private passDataSearchService = inject(PassDataSearchService)
   private passDataCRUDService = inject(PassDataCRUDService)
   passDataModeReadOnly = this.passDataService.passDataModeReadOnlySignal
+
+  UrlUtils = UrlUtils
 
   displayedColumns: string[] = ['categoryName', 'system', 'user', 'url', 'actions'];
 

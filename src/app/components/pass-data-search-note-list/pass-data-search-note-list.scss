@@ -6,7 +6,17 @@
   background-color: rgba(0, 0, 0, 0.01); /* Provides a hover effect */
 }
 
-.mat-column-categoryName, .mat-column-system, .mat-column-user {
+.mat-column-categoryName {
+  flex: 0 0 20% !important;
+  min-width: 200px !important;
+}
+
+.mat-column-system {
+  flex: 0 0 20% !important;
+  min-width: 200px !important;
+}
+
+.mat-column-user {
   flex: 0 0 25% !important;
   min-width: 200px !important;
   white-space: nowrap
@@ -15,6 +25,7 @@
 mat-column-url {
   flex: 1 1 auto;
   min-width: 250px !important;
+  white-space: nowrap
 }
 
 .mat-column-actions {

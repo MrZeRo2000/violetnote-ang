@@ -18,7 +18,13 @@
 
   <ng-container matColumnDef="url">
     <mat-header-cell *matHeaderCellDef> URL </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.passNote.url}} </mat-cell>
+    <mat-cell *matCellDef="let element">
+      @if(UrlUtils.isValidURL(element.passNote.url)) {
+        <a [href]=element.passNote.url target="_blank" (click)="$event.stopPropagation()">{{element.passNote.url}}</a>
+      } @else {
+        {{element.passNote.url}}
+      }
+    </mat-cell>
   </ng-container>
 
   <!-- actions -->

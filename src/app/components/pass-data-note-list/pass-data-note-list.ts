@@ -15,6 +15,7 @@ import {PassDataNoteEditForm} from '../pass-data-note-edit-form/pass-data-note-e
 import {PassDataCRUDService} from '../../services/pass-data-crud-service';
 import {CdkDragDrop, DragDropModule} from '@angular/cdk/drag-drop';
 import {ConfirmationDialogForm} from '../confirmation-dialog-form/confirmation-dialog-form';
+import {UrlUtils} from '../../utils/url-utils';
 
 @Component({
   selector: 'app-pass-data-note-list',
@@ -39,6 +40,8 @@ export class PassDataNoteList implements AfterViewInit {
   private readonly passDataService = inject(PassDataService)
   private passDataCRUDService = inject(PassDataCRUDService)
   private readonly dialog = inject(MatDialog);
+
+  UrlUtils = UrlUtils;
 
   passDataModeReadOnly = this.passDataService.passDataModeReadOnlySignal
   selectedNotes = this.passDataSelectionService.selectedNotesSignal
