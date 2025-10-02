@@ -12,7 +12,7 @@ import {Subscription} from 'rxjs';
     MatSidenavModule,
     PassDataCategoryList,
     PassDataNoteList,
-    AsyncPipe
+    AsyncPipe,
   ],
   templateUrl: './pass-data-host.html',
   styleUrl: './pass-data-host.scss'
