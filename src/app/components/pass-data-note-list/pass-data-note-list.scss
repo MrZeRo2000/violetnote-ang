@@ -32,9 +32,14 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.mat-column-system, .mat-column-user {
-  flex: 0 0 15% !important;
-  min-width: 150px !important;
+.mat-column-system{
+  flex: 0 0 30% !important;
+  min-width: 200px !important;
+}
+
+.mat-column-user {
+  flex: 0 0 30% !important;
+  min-width: 200px !important;
   white-space: nowrap
 }
 
