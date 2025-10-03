@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnDestroy, signal} from '@angular/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
@@ -6,13 +6,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {PassDataFileService} from '../../services/pass-data-file-service';
 import {
-  combineLatest,
-  map,
+  combineLatest, filter,
+  map, Subscription,
   tap,
 } from 'rxjs';
 import {AppConfigService} from '../../services/app-config-service';
 import {AsyncPipe} from '@angular/common';
-import {Router } from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import packageJson from '../../../../package.json';
 import {PassDataService} from '../../services/pass-data-service';
 import {ScreenService} from '../../services/screen-service';
@@ -44,12 +44,14 @@ import {PassDataSaveButton} from '../pass-data-save-button/pass-data-save-button
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })
-export class Header {
+export class Header implements OnDestroy {
   router = inject(Router)
   appConfigService = inject(AppConfigService)
   passDataService = inject(PassDataService)
   passDataFileService = inject(PassDataFileService)
   screenService = inject(ScreenService);
+
+  private routerSubscription: Subscription;
 
   readonly version?: string = packageJson.version;
 
@@ -72,6 +74,21 @@ export class Header {
       console.log(`Mode: ${this.passDataService.passDataModeSignal()}`)
     })
   )
+
+  mainRouteSignal = signal(false)
+
+  constructor() {
+    this.routerSubscription = this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe(v => {
+      const currentRoute = v.urlAfterRedirects
+      this.mainRouteSignal.set(currentRoute.endsWith('main'))
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.routerSubscription.unsubscribe();
+  }
 
   onSettingsClick() {
     this.router.navigate([""], {

@@ -21,7 +21,7 @@ export class PassDataSearchService implements OnDestroy {
   private searchResultSubject = new BehaviorSubject<Array<PassDataSearchResult> | null>(null);
   searchResultAction$ = this.searchResultSubject.asObservable().pipe(
     tap(v => {
-      console.log(`Emitted search result: ${JSON.stringify(v)}`);
+      console.debug(`Emitted search result: ${JSON.stringify(v)}`);
     })
   );
 

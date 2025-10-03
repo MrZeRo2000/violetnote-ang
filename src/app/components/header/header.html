@@ -1,6 +1,6 @@
 <mat-toolbar class="top-toolbar">
   @if(screenService.smallScreen$ | async; as smallScreen) {
-    @if(smallScreen['matches']) {
+    @if(smallScreen['matches'] && mainRouteSignal()) {
       <button
         mat-icon-button
         aria-label="Menu"
