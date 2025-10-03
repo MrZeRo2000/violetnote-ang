@@ -10,7 +10,7 @@
       </button>
     }
   }
-  <span class="mr-2">My App</span>
+  <span class="mr-2">VioletNote</span>
   @if(data$ | async; as data){
     <span class="font-label mr-2">
       {{version}} <small>({{data.appInfo.version}})</small>
@@ -20,13 +20,6 @@
   <div class="search-bar">
     <app-search-input></app-search-input>
   </div>
-
-  <button matButton="filled" mat-button [matMenuTriggerFor]="docsMenu">Docs</button>
-  <mat-menu #docsMenu="matMenu">
-    <button mat-menu-item>Guide</button>
-    <button mat-menu-item>API</button>
-    <button mat-menu-item>Examples</button>
-  </mat-menu>
 
   <mat-button-toggle-group name="passDataMode" aria-label="Mode" class="mr-2" [ngModel]="passDataService.passDataModeSignal()" (ngModelChange)="passDataService.setPassDataMode($event)">
     <mat-button-toggle [value]="PassDataMode.PDM_VIEW">View</mat-button-toggle>
