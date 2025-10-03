@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, computed, effect, inject, TemplateRef, ViewChild} from '@angular/core';
 import {PassDataSelectionService} from '../../services/pass-data-selection-service';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from '@angular/material/sort';
 import {PassNote} from '../../models/pass-data';
 import {MatIconModule} from '@angular/material/icon';
@@ -16,6 +16,7 @@ import {PassDataCRUDService} from '../../services/pass-data-crud-service';
 import {CdkDragDrop, DragDropModule} from '@angular/cdk/drag-drop';
 import {ConfirmationDialogForm} from '../confirmation-dialog-form/confirmation-dialog-form';
 import {UrlUtils} from '../../utils/url-utils';
+import {PaginatorService} from '../../services/paginator-service';
 
 @Component({
   selector: 'app-pass-data-note-list',
@@ -40,6 +41,7 @@ export class PassDataNoteList implements AfterViewInit {
   private readonly passDataService = inject(PassDataService)
   private passDataCRUDService = inject(PassDataCRUDService)
   private readonly dialog = inject(MatDialog);
+  private paginatorService = inject(PaginatorService)
 
   UrlUtils = UrlUtils;
 
@@ -51,6 +53,7 @@ export class PassDataNoteList implements AfterViewInit {
     const newDataSource = new MatTableDataSource<PassNote>(currentSelectedNotes)
 
     if (this.paginator) {
+      /*
       const currentNotesCount = currentSelectedNotes.length;
 
       if (this.previousNotesCount != -1) {
@@ -60,6 +63,9 @@ export class PassDataNoteList implements AfterViewInit {
       }
 
       this.previousNotesCount = currentNotesCount
+
+       */
+      this.paginator.pageIndex = 0
     }
 
     if (this.passDataModeReadOnly() && this.paginator) {
@@ -99,6 +105,7 @@ export class PassDataNoteList implements AfterViewInit {
     if (this.passDataModeReadOnly() && this.paginator) {
       this.dataSource().paginator = this.paginator;
       this.dataSource().sort = this.sort;
+      this.paginatorService.setupPaginator(this.paginator);
     }
   }
 
@@ -108,6 +115,10 @@ export class PassDataNoteList implements AfterViewInit {
       data: row,
       minWidth: "450px"
     })
+  }
+
+  onPageChange(event: PageEvent) {
+    this.paginatorService.pageSize = event.pageSize
   }
 
   onDrop(event: CdkDragDrop<any>) {

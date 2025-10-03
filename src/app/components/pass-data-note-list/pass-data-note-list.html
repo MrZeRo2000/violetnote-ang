@@ -66,8 +66,7 @@
   <mat-paginator #paginator
                  [length]="dataSource().filteredData.length"
                  [pageIndex]="0"
-                 [pageSize]="2"
-                 [pageSizeOptions]="[2, 5, 10, 25, 100]">
+                 (page)="onPageChange($event)">
   </mat-paginator>
 } @else {
   <div class="fab-right">

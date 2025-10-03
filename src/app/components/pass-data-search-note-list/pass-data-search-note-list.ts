@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, inject, signal, TemplateRef, ViewChild} from '@angular/core';
 import { PassDataSearchService } from "../../services/pass-data-search-service";
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {PassDataSearchResult} from '../../models/pass-data';
@@ -16,6 +16,7 @@ import {PassDataNoteEditForm} from '../pass-data-note-edit-form/pass-data-note-e
 import {PassDataCRUDService} from '../../services/pass-data-crud-service';
 import {ConfirmationDialogForm} from '../confirmation-dialog-form/confirmation-dialog-form';
 import {UrlUtils} from '../../utils/url-utils';
+import {PaginatorService} from '../../services/paginator-service';
 
 @Component({
   selector: 'app-pass-data-search-note-list',
@@ -40,6 +41,8 @@ export class PassDataSearchNoteList implements AfterViewInit {
   private passDataService = inject(PassDataService)
   private passDataSearchService = inject(PassDataSearchService)
   private passDataCRUDService = inject(PassDataCRUDService)
+  private paginatorService = inject(PaginatorService)
+
   passDataModeReadOnly = this.passDataService.passDataModeReadOnlySignal
 
   UrlUtils = UrlUtils
@@ -80,6 +83,7 @@ export class PassDataSearchNoteList implements AfterViewInit {
     this.dataSourceSignal().sortingDataAccessor = this.sortDataAccessor
     this.dataSourceSignal().paginator = this.paginator;
     this.dataSourceSignal().sort = this.sort;
+    this.paginatorService.setupPaginator(this.paginator);
   }
 
   onRowClicked(row: PassDataSearchResult) {
@@ -88,6 +92,10 @@ export class PassDataSearchNoteList implements AfterViewInit {
       data: row.passNote,
       minWidth: "450px"
     })
+  }
+
+  onPageChange(event: PageEvent) {
+    this.paginatorService.pageSize = event.pageSize
   }
 
   onEditClick(event: any, item: PassDataSearchResult) {
