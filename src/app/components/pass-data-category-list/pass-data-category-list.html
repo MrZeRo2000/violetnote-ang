@@ -1,0 +1,39 @@
+@if(data$ | async; as data) {
+  <mat-action-list class="p0" cdkDropList (cdkDropListDropped)="onDrop($event)" >
+    @for(item of data; track item) {
+      <mat-list-item
+        cdkDrag
+        cdkDragLockAxis="y"
+        [cdkDragDisabled]="passDataModeReadOnly()"
+        [ngClass]="selectedCategories().has(item) ? 'selected-list-item' : ''"
+        (click)="onListItemClick(item)">
+        <p>{{item.categoryName}}</p>
+        @if(!passDataModeReadOnly()) {
+          <div matListItemMeta>
+            <button mat-icon-button (click)="onEditClick($event, item)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            @if(data.length > 1) {
+              <button mat-icon-button (click)="onDeleteClick($event, item)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            }
+          </div>
+        }
+      </mat-list-item>
+    }
+  </mat-action-list>
+  @if(!passDataModeReadOnly()) {
+    <div class="fab-right">
+      <button matMiniFab (click)="onAddClick($event)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  }
+
+  <ng-template #confirmationContentTemplate   let-item="item">
+    <p>Category <strong>{{item.categoryName}}</strong> will be deleted.</p>
+    <p>Are you sure?</p>
+  </ng-template>
+
+}

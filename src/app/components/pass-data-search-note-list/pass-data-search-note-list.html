@@ -1,0 +1,65 @@
+@if(data$ | async) {}
+
+<mat-table [dataSource]="dataSource()" matSort>
+  <ng-container matColumnDef="categoryName">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.categoryName}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="system">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> System </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.passNote.system}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="user">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> User </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.passNote.user}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="url">
+    <mat-header-cell *matHeaderCellDef> URL </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      @if(UrlUtils.isValidURL(element.passNote.url)) {
+        <a [href]=element.passNote.url target="_blank" (click)="$event.stopPropagation()">{{element.passNote.url}}</a>
+      } @else {
+        {{element.passNote.url}}
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+
+    <mat-cell *matCellDef="let element">
+      @if(passDataModeReadOnly()) {
+        <app-copy-user-password-panel
+          [user]="element.passNote.user"
+          [password]="element.passNote.password"
+        ></app-copy-user-password-panel>
+      } @else {
+        <button mat-icon-button color="accent" (click)="onEditClick($event, element)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" (click)="onDeleteClick($event, element)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></mat-row>
+</mat-table>
+
+<mat-paginator #paginator
+               [length]="dataSource().filteredData.length"
+               [pageIndex]="0"
+               (page)="onPageChange($event)">
+</mat-paginator>
+
+<ng-template #confirmationContentTemplate   let-item="item">
+  <p>Note with system <strong>{{item.passNote.system}}</strong> and user <strong>{{item.passNote.user}}</strong> in category <strong>{{item.categoryName}}</strong> will be deleted .</p>
+  <p>Are you sure?</p>
+</ng-template>

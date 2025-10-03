@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>Edit note</h2>
+<mat-dialog-content>
+  <form [formGroup]="editForm" class="container">
+    <mat-form-field class="form-control">
+      <mat-label>System</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="systemControl"
+        [matAutocomplete]="auto"
+        #autoTrigger="matAutocompleteTrigger">
+      @if (editForm.controls.systemControl.hasError('required')) {
+        <mat-error>System is <strong>required</strong></mat-error>
+      } @else if (editForm.controls.systemControl.hasError('minLength')) {
+        <mat-error>Minimum length is <strong>2</strong></mat-error>
+      }
+      <mat-autocomplete #auto="matAutocomplete">
+        @if(systemOptions$ | async; as systemOptions) {
+          @for (option of systemOptions; track option) {
+            <mat-option [value]="option">{{option}}</mat-option>
+          }
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="form-control">
+      <mat-label>User</mat-label>
+      <input type="text" matInput formControlName="userControl">
+      @if (editForm.controls.userControl.hasError('required')) {
+        <mat-error>User is <strong>required</strong></mat-error>
+      } @else if (editForm.controls.userControl.hasError('existing')) {
+        <mat-error>User for this system already exists</mat-error>
+      }
+    </mat-form-field>
+    <div class="form-container-row">
+      <mat-form-field class="form-control">
+        <mat-label>Password</mat-label>
+        <input type="input" matInput formControlName="passwordControl">
+        @if (editForm.controls.passwordControl.hasError('required')) {
+          <mat-error>Password is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="form-control">
+        <mat-label>Retype password</mat-label>
+        <input type="password" matInput formControlName="passwordRetypeControl">
+        @if (editForm.controls.passwordRetypeControl.hasError('required')) {
+          <mat-error>Password retype is <strong>required</strong></mat-error>
+        } @else if (editForm.controls.passwordRetypeControl.hasError('passwordMatch')) {
+          <mat-error>Password retype mismatch</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="form-control" subscriptSizing="dynamic">
+      <mat-label>URL</mat-label>
+      <input type="text" matInput formControlName="urlControl">
+    </mat-form-field>
+
+    <mat-form-field class="form-control" subscriptSizing="dynamic">
+      <mat-label>Info</mat-label>
+      <textarea matInput formControlName="infoControl" rows="2"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton [disabled]="!editForm.valid" [mat-dialog-close]="1" (click)="onSave()">Ok</button>
+  <button matButton mat-dialog-close>Close</button>
+</mat-dialog-actions>
+

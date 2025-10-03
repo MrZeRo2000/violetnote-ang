@@ -1,67 +1,59 @@
-# VioletnoteAng
+# VioletnoteMatAng
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.1.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+To start a local development server, run:
+
+```bash
+ng serve
+```
+
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
 ## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-## Build
+```bash
+ng generate component component-name
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+
+```bash
+ng generate --help
+```
+
+## Building
+
+To build the project run:
+
+```bash
+ng build
+```
+
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+
+```bash
+ng test
+```
 
 ## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+For end-to-end (e2e) testing, run:
 
+```bash
+ng e2e
+```
 
-## Install:
-npm install -g @angular/cli
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## New application:
-ng new violetnote-ang
+## Additional Resources
 
-## Start server:
-ng serve --open
-
-## Install bootstrap:
-npm install bootstrap@4.1.1 jquery --save
-
-## Generate component:
-ng generate component password
-
-## Generate service:
-ng generate service PassData  
-
-## Deploy:
-ng build --prod --base-href=/violetnote-ang/
-copy from dist to webapps directory
-
-## Update angular to latest version
-ng update @angular/cli @angular/core
-
-## Update dev software to latest version
-npm install @types/jasmine@latest @types/node@latest codelyzer@latest karma@latest karma-chrome-launcher@latest karma-cli@latest karma-jasmine@latest karma-jasmine-html-reporter@latest jasmine-core@latest jasmine-spec-reporter@latest protractor@latest tslint@latest webpack@latest rxjs-tslint@latest
-
-## Update dependency to latest version
-ng update ngx-bootstrap
-
-## Full update angular to latest version
-ng update @angular/cli @angular/core @angular/animations @angular/cdk @angular/common  @angular/compiler @angular/forms @angular/platform-browser @angular/platform-browser-dynamic @angular/router
-
-## Dummy image settings
-https://i.pickadummy.com/300x100&wash=AF7FA1&brightness=0
-
-## Upgrade to Angular 13
-npx @angular/cli@13 update @angular/core@13 @angular/cli@13 --force
-
-## Upgrade to Angular 16
-ng update @angular/core@16 @angular/cli@16 @angular/cdk@16 --allow-dirty --force
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

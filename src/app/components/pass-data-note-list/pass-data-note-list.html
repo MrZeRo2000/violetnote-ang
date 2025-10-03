@@ -1,0 +1,83 @@
+<mat-table
+  [dataSource]="dataSource()"
+  matSort
+  [matSortDisabled]="!passDataModeReadOnly()"
+  cdkDropList
+  cdkDropListData="dataSource()"
+  (cdkDropListDropped)="onDrop($event)">
+
+  <ng-container matColumnDef="system" sticky>
+    <mat-header-cell *matHeaderCellDef mat-sort-header> System </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+        @if(!passDataModeReadOnly()) {
+          <mat-icon class="example-drag-cursor" cdkDragHandle>reorder</mat-icon>
+        }
+        <span>{{element.system}}</span>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="user">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> User </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{element.user}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="url">
+    <mat-header-cell *matHeaderCellDef> URL </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      @if(UrlUtils.isValidURL(element.url)) {
+        <a [href]=element.url target="_blank" (click)="$event.stopPropagation()">{{element.url}}</a>
+      } @else {
+        {{element.url}}
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+
+    <mat-cell *matCellDef="let element">
+      @if(passDataModeReadOnly()) {
+        <app-copy-user-password-panel
+          [user]="element.user"
+          [password]="element.password"
+        ></app-copy-user-password-panel>
+      } @else {
+        <button mat-icon-button color="accent" (click)="onEditClick($event, element)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" (click)="onDeleteClick($event, element)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      }
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="onRowClicked(row)"
+    cdkDrag
+    [cdkDragDisabled]="passDataModeReadOnly()"
+    [cdkDragData]="row"></mat-row>
+</mat-table>
+@if(passDataModeReadOnly()) {
+  <mat-paginator #paginator
+                 [length]="dataSource().filteredData.length"
+                 [pageIndex]="0"
+                 (page)="onPageChange($event)">
+  </mat-paginator>
+} @else {
+  <div class="fab-right">
+    <button matMiniFab (click)="onAddClick($event)">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+}
+
+<ng-template #confirmationContentTemplate   let-item="item">
+  <p>Note with system <strong>{{item.system}}</strong> and user <strong>{{item.user}}</strong> will be deleted.</p>
+  <p>Are you sure?</p>
+</ng-template>

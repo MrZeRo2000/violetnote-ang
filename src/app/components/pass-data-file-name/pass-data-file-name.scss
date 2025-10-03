@@ -1,0 +1,32 @@
+.example-container {
+  margin:auto;
+  min-width: 200px;
+  max-width: 1000px;
+}
+
+.example-form {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.example-form-element {
+  flex: 0 0 100%;
+  padding: 1rem 0 1rem 0;
+}
+
+.example-button-container {
+  display: flex;
+  max-width: fit-content;
+  align-self: flex-end;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+@media (min-width: 2560px) {
+  .example-container {
+    max-width: 1500px;
+  }
+}

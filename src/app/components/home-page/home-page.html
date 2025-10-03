@@ -1,0 +1,11 @@
+@if(data$ | async; as data) {
+  @if (data.passDataFileInfo && data.appInfo) {
+    @if(data.passDataFileInfo.exists && !this.configurationRequired) {
+      <app-password></app-password>
+    } @else {
+      <app-pass-data-file-name></app-pass-data-file-name>
+    }
+  }
+} @else if (!errorObject) {
+  <app-loader></app-loader>
+}

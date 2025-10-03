@@ -1,1 +1,0 @@
-CALL ../common/bat/deploy.bat violetnote-ang

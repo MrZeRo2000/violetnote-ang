@@ -1,0 +1,73 @@
+<h2 mat-dialog-title>View note</h2>
+<mat-dialog-content>
+  <form [formGroup]="viewForm" class="container">
+    <mat-form-field class="form-control">
+      <mat-label>System</mat-label>
+      <input type="text" matInput formControlName="systemControl" readonly>
+      <button matSuffix mat-icon-button color="accent">
+        <mat-icon
+          #system_tooltip="matTooltip"
+          matTooltip="System copied"
+          matTooltipPosition="above"
+          matTooltipDisabled="true"
+          matTooltipHideDelay="1000"
+          (click)="copyToClipboard(this.viewForm.value.systemControl, system_tooltip)">
+          content_copy
+        </mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="form-control">
+      <mat-label>User</mat-label>
+      <input type="text" matInput formControlName="userControl" readonly>
+      <button matSuffix mat-icon-button color="accent">
+        <mat-icon
+          #user_tooltip="matTooltip"
+          matTooltip="User copied"
+          matTooltipPosition="above"
+          matTooltipDisabled="true"
+          matTooltipHideDelay="1000"
+          (click)="copyToClipboard(this.viewForm.value.userControl, user_tooltip)">
+          content_copy
+        </mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="form-control">
+      <mat-label>Password</mat-label>
+      <input type="text" matInput formControlName="passwordControl" readonly>
+      <button matSuffix mat-icon-button color="accent">
+        <mat-icon
+          #password_tooltip="matTooltip"
+          matTooltip="Password copied"
+          matTooltipPosition="above"
+          matTooltipDisabled="true"
+          matTooltipHideDelay="1000"
+          (click)="copyToClipboard(this.viewForm.value.passwordControl, password_tooltip)">
+          content_copy
+        </mat-icon>
+      </button>
+    </mat-form-field>
+
+    @if(this.viewForm.value.urlControl) {
+      <a matButton [href]="this.viewForm.value.urlControl" target="_blank" class="mb-2">Link</a>
+    }
+
+    @if(this.viewForm.value.infoControl && this.viewForm.value.infoControl.length > 0) {
+      <div class="mb-2 mt-2">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Info </mat-panel-title>
+            </mat-expansion-panel-header>
+            {{ this.viewForm.value.infoControl }}
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    }
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton mat-dialog-close>Close</button>
+</mat-dialog-actions>

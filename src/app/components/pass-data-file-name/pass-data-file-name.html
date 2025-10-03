@@ -1,0 +1,61 @@
+<div class="example-container">
+  @if (editFormAction$ | async; as editValue) {
+    <form [formGroup]="editForm" class="example-form">
+      <mat-radio-group aria-label="Select an option" formControlName="fileModeControl">
+        <mat-radio-button class="example-radio-button" [value]="FileMode.FM_EXISTING">Use existing</mat-radio-button>
+        <mat-radio-button class="example-radio-button" [value]="FileMode.FM_NEW">Create new</mat-radio-button>
+      </mat-radio-group>
+
+      <mat-form-field class="example-form-element">
+        <mat-label>File name</mat-label>
+        <mat-icon matPrefix>save_as</mat-icon>
+        <input type="text" matInput formControlName="fileNameControl" placeholder="Enter a valid file name">
+        @if (editForm.controls.fileNameControl.hasError('required')) {
+          <mat-error>File name is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
+      @if(editValue.fileModeControl === FileMode.FM_NEW) {
+        <mat-form-field class="example-form-element">
+          <mat-label>Password</mat-label>
+          <mat-icon matPrefix>lock</mat-icon>
+          <input type="password" autocomplete="on" matInput formControlName="passwordControl" placeholder="Password">
+          @if (editForm.controls.passwordControl.hasError('required')) {
+            <mat-error>Password is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+      }
+      <div class="example-button-container">
+        <button
+          matButton="outlined"
+          color="primary"
+          type="submit"
+          class="button mr-2"
+          (click)="onCancel($event)">
+          Cancel
+        </button>
+
+        <button
+          matButton="filled"
+          color="primary"
+          type="submit"
+          class="button"
+          [disabled]="!editForm.valid || submitted"
+          (click)="onSubmit($event)">
+          @if(editValue.fileModeControl === FileMode.FM_NEW) {
+            Create
+          } @else if (editValue.fileModeControl === FileMode.FM_EXISTING) {
+            Update
+          }
+        </button>
+      </div>
+    </form>
+  }
+</div>
+
+<ng-container>
+  @if(submitAction$ | async) {
+
+  } @else if (!errorObject && submitted) {
+    <app-loader></app-loader>
+  }
+</ng-container>
