@@ -60,6 +60,7 @@
     *matRowDef="let row; columns: displayedColumns"
     (click)="onRowClicked(row)"
     cdkDrag
+    [cdkDragDisabled]="passDataModeReadOnly()"
     [cdkDragData]="row"></mat-row>
 </mat-table>
 @if(passDataModeReadOnly()) {
