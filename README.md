@@ -57,3 +57,6 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Upgrade to Angular 16
+ng update @angular/core@16 @angular/cli@16 @angular/cdk@16 --allow-dirty --force
