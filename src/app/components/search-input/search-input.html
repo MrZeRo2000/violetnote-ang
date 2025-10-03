@@ -1,4 +1,4 @@
-@if(passData$ && searchOptions$ | async; as searchOptions) {
+@if((passData$ | async) && searchOptions$ | async; as searchOptions) {
   <form [formGroup]="searchForm">
     <mat-form-field appearance="outline" class="search-control">
       <button mat-icon-button matPrefix (click)="onSearch($event)">
@@ -27,4 +27,3 @@
 
   @if(searchResultAction$ | async) {}
 }
-
