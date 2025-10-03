@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "violetnote-mat-ang": {
+    "violetnote-ang": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -68,10 +68,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "violetnote-mat-ang:build:production"
+              "buildTarget": "violetnote-ang:build:production"
             },
             "development": {
-              "buildTarget": "violetnote-mat-ang:build:development"
+              "buildTarget": "violetnote-ang:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -9,5 +9,5 @@ import {Header} from './components/header/header';
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('violetnote-mat-ang');
+  protected readonly title = signal('violetnote-ang');
 }
