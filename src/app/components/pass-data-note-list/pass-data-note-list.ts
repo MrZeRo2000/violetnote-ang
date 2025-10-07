@@ -17,6 +17,8 @@ import {CdkDragDrop, DragDropModule} from '@angular/cdk/drag-drop';
 import {ConfirmationDialogForm} from '../confirmation-dialog-form/confirmation-dialog-form';
 import {UrlUtils} from '../../utils/url-utils';
 import {PaginatorService} from '../../services/paginator-service';
+import {ScreenService} from '../../services/screen-service';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-pass-data-note-list',
@@ -29,6 +31,7 @@ import {PaginatorService} from '../../services/paginator-service';
     MatTooltipModule,
     CopyUserPasswordPanel,
     DragDropModule,
+    AsyncPipe,
   ],
   templateUrl: './pass-data-note-list.html',
   styleUrl: './pass-data-note-list.scss'
@@ -42,8 +45,10 @@ export class PassDataNoteList implements AfterViewInit {
   private passDataCRUDService = inject(PassDataCRUDService)
   private readonly dialog = inject(MatDialog);
   private paginatorService = inject(PaginatorService)
+  private screenService = inject(ScreenService);
 
   UrlUtils = UrlUtils;
+  mediumScreen$ = this.screenService.mediumScreen$
 
   passDataModeReadOnly = this.passDataService.passDataModeReadOnlySignal
   selectedNotes = this.passDataSelectionService.selectedNotesSignal

@@ -43,10 +43,10 @@
   white-space: nowrap
 }
 
-mat-column-url {
-  flex: 1 0 auto;
-  min-width: 250px !important;
-  white-space: nowrap
+.mat-column-url {
+  flex: 1 1 auto;
+  white-space: nowrap;
+  min-width: 48px !important;
 }
 
 .mat-column-actions {

@@ -17,6 +17,7 @@ import {PassDataCRUDService} from '../../services/pass-data-crud-service';
 import {ConfirmationDialogForm} from '../confirmation-dialog-form/confirmation-dialog-form';
 import {UrlUtils} from '../../utils/url-utils';
 import {PaginatorService} from '../../services/paginator-service';
+import {ScreenService} from '../../services/screen-service';
 
 @Component({
   selector: 'app-pass-data-search-note-list',
@@ -42,10 +43,12 @@ export class PassDataSearchNoteList implements AfterViewInit {
   private passDataSearchService = inject(PassDataSearchService)
   private passDataCRUDService = inject(PassDataCRUDService)
   private paginatorService = inject(PaginatorService)
+  private screenService = inject(ScreenService);
 
   passDataModeReadOnly = this.passDataService.passDataModeReadOnlySignal
 
   UrlUtils = UrlUtils
+  smallScreen$ = this.screenService.smallScreen$
 
   displayedColumns: string[] = ['categoryName', 'system', 'user', 'url', 'actions'];
 

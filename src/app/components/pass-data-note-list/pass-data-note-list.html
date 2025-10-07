@@ -23,16 +23,28 @@
     </mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="url">
-    <mat-header-cell *matHeaderCellDef> URL </mat-header-cell>
-    <mat-cell *matCellDef="let element">
-      @if(UrlUtils.isValidURL(element.url)) {
-        <a [href]=element.url target="_blank" (click)="$event.stopPropagation()">{{element.url}}</a>
-      } @else {
-        {{element.url}}
-      }
-    </mat-cell>
-  </ng-container>
+  @if(mediumScreen$ | async; as screen) {
+    <ng-container matColumnDef="url">
+      <mat-header-cell *matHeaderCellDef>
+        URL
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        @if(screen['matches']) {
+          @if(UrlUtils.isValidURL(element.url)) {
+            <a [href]=element.url target="_blank" (click)="$event.stopPropagation()">
+              <mat-icon fontIcon="link"></mat-icon>
+            </a>
+          }
+        } @else {
+          @if(UrlUtils.isValidURL(element.url)) {
+            <a [href]=element.url target="_blank" (click)="$event.stopPropagation()">{{element.url}}</a>
+          } @else {
+            {{element.url}}
+          }
+        }
+      </mat-cell>
+    </ng-container>
+  }
 
   <!-- actions -->
   <ng-container matColumnDef="actions">

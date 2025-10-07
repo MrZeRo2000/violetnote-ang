@@ -19,10 +19,20 @@
   <ng-container matColumnDef="url">
     <mat-header-cell *matHeaderCellDef> URL </mat-header-cell>
     <mat-cell *matCellDef="let element">
-      @if(UrlUtils.isValidURL(element.passNote.url)) {
-        <a [href]=element.passNote.url target="_blank" (click)="$event.stopPropagation()">{{element.passNote.url}}</a>
-      } @else {
-        {{element.passNote.url}}
+      @if(smallScreen$ | async; as screen) {
+        @if(screen['matches']) {
+          @if(UrlUtils.isValidURL(element.passNote.url)) {
+            <a [href]=element.passNote.url target="_blank" (click)="$event.stopPropagation()">
+              <mat-icon fontIcon="link"></mat-icon>
+            </a>
+          }
+        } @else {
+          @if(UrlUtils.isValidURL(element.passNote.url)) {
+            <a [href]=element.passNote.url target="_blank" (click)="$event.stopPropagation()">{{element.passNote.url}}</a>
+          } @else {
+            {{element.passNote.url}}
+          }
+        }
       }
     </mat-cell>
   </ng-container>

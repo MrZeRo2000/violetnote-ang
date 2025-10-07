@@ -8,6 +8,7 @@ import {Subject} from 'rxjs';
 export class ScreenService {
   breakpointObserver = inject(BreakpointObserver);
   smallScreen$ = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small])
+  mediumScreen$ = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium])
 
   private toggleSubject = new Subject<void>();
   toggle() {

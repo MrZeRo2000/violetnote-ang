@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:8080/violetnote-int-wss/',
-  password: null,
+  password: "123456",
   autoHidePassNoteDelay: undefined
 };
