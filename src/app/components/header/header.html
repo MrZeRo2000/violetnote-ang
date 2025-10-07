@@ -9,44 +9,56 @@
         <mat-icon>menu</mat-icon>
       </button>
     }
-  }
-  <span class="mr-2">VioletNote</span>
-  @if(data$ | async; as data){
-    <span class="font-label mr-2">
-      {{version}} <small>({{data.appInfo.version}})</small>
+
+    <span class="mr-2">
+      @if(smallScreen['matches']) {
+        VN
+      } @else {
+        VioletNote
+      }
     </span>
-  }
 
-  <div class="search-bar mr-2">
-    <app-search-input></app-search-input>
-  </div>
+    @if(!smallScreen['matches']) {
+      @if(data$ | async; as data){
+        <span class="font-label mr-2">
+          {{version}} <small>({{data.appInfo.version}})</small>
+        </span>
+      }
+    }
 
-  <mat-button-toggle-group name="passDataMode" aria-label="Mode" class="mr-2" [ngModel]="passDataService.passDataModeSignal()" (ngModelChange)="passDataService.setPassDataMode($event)">
-    <mat-button-toggle [value]="PassDataMode.PDM_VIEW">View</mat-button-toggle>
-    <mat-button-toggle [value]="PassDataMode.PDM_EDIT">Edit</mat-button-toggle>
-  </mat-button-toggle-group>
+    <div class="search-bar mr-2">
+      <app-search-input></app-search-input>
+    </div>
 
-  <app-pass-data-save-button class="mr-2"></app-pass-data-save-button>
+    @if(!smallScreen['matches']) {
+      <mat-button-toggle-group name="passDataMode" aria-label="Mode" class="mr-2" [ngModel]="passDataService.passDataModeSignal()" (ngModelChange)="passDataService.setPassDataMode($event)">
+        <mat-button-toggle [value]="PassDataMode.PDM_VIEW">View</mat-button-toggle>
+        <mat-button-toggle [value]="PassDataMode.PDM_EDIT">Edit</mat-button-toggle>
+      </mat-button-toggle-group>
+    }
 
-  @if(data$ | async; as data){
-    @if(!data.passData) {
-      <button
-        mat-icon-button
-        aria-label="Settings"
-        class="icon-bright"
-        [matTooltip]="'File name: ' + (data.passDataFileInfo.name?? 'not set up')"
-        (click)="onSettingsClick()">
-        <mat-icon>settings</mat-icon>
-      </button>
-    } @else {
-      <button
-        mat-icon-button
-        aria-label="Exit"
-        class="primary"
-        matTooltip="Exit"
-        (click)="onLogoutClick()">
-        <mat-icon>logout</mat-icon>
-      </button>
+    <app-pass-data-save-button class="mr-2"></app-pass-data-save-button>
+
+    @if(data$ | async; as data){
+      @if(!data.passData) {
+        <button
+          mat-icon-button
+          aria-label="Settings"
+          class="icon-bright"
+          [matTooltip]="'File name: ' + (data.passDataFileInfo.name?? 'not set up')"
+          (click)="onSettingsClick()">
+          <mat-icon>settings</mat-icon>
+        </button>
+      } @else {
+        <button
+          mat-icon-button
+          aria-label="Exit"
+          class="primary"
+          matTooltip="Exit"
+          (click)="onLogoutClick()">
+          <mat-icon>logout</mat-icon>
+        </button>
+      }
     }
   }
 </mat-toolbar>
