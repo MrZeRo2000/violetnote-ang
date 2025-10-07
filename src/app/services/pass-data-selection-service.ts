@@ -1,14 +1,13 @@
-import {computed, inject, Injectable, OnDestroy, signal} from '@angular/core';
+import {computed, inject, Injectable, signal} from '@angular/core';
 import {PassDataService} from './pass-data-service';
-import {Subscription} from 'rxjs';
 import {PassCategory, PassData, PassNote} from '../models/pass-data';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PassDataSelectionService implements OnDestroy {
+export class PassDataSelectionService {
   private passDataService = inject(PassDataService);
-  private passDataServiceSubscription: Subscription
 
   private passData: PassData | null = null;
 
@@ -24,7 +23,7 @@ export class PassDataSelectionService implements OnDestroy {
   selectedCategoryName = signal<string | null>(null)
 
   constructor() {
-    this.passDataServiceSubscription = this.passDataService.getPassData().subscribe(v => {
+    this.passDataService.getPassData().pipe(takeUntilDestroyed()).subscribe(v => {
       this.passData = v
 
       // restore selected category after update
@@ -41,10 +40,6 @@ export class PassDataSelectionService implements OnDestroy {
       this.selectedCategoryName.set(null)
 
     })
-  }
-
-  ngOnDestroy(): void {
-    this.passDataServiceSubscription?.unsubscribe()
   }
 
   selectCategory(category: PassCategory | null): void {

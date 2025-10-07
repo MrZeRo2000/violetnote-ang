@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy, signal} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
@@ -6,13 +6,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {PassDataFileService} from '../../services/pass-data-file-service';
 import {
-  combineLatest, filter,
-  map, Subscription,
+  combineLatest,
+  map,
   tap,
 } from 'rxjs';
 import {AppConfigService} from '../../services/app-config-service';
 import {AsyncPipe} from '@angular/common';
-import {NavigationEnd, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import packageJson from '../../../../package.json';
 import {PassDataService} from '../../services/pass-data-service';
 import {ScreenService} from '../../services/screen-service';
@@ -23,6 +23,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {SearchInput} from '../search-input/search-input';
 import {PassDataSaveButton} from '../pass-data-save-button/pass-data-save-button';
+import {RouterEventsService} from '../../services/router-events-service';
 
 @Component({
   selector: 'app-header',
@@ -44,14 +45,13 @@ import {PassDataSaveButton} from '../pass-data-save-button/pass-data-save-button
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })
-export class Header implements OnDestroy {
+export class Header {
   router = inject(Router)
   appConfigService = inject(AppConfigService)
+  private routerEventsService = inject(RouterEventsService)
   passDataService = inject(PassDataService)
   passDataFileService = inject(PassDataFileService)
   screenService = inject(ScreenService);
-
-  private routerSubscription: Subscription;
 
   readonly version?: string = packageJson.version;
 
@@ -75,20 +75,7 @@ export class Header implements OnDestroy {
     })
   )
 
-  mainRouteSignal = signal(false)
-
-  constructor() {
-    this.routerSubscription = this.router.events.pipe(
-      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-    ).subscribe(v => {
-      const currentRoute = v.urlAfterRedirects
-      this.mainRouteSignal.set(currentRoute.endsWith('main'))
-    })
-  }
-
-  ngOnDestroy(): void {
-    this.routerSubscription.unsubscribe();
-  }
+  mainRouteSignal = this.routerEventsService.mainRouteSignal
 
   onSettingsClick() {
     this.router.navigate([""], {

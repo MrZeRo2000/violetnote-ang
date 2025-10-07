@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {PassDataService} from '../../services/pass-data-service';
 import {PassDataSearchService} from '../../services/pass-data-search-service';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -18,6 +18,7 @@ import {MatAutocompleteTrigger, MatAutocompleteModule, MatAutocompleteSelectedEv
 import {MatIconModule} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
 import {Router} from '@angular/router';
+import {RouterEventsService} from '../../services/router-events-service';
 
 @Component({
   selector: 'app-search-input',
@@ -35,9 +36,11 @@ import {Router} from '@angular/router';
 })
 export class SearchInput implements OnInit {
   @ViewChild('autoTrigger', { read: MatAutocompleteTrigger }) autocompleteTrigger?: MatAutocompleteTrigger;
+  @ViewChild('autofocused') autoFocusedInput: ElementRef | undefined;
 
   private router = inject(Router);
   private fb = inject(FormBuilder)
+  private routerEventsService = inject(RouterEventsService)
   private passDataService = inject(PassDataService)
   private passDataSearchService = inject(PassDataSearchService);
 
@@ -64,6 +67,8 @@ export class SearchInput implements OnInit {
     })
   )
 
+  mainRouteSignal = this.routerEventsService.mainRouteSignal
+
   searchOptions$: Observable<Array<string>> | undefined;
 
   ngOnInit(): void {
@@ -78,6 +83,13 @@ export class SearchInput implements OnInit {
           return of([])
         } else {
           return this.passDataSearchService.searchStrings(v)
+        }
+      }),
+      tap(() => {
+        if (this.mainRouteSignal()) {
+          setTimeout(() => {
+            this.autoFocusedInput?.nativeElement.focus()
+          }, 100)
         }
       }),
     )

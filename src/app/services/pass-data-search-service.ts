@@ -1,14 +1,14 @@
-import {inject, Injectable, OnDestroy} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {PassDataService} from './pass-data-service';
-import {BehaviorSubject, map, Observable, of, Subscription, tap} from 'rxjs';
+import {BehaviorSubject, map, Observable, of, tap} from 'rxjs';
 import {PassData, PassDataSearchResult} from '../models/pass-data';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PassDataSearchService implements OnDestroy {
+export class PassDataSearchService {
   private passDataService = inject(PassDataService);
-  private passDataServiceSubscription: Subscription
 
   private passData: PassData | null = null;
 
@@ -26,13 +26,9 @@ export class PassDataSearchService implements OnDestroy {
   );
 
   constructor() {
-    this.passDataServiceSubscription = this.passDataService.getPassData().subscribe(v => {
+    this.passDataService.getPassData().pipe(takeUntilDestroyed()).subscribe(v => {
       this.passData = v
     })
-  }
-
-  ngOnDestroy(): void {
-    this.passDataServiceSubscription?.unsubscribe()
   }
 
   public searchStrings(searchString: string): Observable<Array<string>> {
