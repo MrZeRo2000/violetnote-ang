@@ -39,6 +39,16 @@
           <mat-error>Password is <strong>required</strong></mat-error>
         }
       </mat-form-field>
+
+      <button matIconButton
+              class="form-icon-button"
+              color="primary"
+              matTooltip="Generate a new password"
+              matTooltipPosition="above"
+              (click)="onGeneratePasswordClick($event)" >
+        <mat-icon>lock_reset</mat-icon>
+      </button>
+
       <mat-form-field class="form-control">
         <mat-label>Retype password</mat-label>
         <input type="password" matInput formControlName="passwordRetypeControl">

@@ -6,7 +6,7 @@ import {
   MatDialogContent, MatDialogRef,
   MatDialogTitle
 } from '@angular/material/dialog';
-import {MatButton} from '@angular/material/button';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import {
   AbstractControl,
   FormBuilder,
@@ -21,6 +21,9 @@ import {PassDataSelectionService} from '../../services/pass-data-selection-servi
 import {debounceTime, distinctUntilChanged, map, Observable, of, startWith, switchMap} from 'rxjs';
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from '@angular/material/autocomplete';
 import {AsyncPipe} from '@angular/common';
+import {MatIcon} from '@angular/material/icon';
+import {MatTooltip} from '@angular/material/tooltip';
+import {generatePassword} from '../../utils/password-utils';
 
 @Component({
   selector: 'app-pass-data-note-edit-form',
@@ -39,6 +42,9 @@ import {AsyncPipe} from '@angular/common';
     MatOption,
     AsyncPipe,
     MatAutocompleteTrigger,
+    MatIcon,
+    MatTooltip,
+    MatIconButton,
   ],
   templateUrl: './pass-data-note-edit-form.html',
   styleUrl: './pass-data-note-edit-form.scss'
@@ -105,7 +111,8 @@ export class PassDataNoteEditForm implements OnInit {
         return null;
       }
 
-      const passwordValue = this.editForm.value.passwordControl;
+      const passwordValue = this.editForm.getRawValue().passwordControl;
+      //console.log(`Value: ${value}, passwordValue: ${passwordValue}`)
       return value === passwordValue ? null : {'passwordMatch': true};
     };
   }
@@ -150,5 +157,16 @@ export class PassDataNoteEditForm implements OnInit {
         of([]) :
         of(this.systemOptionsData.filter(option => option.toLowerCase().includes(v.toLowerCase()))))
     )
+  }
+
+  onGeneratePasswordClick(event: Event) {
+    event.preventDefault();
+    const password = generatePassword()
+
+    this.editForm.patchValue({
+      passwordControl: password,
+      passwordRetypeControl: password,
+    })
+
   }
 }
