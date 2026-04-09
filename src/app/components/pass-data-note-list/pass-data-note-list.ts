@@ -145,6 +145,7 @@ export class PassDataNoteList implements AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       const selectedCategory = this.passDataSelectionService.firstSelectedCategory();
       if (result && selectedCategory) {
+        this.passDataSelectionService.selectedCategoryName.set(selectedCategory.categoryName)
         this.passDataCRUDService.updatePassNote(selectedCategory, item, result);
       }
     })
@@ -161,6 +162,7 @@ export class PassDataNoteList implements AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       const selectedCategory = this.passDataSelectionService.firstSelectedCategory();
       if (result && selectedCategory) {
+        this.passDataSelectionService.selectedCategoryName.set(selectedCategory.categoryName)
         this.passDataCRUDService.addPassNote(selectedCategory, result);
       }
     })
@@ -183,6 +185,7 @@ export class PassDataNoteList implements AfterViewInit {
       if (result) {
         const selectedCategory = this.passDataSelectionService.firstSelectedCategory();
         if (selectedCategory) {
+          this.passDataSelectionService.selectedCategoryName.set(selectedCategory.categoryName)
           this.passDataCRUDService.deletePassNote(selectedCategory, item);
         }
       }
