@@ -141,11 +141,11 @@ export class PassDataNoteList implements AfterViewInit {
   }
 
   onNoteDroppedOnCategory(note: PassNote, targetCategory: PassCategory): void {
-    console.log(
-      'Note dropped on category:',
-      'note:', note,
-      'targetCategory:', targetCategory);
-    // TODO: implement note-to-category move logic
+    const selectedCategory = this.passDataSelectionService.firstSelectedCategory();
+    if (selectedCategory){
+      this.passDataSelectionService.selectedCategoryName.set(targetCategory.categoryName)
+      this.passDataCRUDService.movePassNoteToOtherCategory(selectedCategory, targetCategory, note);
+    }
   }
 
   onDrop(event: CdkDragDrop<any>) {

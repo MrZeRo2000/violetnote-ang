@@ -92,4 +92,20 @@ export class PassDataCRUDService {
       this.passDataService.update(passData)
     }
   }
+
+  movePassNoteToOtherCategory(passCategory: PassCategory, targetPassCategory: PassCategory, value: PassNote): void {
+    const passData = this.passDataService.getPassDataValue();
+    const categoryIndex = passData?.categoryList.indexOf(passCategory);
+    const targetCategoryIndex = passData?.categoryList.indexOf(targetPassCategory);
+
+    if (passData && (categoryIndex != undefined) && (categoryIndex !== -1) && (targetCategoryIndex != undefined) && (targetCategoryIndex !== -1)) {
+      const noteList = passData.categoryList[categoryIndex].noteList
+      const noteIndex = noteList.indexOf(value);
+      if ((noteIndex != undefined) && (noteIndex !== -1)) {
+        passData.categoryList[targetCategoryIndex].noteList.push(noteList[noteIndex])
+        noteList.splice(noteList.indexOf(value), 1);
+        this.passDataService.update(passData)
+      }
+    }
+  }
 }

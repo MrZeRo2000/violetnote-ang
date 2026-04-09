@@ -32,7 +32,9 @@ export class PassDataSelectionService {
       if (v) {
         if (this.selectedCategoryName()) {
           const selectedCategory = v.categoryList.find(v => v.categoryName === this.selectedCategoryName())
-          this.selectCategory(selectedCategory ? selectedCategory : v.categoryList[0])
+          const restoredSelectedCategory = selectedCategory ? selectedCategory : v.categoryList[0]
+          console.log(`Restoring selected category: ${JSON.stringify(restoredSelectedCategory)}`)
+          this.selectCategory(restoredSelectedCategory)
         } else {
           this.selectCategory(v.categoryList[0])
         }
