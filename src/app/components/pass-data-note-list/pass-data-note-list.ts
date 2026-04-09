@@ -156,6 +156,7 @@ export class PassDataNoteList implements AfterViewInit {
       event.currentIndex);
     const selectedCategory = this.passDataSelectionService.firstSelectedCategory();
     if (selectedCategory && (event.previousIndex !== event.currentIndex)) {
+      this.passDataSelectionService.selectedCategoryName.set(selectedCategory.categoryName)
       this.passDataCRUDService.movePassNote(selectedCategory, event.previousIndex, event.currentIndex);
     }
   }
