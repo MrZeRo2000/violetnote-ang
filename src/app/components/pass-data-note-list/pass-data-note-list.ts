@@ -3,7 +3,7 @@ import {PassDataSelectionService} from '../../services/pass-data-selection-servi
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from '@angular/material/sort';
-import {PassNote} from '../../models/pass-data';
+import {PassCategory, PassNote} from '../../models/pass-data';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {PassDataService} from '../../services/pass-data-service';
@@ -13,7 +13,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {CopyUserPasswordPanel} from '../copy-user-password-panel/copy-user-password-panel';
 import {PassDataNoteEditForm} from '../pass-data-note-edit-form/pass-data-note-edit-form';
 import {PassDataCRUDService} from '../../services/pass-data-crud-service';
-import {CdkDragDrop, DragDropModule} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, CdkDragEnd, DragDropModule} from '@angular/cdk/drag-drop';
 import {ConfirmationDialogForm} from '../confirmation-dialog-form/confirmation-dialog-form';
 import {UrlUtils} from '../../utils/url-utils';
 import {PaginatorService} from '../../services/paginator-service';
@@ -126,8 +126,34 @@ export class PassDataNoteList implements AfterViewInit {
     this.paginatorService.pageSize = event.pageSize
   }
 
+  onNoteDragStarted() {
+    this.passDataSelectionService.noteDragInProgress.set(true);
+  }
+
+  onNoteDragEnded(event: CdkDragEnd) {
+    const targetCategory = this.passDataSelectionService.noteDragHoveredCategory();
+    if (targetCategory) {
+      const note: PassNote = event.source.data;
+      this.passDataSelectionService.noteDragHoveredCategory.set(null);
+      this.onNoteDroppedOnCategory(note, targetCategory);
+    }
+    this.passDataSelectionService.noteDragInProgress.set(false);
+  }
+
+  onNoteDroppedOnCategory(note: PassNote, targetCategory: PassCategory): void {
+    console.log(
+      'Note dropped on category:',
+      'note:', note,
+      'targetCategory:', targetCategory);
+    // TODO: implement note-to-category move logic
+  }
+
   onDrop(event: CdkDragDrop<any>) {
-    console.log('Drag drop from index:', event.previousIndex, ' to index:', event.currentIndex);
+    console.log(
+      'PassDataNoteList Drag drop from index:',
+      event.previousIndex,
+      ' to index:',
+      event.currentIndex);
     const selectedCategory = this.passDataSelectionService.firstSelectedCategory();
     if (selectedCategory && (event.previousIndex !== event.currentIndex)) {
       this.passDataCRUDService.movePassNote(selectedCategory, event.previousIndex, event.currentIndex);

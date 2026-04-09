@@ -3,9 +3,15 @@
     @for(item of data; track item) {
       <mat-list-item
         cdkDrag
+        [cdkDragData]="item"
         cdkDragLockAxis="y"
         [cdkDragDisabled]="passDataModeReadOnly()"
-        [ngClass]="selectedCategories().has(item) ? 'selected-list-item' : ''"
+        [ngClass]="{
+          'selected-list-item': selectedCategories().has(item),
+          'drag-over-highlight': noteDragInProgress() && noteDragHoveredCategory() === item
+        }"
+        (pointerenter)="onCategoryPointerEnter(item)"
+        (pointerleave)="onCategoryPointerLeave()"
         (click)="onListItemClick(item)">
         <p>{{item.categoryName}}</p>
         @if(!passDataModeReadOnly()) {

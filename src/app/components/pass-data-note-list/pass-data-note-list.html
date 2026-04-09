@@ -3,7 +3,6 @@
   matSort
   [matSortDisabled]="!passDataModeReadOnly()"
   cdkDropList
-  cdkDropListData="dataSource()"
   (cdkDropListDropped)="onDrop($event)">
 
   <ng-container matColumnDef="system" sticky>
@@ -73,7 +72,9 @@
     (click)="onRowClicked(row)"
     cdkDrag
     [cdkDragDisabled]="passDataModeReadOnly()"
-    [cdkDragData]="row"></mat-row>
+    [cdkDragData]="row"
+    (cdkDragStarted)="onNoteDragStarted()"
+    (cdkDragEnded)="onNoteDragEnded($event)"></mat-row>
 </mat-table>
 @if(passDataModeReadOnly()) {
   <mat-paginator #paginator

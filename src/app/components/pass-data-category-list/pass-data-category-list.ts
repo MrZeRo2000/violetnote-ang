@@ -39,6 +39,8 @@ export class PassDataCategoryList {
 
   passDataModeReadOnly = this.passDataService.passDataModeReadOnlySignal
   selectedCategories = this.passDataSelectionService.selectedCategoriesSignal
+  noteDragInProgress = this.passDataSelectionService.noteDragInProgress
+  noteDragHoveredCategory = this.passDataSelectionService.noteDragHoveredCategory
 
   data$ = this.passDataService.getPassData().pipe(
     map(v => v === null? [] : v.categoryList)
@@ -103,11 +105,26 @@ export class PassDataCategoryList {
     })
   }
 
-  onDrop(event:  CdkDragDrop<any, any>): void {
+  onDrop(event: CdkDragDrop<any, any>): void {
+    console.log(
+      'PassDataCategoryList Drag drop from index:',
+      event.previousIndex,
+      ' to index:',
+      event.currentIndex);
     const selectedCategoryName = this.passDataSelectionService.firstSelectedCategory()?.categoryName
     if (selectedCategoryName) {
       this.passDataSelectionService.selectedCategoryName.set(selectedCategoryName)
     }
     this.passDataCRUDService.movePassCategory(event.previousIndex, event.currentIndex);
+  }
+
+  onCategoryPointerEnter(item: PassCategory) {
+    if (this.noteDragInProgress()) {
+      this.noteDragHoveredCategory.set(item);
+    }
+  }
+
+  onCategoryPointerLeave() {
+    this.noteDragHoveredCategory.set(null);
   }
 }

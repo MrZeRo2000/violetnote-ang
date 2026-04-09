@@ -21,6 +21,8 @@ export class PassDataSelectionService {
   readonly selectedNotesSignal = signal(new Array<PassNote>())
 
   selectedCategoryName = signal<string | null>(null)
+  noteDragInProgress = signal(false)
+  noteDragHoveredCategory = signal<PassCategory | null>(null)
 
   constructor() {
     this.passDataService.getPassData().pipe(takeUntilDestroyed()).subscribe(v => {
