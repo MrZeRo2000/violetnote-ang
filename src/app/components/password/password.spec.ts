@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { Password } from './password';
 
@@ -8,7 +9,8 @@ describe('Password', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Password]
+      imports: [Password],
+      providers: [provideZonelessChangeDetection()]
     })
     .compileComponents();
 

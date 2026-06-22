@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder, ReactiveFormsModule,
@@ -51,8 +51,8 @@ export class PassDataFileName {
   private passDataService = inject(PassDataService);
   private messageService = inject(MessageService);
 
-  errorObject: any = undefined;
-  submitted = false;
+  errorObject = signal<any>(undefined);
+  submitted = signal(false);
 
   FileMode = FileMode
 
@@ -111,7 +111,7 @@ export class PassDataFileName {
             }
           }),
           catchError(err => {
-            this.errorObject = err
+            this.errorObject.set(err)
             console.error(`Error creating file: ${JSON.stringify(v)}`)
             console.error(err)
             return of(`Error creating file: ${err.message}`)
@@ -123,7 +123,7 @@ export class PassDataFileName {
       )
     ),
     tap(v => {
-      this.submitted = false;
+      this.submitted.set(false);
       if (v && typeof v === 'string') {
         this.messageService.showError(v)
       } else {
@@ -142,7 +142,7 @@ export class PassDataFileName {
 
   onSubmit(event: any): void {
     event.preventDefault()
-    this.submitted = true;
+    this.submitted.set(true);
     this.submitSubject.next(this.getEditFormData());
   }
 

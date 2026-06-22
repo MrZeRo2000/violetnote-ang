@@ -1,4 +1,5 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnDestroy, OnInit, signal} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Loader} from '../loader/loader';
 import {AppConfigService} from '../../services/app-config-service';
 import {catchError, combineLatest, map, of, tap} from 'rxjs';
@@ -25,20 +26,21 @@ export class HomePage implements OnInit, OnDestroy {
   protected readonly JSON = JSON;
 
   private route = inject(ActivatedRoute);
+  private destroyRef = inject(DestroyRef);
 
   private messageService = inject(MessageService);
   private appConfigService = inject(AppConfigService);
   private passDataService = inject(PassDataService)
   private passDataFileService = inject(PassDataFileService);
 
-  errorObject: any = undefined;
+  errorObject = signal<any>(undefined);
 
-  configurationRequired = false;
+  configurationRequired = signal(false);
 
   data$ = combineLatest([
     this.appConfigService.getAppInfo().pipe(
       catchError(err => {
-        this.errorObject = err
+        this.errorObject.set(err)
         console.log("Error getting application version")
         console.error(err)
         throw Error("Error getting application version")
@@ -46,7 +48,7 @@ export class HomePage implements OnInit, OnDestroy {
     ),
     this.passDataFileService.getPassDataFileInfo().pipe(
       catchError(err => {
-        this.errorObject = err
+        this.errorObject.set(err)
         console.log("Error getting file info")
         console.error(err)
         throw Error("Error getting file info")
@@ -76,10 +78,10 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.passDataService.clearPassData();
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
       console.log(`HomePage onInit with params: ${JSON.stringify(params)}`)
-      this.configurationRequired = !!params['configurationRequired']
-      console.log(`HomePage onInit with params: ${JSON.stringify(params)}, configuration required: ${this.configurationRequired}`)
+      this.configurationRequired.set(!!params['configurationRequired'])
+      console.log(`HomePage onInit with params: ${JSON.stringify(params)}, configuration required: ${this.configurationRequired()}`)
     })
   }
 

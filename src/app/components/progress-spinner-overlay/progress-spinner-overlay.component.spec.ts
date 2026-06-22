@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { ProgressSpinnerOverlayComponent } from './progress-spinner-overlay.component';
-import {LayoutModule} from "../layout.module";
 
 describe('ProgressSpinnerOverlayComponent', () => {
   let component: ProgressSpinnerOverlayComponent;
@@ -9,8 +9,8 @@ describe('ProgressSpinnerOverlayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProgressSpinnerOverlayComponent],
-      imports: [LayoutModule]
+      imports: [ProgressSpinnerOverlayComponent],
+      providers: [provideZonelessChangeDetection()]
     })
     .compileComponents();
 

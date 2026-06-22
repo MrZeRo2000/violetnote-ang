@@ -70,7 +70,7 @@ export class PassDataNoteEditForm implements OnInit {
 
   minLengthTrimmedValidator(minLength: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value.trim()
+      const value = control.value?.trim() ?? ''
       if (!value || (value.length >= minLength)) {
         return null;
       }
@@ -85,7 +85,7 @@ export class PassDataNoteEditForm implements OnInit {
         return null;
       }
 
-      const value = control.value.trim()
+      const value = control.value?.trim() ?? ''
       const systemValue = this.editForm.value.systemControl?.trim();
       if (!value || !systemValue) {
         return null;

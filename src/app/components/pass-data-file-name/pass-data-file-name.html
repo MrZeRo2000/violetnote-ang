@@ -39,7 +39,7 @@
           color="primary"
           type="submit"
           class="button"
-          [disabled]="!editForm.valid || submitted"
+          [disabled]="!editForm.valid || submitted()"
           (click)="onSubmit($event)">
           @if(editValue.fileModeControl === FileMode.FM_NEW) {
             Create
@@ -55,7 +55,7 @@
 <ng-container>
   @if(submitAction$ | async) {
 
-  } @else if (!errorObject && submitted) {
+  } @else if (!errorObject() && submitted()) {
     <app-loader></app-loader>
   }
 </ng-container>

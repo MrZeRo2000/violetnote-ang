@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { PassDataNoteList } from './pass-data-note-list';
 
@@ -8,7 +9,8 @@ describe('PassDataNoteList', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PassDataNoteList]
+      imports: [PassDataNoteList],
+      providers: [provideZonelessChangeDetection()]
     })
     .compileComponents();
 

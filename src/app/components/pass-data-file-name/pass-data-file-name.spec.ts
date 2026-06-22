@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { PassDataFileName } from './pass-data-file-name';
 
@@ -8,7 +9,8 @@ describe('PassDataFileName', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PassDataFileName]
+      imports: [PassDataFileName],
+      providers: [provideZonelessChangeDetection()]
     })
     .compileComponents();
 

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, computed, effect, inject, TemplateRef, ViewChild} from '@angular/core';
+import {Component, computed, effect, inject, TemplateRef, viewChild} from '@angular/core';
 import {PassDataSelectionService} from '../../services/pass-data-selection-service';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
@@ -36,10 +36,10 @@ import {AsyncPipe} from '@angular/common';
   templateUrl: './pass-data-note-list.html',
   styleUrl: './pass-data-note-list.scss'
 })
-export class PassDataNoteList implements AfterViewInit {
-  @ViewChild('confirmationContentTemplate') confirmationContentTemplate?: TemplateRef<any>;
-  @ViewChild(MatPaginator) paginator?: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+export class PassDataNoteList {
+  private readonly confirmationContentTemplate = viewChild<TemplateRef<any>>('confirmationContentTemplate');
+  private readonly paginator = viewChild(MatPaginator);
+  private readonly sort = viewChild(MatSort);
   private readonly passDataSelectionService = inject(PassDataSelectionService)
   private readonly passDataService = inject(PassDataService)
   private passDataCRUDService = inject(PassDataCRUDService)
@@ -52,66 +52,44 @@ export class PassDataNoteList implements AfterViewInit {
 
   passDataModeReadOnly = this.passDataService.passDataModeReadOnlySignal
   selectedNotes = this.passDataSelectionService.selectedNotesSignal
-  previousNotesCount = -1
-  dataSource = computed(() => {
-    const currentSelectedNotes = this.selectedNotes();
-    const newDataSource = new MatTableDataSource<PassNote>(currentSelectedNotes)
 
-    if (this.paginator) {
-      /*
-      const currentNotesCount = currentSelectedNotes.length;
-
-      if (this.previousNotesCount != -1) {
-        if (currentNotesCount > this.previousNotesCount) {
-          this.paginator.pageIndex = Math.ceil(this.paginator.length / this.paginator.pageSize);
-        }
-      }
-
-      this.previousNotesCount = currentNotesCount
-
-       */
-      this.paginator.pageIndex = 0
-    }
-
-    if (this.passDataModeReadOnly() && this.paginator) {
-      newDataSource.sort = this.sort
-      newDataSource.paginator = this.paginator
-    }
-
-    return newDataSource
-  })
+  // Pure: the data source only reflects the currently selected notes. Wiring of
+  // the paginator/sort is handled reactively by the effect below — keeping this
+  // computed free of side effects.
+  dataSource = computed(() => new MatTableDataSource<PassNote>(this.selectedNotes()));
 
   displayedColumns: string[] = ['system', 'user', 'url', 'actions'];
 
   constructor() {
+    // Attach/detach the paginator and sort reactively whenever the data source,
+    // the view-mode, or the queried view children change. The paginator is only
+    // rendered in read-only mode, so its viewChild signal flips between defined
+    // and undefined as the mode toggles; reading the signals here re-runs the
+    // effect once they resolve, removing the need for setTimeout/ngAfterViewInit
+    // timing hacks under zoneless change detection.
     effect(() => {
-      if (this.passDataModeReadOnly()){
-        setTimeout(() => {
-          if (this.paginator) {
-            this.paginator.pageIndex = 0;
-            this.dataSource().paginator = this.paginator
-          }
-        }, 0)
-      } else {
-        this.dataSource().paginator = null
-        setTimeout(() => {
-          this.sort.active = ''
-          this.sort.direction = ''
-          this.dataSource().sort = this.sort;
-          this.sort.sortChange.emit();
-        }, 0)
-      }
-    })
-  }
+      const dataSource = this.dataSource();
+      const sort = this.sort();
+      const paginator = this.paginator();
 
-  ngAfterViewInit(): void {
-    // Initial setup for paginator and sort.
-    // The computed signal will handle updates.
-    if (this.passDataModeReadOnly() && this.paginator) {
-      this.dataSource().paginator = this.paginator;
-      this.dataSource().sort = this.sort;
-      this.paginatorService.setupPaginator(this.paginator);
-    }
+      if (this.passDataModeReadOnly()) {
+        if (sort) {
+          dataSource.sort = sort;
+        }
+        if (paginator) {
+          this.paginatorService.setupPaginator(paginator);
+          dataSource.paginator = paginator;
+        }
+      } else {
+        dataSource.paginator = null;
+        if (sort) {
+          sort.active = '';
+          sort.direction = '';
+          dataSource.sort = sort;
+          sort.sortChange.emit();
+        }
+      }
+    });
   }
 
   onRowClicked(row: PassNote) {
@@ -201,7 +179,7 @@ export class PassDataNoteList implements AfterViewInit {
 
     const dialogRef = this.dialog.open(ConfirmationDialogForm, {
       data: {
-        contentTemplate: this.confirmationContentTemplate,
+        contentTemplate: this.confirmationContentTemplate(),
         contentContext: {item}
       },
       minWidth: "350px"

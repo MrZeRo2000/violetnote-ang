@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, inject, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, signal, ViewChild} from '@angular/core';
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
@@ -39,8 +39,8 @@ export class Password implements AfterViewInit {
 
   fb = inject(FormBuilder)
 
-  errorObject: any = undefined;
-  submitted = false;
+  errorObject = signal<any>(undefined);
+  submitted = signal(false);
 
   passwordForm = this.fb.group({
     passwordControl: ['', Validators.required],
@@ -51,7 +51,7 @@ export class Password implements AfterViewInit {
   submitAction$ = this.submitSubject.asObservable().pipe(
     tap(v => {
       console.log(`Submit: ${JSON.stringify(v)}`)
-      this.submitted = true;
+      this.submitted.set(true);
     }),
     switchMap(v =>
       this.passDataService.get(v).pipe(
@@ -64,7 +64,7 @@ export class Password implements AfterViewInit {
           }
         }),
         catchError(err => {
-            this.errorObject = err
+            this.errorObject.set(err)
             console.error(`Wrong password ${JSON.stringify(v)}`)
             console.error(err)
             return of(`Wrong password (${err.message})`)
@@ -72,7 +72,7 @@ export class Password implements AfterViewInit {
       )
     ),
     tap(v => {
-      this.submitted = false;
+      this.submitted.set(false);
       if (v && typeof v === 'string') {
         this.messageService.showError(v)
       } else {

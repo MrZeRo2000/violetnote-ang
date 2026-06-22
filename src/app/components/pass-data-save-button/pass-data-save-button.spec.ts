@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { PassDataSaveButton } from './pass-data-save-button';
 
@@ -8,7 +9,8 @@ describe('PassDataSaveButton', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PassDataSaveButton]
+      imports: [PassDataSaveButton],
+      providers: [provideZonelessChangeDetection()]
     })
     .compileComponents();
 

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { CopyUserPasswordPanel } from './copy-user-password-panel';
 
@@ -8,7 +9,8 @@ describe('CopyUserPasswordPanel', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CopyUserPasswordPanel]
+      imports: [CopyUserPasswordPanel],
+      providers: [provideZonelessChangeDetection()]
     })
     .compileComponents();
 
