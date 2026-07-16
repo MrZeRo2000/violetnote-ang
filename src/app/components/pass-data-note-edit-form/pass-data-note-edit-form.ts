@@ -23,7 +23,8 @@ import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from '@angular/mater
 import {AsyncPipe} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
-import {generatePassword} from '../../utils/password-utils';
+import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
+import {generatePassword, PasswordComplexity} from '../../utils/password-utils';
 
 @Component({
   selector: 'app-pass-data-note-edit-form',
@@ -45,6 +46,9 @@ import {generatePassword} from '../../utils/password-utils';
     MatIcon,
     MatTooltip,
     MatIconButton,
+    MatMenu,
+    MatMenuItem,
+    MatMenuTrigger,
   ],
   templateUrl: './pass-data-note-edit-form.html',
   styleUrl: './pass-data-note-edit-form.scss'
@@ -159,9 +163,9 @@ export class PassDataNoteEditForm implements OnInit {
     )
   }
 
-  onGeneratePasswordClick(event: Event) {
+  onGeneratePasswordClick(event: Event, complexity: PasswordComplexity) {
     event.preventDefault();
-    const password = generatePassword()
+    const password = generatePassword(complexity)
 
     this.editForm.patchValue({
       passwordControl: password,
@@ -169,4 +173,6 @@ export class PassDataNoteEditForm implements OnInit {
     })
 
   }
+
+  protected readonly PasswordComplexity = PasswordComplexity;
 }

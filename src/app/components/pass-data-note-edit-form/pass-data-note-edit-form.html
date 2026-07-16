@@ -45,9 +45,27 @@
               color="primary"
               matTooltip="Generate a new password"
               matTooltipPosition="above"
-              (click)="onGeneratePasswordClick($event)" >
+              type="button"
+              [matMenuTriggerFor]="passwordMenu">
         <mat-icon>lock_reset</mat-icon>
       </button>
+      <mat-menu #passwordMenu="matMenu">
+        <button mat-menu-item type="button"
+                (click)="onGeneratePasswordClick($event, PasswordComplexity.Memorable)">
+          <mat-icon style="color: #e53935">circle</mat-icon>
+          <span>Memorable — easy to remember</span>
+        </button>
+        <button mat-menu-item type="button"
+                (click)="onGeneratePasswordClick($event, PasswordComplexity.Standard)">
+          <mat-icon style="color: #fbc02d">circle</mat-icon>
+          <span>Standard — balanced strength</span>
+        </button>
+        <button mat-menu-item type="button"
+                (click)="onGeneratePasswordClick($event, PasswordComplexity.Maximum)">
+          <mat-icon style="color: #43a047">circle</mat-icon>
+          <span>Complex — maximum strength</span>
+        </button>
+      </mat-menu>
 
       <mat-form-field class="form-control">
         <mat-label>Retype password</mat-label>
