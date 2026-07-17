@@ -8,10 +8,10 @@ import {PassDataFileService} from '../../services/pass-data-file-service';
 import {
   combineLatest,
   map,
-  tap,
 } from 'rxjs';
 import {AppConfigService} from '../../services/app-config-service';
 import {AsyncPipe} from '@angular/common';
+import {toSignal} from '@angular/core/rxjs-interop';
 import {Router} from '@angular/router';
 import packageJson from '../../../../package.json';
 import {PassDataService} from '../../services/pass-data-service';
@@ -57,22 +57,21 @@ export class Header {
 
   PassDataMode = PassDataMode
 
-  data$ = combineLatest([
-    this.appConfigService.getAppInfo(),
-    this.passDataFileService.getPassDataFileInfo(),
-    this.passDataService.getPassData(),
-    ]
-  ).pipe(
-    map(v => {
-      return {
-        appInfo: v[0],
-        passDataFileInfo: v[1],
-        passData: v[2],
-      }
-    }),
-    tap(() => {
-      console.log(`Mode: ${this.passDataService.passDataModeSignal()}`)
-    })
+  data = toSignal(
+    combineLatest([
+      this.appConfigService.getAppInfo(),
+      this.passDataFileService.getPassDataFileInfo(),
+      this.passDataService.getPassData(),
+      ]
+    ).pipe(
+      map(v => {
+        return {
+          appInfo: v[0],
+          passDataFileInfo: v[1],
+          passData: v[2],
+        }
+      })
+    )
   )
 
   mainRouteSignal = this.routerEventsService.mainRouteSignal
