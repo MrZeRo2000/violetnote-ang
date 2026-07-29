@@ -1,4 +1,4 @@
-import {Component, inject, ViewChild, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, ViewChild} from '@angular/core';
 import {PassDataCategoryList} from '../pass-data-category-list/pass-data-category-list';
 import {MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
 import {PassDataNoteList} from '../pass-data-note-list/pass-data-note-list';
@@ -15,7 +15,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     AsyncPipe,
   ],
   templateUrl: './pass-data-host.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pass-data-host.scss'
 })
 export class PassDataHost {

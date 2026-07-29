@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, TemplateRef, ViewChild} from '@angular/core';
+import {Component, inject, TemplateRef, ViewChild} from '@angular/core';
 import {MatListModule} from '@angular/material/list';
 import {PassDataService} from '../../services/pass-data-service';
 import {map} from 'rxjs';
@@ -26,8 +26,7 @@ import {CdkDragDrop, DragDropModule} from '@angular/cdk/drag-drop';
     DragDropModule,
   ],
   templateUrl: './pass-data-category-list.html',
-  styleUrl: './pass-data-category-list.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './pass-data-category-list.scss'
 })
 export class PassDataCategoryList {
   @ViewChild('confirmationContentTemplate') confirmationContentTemplate?: TemplateRef<any>;

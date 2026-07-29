@@ -1,4 +1,4 @@
-import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {ProgressSpinnerOverlayComponent} from '../progress-spinner-overlay/progress-spinner-overlay.component';
 import {PassDataService} from '../../services/pass-data-service';
 import {MatIconModule} from '@angular/material/icon';
@@ -20,7 +20,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatTooltipModule,
   ],
   templateUrl: './pass-data-save-button.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pass-data-save-button.scss'
 })
 export class PassDataSaveButton {
@@ -31,7 +30,7 @@ export class PassDataSaveButton {
   saveSubject = new Subject<void>();
 
   saveAction$ = this.saveSubject.pipe(
-    tap(() => this.loading = true),
+    tap(() => this.loading.set(true)),
     switchMap(() => this.passDataService.save(
       {
         fileName: this.passDataFileService.getPassDataFileName(),
@@ -42,10 +41,10 @@ export class PassDataSaveButton {
         this.messageService.showError('Error saving file. See console for details.');
       }
     }),
-    finalize(() => this.loading = false)
+    finalize(() => this.loading.set(false))
   )
 
-  loading = false;
+  loading = signal(false);
 
   onSave(event : any) {
     event.stopPropagation();

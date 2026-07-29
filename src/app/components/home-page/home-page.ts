@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, OnDestroy, OnInit, signal, ChangeDetectionStrategy} from '@angular/core';
+import {Component, DestroyRef, inject, OnDestroy, OnInit, signal} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Loader} from '../loader/loader';
 import {AppConfigService} from '../../services/app-config-service';
@@ -20,7 +20,6 @@ import {PassDataService} from '../../services/pass-data-service';
     Password
   ],
   templateUrl: './home-page.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './home-page.scss'
 })
 export class HomePage implements OnInit, OnDestroy {

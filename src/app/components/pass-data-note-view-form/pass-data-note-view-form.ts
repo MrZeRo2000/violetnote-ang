@@ -1,4 +1,4 @@
-import {Component, inject, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {PassNote} from '../../models/pass-data';
@@ -27,7 +27,6 @@ import {TooltipUtils} from '../../utils/tooltip-utils';
     MatExpansionModule,
   ],
   templateUrl: './pass-data-note-view-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pass-data-note-view-form.scss'
 })
 export class PassDataNoteViewForm implements OnInit {

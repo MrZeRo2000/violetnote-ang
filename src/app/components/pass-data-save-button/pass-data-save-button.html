@@ -5,7 +5,7 @@
 
   @if(saveAction$ | async) {
 
-  } @else if (loading) {
+  } @else if (loading()) {
     <app-progress-spinner-overlay></app-progress-spinner-overlay>
   }
 }

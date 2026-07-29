@@ -1,4 +1,4 @@
-import {Component, Inject, TemplateRef, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Inject, TemplateRef} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -20,7 +20,6 @@ import {A11yModule} from '@angular/cdk/a11y';
     A11yModule,
   ],
   templateUrl: './confirmation-dialog-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './confirmation-dialog-form.scss'
 })
 export class ConfirmationDialogForm {

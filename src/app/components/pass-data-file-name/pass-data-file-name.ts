@@ -1,4 +1,4 @@
-import {Component, inject, signal, ChangeDetectionStrategy} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder, ReactiveFormsModule,
@@ -43,7 +43,6 @@ interface FormValues {
     Loader
   ],
   templateUrl: './pass-data-file-name.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pass-data-file-name.scss'
 })
 export class PassDataFileName {

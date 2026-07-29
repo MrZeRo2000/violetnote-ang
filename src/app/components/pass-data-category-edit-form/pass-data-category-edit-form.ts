@@ -1,4 +1,4 @@
-import {Component, Inject, inject, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Inject, inject} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {
   MAT_DIALOG_DATA,
@@ -38,7 +38,6 @@ import {AsyncPipe} from '@angular/common';
     AsyncPipe,
   ],
   templateUrl: './pass-data-category-edit-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pass-data-category-edit-form.scss'
 })
 export class PassDataCategoryEditForm {
