@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {ProgressSpinnerOverlayComponent} from '../progress-spinner-overlay/progress-spinner-overlay.component';
 import {PassDataService} from '../../services/pass-data-service';
 import {MatIconModule} from '@angular/material/icon';
@@ -20,6 +20,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatTooltipModule,
   ],
   templateUrl: './pass-data-save-button.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pass-data-save-button.scss'
 })
 export class PassDataSaveButton {

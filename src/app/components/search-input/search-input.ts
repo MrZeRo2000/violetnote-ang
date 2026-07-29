@@ -1,4 +1,4 @@
-import {Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, inject, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {PassDataService} from '../../services/pass-data-service';
 import {PassDataSearchService} from '../../services/pass-data-search-service';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -32,6 +32,7 @@ import {RouterEventsService} from '../../services/router-events-service';
     MatIconButton,
   ],
   templateUrl: './search-input.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './search-input.scss'
 })
 export class SearchInput implements OnInit {

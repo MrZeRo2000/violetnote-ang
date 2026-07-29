@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, signal, TemplateRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, inject, signal, TemplateRef, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import { PassDataSearchService } from "../../services/pass-data-search-service";
 import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {MatSort, MatSortModule} from '@angular/material/sort';
@@ -31,6 +31,7 @@ import {ScreenService} from '../../services/screen-service';
     MatIconButton,
   ],
   templateUrl: './pass-data-search-note-list.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pass-data-search-note-list.scss'
 })
 export class PassDataSearchNoteList implements AfterViewInit {

@@ -1,4 +1,4 @@
-import {Component, computed, effect, inject, TemplateRef, viewChild} from '@angular/core';
+import {Component, computed, effect, inject, TemplateRef, viewChild, ChangeDetectionStrategy} from '@angular/core';
 import {PassDataSelectionService} from '../../services/pass-data-selection-service';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
@@ -34,6 +34,7 @@ import {AsyncPipe} from '@angular/common';
     AsyncPipe,
   ],
   templateUrl: './pass-data-note-list.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pass-data-note-list.scss'
 })
 export class PassDataNoteList {

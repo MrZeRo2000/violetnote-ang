@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, inject, signal, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, signal, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
@@ -27,6 +27,7 @@ import {environment} from '../../../environments/environment';
     Loader,
   ],
   templateUrl: './password.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './password.scss'
 })
 export class Password implements AfterViewInit {

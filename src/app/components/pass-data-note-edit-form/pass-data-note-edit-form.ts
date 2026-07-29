@@ -1,4 +1,4 @@
-import {Component, Inject, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, inject, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -51,6 +51,7 @@ import {generatePassword, PasswordComplexity} from '../../utils/password-utils';
     MatMenuTrigger,
   ],
   templateUrl: './pass-data-note-edit-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pass-data-note-edit-form.scss'
 })
 export class PassDataNoteEditForm implements OnInit {
