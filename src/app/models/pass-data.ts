@@ -1,3 +1,4 @@
+import {AttributesForm} from '../components/attributes-form/attributes-form';
 
 export enum PassDataMode {
   PDM_VIEW,
@@ -10,12 +11,18 @@ export interface ServiceError {
   errorMessage?: string;
 }
 
+export interface Attribute {
+  name: string;
+  value: string;
+}
+
 export interface PassNote {
   system: string,
   user: string,
   password: string,
   url?: string,
   info?: string,
+  attributes?: Attribute[],
 }
 
 export interface PassCategory {
