@@ -81,8 +81,6 @@ export class AttributesForm implements ControlValueAccessor, Validator {
     attributes: this.attributes,
   });
 
-  trackByIndex = (index: number): number => index;
-
   searchOptionsSignal = this.passDataSearchService.searchAttributeStringsSignal();
 
   activeInput = signal('');
@@ -158,8 +156,6 @@ export class AttributesForm implements ControlValueAccessor, Validator {
   add(initial?: Partial<Attribute>): void {
     this.attributes.push(this.createAttributeGroup(initial));
     this.markAsTouched();
-    this.onChange(this.getSanitizedValue());
-    this.onValidatorChange();
 
     afterNextRender(() => {
       const lastInput = this.nameInputs().at(-1)?.nativeElement;
@@ -171,8 +167,6 @@ export class AttributesForm implements ControlValueAccessor, Validator {
   delete(index: number): void {
     this.attributes.removeAt(index);
     this.markAsTouched();
-    this.onChange(this.getSanitizedValue());
-    this.onValidatorChange();
 
     afterNextRender(() => {
       const lastInput = this.nameInputs().at(-1)?.nativeElement;

@@ -1,11 +1,11 @@
 <div class="header-row">
-  <button mat-icon-button color="accent" (click)="onAddClick()">
+  <button mat-icon-button type="button" color="accent" (click)="onAddClick()">
     <mat-icon aria-label="Add">add</mat-icon>
   </button>
   <mat-label>Attributes</mat-label>
 </div>
 <div class="editor" [formGroup]="form">
-  @for (attribute of attributes.controls; track trackByIndex($index); let i = $index) {
+  @for (attribute of attributes.controls; track attribute; let i = $index) {
     <div class="row" [formGroup]="attribute">
       <mat-form-field class="item" subscriptSizing="dynamic">
         <input
