@@ -8,7 +8,21 @@
   @for (attribute of attributes.controls; track trackByIndex($index); let i = $index) {
     <div class="row" [formGroup]="attribute">
       <mat-form-field class="item" subscriptSizing="dynamic">
-        <input #nameInput matInput type="text" placeholder="Name" formControlName="name" (blur)="markAsTouched()">
+        <input
+          #nameInput
+          matInput type="text"
+          placeholder="Name"
+          formControlName="name"
+          [matAutocomplete]="auto"
+          (blur)="markAsTouched()"
+          (focus)="activeInput.set(attribute.controls.name.value)"
+          (input)="activeInput.set(nameInput.value)"
+        >
+        <mat-autocomplete #auto="matAutocomplete">
+          @for (option of filteredOptions(); track option) {
+            <mat-option [value]="option">{{option}}</mat-option>
+          }
+        </mat-autocomplete>
       </mat-form-field>
 
       <mat-form-field class="item" subscriptSizing="dynamic">

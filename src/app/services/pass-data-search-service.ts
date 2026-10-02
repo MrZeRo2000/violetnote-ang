@@ -1,8 +1,8 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, Signal} from '@angular/core';
 import {PassDataService} from './pass-data-service';
 import {BehaviorSubject, map, Observable, of, tap} from 'rxjs';
 import {PassData, PassDataSearchResult} from '../models/pass-data';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {takeUntilDestroyed, toSignal} from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +43,27 @@ export class PassDataSearchService {
 
       return of(Array.from(new Set(foundItems)).sort());
     }
+  }
+
+  public searchAttributeStrings(): Observable<Array<string>> {
+    return of(["aaa", "bbb"])
+    /*
+    if (!this.passData) {
+      return of([]);
+    } else {
+      const foundItems = this.passData.categoryList
+        .flatMap(v => v.noteList)
+        .flatMap(v => v.attributes || [])
+        .map(v => v.name)
+
+      return of(Array.from(new Set(foundItems)).sort());
+    }
+
+     */
+  }
+
+  public searchAttributeStringsSignal(): Signal<Array<string>> {
+    return toSignal(this.searchAttributeStrings(), {initialValue: []})
   }
 
   public search(searchString: string | null): void {

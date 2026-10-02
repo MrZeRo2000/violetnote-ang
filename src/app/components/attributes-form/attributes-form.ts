@@ -1,10 +1,10 @@
 import {
   afterNextRender,
   ChangeDetectionStrategy,
-  Component,
+  Component, computed,
   DestroyRef,
   ElementRef, forwardRef,
-  inject, Injector,
+  inject, Injector, signal,
   viewChildren
 } from '@angular/core';
 import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
@@ -23,6 +23,9 @@ import {
 } from '@angular/forms';
 import {Attribute} from '../../models/pass-data';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from '@angular/material/autocomplete';
+import {Observable} from 'rxjs';
+import {PassDataSearchService} from '../../services/pass-data-search-service';
 
 
 type AttributeFormGroup = FormGroup<{
@@ -38,7 +41,10 @@ type AttributeFormGroup = FormGroup<{
     MatFormField,
     MatIcon,
     MatIconButton,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatAutocomplete,
+    MatAutocompleteTrigger,
+    MatOption
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './attributes-form.html',
@@ -60,6 +66,7 @@ export class AttributesForm implements ControlValueAccessor, Validator {
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
   private readonly injector = inject(Injector);
+  private readonly passDataSearchService = inject(PassDataSearchService);
 
   private onChange: (value: Attribute[]) => void = () => {};
   private onTouched: () => void = () => {};
@@ -75,6 +82,19 @@ export class AttributesForm implements ControlValueAccessor, Validator {
   });
 
   trackByIndex = (index: number): number => index;
+
+  searchOptionsSignal = this.passDataSearchService.searchAttributeStringsSignal();
+
+  activeInput = signal('');
+
+  filteredOptions = computed(() => {
+    const term = this.activeInput().trim().toLowerCase();
+    if (term.length === 0) {
+      return [];
+    }
+    const existingNames = new Set(this.getSanitizedValue().map(value => value.name.toLowerCase()));
+    return  this.searchOptionsSignal().filter(o => o.toLowerCase().includes(term) && !existingNames.has(o));
+  });
 
   constructor() {
     this.attributes.valueChanges
