@@ -24,7 +24,6 @@ import {
 import {Attribute} from '../../models/pass-data';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from '@angular/material/autocomplete';
-import {Observable} from 'rxjs';
 import {PassDataSearchService} from '../../services/pass-data-search-service';
 
 

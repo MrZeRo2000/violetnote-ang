@@ -1,11 +1,24 @@
 .form-container {
   display: flex;
   flex-direction: column;
-  padding-top: 6px;
+  padding-top: 0.5rem;
 }
 
 .form-control {
   display: flex;
-  padding-top: 6px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   flex-grow: 1;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.item {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
 }

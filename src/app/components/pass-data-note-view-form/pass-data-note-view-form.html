@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>View note</h2>
 <mat-dialog-content>
   <form [formGroup]="viewForm" class="container">
-    <mat-form-field class="form-control">
+    <mat-form-field class="form-control" subscriptSizing="dynamic">
       <mat-label>System</mat-label>
       <input type="text" matInput formControlName="systemControl" readonly>
       <button matSuffix mat-icon-button color="accent">
@@ -17,7 +17,7 @@
       </button>
     </mat-form-field>
 
-    <mat-form-field class="form-control">
+    <mat-form-field class="form-control" subscriptSizing="dynamic">
       <mat-label>User</mat-label>
       <input type="text" matInput formControlName="userControl" readonly>
       <button matSuffix mat-icon-button color="accent">
@@ -33,7 +33,7 @@
       </button>
     </mat-form-field>
 
-    <mat-form-field class="form-control">
+    <mat-form-field class="form-control" subscriptSizing="dynamic">
       <mat-label>Password</mat-label>
       <input type="text" matInput formControlName="passwordControl" readonly>
       <button matSuffix mat-icon-button color="accent">
@@ -51,6 +51,57 @@
 
     @if(this.viewForm.value.urlControl) {
       <a matButton [href]="this.viewForm.value.urlControl" target="_blank" class="mb-2">Link</a>
+    }
+
+    @if(this.viewForm.value.attributesControl && this.viewForm.value.attributesControl.length > 0) {
+      <div class="mb-4">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Attributes </mat-panel-title>
+            </mat-expansion-panel-header>
+            @for (attribute of this.viewForm.value.attributesControl; track attribute) {
+              <div class="row">
+                <div class="item">
+                  <mat-form-field class="form-control" subscriptSizing="dynamic">
+                    <input type="text" matInput value="{{attribute.name}}" readonly>
+                    <button matSuffix mat-icon-button color="accent">
+                      <mat-icon
+                        #user_tooltip="matTooltip"
+                        matTooltip="Attribute name copied"
+                        matTooltipPosition="above"
+                        matTooltipDisabled="true"
+                        matTooltipHideDelay="1000"
+                        (click)="copyToClipboard(attribute.name, user_tooltip)">
+                        content_copy
+                      </mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+
+                <div class="item">
+                  <mat-form-field class="form-control" subscriptSizing="dynamic">
+                    <input type="text" matInput value="{{attribute.value}}" readonly>
+                    <button matSuffix mat-icon-button color="accent">
+                      <mat-icon
+                        #user_tooltip="matTooltip"
+                        matTooltip="Attribute value copied"
+                        matTooltipPosition="above"
+                        matTooltipDisabled="true"
+                        matTooltipHideDelay="1000"
+                        (click)="copyToClipboard(attribute.value, user_tooltip)">
+                        content_copy
+                      </mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+
+              </div>
+            }
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
     }
 
     @if(this.viewForm.value.infoControl && this.viewForm.value.infoControl.length > 0) {

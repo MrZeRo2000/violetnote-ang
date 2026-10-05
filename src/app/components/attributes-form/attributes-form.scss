@@ -1,3 +1,8 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 .editor {
   display: flex;
   flex-direction: column;
@@ -9,7 +14,6 @@
   flex-direction: row;
   align-items: center;
 }
-
 
 .row {
   display: flex;
@@ -24,5 +28,4 @@
 
 .action {
   flex: 0 1 auto;
-  margin-right: 1rem;
 }

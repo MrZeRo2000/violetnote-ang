@@ -25,6 +25,8 @@ import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {generatePassword, PasswordComplexity} from '../../utils/password-utils';
+import {Attribute} from '../../models/pass-data';
+import {AttributesForm} from '../attributes-form/attributes-form';
 
 @Component({
   selector: 'app-pass-data-note-edit-form',
@@ -49,6 +51,7 @@ import {generatePassword, PasswordComplexity} from '../../utils/password-utils';
     MatMenu,
     MatMenuItem,
     MatMenuTrigger,
+    AttributesForm,
   ],
   templateUrl: './pass-data-note-edit-form.html',
   styleUrl: './pass-data-note-edit-form.scss'
@@ -69,6 +72,7 @@ export class PassDataNoteEditForm implements OnInit {
     passwordControl: ['', [Validators.required]],
     passwordRetypeControl: ['', [Validators.required, this.passwordMatchValidator()]],
     urlControl: [''],
+    attributesControl: this.fb.control<Attribute[]>([]),
     infoControl: [''],
   })
 
@@ -131,6 +135,7 @@ export class PassDataNoteEditForm implements OnInit {
         passwordControl: item.password,
         passwordRetypeControl: item.password,
         urlControl: item.url,
+        attributesControl: item.attributes,
         infoControl: item.info,
       })
     } else {
@@ -139,12 +144,15 @@ export class PassDataNoteEditForm implements OnInit {
   }
 
   onSave(): void {
+    console.log(`Attributes recognized: ${JSON.stringify(this.editForm.value.attributesControl)}`);
+
     const newItem: PassNote = {
       ... this.item,
       system: this.editForm.value.systemControl!.trim(),
       user: this.editForm.value.userControl!.trim(),
       password: this.editForm.value.passwordControl!,
       url: this.editForm.value.urlControl?.trim() || undefined,
+      attributes: this.editForm.value.attributesControl || [],
       info: this.editForm.value.infoControl?.trim() || undefined,
     }
     this.dialogRef.close(newItem);

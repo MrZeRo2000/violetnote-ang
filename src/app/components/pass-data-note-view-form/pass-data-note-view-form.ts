@@ -1,7 +1,7 @@
 import {Component, inject, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
-import {PassNote} from '../../models/pass-data';
+import {Attribute, PassNote} from '../../models/pass-data';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -39,6 +39,7 @@ export class PassDataNoteViewForm implements OnInit {
     userControl: [''],
     passwordControl: [''],
     urlControl: [''],
+    attributesControl: this.fb.control<Attribute[]>([]),
     infoControl: [''],
   })
 
@@ -50,6 +51,7 @@ export class PassDataNoteViewForm implements OnInit {
       userControl: this.data.user,
       passwordControl: this.data.password,
       urlControl: UrlUtils.getUrl(this.data.url),
+      attributesControl: this.data.attributes,
       infoControl: this.data.info,
     })
   }

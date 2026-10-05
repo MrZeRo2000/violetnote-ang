@@ -1,43 +1,45 @@
-<div class="header-row">
-  <button mat-icon-button type="button" color="accent" (click)="onAddClick()">
-    <mat-icon aria-label="Add">add</mat-icon>
-  </button>
-  <mat-label>Attributes</mat-label>
-</div>
-<div class="editor" [formGroup]="form">
-  @for (attribute of attributes.controls; track attribute; let i = $index) {
-    <div class="row" [formGroup]="attribute">
-      <mat-form-field class="item" subscriptSizing="dynamic">
-        <input
-          #nameInput
-          matInput type="text"
-          placeholder="Name"
-          formControlName="name"
-          [matAutocomplete]="auto"
-          (blur)="markAsTouched()"
-          (focus)="activeInput.set(attribute.controls.name.value)"
-          (input)="activeInput.set(nameInput.value)"
-        >
-        <mat-autocomplete #auto="matAutocomplete">
-          @for (option of filteredOptions(); track option) {
-            <mat-option [value]="option">{{option}}</mat-option>
-          }
-        </mat-autocomplete>
-      </mat-form-field>
+<div class="container">
+  <div class="header-row">
+    <button mat-icon-button type="button" color="accent" (click)="onAddClick()">
+      <mat-icon aria-label="Add">add</mat-icon>
+    </button>
+    <mat-label>Attributes</mat-label>
+  </div>
+  <div class="editor" [formGroup]="form">
+    @for (attribute of attributes.controls; track attribute; let i = $index) {
+      <div class="row" [formGroup]="attribute">
+        <mat-form-field class="item" subscriptSizing="dynamic">
+          <input
+            #nameInput
+            matInput type="text"
+            placeholder="Name"
+            formControlName="name"
+            [matAutocomplete]="auto"
+            (blur)="markAsTouched()"
+            (focus)="activeInput.set(attribute.controls.name.value)"
+            (input)="activeInput.set(nameInput.value)"
+          >
+          <mat-autocomplete #auto="matAutocomplete">
+            @for (option of filteredOptions(); track option) {
+              <mat-option [value]="option">{{option}}</mat-option>
+            }
+          </mat-autocomplete>
+        </mat-form-field>
 
-      <mat-form-field class="item" subscriptSizing="dynamic">
-        <input matInput type="text"  placeholder="Value" formControlName="value" (blur)="markAsTouched()">
-      </mat-form-field>
+        <mat-form-field class="item" subscriptSizing="dynamic">
+          <input matInput type="text"  placeholder="Value" formControlName="value" (blur)="markAsTouched()">
+        </mat-form-field>
 
-      <div class="action">
-        <button
-          mat-icon-button
-          type="button"
-          color="warn"
-          (click)="onDeleteClick(i)">
-          <mat-icon>delete</mat-icon>
-        </button>
+        <div class="action">
+          <button
+            mat-icon-button
+            type="button"
+            color="warn"
+            (click)="onDeleteClick(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </div>
-    </div>
-  }
+    }
+  </div>
 </div>

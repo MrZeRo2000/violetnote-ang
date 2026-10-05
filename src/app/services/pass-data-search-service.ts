@@ -46,8 +46,6 @@ export class PassDataSearchService {
   }
 
   public searchAttributeStrings(): Observable<Array<string>> {
-    return of(["aaa", "bbb"])
-    /*
     if (!this.passData) {
       return of([]);
     } else {
@@ -58,8 +56,6 @@ export class PassDataSearchService {
 
       return of(Array.from(new Set(foundItems)).sort());
     }
-
-     */
   }
 
   public searchAttributeStringsSignal(): Signal<Array<string>> {
