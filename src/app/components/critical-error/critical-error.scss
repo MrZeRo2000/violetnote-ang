@@ -1,0 +1,11 @@
+.container {
+  margin: 1rem auto;
+  min-width: 200px;
+  max-width: 1000px;
+}
+
+.error-card {
+  border-color: var(--mat-sys-error); // ties into Material's theme error color
+  background-color: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+}

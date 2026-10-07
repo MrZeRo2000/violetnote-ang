@@ -10,7 +10,7 @@ import {
   map,
 } from 'rxjs';
 import {AppConfigService} from '../../services/app-config-service';
-import {AsyncPipe} from '@angular/common';
+import {AsyncPipe, NgClass} from '@angular/common';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {Router} from '@angular/router';
 import packageJson from '../../../../package.json';
@@ -24,6 +24,7 @@ import {MatInputModule} from '@angular/material/input';
 import {SearchInput} from '../search-input/search-input';
 import {PassDataSaveButton} from '../pass-data-save-button/pass-data-save-button';
 import {RouterEventsService} from '../../services/router-events-service';
+import {MatChip} from '@angular/material/chips';
 
 @Component({
   selector: 'app-header',
@@ -41,23 +42,23 @@ import {RouterEventsService} from '../../services/router-events-service';
     ReactiveFormsModule,
     SearchInput,
     PassDataSaveButton,
+    MatChip,
+    NgClass,
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })
 export class Header {
-  router = inject(Router)
-  appConfigService = inject(AppConfigService)
-  private routerEventsService = inject(RouterEventsService)
-  passDataService = inject(PassDataService)
-  passDataFileService = inject(PassDataFileService)
-  screenService = inject(ScreenService);
-
-  readonly version?: string = packageJson.version;
+  readonly router = inject(Router)
+  readonly appConfigService = inject(AppConfigService)
+  private readonly routerEventsService = inject(RouterEventsService)
+  readonly passDataService = inject(PassDataService)
+  readonly passDataFileService = inject(PassDataFileService)
+  readonly screenService = inject(ScreenService);
 
   PassDataMode = PassDataMode
 
-  data = toSignal(
+  readonly data = toSignal(
     combineLatest([
       this.appConfigService.getAppInfo(),
       this.passDataFileService.getPassDataFileInfo(),
@@ -74,7 +75,7 @@ export class Header {
     )
   )
 
-  mainRouteSignal = this.routerEventsService.mainRouteSignal
+  readonly mainRouteSignal = this.routerEventsService.mainRouteSignal
 
   onSettingsClick() {
     this.router.navigate([""], {

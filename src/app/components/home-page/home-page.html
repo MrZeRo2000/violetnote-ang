@@ -1,9 +1,13 @@
 @if(data$ | async; as data) {
   @if (data.passDataFileInfo && data.appInfo) {
-    @if(data.passDataFileInfo.exists && !configurationRequired()) {
-      <app-password></app-password>
+    @if(data.appInfo.majorDifference) {
+      <app-critical-error [errorMessage]='`Major incompatibility with backend version. Deploy at least ${data.appInfo.supportedBackendVersion} backend version.`'></app-critical-error>
     } @else {
-      <app-pass-data-file-name></app-pass-data-file-name>
+      @if(data.passDataFileInfo.exists && !configurationRequired()) {
+        <app-password></app-password>
+      } @else {
+        <app-pass-data-file-name></app-pass-data-file-name>
+      }
     }
   }
 } @else if (!errorObject()) {

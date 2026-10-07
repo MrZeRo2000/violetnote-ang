@@ -27,3 +27,16 @@
 .mat-mdc-icon-button {
   color: var(--mat-sys-on-primary);
 }
+
+.chip-color {
+  --mat-chip-label-text-color: var(--mat-sys-surface);
+  --mat-chip-outline-color: var(--mat-sys-surface);
+}
+
+.chip-color-warning {
+  --mat-chip-elevated-container-color: var(--app-color-warning);
+}
+
+.chip-color-error {
+  --mat-chip-elevated-container-color: var(--mat-sys-error);
+}

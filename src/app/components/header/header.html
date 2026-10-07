@@ -21,7 +21,12 @@
     @if(!smallScreen['matches']) {
       @if(data(); as data){
         <span class="font-label mr-2">
-          {{version}} <small>({{data.appInfo.version}})</small>
+          <span class="mr-2">{{data.appInfo.version}}</span>
+          <mat-chip
+            class="chip-color"
+            [ngClass]="{'chip-color-warning': data.appInfo.minorDifference, 'chip-color-error': data.appInfo.majorDifference}">
+            {{data.appInfo.backendVersion}}
+          </mat-chip>
         </span>
       }
     }

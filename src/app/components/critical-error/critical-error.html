@@ -1,0 +1,13 @@
+@if(errorMessage) {
+  <div class="container">
+    <mat-card appearance="outlined" class="error-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar color="warn">report</mat-icon>
+        <mat-card-title>Critical Error</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{errorMessage}}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+}

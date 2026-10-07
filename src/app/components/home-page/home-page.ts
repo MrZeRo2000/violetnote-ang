@@ -10,6 +10,7 @@ import {PassDataFileName} from '../pass-data-file-name/pass-data-file-name';
 import {ActivatedRoute} from '@angular/router';
 import {Password} from '../password/password';
 import {PassDataService} from '../../services/pass-data-service';
+import {CriticalError} from '../critical-error/critical-error';
 
 @Component({
   selector: 'app-home-page',
@@ -17,7 +18,8 @@ import {PassDataService} from '../../services/pass-data-service';
     Loader,
     AsyncPipe,
     PassDataFileName,
-    Password
+    Password,
+    CriticalError
   ],
   templateUrl: './home-page.html',
   styleUrl: './home-page.scss'
